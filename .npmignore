@@ -1,0 +1,7 @@
+.vscode/
+node_modules/
+src/
+examples/
+eslint.config.mjs
+tsconfig.json
+vitest.config.mjs
