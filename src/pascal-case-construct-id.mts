@@ -1,4 +1,5 @@
 import { Rule } from "eslint";
+import { Expression, Node, SpreadElement } from "estree";
 
 const QUOTE_TYPE = {
   SINGLE: "'",
@@ -37,6 +38,38 @@ const toPascalCase = (str: string) => {
     .join("");
 };
 
+const validateConstructId = <T extends Node>(
+  node: T,
+  context: Rule.RuleContext,
+  args: (SpreadElement | Expression)[]
+) => {
+  if (args.length < 2) return;
+
+  // NOTE: Treat the second argument as ID
+  const secondArg = args[1];
+  if (secondArg.type !== "Literal" || typeof secondArg.value !== "string") {
+    return;
+  }
+
+  const quote: QuoteType = secondArg.raw?.startsWith('"')
+    ? QUOTE_TYPE.DOUBLE
+    : QUOTE_TYPE.SINGLE;
+
+  if (!isPascalCase(secondArg.value)) {
+    context.report({
+      node,
+      messageId: "pascalCaseConstructId",
+      fix: (fixer) => {
+        const pascalCaseValue = toPascalCase(secondArg.value as string);
+        return fixer.replaceText(
+          secondArg,
+          `${quote}${pascalCaseValue}${quote}`
+        );
+      },
+    });
+  }
+};
+
 export const pascalCaseConstructId: Rule.RuleModule = {
   meta: {
     type: "problem",
@@ -52,41 +85,14 @@ export const pascalCaseConstructId: Rule.RuleModule = {
   create(context) {
     return {
       ExpressionStatement(node) {
-        if (
-          node.type !== "ExpressionStatement" ||
-          node.expression.type !== "NewExpression"
-        ) {
-          return;
-        }
-
-        const args = node.expression.arguments;
-        if (args.length < 2) return;
-
-        // NOTE: Treat the second argument as ID
-        const secondArg = args[1];
-        if (
-          secondArg.type !== "Literal" ||
-          typeof secondArg.value !== "string"
-        ) {
-          return;
-        }
-
-        const quote: QuoteType = secondArg.raw?.startsWith('"')
-          ? QUOTE_TYPE.DOUBLE
-          : QUOTE_TYPE.SINGLE;
-
-        if (!isPascalCase(secondArg.value)) {
-          context.report({
-            node,
-            messageId: "pascalCaseConstructId",
-            fix: (fixer) => {
-              const pascalCaseValue = toPascalCase(secondArg.value as string);
-              return fixer.replaceText(
-                secondArg,
-                `${quote}${pascalCaseValue}${quote}`
-              );
-            },
-          });
+        if (node.expression.type !== "NewExpression") return;
+        validateConstructId(node, context, node.expression.arguments);
+      },
+      VariableDeclaration(node) {
+        if (!node.declarations.length) return;
+        for (const declaration of node.declarations) {
+          if (declaration.init?.type !== "NewExpression") return;
+          validateConstructId(node, context, declaration.init.arguments);
         }
       },
     };
