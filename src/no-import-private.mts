@@ -42,6 +42,7 @@ export const noImportPrivate: Rule.RuleModule = {
           const currentDirSegments = getDirSegments(absoluteCurrentDirPath);
           const importDirSegments = getDirSegments(importDirBeforePrivate);
           if (
+            currentDirSegments.length !== importDirSegments.length ||
             currentDirSegments.some(
               (segment, index) => segment !== importDirSegments[index]
             )
