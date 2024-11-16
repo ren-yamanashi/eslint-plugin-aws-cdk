@@ -1,26 +1,7 @@
 import { Rule } from "eslint";
 import { NewExpression, Node } from "estree";
 
-/**
- * Convert a string to PascalCase
- * @param str - The string to convert
- * @returns The PascalCase string
- */
-const toPascalCase = (str: string) => {
-  return str
-    .split(/[-_\s]/)
-    .map((word) => {
-      // Consider camelCase, split by uppercase letters
-      return word
-        .replace(/([A-Z])/g, " $1")
-        .split(/\s+/)
-        .map(
-          (part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
-        )
-        .join("");
-    })
-    .join("");
-};
+import { toPascalCase } from "./utils/convertString";
 
 const validateConstructId = <T extends Node>(
   node: T,
@@ -62,11 +43,11 @@ export const noConstructNameIdMatch: Rule.RuleModule = {
   meta: {
     type: "problem",
     docs: {
-      description: "Enforce that the construct name does not match the ID.",
+      description: "Enforce that construct name does not match the id.",
     },
     messages: {
       constructNameIdMatch:
-        "The configuration construct name must not match the ID",
+        "The configuration construct name must not match the id",
     },
     schema: [],
   },
