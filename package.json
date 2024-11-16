@@ -1,7 +1,7 @@
 {
-  "name": "eslint-plugin-cdk",
+  "name": "@nigg/eslint-plugin-cdk",
   "version": "0.1.0",
-  "description": "eslint plugin for cdk",
+  "description": "eslint plugin for AWS CDK projects",
   "main": "dist/index.mjs",
   "type": "module",
   "scripts": {
@@ -9,10 +9,9 @@
     "test": "vitest --run",
     "lint": "eslint --fix --config eslint.config.mjs"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@eslint/js": "^9.15.0",
+    "@types/estree": "^1.0.6",
     "@types/node": "^22.9.0",
     "eslint-plugin-import": "^2.31.0",
     "typescript": "^5.6.3",
@@ -24,5 +23,28 @@
   },
   "volta": {
     "node": "20.11.0"
-  }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin",
+    "aws",
+    "cdk"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ren-yamanashi/eslint-plugin-cdk.git"
+  },
+  "author": {
+    "name": "ren-yamanashi"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT"
 }

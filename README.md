@@ -6,20 +6,20 @@ ESLint plugin for [AWS CDK](https://github.com/aws/aws-cdk).
 
 ```bash
 # npm
-npm i -D eslint-plugin-cdk
+npm i -D @nigg/eslint-plugin-cdk
 
 # yarn
-yarn add -D eslint-plugin-cdk
+yarn add -D @nigg/eslint-plugin-cdk
 
 # pnpm
-pnpm install -D eslint-plugin-cdk
+pnpm install -D @nigg/eslint-plugin-cdk
 ```
 
 ## Usage
 
 ```js
 // eslint.config.mjs
-import eslintPluginCdk from "eslint-plugin-cdk";
+import eslintPluginCdk from "@nigg/eslint-plugin-cdk";
 export default [
   {
     plugins: {

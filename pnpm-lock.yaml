@@ -13,6 +13,9 @@ devDependencies:
   '@eslint/js':
     specifier: ^9.15.0
     version: 9.15.0
+  '@types/estree':
+    specifier: ^1.0.6
+    version: 1.0.6
   '@types/node':
     specifier: ^22.9.0
     version: 22.9.0
