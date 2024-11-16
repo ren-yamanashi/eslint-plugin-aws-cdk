@@ -1,4 +1,4 @@
-import { noConstructNameIdMatch } from "./no-construct-name-id-match";
+import { noConstructNameIdMatch } from "./no-construct-name-id-match.mjs";
 import { noImportPrivate } from "./no-import-private.mjs";
 import { pascalCaseConstructId } from "./pascal-case-construct-id.mjs";
 
