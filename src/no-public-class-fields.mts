@@ -120,12 +120,12 @@ const validateConstructorParameterProperty = ({
       continue;
     }
 
-    // Skip private and protected parameters
+    // NOTE: Skip private and protected parameters
     if (["private", "protected"].includes(param.accessibility ?? "")) {
       continue;
     }
 
-    // Skip parameters without type annotation
+    // NOTE: Skip parameters without type annotation
     if (!param.parameter.typeAnnotation) {
       continue;
     }
