@@ -39,6 +39,7 @@ export default defineConfig({
           {
             text: "Rules",
             collapsed: true,
+            link: "/rules/",
             items: [
               {
                 text: "pascal-case-construct-id",
@@ -100,6 +101,7 @@ export default defineConfig({
           {
             text: "Rules",
             collapsed: true,
+            link: "/ja/rules/",
             items: [
               {
                 text: "pascal-case-construct-id",
