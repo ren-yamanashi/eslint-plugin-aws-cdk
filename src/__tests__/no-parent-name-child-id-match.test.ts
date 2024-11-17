@@ -27,6 +27,15 @@ ruleTester.run("no-parent-name-child-id-match", noParentNameChildIdMatch, {
         }
       }`,
     },
+    // WHEN: child id not same parent construct name (typescript)
+    {
+      code: `
+      class TestClass {
+        constructor(props: any, id: string) {
+          const test = new TestClass("test", "validId");
+        }
+      }`,
+    },
     // WHEN: construct does not have child
     {
       code: `
@@ -35,14 +44,23 @@ ruleTester.run("no-parent-name-child-id-match", noParentNameChildIdMatch, {
       }`,
     },
   ],
-  // WHEN: child id same parent construct name
   invalid: [
-    // WHEN: child class inside constructor
+    // WHEN: child class inside constructor (expression statement)
     {
       code: `
-      class TestClass {
-        constructor() {
-          const test = new Sample("test", "TestClass");
+      export class TestClass {
+        constructor(public id: string) {
+          new SampleConstruct({ name: "sample" }, "TestClass");
+        }
+      }`,
+      errors: [{ messageId: "noParentNameChildIdMatch" }],
+    },
+    // WHEN: child class inside constructor (variable declaration)
+    {
+      code: `
+      export class TestClass {
+        constructor(public id: string) {
+          const test =new SampleConstruct({ name: "sample" }, "TestClass");
         }
       }`,
       errors: [{ messageId: "noParentNameChildIdMatch" }],

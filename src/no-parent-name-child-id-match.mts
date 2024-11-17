@@ -1,9 +1,8 @@
-import { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import { RuleContext } from "@typescript-eslint/utils/ts-eslint";
+import { ESLintUtils, TSESLint, TSESTree } from "@typescript-eslint/utils";
 
 import { toPascalCase } from "./utils/convertString.mjs";
 
-type Context = RuleContext<"noParentNameChildIdMatch", []>;
+type Context = TSESLint.RuleContext<"noParentNameChildIdMatch", []>;
 
 export const noParentNameChildIdMatch = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
@@ -53,6 +52,17 @@ const validateConstructorBody = <T extends TSESTree.ClassBody>(
         const newExpression = statement.declarations[0].init;
         if (newExpression?.type !== "NewExpression") continue;
         validateConstructId(node, context, newExpression, className);
+        break;
+      }
+      case "ExpressionStatement": {
+        const newExpression = statement.expression;
+        if (newExpression?.type !== "NewExpression") break;
+        statementLoop({
+          node,
+          body: statement,
+          className,
+          context,
+        });
         break;
       }
       case "IfStatement": {
