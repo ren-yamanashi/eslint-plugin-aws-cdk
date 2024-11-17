@@ -72,12 +72,12 @@ const validateClassMember = ({
       continue;
     }
 
-    // skip private and protected fields
+    // NOTE: Skip private and protected fields
     if (["private", "protected"].includes(member.accessibility ?? "")) {
       continue;
     }
 
-    // skip fields without type annotation
+    // NOTE: Skip fields without type annotation
     if (!member.typeAnnotation) {
       continue;
     }
