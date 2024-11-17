@@ -71,6 +71,8 @@ export default tsEslint.config(
       ".vscode",
       "package.json",
       "vitest.config.mjs",
+      "docs",
+      "examples",
     ],
   }
 );

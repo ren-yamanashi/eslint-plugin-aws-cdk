@@ -2,6 +2,7 @@
 node_modules/
 src/
 examples/
+docs/
 eslint.config.mjs
 tsconfig.json
 vitest.config.mjs
