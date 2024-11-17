@@ -2,48 +2,50 @@ import { ESLintUtils, TSESLint, TSESTree } from "@typescript-eslint/utils";
 
 import { toPascalCase } from "./utils/convertString.mjs";
 
-type Context = TSESLint.RuleContext<"noParentNameChildIdMatch", []>;
+type Context = TSESLint.RuleContext<"noParentNameConstructIdMatch", []>;
 
-export const noParentNameChildIdMatch = ESLintUtils.RuleCreator.withoutDocs({
-  meta: {
-    type: "problem",
-    docs: {
-      description:
-        "Enforce that child construct id name does not match the parent construct name.",
-    },
-    messages: {
-      noParentNameChildIdMatch:
-        "Child Construct ID '{{ childId }}' should not match parent Construct name '{{ parentName }}'. Use a more specific identifier.",
-    },
-    schema: [],
-  },
-  defaultOptions: [],
-  create(context) {
-    return {
-      ClassBody(node) {
-        const parent = node.parent;
-        if (parent?.type !== "ClassDeclaration") return;
-        const className = parent.id?.name;
-        if (!className) return;
-
-        for (const body of node.body) {
-          if (body.type !== "MethodDefinition") continue;
-          if (
-            body.kind === "constructor" &&
-            body.value.type === "FunctionExpression"
-          ) {
-            validateConstructorBody({
-              node,
-              expression: body.value,
-              className,
-              context,
-            });
-          }
-        }
+export const noParentNameConstructIdMatch = ESLintUtils.RuleCreator.withoutDocs(
+  {
+    meta: {
+      type: "problem",
+      docs: {
+        description:
+          "Enforce that construct IDs does not match the parent construct name.",
       },
-    };
-  },
-});
+      messages: {
+        noParentNameConstructIdMatch:
+          "Construct ID '{{ constructId }}' should not match parent construct name '{{ parentConstructName }}'. Use a more specific identifier.",
+      },
+      schema: [],
+    },
+    defaultOptions: [],
+    create(context) {
+      return {
+        ClassBody(node) {
+          const parent = node.parent;
+          if (parent?.type !== "ClassDeclaration") return;
+          const parentClassName = parent.id?.name;
+          if (!parentClassName) return;
+
+          for (const body of node.body) {
+            if (body.type !== "MethodDefinition") continue;
+            if (
+              body.kind === "constructor" &&
+              body.value.type === "FunctionExpression"
+            ) {
+              validateConstructorBody({
+                node,
+                expression: body.value,
+                parentClassName,
+                context,
+              });
+            }
+          }
+        },
+      };
+    },
+  }
+);
 
 /**
  * Validate the constructor body for the parent class
@@ -52,12 +54,12 @@ export const noParentNameChildIdMatch = ESLintUtils.RuleCreator.withoutDocs({
 const validateConstructorBody = <T extends TSESTree.ClassBody>({
   node,
   expression,
-  className,
+  parentClassName,
   context,
 }: {
   node: T;
   expression: TSESTree.FunctionExpression;
-  className: string;
+  parentClassName: string;
   context: Context;
 }): void => {
   for (const statement of expression.body.body) {
@@ -69,7 +71,7 @@ const validateConstructorBody = <T extends TSESTree.ClassBody>({
           node,
           context,
           expression: newExpression,
-          parentClassName: className,
+          parentClassName,
         });
         break;
       }
@@ -78,7 +80,7 @@ const validateConstructorBody = <T extends TSESTree.ClassBody>({
         validateStatement({
           node,
           body: statement,
-          className,
+          parentClassName,
           context,
         });
         break;
@@ -87,7 +89,7 @@ const validateConstructorBody = <T extends TSESTree.ClassBody>({
         traverseStatements({
           node,
           context,
-          className,
+          parentClassName,
           statement: statement.consequent,
         });
         break;
@@ -98,7 +100,7 @@ const validateConstructorBody = <T extends TSESTree.ClassBody>({
             traverseStatements({
               node,
               context,
-              className,
+              parentClassName,
               statement,
             });
           }
@@ -117,18 +119,23 @@ const validateConstructorBody = <T extends TSESTree.ClassBody>({
 const traverseStatements = <T extends TSESTree.ClassBody>({
   node,
   statement,
-  className,
+  parentClassName,
   context,
 }: {
   node: T;
   statement: TSESTree.Statement;
-  className: string;
+  parentClassName: string;
   context: Context;
 }) => {
   switch (statement.type) {
     case "BlockStatement": {
       for (const body of statement.body) {
-        validateStatement({ node, body, className, context });
+        validateStatement({
+          node,
+          body,
+          parentClassName,
+          context,
+        });
       }
       break;
     }
@@ -138,7 +145,7 @@ const traverseStatements = <T extends TSESTree.ClassBody>({
       validateStatement({
         node,
         body: statement,
-        className,
+        parentClassName,
         context,
       });
       break;
@@ -150,7 +157,7 @@ const traverseStatements = <T extends TSESTree.ClassBody>({
         node,
         context,
         expression: newExpression,
-        parentClassName: className,
+        parentClassName,
       });
       break;
     }
@@ -165,12 +172,12 @@ const traverseStatements = <T extends TSESTree.ClassBody>({
 const validateStatement = <T extends TSESTree.ClassBody>({
   node,
   body,
-  className,
+  parentClassName,
   context,
 }: {
   node: T;
   body: TSESTree.Statement;
-  className: string;
+  parentClassName: string;
   context: Context;
 }): void => {
   switch (body.type) {
@@ -181,7 +188,7 @@ const validateStatement = <T extends TSESTree.ClassBody>({
         node,
         context,
         expression: newExpression,
-        parentClassName: className,
+        parentClassName,
       });
       break;
     }
@@ -192,19 +199,24 @@ const validateStatement = <T extends TSESTree.ClassBody>({
         node,
         context,
         expression: newExpression,
-        parentClassName: className,
+        parentClassName,
       });
       break;
     }
     case "IfStatement": {
-      validateIfStatement({ node, ifStatement: body, className, context });
+      validateIfStatement({
+        node,
+        ifStatement: body,
+        parentClassName,
+        context,
+      });
       break;
     }
     case "SwitchStatement": {
       validateSwitchStatement({
         node,
         switchStatement: body,
-        className,
+        parentClassName,
         context,
       });
       break;
@@ -219,18 +231,18 @@ const validateStatement = <T extends TSESTree.ClassBody>({
 const validateIfStatement = <T extends TSESTree.ClassBody>({
   node,
   ifStatement,
-  className,
+  parentClassName,
   context,
 }: {
   node: T;
   ifStatement: TSESTree.IfStatement;
-  className: string;
+  parentClassName: string;
   context: Context;
 }): void => {
   traverseStatements({
     node,
     context,
-    className,
+    parentClassName,
     statement: ifStatement.consequent,
   });
 };
@@ -242,17 +254,22 @@ const validateIfStatement = <T extends TSESTree.ClassBody>({
 const validateSwitchStatement = <T extends TSESTree.ClassBody>({
   node,
   switchStatement,
-  className,
+  parentClassName,
   context,
 }: {
   node: T;
   switchStatement: TSESTree.SwitchStatement;
-  className: string;
+  parentClassName: string;
   context: Context;
 }): void => {
   for (const statement of switchStatement.cases) {
     for (const _consequent of statement.consequent) {
-      traverseStatements({ node, context, className, statement: _consequent });
+      traverseStatements({
+        node,
+        context,
+        parentClassName,
+        statement: _consequent,
+      });
     }
   }
 };
@@ -285,10 +302,10 @@ const validateConstructId = <T extends TSESTree.ClassBody>({
   if (formattedParentClassName === formattedConstructId) {
     context.report({
       node,
-      messageId: "noParentNameChildIdMatch",
+      messageId: "noParentNameConstructIdMatch",
       data: {
-        childId: secondArg.value,
-        parentName: parentClassName,
+        constructId: secondArg.value,
+        parentConstructName: parentClassName,
       },
     });
   }

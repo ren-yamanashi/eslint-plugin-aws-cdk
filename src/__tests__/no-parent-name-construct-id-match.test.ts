@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 
-import { noParentNameChildIdMatch } from "../no-parent-name-child-id-match.mjs";
+import { noParentNameConstructIdMatch } from "../no-parent-name-construct-id-match.mjs";
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -12,68 +12,71 @@ const ruleTester = new RuleTester({
   },
 });
 
-ruleTester.run("no-parent-name-child-id-match", noParentNameChildIdMatch, {
-  valid: [
-    // WHEN: child id not same parent construct name
-    {
-      code: `
+ruleTester.run(
+  "no-parent-name-construct-id-match",
+  noParentNameConstructIdMatch,
+  {
+    valid: [
+      // WHEN: child id not same parent construct name
+      {
+        code: `
       class TestClass {
         constructor() {
           const test = new TestClass("test", "validId");
         }
       }`,
-    },
-    // WHEN: child id not same parent construct name (typescript)
-    {
-      code: `
+      },
+      // WHEN: child id not same parent construct name (typescript)
+      {
+        code: `
       class TestClass {
         constructor(props: any, id: string) {
           const test = new TestClass("test", "validId");
         }
       }`,
-    },
-    // WHEN: construct does not have child
-    {
-      code: `
+      },
+      // WHEN: construct does not have child
+      {
+        code: `
       class TestClass {
         constructor() {}
       }`,
-    },
-  ],
-  invalid: [
-    // WHEN: child class inside constructor (expression statement)
-    {
-      code: `
+      },
+    ],
+    invalid: [
+      // WHEN: child class inside constructor (expression statement)
+      {
+        code: `
       export class TestClass {
         constructor(public id: string) {
           new SampleConstruct({ name: "sample" }, "TestClass");
         }
       }`,
-      errors: [{ messageId: "noParentNameChildIdMatch" }],
-    },
-    // WHEN: child class inside constructor (variable declaration)
-    {
-      code: `
+        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+      },
+      // WHEN: child class inside constructor (variable declaration)
+      {
+        code: `
       export class TestClass {
         constructor(public id: string) {
           const test =new SampleConstruct({ name: "sample" }, "TestClass");
         }
       }`,
-      errors: [{ messageId: "noParentNameChildIdMatch" }],
-    },
-    // WHEN: child statement inside if statement inside constructor (expression statement)
-    {
-      code: `
+        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+      },
+      // WHEN: child statement inside if statement inside constructor (expression statement)
+      {
+        code: `
       class TestClass {
         constructor() {
           if (true) new Sample("test", "TestClass");
         }
       }`,
-      errors: [{ messageId: "noParentNameChildIdMatch" }],
-    },
-    // WHEN: child statement inside if statement inside constructor (block statement)
-    {
-      code: `
+        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+      },
+      // WHEN: child statement inside if statement inside constructor (block statement)
+      {
+        code: `
       class TestClass {
         constructor() {
           if (true) {
@@ -81,11 +84,11 @@ ruleTester.run("no-parent-name-child-id-match", noParentNameChildIdMatch, {
           }
         }
       }`,
-      errors: [{ messageId: "noParentNameChildIdMatch" }],
-    },
-    // WHEN: child statement inside if statement inside inside constructor (block statement / nested)
-    {
-      code: `
+        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+      },
+      // WHEN: child statement inside if statement inside inside constructor (block statement / nested)
+      {
+        code: `
       class TestClass {
         constructor() {
           if (true) {
@@ -95,11 +98,11 @@ ruleTester.run("no-parent-name-child-id-match", noParentNameChildIdMatch, {
           }
         }
       }`,
-      errors: [{ messageId: "noParentNameChildIdMatch" }],
-    },
-    // WHEN: child statement inside switch statement inside inside constructor (expression statement)
-    {
-      code: `
+        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+      },
+      // WHEN: child statement inside switch statement inside inside constructor (expression statement)
+      {
+        code: `
       class TestClass {
         constructor() {
           switch (item.type) {
@@ -109,11 +112,11 @@ ruleTester.run("no-parent-name-child-id-match", noParentNameChildIdMatch, {
           }
         }
       }`,
-      errors: [{ messageId: "noParentNameChildIdMatch" }],
-    },
-    // WHEN: child statement inside switch statement inside inside constructor (block statement)
-    {
-      code: `
+        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+      },
+      // WHEN: child statement inside switch statement inside inside constructor (block statement)
+      {
+        code: `
       class TestClass {
         constructor() {
           switch (item.type) {
@@ -124,11 +127,11 @@ ruleTester.run("no-parent-name-child-id-match", noParentNameChildIdMatch, {
           }
         }
       }`,
-      errors: [{ messageId: "noParentNameChildIdMatch" }],
-    },
-    // WHEN: child statement inside switch statement inside inside constructor (block statement / nested)
-    {
-      code: `
+        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+      },
+      // WHEN: child statement inside switch statement inside inside constructor (block statement / nested)
+      {
+        code: `
       class TestClass {
         constructor() {
           switch (item.type) {
@@ -142,7 +145,8 @@ ruleTester.run("no-parent-name-child-id-match", noParentNameChildIdMatch, {
           }
         }
       }`,
-      errors: [{ messageId: "noParentNameChildIdMatch" }],
-    },
-  ],
-});
+        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+      },
+    ],
+  }
+);
