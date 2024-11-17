@@ -6,7 +6,7 @@ ESLint plugin for [AWS CDK](https://github.com/aws/aws-cdk).
 
 ```bash
 # npm
-npm i -D @nigg/eslint-plugin-cdk
+npm install -D @nigg/eslint-plugin-cdk
 
 # yarn
 yarn add -D @nigg/eslint-plugin-cdk
@@ -28,7 +28,7 @@ export default [
     rules: {
       "cdk/no-import-private": "error",
       "cdk/pascal-case-construct-id": "error",
-      "cdk/no-parent-name-child-id-match": "error",
+      "cdk/no-parent-name-construct-id-match": "error",
       "cdk/no-construct-stack-suffix": "error",
     },
   },
@@ -37,33 +37,18 @@ export default [
 
 ## Rules
 
-### no-import-private
+- [pascal-case-construct-id](#pascal-case-construct-id)
+- [no-parent-name-construct-id-match](#no-parent-name-construct-id-match)
+- [no-construct-stack-suffix](#no-construct-stack-suffix)
+- [no-import-private](#no-import-private)
 
-Disallows importing modules from `private` directories at different hierarchical levels.
-
-The private directory is intended to contain internal implementation that should only be used within its parent directory.  
-By disallowing imports from a different hierarchy, it promotes proper modularization and encapsulation.
-
-#### ✅ Correct Example
-
-```ts
-// src/constructs/my-construct.ts
-import { MyConstruct } from "./private/my-construct";
-```
-
-#### ❌ Incorrect Example
-
-```ts
-// src/constructs/my-construct.ts
-import { MyConstruct } from "../private/my-construct";
-import { MyConstruct } from "../my-app/private/my-construct";
-```
+---
 
 ### pascal-case-construct-id
 
-Enforces PascalCase for construct IDs.
+This rule enforces PascalCase for construct IDs.
 
-AWS CDK recommends using PascalCase for Construct IDs.
+AWS CDK recommends using PascalCase for construct IDs.
 
 #### ✅ Correct Example
 
@@ -79,11 +64,15 @@ const myConstruct = new MyConstruct(this, "MyConstruct");
 const myConstruct = new MyConstruct(this, "myConstruct");
 ```
 
-### no-parent-name-child-id-match
+<br />
 
-Disallows using the parent class name as the child construct ID.
+---
 
-It is not recommended to specify a string that matches the parent class name for Construct Id, as it makes the CloudFormation resource hierarchy unclear.
+### no-parent-name-construct-id-match
+
+This rule disallows using the parent class name as the construct IDs.
+
+It is not good to specify a string that matches the parent class name for construct ID, as it makes the CloudFormation resource hierarchy unclear.
 
 #### ✅ Correct Example
 
@@ -107,11 +96,15 @@ export class MyConstruct {
 }
 ```
 
+<br />
+
+---
+
 ### no-construct-stack-suffix
 
 This rule is to disallow using the `Construct` or `Stack` suffix in construct IDs and stack IDs.
 
-If the Construct ID includes "Construct," the issues that should be stopped in the CDK world will leak into the CloudFormation template and the AWS world.(the same for Stack ID )
+If the Construct ID includes "Construct," the issues that should be stopped in the CDK world will leak into the CloudFormation template and the AWS world, so not good.(the same for Stack ID )
 
 #### ✅ Correct Example
 
@@ -133,6 +126,32 @@ export class MyConstruct {
     const a = new SampleConstruct(this, "SampleConstruct");
   }
 }
+```
+
+<br />
+
+---
+
+### no-import-private
+
+This rule disallows importing modules from `private` directories at different hierarchical levels.
+
+The private directory is intended to contain internal implementation that should only be used within its parent directory.  
+By disallowing imports from a different hierarchy, it promotes proper modularization and encapsulation.
+
+#### ✅ Correct Example
+
+```ts
+// src/constructs/my-construct.ts
+import { MyConstruct } from "./private/my-construct";
+```
+
+#### ❌ Incorrect Example
+
+```ts
+// src/constructs/my-construct.ts
+import { MyConstruct } from "../private/my-construct";
+import { MyConstruct } from "../my-app/private/my-construct";
 ```
 
 ## License
