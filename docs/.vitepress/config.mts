@@ -4,8 +4,9 @@ import defaultConfig from "./sharedConfig.mjs";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   ...defaultConfig,
+  base: "/eslint-plugin-cdk/",
   title: "eslint-plugin-cdk",
-  description: "documentation",
+  description: "ESLint plugin for AWS CDK",
   head: [
     [
       "link",
