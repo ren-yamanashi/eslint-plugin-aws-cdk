@@ -45,6 +45,7 @@
     "aws",
     "cdk"
   ],
+  "homepage": "https://ren-yamanashi.github.io/eslint-plugin-cdk/",
   "repository": {
     "type": "git",
     "url": "https://github.com/ren-yamanashi/eslint-plugin-cdk.git"
