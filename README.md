@@ -42,6 +42,7 @@ export default [
 - [no-parent-name-construct-id-match](#no-parent-name-construct-id-match)
 - [no-construct-stack-suffix](#no-construct-stack-suffix)
 - [no-class-in-interface](#no-class-in-interface)
+- [no-public-class-fields](#no-public-class-fields)
 - [no-import-private](#no-import-private)
 
 ---
@@ -162,6 +163,48 @@ class SampleClass {
 
 interface SampleInterface {
   sample: SampleClass;
+}
+```
+
+<br />
+
+---
+
+### no-public-class-fields
+
+This rule disallows using class types for public class fields.
+
+When class types are used in public fields, it creates tight coupling and exposes mutable state, so not good.
+
+#### ✅ Correct Examples
+
+```ts
+interface IEmailService {
+  sendEmail(/** ... */): Promise<void>;
+}
+
+class UserNotifier {
+  public readonly emailService: IEmailService;
+  constructor(/** ... */) {
+    // ...
+  }
+}
+```
+
+#### ❌ Incorrect Examples
+
+```ts
+class EmailService {
+  public async sendEmail(/** ... */): Promise<void> {
+    // ...
+  }
+}
+
+class UserNotifier {
+  public emailService: EmailService;
+  constructor(/** ... */) {
+    // ...
+  }
 }
 ```
 
