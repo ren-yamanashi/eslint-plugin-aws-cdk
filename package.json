@@ -16,6 +16,7 @@
     "@eslint/js": "^9.15.0",
     "@types/estree": "^1.0.6",
     "@types/node": "^22.9.0",
+    "@typescript-eslint/rule-tester": "^8.14.0",
     "eslint-plugin-import": "^2.31.0",
     "standard-version": "^9.5.0",
     "typescript": "^5.6.3",
@@ -23,6 +24,7 @@
     "vitest": "^2.1.5"
   },
   "dependencies": {
+    "@typescript-eslint/utils": "^8.14.0",
     "eslint": "9.10.0"
   },
   "volta": {

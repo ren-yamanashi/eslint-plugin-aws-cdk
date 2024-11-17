@@ -1,6 +1,8 @@
 import { Rule } from "eslint";
 import { Expression, Node, SpreadElement } from "estree";
 
+import { toPascalCase } from "./utils/convertString.mjs";
+
 const QUOTE_TYPE = {
   SINGLE: "'",
   DOUBLE: '"',
@@ -15,27 +17,6 @@ type QuoteType = (typeof QUOTE_TYPE)[keyof typeof QUOTE_TYPE];
  */
 const isPascalCase = (str: string) => {
   return /^[A-Z][a-zA-Z0-9]*$/.test(str);
-};
-
-/**
- * Convert a string to PascalCase
- * @param str - The string to convert
- * @returns The PascalCase string
- */
-const toPascalCase = (str: string) => {
-  return str
-    .split(/[-_\s]/)
-    .map((word) => {
-      // Consider camelCase, split by uppercase letters
-      return word
-        .replace(/([A-Z])/g, " $1")
-        .split(/\s+/)
-        .map(
-          (part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
-        )
-        .join("");
-    })
-    .join("");
 };
 
 const validateConstructId = <T extends Node>(
