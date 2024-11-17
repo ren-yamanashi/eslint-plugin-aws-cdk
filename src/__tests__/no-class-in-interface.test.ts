@@ -14,7 +14,7 @@ const ruleTester = new RuleTester({
 
 ruleTester.run("no-class-in-interface", noClassInInterfaceProps, {
   valid: [
-    // WHEN property type is string
+    // WHEN: property type is string
     {
       code: `
       interface TestInterface {
@@ -22,7 +22,7 @@ ruleTester.run("no-class-in-interface", noClassInInterfaceProps, {
       }
       `,
     },
-    // WHEN property type is type
+    // WHEN: property type is type
     {
       code: `
       type TestType = {
@@ -33,7 +33,7 @@ ruleTester.run("no-class-in-interface", noClassInInterfaceProps, {
       }
       `,
     },
-    // WHEN property type is undefined
+    // WHEN: property type is undefined
     {
       code: `
       interface TestInterface {
