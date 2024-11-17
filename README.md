@@ -23,11 +23,13 @@ import eslintPluginCdk from "@nigg/eslint-plugin-cdk";
 export default [
   {
     plugins: {
-      "eslint-plugin-cdk": eslintPluginCdk,
+      cdk: eslintPluginCdk,
     },
     rules: {
-      "eslint-plugin-cdk/no-import-private": "error",
-      "eslint-plugin-cdk/pascal-case-construct-id": "error",
+      "cdk/no-import-private": "error",
+      "cdk/pascal-case-construct-id": "error",
+      "cdk/no-parent-name-child-id-match": "error",
+      "cdk/no-construct-stack-suffix": "error",
     },
   },
 ];
