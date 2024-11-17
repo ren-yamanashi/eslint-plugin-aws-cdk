@@ -1,7 +1,7 @@
 import { Rule } from "eslint";
 import { Expression, Node, SpreadElement } from "estree";
 
-import { toPascalCase } from "./utils/convertString";
+import { toPascalCase } from "./utils/convertString.mjs";
 
 const QUOTE_TYPE = {
   SINGLE: "'",
