@@ -17,6 +17,8 @@ pnpm install -D @nigg/eslint-plugin-cdk
 
 ## Usage
 
+### Use recommended config
+
 ```js
 // eslint.config.mjs
 import eslintPluginCdk from "@nigg/eslint-plugin-cdk";
@@ -26,11 +28,25 @@ export default [
       cdk: eslintPluginCdk,
     },
     rules: {
-      "cdk/pascal-case-construct-id": "error",
-      "cdk/no-parent-name-construct-id-match": "error",
-      "cdk/no-construct-stack-suffix": "error",
-      "cdk/no-class-in-interface": "error",
-      "cdk/no-import-private": "error",
+      ...eslintPluginCdk.configs.recommended.rules,
+    },
+  },
+];
+```
+
+#### If you want to customize the rules
+
+```js
+// eslint.config.mjs
+import eslintPluginCdk from "@nigg/eslint-plugin-cdk";
+export default [
+  {
+    plugins: {
+      cdk: eslintPluginCdk,
+    },
+    rules: {
+      ...eslintPluginCdk.configs.recommended.rules,
+      "cdk/no-public-class-fields": "warn",
     },
   },
 ];
@@ -51,20 +67,16 @@ export default [
 
 This rule enforces PascalCase for construct IDs.
 
-AWS CDK recommends using PascalCase for construct IDs.
-
 #### ✅ Correct Example
 
 ```ts
-// src/constructs/my-construct.ts
-const myConstruct = new MyConstruct(this, "MyConstruct");
+const bucket = new Bucket(this, "MyBucket");
 ```
 
 #### ❌ Incorrect Example
 
 ```ts
-// src/constructs/my-construct.ts
-const myConstruct = new MyConstruct(this, "myConstruct");
+const bucket = new Bucket(this, "myBucket");
 ```
 
 <br />
@@ -80,10 +92,10 @@ It is not good to specify a string that matches the parent class name for constr
 #### ✅ Correct Example
 
 ```ts
-// src/constructs/my-construct.ts
-export class MyConstruct {
-  constructor() {
-    const a = new SampleConstruct(this, "Sample");
+export class MyConstruct extends Construct {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+    const bucket = new Bucket(this, "MyBucket");
   }
 }
 ```
@@ -91,10 +103,10 @@ export class MyConstruct {
 #### ❌ Incorrect Example
 
 ```ts
-// src/constructs/my-construct.ts
-export class MyConstruct {
-  constructor() {
-    const a = new SampleConstruct(this, "MyConstruct");
+export class MyConstruct extends Construct {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+    const bucket = new Bucket(this, "MyConstruct");
   }
 }
 ```
@@ -112,10 +124,10 @@ If the Construct ID includes "Construct," the issues that should be stopped in t
 #### ✅ Correct Example
 
 ```ts
-// src/constructs/my-construct.ts
-export class MyConstruct {
-  constructor() {
-    const a = new SampleConstruct(this, "Sample");
+export class MyConstruct extends Construct {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+    const bucket = new Bucket(this, "MyBucket");
   }
 }
 ```
@@ -123,10 +135,10 @@ export class MyConstruct {
 #### ❌ Incorrect Example
 
 ```ts
-// src/constructs/my-construct.ts
-export class MyConstruct {
-  constructor() {
-    const a = new SampleConstruct(this, "SampleConstruct");
+export class MyConstruct extends Construct {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+    const bucket = new Bucket(this, "BucketConstruct");
   }
 }
 ```
@@ -146,23 +158,20 @@ So not good.
 #### ✅ Correct Example
 
 ```ts
-type SampleType = {
-  /** ... */
-};
-interface SampleInterface {
-  sample: SampleType;
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
+interface MyConstructProps {
+  bucket: IBucket;
 }
 ```
 
 #### ❌ Incorrect Example
 
 ```ts
-class SampleClass {
-  /** ... */
-}
+import { Bucket } from "aws-cdk-lib/aws-s3";
 
-interface SampleInterface {
-  sample: SampleClass;
+interface MyConstructProps {
+  bucket: Bucket;
 }
 ```
 
@@ -179,14 +188,13 @@ When class types are used in public fields, it creates tight coupling and expose
 #### ✅ Correct Examples
 
 ```ts
-interface IEmailService {
-  sendEmail(/** ... */): Promise<void>;
-}
+import { IBucket } from "aws-cdk-lib/aws-s3";
 
-class UserNotifier {
-  public readonly emailService: IEmailService;
-  constructor(/** ... */) {
-    // ...
+class MyConstruct extends Construct {
+  public readonly bucket: IBucket;
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+    this.bucket = new Bucket(this, "MyBucket");
   }
 }
 ```
@@ -194,16 +202,13 @@ class UserNotifier {
 #### ❌ Incorrect Examples
 
 ```ts
-class EmailService {
-  public async sendEmail(/** ... */): Promise<void> {
-    // ...
-  }
-}
+import { Bucket } from "aws-cdk-lib/aws-s3";
 
-class UserNotifier {
-  public emailService: EmailService;
-  constructor(/** ... */) {
-    // ...
+class MyConstruct extends Construct {
+  public readonly bucket: Bucket;
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+    this.bucket = new Bucket(this, "MyBucket");
   }
 }
 ```
@@ -215,6 +220,25 @@ class UserNotifier {
 ### no-import-private
 
 This rule disallows importing modules from `private` directories at different hierarchical levels.
+
+Note: This rule is not included in the `recommended` rules.  
+When setting it, you need to write the following:
+
+```js
+// eslint.config.mjs
+import eslintPluginCdk from "@nigg/eslint-plugin-cdk";
+export default [
+  {
+    plugins: {
+      cdk: eslintPluginCdk,
+    },
+    rules: {
+      ...cdkPlugin.configs.recommended.rules,
+      "cdk/no-import-private": "error",
+    },
+  },
+];
+```
 
 The private directory is intended to contain internal implementation that should only be used within its parent directory.  
 By disallowing imports from a different hierarchy, it promotes proper modularization and encapsulation.

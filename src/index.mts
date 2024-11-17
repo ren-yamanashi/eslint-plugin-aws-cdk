@@ -14,6 +14,18 @@ const plugin = {
     "no-public-class-fields": noPublicClassFields,
     "pascal-case-construct-id": pascalCaseConstructId,
   },
+  configs: {
+    recommended: {
+      plugins: ["cdk"],
+      rules: {
+        "cdk/no-class-in-interface": "error",
+        "cdk/no-construct-stack-suffix": "error",
+        "cdk/no-parent-name-construct-id-match": "error",
+        "cdk/no-public-class-fields": "error",
+        "cdk/pascal-case-construct-id": "error",
+      },
+    },
+  },
 };
 
 export default plugin;
