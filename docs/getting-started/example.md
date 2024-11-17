@@ -5,9 +5,9 @@ prev: false
 next: false
 ---
 
-# Sample eslint.config.mjs
+# Example
 
-eslint.config.mjs can be configured as follows:
+Below is an example of eslint.config.mjs.
 
 Note: We recommend using typescript-eslint together.
 
