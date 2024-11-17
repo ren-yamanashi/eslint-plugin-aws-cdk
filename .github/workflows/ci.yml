@@ -59,7 +59,7 @@ jobs:
   deploy:
     needs: test-and-build
     environment:
-      name: github-pages
+      name: ${{ github.ref == 'refs/heads/main' && 'github-pages' }}
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     name: Deploy
