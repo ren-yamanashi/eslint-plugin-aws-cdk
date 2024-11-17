@@ -32,7 +32,12 @@ export const noParentNameChildIdMatch = ESLintUtils.RuleCreator.withoutDocs({
             body.kind === "constructor" &&
             body.value.type === "FunctionExpression"
           ) {
-            validateConstructorBody(node, body.value, className, context);
+            validateConstructorBody({
+              node,
+              expression: body.value,
+              className,
+              context,
+            });
           }
         }
       },
@@ -40,24 +45,37 @@ export const noParentNameChildIdMatch = ESLintUtils.RuleCreator.withoutDocs({
   },
 });
 
-const validateConstructorBody = <T extends TSESTree.ClassBody>(
-  node: T,
-  expression: TSESTree.FunctionExpression,
-  className: string,
-  context: Context
-) => {
+/**
+ * Validate the constructor body for the parent class
+ * - validate each statement in the constructor body
+ */
+const validateConstructorBody = <T extends TSESTree.ClassBody>({
+  node,
+  expression,
+  className,
+  context,
+}: {
+  node: T;
+  expression: TSESTree.FunctionExpression;
+  className: string;
+  context: Context;
+}): void => {
   for (const statement of expression.body.body) {
     switch (statement.type) {
       case "VariableDeclaration": {
         const newExpression = statement.declarations[0].init;
         if (newExpression?.type !== "NewExpression") continue;
-        validateConstructId(node, context, newExpression, className);
+        validateConstructId({
+          node,
+          context,
+          expression: newExpression,
+          parentClassName: className,
+        });
         break;
       }
       case "ExpressionStatement": {
-        const newExpression = statement.expression;
-        if (newExpression?.type !== "NewExpression") break;
-        statementLoop({
+        if (statement.expression?.type !== "NewExpression") break;
+        validateStatement({
           node,
           body: statement,
           className,
@@ -66,7 +84,7 @@ const validateConstructorBody = <T extends TSESTree.ClassBody>(
         break;
       }
       case "IfStatement": {
-        validationLoop({
+        traverseStatements({
           node,
           context,
           className,
@@ -75,13 +93,13 @@ const validateConstructorBody = <T extends TSESTree.ClassBody>(
         break;
       }
       case "SwitchStatement": {
-        for (const _statement of statement.cases) {
-          for (const _consequent of _statement.consequent) {
-            validationLoop({
+        for (const switchCase of statement.cases) {
+          for (const statement of switchCase.consequent) {
+            traverseStatements({
               node,
               context,
               className,
-              statement: _consequent,
+              statement,
             });
           }
         }
@@ -91,7 +109,12 @@ const validateConstructorBody = <T extends TSESTree.ClassBody>(
   }
 };
 
-const validationLoop = <T extends TSESTree.ClassBody>({
+/**
+ * Recursively traverse and validate statements in the AST
+ * - Handles BlockStatement, ExpressionStatement, and VariableDeclaration
+ * - Validates construct IDs against parent class name
+ */
+const traverseStatements = <T extends TSESTree.ClassBody>({
   node,
   statement,
   className,
@@ -105,14 +128,14 @@ const validationLoop = <T extends TSESTree.ClassBody>({
   switch (statement.type) {
     case "BlockStatement": {
       for (const body of statement.body) {
-        statementLoop({ node, body, className, context });
+        validateStatement({ node, body, className, context });
       }
       break;
     }
     case "ExpressionStatement": {
       const newExpression = statement.expression;
       if (newExpression?.type !== "NewExpression") break;
-      statementLoop({
+      validateStatement({
         node,
         body: statement,
         className,
@@ -123,13 +146,23 @@ const validationLoop = <T extends TSESTree.ClassBody>({
     case "VariableDeclaration": {
       const newExpression = statement.declarations[0].init;
       if (newExpression?.type !== "NewExpression") break;
-      validateConstructId(node, context, newExpression, className);
+      validateConstructId({
+        node,
+        context,
+        expression: newExpression,
+        parentClassName: className,
+      });
       break;
     }
   }
 };
 
-const statementLoop = <T extends TSESTree.ClassBody>({
+/**
+ * Validate a single statement in the AST
+ * - Handles different types of statements (Variable, Expression, If, Switch)
+ * - Extracts and validates construct IDs from new expressions
+ */
+const validateStatement = <T extends TSESTree.ClassBody>({
   node,
   body,
   className,
@@ -139,32 +172,51 @@ const statementLoop = <T extends TSESTree.ClassBody>({
   body: TSESTree.Statement;
   className: string;
   context: Context;
-}) => {
+}): void => {
   switch (body.type) {
     case "VariableDeclaration": {
       const newExpression = body.declarations[0].init;
       if (newExpression?.type !== "NewExpression") break;
-      validateConstructId(node, context, newExpression, className);
+      validateConstructId({
+        node,
+        context,
+        expression: newExpression,
+        parentClassName: className,
+      });
       break;
     }
     case "ExpressionStatement": {
       const newExpression = body.expression;
       if (newExpression?.type !== "NewExpression") break;
-      validateConstructId(node, context, newExpression, className);
+      validateConstructId({
+        node,
+        context,
+        expression: newExpression,
+        parentClassName: className,
+      });
       break;
     }
     case "IfStatement": {
-      ifStatementLoop({ node, ifStatement: body, className, context });
+      validateIfStatement({ node, ifStatement: body, className, context });
       break;
     }
     case "SwitchStatement": {
-      switchStatementLoop({ node, switchStatement: body, className, context });
+      validateSwitchStatement({
+        node,
+        switchStatement: body,
+        className,
+        context,
+      });
       break;
     }
   }
 };
 
-const ifStatementLoop = <T extends TSESTree.ClassBody>({
+/**
+ * Validate the `if` statement
+ * - Validate recursively if `if` statements are nested
+ */
+const validateIfStatement = <T extends TSESTree.ClassBody>({
   node,
   ifStatement,
   className,
@@ -174,8 +226,8 @@ const ifStatementLoop = <T extends TSESTree.ClassBody>({
   ifStatement: TSESTree.IfStatement;
   className: string;
   context: Context;
-}) => {
-  validationLoop({
+}): void => {
+  traverseStatements({
     node,
     context,
     className,
@@ -183,7 +235,11 @@ const ifStatementLoop = <T extends TSESTree.ClassBody>({
   });
 };
 
-const switchStatementLoop = <T extends TSESTree.ClassBody>({
+/**
+ * Validate the `switch` statement
+ * - Validate recursively if `switch` statements are nested
+ */
+const validateSwitchStatement = <T extends TSESTree.ClassBody>({
   node,
   switchStatement,
   className,
@@ -193,20 +249,28 @@ const switchStatementLoop = <T extends TSESTree.ClassBody>({
   switchStatement: TSESTree.SwitchStatement;
   className: string;
   context: Context;
-}) => {
+}): void => {
   for (const statement of switchStatement.cases) {
     for (const _consequent of statement.consequent) {
-      validationLoop({ node, context, className, statement: _consequent });
+      traverseStatements({ node, context, className, statement: _consequent });
     }
   }
 };
 
-const validateConstructId = <T extends TSESTree.ClassBody>(
-  node: T,
-  context: Context,
-  expression: TSESTree.NewExpression,
-  parentClassName: string
-) => {
+/**
+ * Validate that parent construct name and child id do not match
+ */
+const validateConstructId = <T extends TSESTree.ClassBody>({
+  node,
+  context,
+  expression,
+  parentClassName,
+}: {
+  node: T;
+  context: Context;
+  expression: TSESTree.NewExpression;
+  parentClassName: string;
+}): void => {
   if (expression.arguments.length < 2) return;
 
   // NOTE: Treat the second argument as ID

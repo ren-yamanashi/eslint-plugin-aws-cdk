@@ -2,10 +2,6 @@ import { RuleTester } from "@typescript-eslint/rule-tester";
 
 import { noParentNameChildIdMatch } from "../no-parent-name-child-id-match.mjs";
 
-// const ruleTester = new RuleTester({
-//   languageOptions: { ecmaVersion: "latest", sourceType: "module" },
-// });
-
 const ruleTester = new RuleTester({
   languageOptions: {
     parserOptions: {
