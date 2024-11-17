@@ -23,11 +23,13 @@ import eslintPluginCdk from "@nigg/eslint-plugin-cdk";
 export default [
   {
     plugins: {
-      "eslint-plugin-cdk": eslintPluginCdk,
+      cdk: eslintPluginCdk,
     },
     rules: {
-      "eslint-plugin-cdk/no-import-private": "error",
-      "eslint-plugin-cdk/pascal-case-construct-id": "error",
+      "cdk/no-import-private": "error",
+      "cdk/pascal-case-construct-id": "error",
+      "cdk/no-parent-name-child-id-match": "error",
+      "cdk/no-construct-stack-suffix": "error",
     },
   },
 ];
@@ -89,7 +91,7 @@ It is not recommended to specify a string that matches the parent class name for
 // src/constructs/my-construct.ts
 export class MyConstruct {
   constructor() {
-    const a = new SampleConstruct({ name: "sample" }, "Sample");
+    const a = new SampleConstruct(this, "Sample");
   }
 }
 ```
@@ -100,7 +102,35 @@ export class MyConstruct {
 // src/constructs/my-construct.ts
 export class MyConstruct {
   constructor() {
-    const a = new SampleConstruct({ name: "sample" }, "MyConstruct");
+    const a = new SampleConstruct(this, "MyConstruct");
+  }
+}
+```
+
+### no-construct-stack-suffix
+
+This rule is to disallow using the `Construct` or `Stack` suffix in construct IDs and stack IDs.
+
+If the Construct ID includes "Construct," the issues that should be stopped in the CDK world will leak into the CloudFormation template and the AWS world.(the same for Stack ID )
+
+#### ✅ Correct Example
+
+```ts
+// src/constructs/my-construct.ts
+export class MyConstruct {
+  constructor() {
+    const a = new SampleConstruct(this, "Sample");
+  }
+}
+```
+
+#### ❌ Incorrect Example
+
+```ts
+// src/constructs/my-construct.ts
+export class MyConstruct {
+  constructor() {
+    const a = new SampleConstruct(this, "SampleConstruct");
   }
 }
 ```
