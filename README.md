@@ -26,10 +26,11 @@ export default [
       cdk: eslintPluginCdk,
     },
     rules: {
-      "cdk/no-import-private": "error",
       "cdk/pascal-case-construct-id": "error",
       "cdk/no-parent-name-construct-id-match": "error",
       "cdk/no-construct-stack-suffix": "error",
+      "cdk/no-class-in-interface": "error",
+      "cdk/no-import-private": "error",
     },
   },
 ];
@@ -40,6 +41,7 @@ export default [
 - [pascal-case-construct-id](#pascal-case-construct-id)
 - [no-parent-name-construct-id-match](#no-parent-name-construct-id-match)
 - [no-construct-stack-suffix](#no-construct-stack-suffix)
+- [no-class-in-interface](#no-class-in-interface)
 - [no-import-private](#no-import-private)
 
 ---
@@ -125,6 +127,41 @@ export class MyConstruct {
   constructor() {
     const a = new SampleConstruct(this, "SampleConstruct");
   }
+}
+```
+
+<br />
+
+---
+
+### no-class-in-interface
+
+This rule disallows using class types in interface properties.
+
+When class types are used in interface properties, it creates tight coupling between the interface and the class implementation.  
+Additionally, classes are mutable by nature, which can lead to unexpected behavior when used as interface property types.  
+So not good.
+
+#### ✅ Correct Example
+
+```ts
+type SampleType = {
+  /** ... */
+};
+interface SampleInterface {
+  sample: SampleType;
+}
+```
+
+#### ❌ Incorrect Example
+
+```ts
+class SampleClass {
+  /** ... */
+}
+
+interface SampleInterface {
+  sample: SampleClass;
 }
 ```
 
