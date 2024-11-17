@@ -81,7 +81,7 @@ const validateConstructorBody = <T extends TSESTree.ClassBody>(
 /**
  * Recursively traverse and validate statements in the AST
  * - Handles BlockStatement, ExpressionStatement, and VariableDeclaration
- * - Validates construct IDs against parent class name
+ * - Validates construct IDs
  */
 const traverseStatements = <T extends TSESTree.ClassBody>(
   node: T,
@@ -173,7 +173,7 @@ const validateSwitchStatement = <T extends TSESTree.ClassBody>(
 };
 
 /**
- * Validate that parent construct name and child id do not match
+ * Validate that construct ID does not end with "Construct" or "Stack"
  */
 const validateConstructId = <T extends TSESTree.ClassBody>(
   node: T,
