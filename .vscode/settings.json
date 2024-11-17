@@ -8,5 +8,6 @@
     "source.organizeImports",
     "source.fixAll.eslint"
   ],
-  "typescript.preferences.importModuleSpecifier": "relative"
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "cSpell.words": ["vitepress"]
 }

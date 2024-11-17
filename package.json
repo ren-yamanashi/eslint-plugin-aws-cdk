@@ -10,7 +10,10 @@
     "lint": "eslint --fix --config eslint.config.mjs",
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
-    "release:patch": "standard-version --release-as patch"
+    "release:patch": "standard-version --release-as patch",
+    "docs:dev": "cd ./docs && pnpm install && pnpm run dev",
+    "docs:build": "cd ./docs && pnpm install && pnpm run build",
+    "docs:preview": "cd ./docs && pnpm install && pnpm run preview"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
