@@ -77,6 +77,34 @@ const myConstruct = new MyConstruct(this, "MyConstruct");
 const myConstruct = new MyConstruct(this, "myConstruct");
 ```
 
+### no-parent-name-child-id-match
+
+Disallows using the parent class name as the child construct ID.
+
+It is not recommended to specify a string that matches the parent class name for Construct Id, as it makes the CloudFormation resource hierarchy unclear.
+
+#### ✅ Correct Example
+
+```ts
+// src/constructs/my-construct.ts
+export class MyConstruct {
+  constructor() {
+    const a = new SampleConstruct({ name: "sample" }, "Sample");
+  }
+}
+```
+
+#### ❌ Incorrect Example
+
+```ts
+// src/constructs/my-construct.ts
+export class MyConstruct {
+  constructor() {
+    const a = new SampleConstruct({ name: "sample" }, "MyConstruct");
+  }
+}
+```
+
 ## License
 
 [MIT](./LICENSE)
