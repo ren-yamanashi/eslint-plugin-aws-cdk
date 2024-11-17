@@ -1,16 +1,11 @@
-import { Rule } from "eslint";
-import {
-  FunctionExpression,
-  IfStatement,
-  NewExpression,
-  Node,
-  Statement,
-  SwitchStatement,
-} from "estree";
+import { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 
 import { toPascalCase } from "./utils/convertString.mjs";
 
-export const noParentNameChildIdMatch: Rule.RuleModule = {
+type Context = RuleContext<"noParentNameChildIdMatch", []>;
+
+export const noParentNameChildIdMatch = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     type: "problem",
     docs: {
@@ -23,11 +18,14 @@ export const noParentNameChildIdMatch: Rule.RuleModule = {
     },
     schema: [],
   },
+  defaultOptions: [],
   create(context) {
     return {
       ClassBody(node) {
         const parent = node.parent;
         if (parent?.type !== "ClassDeclaration") return;
+        const className = parent.id?.name;
+        if (!className) return;
 
         for (const body of node.body) {
           if (body.type !== "MethodDefinition") continue;
@@ -35,19 +33,19 @@ export const noParentNameChildIdMatch: Rule.RuleModule = {
             body.kind === "constructor" &&
             body.value.type === "FunctionExpression"
           ) {
-            validateConstructorBody(node, body.value, parent.id.name, context);
+            validateConstructorBody(node, body.value, className, context);
           }
         }
       },
     };
   },
-};
+});
 
-const validateConstructorBody = <T extends Node>(
+const validateConstructorBody = <T extends TSESTree.ClassBody>(
   node: T,
-  expression: FunctionExpression,
+  expression: TSESTree.FunctionExpression,
   className: string,
-  context: Rule.RuleContext
+  context: Context
 ) => {
   for (const statement of expression.body.body) {
     switch (statement.type) {
@@ -83,16 +81,16 @@ const validateConstructorBody = <T extends Node>(
   }
 };
 
-const validationLoop = <T extends Node>({
+const validationLoop = <T extends TSESTree.ClassBody>({
   node,
   statement,
   className,
   context,
 }: {
   node: T;
-  statement: Statement;
+  statement: TSESTree.Statement;
   className: string;
-  context: Rule.RuleContext;
+  context: Context;
 }) => {
   switch (statement.type) {
     case "BlockStatement": {
@@ -121,53 +119,16 @@ const validationLoop = <T extends Node>({
   }
 };
 
-const ifStatementLoop = <T extends Node>({
-  node,
-  ifStatement,
-  className,
-  context,
-}: {
-  node: T;
-  ifStatement: IfStatement;
-  className: string;
-  context: Rule.RuleContext;
-}) => {
-  validationLoop({
-    node,
-    context,
-    className,
-    statement: ifStatement.consequent,
-  });
-};
-
-const switchStatementLoop = <T extends Node>({
-  node,
-  switchStatement,
-  className,
-  context,
-}: {
-  node: T;
-  switchStatement: SwitchStatement;
-  className: string;
-  context: Rule.RuleContext;
-}) => {
-  for (const statement of switchStatement.cases) {
-    for (const _consequent of statement.consequent) {
-      validationLoop({ node, context, className, statement: _consequent });
-    }
-  }
-};
-
-const statementLoop = <T extends Node>({
+const statementLoop = <T extends TSESTree.ClassBody>({
   node,
   body,
   className,
   context,
 }: {
   node: T;
-  body: Statement;
+  body: TSESTree.Statement;
   className: string;
-  context: Rule.RuleContext;
+  context: Context;
 }) => {
   switch (body.type) {
     case "VariableDeclaration": {
@@ -193,10 +154,47 @@ const statementLoop = <T extends Node>({
   }
 };
 
-const validateConstructId = <T extends Node>(
+const ifStatementLoop = <T extends TSESTree.ClassBody>({
+  node,
+  ifStatement,
+  className,
+  context,
+}: {
+  node: T;
+  ifStatement: TSESTree.IfStatement;
+  className: string;
+  context: Context;
+}) => {
+  validationLoop({
+    node,
+    context,
+    className,
+    statement: ifStatement.consequent,
+  });
+};
+
+const switchStatementLoop = <T extends TSESTree.ClassBody>({
+  node,
+  switchStatement,
+  className,
+  context,
+}: {
+  node: T;
+  switchStatement: TSESTree.SwitchStatement;
+  className: string;
+  context: Context;
+}) => {
+  for (const statement of switchStatement.cases) {
+    for (const _consequent of statement.consequent) {
+      validationLoop({ node, context, className, statement: _consequent });
+    }
+  }
+};
+
+const validateConstructId = <T extends TSESTree.ClassBody>(
   node: T,
-  context: Rule.RuleContext,
-  expression: NewExpression,
+  context: Context,
+  expression: TSESTree.NewExpression,
   parentClassName: string
 ) => {
   if (expression.arguments.length < 2) return;
