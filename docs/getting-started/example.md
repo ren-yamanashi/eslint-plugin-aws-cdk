@@ -2,7 +2,6 @@
 title: eslint-plugin-cdk - ESLint plugin for AWS CDK
 titleTemplate: ":title"
 prev: false
-next: false
 ---
 
 # Example
