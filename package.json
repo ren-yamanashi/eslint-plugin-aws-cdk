@@ -50,6 +50,14 @@
     "type": "git",
     "url": "https://github.com/ren-yamanashi/eslint-plugin-cdk.git"
   },
+  "engines": {
+    "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+  },
+  "preferInstall": {
+    "npm": "npm install -D @nigg/eslint-plugin-cdk",
+    "yarn": "yarn add -D @nigg/eslint-plugin-cdk",
+    "pnpm": "pnpm install -D @nigg/eslint-plugin-cdk"
+  },
   "author": {
     "name": "ren-yamanashi"
   },
