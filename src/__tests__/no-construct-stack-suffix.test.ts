@@ -131,6 +131,20 @@ ruleTester.run("no-construct-stack-suffix", noConstructStackSuffix, {
       }`,
       errors: [{ messageId: "noConstructStackSuffix" }],
     },
+    // in method
+    {
+      code: `
+      export class TestClass {
+        constructor(public id: string) {
+          this.test();
+        }
+        test() {
+          new SampleConstruct({ name: "sample" }, "SampleConstruct");
+        }
+      }`,
+      errors: [{ messageId: "noConstructStackSuffix" }],
+    },
+
     /**
      *
      * WHEN: stack id has "Stack" suffix
@@ -234,6 +248,19 @@ ruleTester.run("no-construct-stack-suffix", noConstructStackSuffix, {
               }
             }
           }
+        }
+      }`,
+      errors: [{ messageId: "noConstructStackSuffix" }],
+    },
+    // in method
+    {
+      code: `
+      export class TestClass {
+        constructor(public id: string) {
+          this.test();
+        }
+        test() {
+          new SampleStack({ name: "sample" }, "SampleStack");
         }
       }`,
       errors: [{ messageId: "noConstructStackSuffix" }],

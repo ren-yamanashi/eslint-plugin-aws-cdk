@@ -27,13 +27,14 @@ export const noConstructStackSuffix = ESLintUtils.RuleCreator.withoutDocs({
         if (!className) return;
 
         for (const body of node.body) {
-          if (body.type !== "MethodDefinition") continue;
           if (
-            body.kind === "constructor" &&
-            body.value.type === "FunctionExpression"
+            body.type !== "MethodDefinition" ||
+            !["method", "constructor"].includes(body.kind) ||
+            body.value.type !== "FunctionExpression"
           ) {
-            validateConstructorBody(node, body.value, context);
+            continue;
           }
+          validateConstructorBody(node, body.value, context);
         }
       },
     };
