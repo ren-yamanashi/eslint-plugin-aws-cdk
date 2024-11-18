@@ -16,6 +16,58 @@ export default defineConfig({
         href: "/img/eslint-plugin-cdk.png",
       },
     ],
+    // setting OGP
+    ["meta", { property: "og:type", content: "website" }],
+    ["meta", { property: "og:title", content: "eslint-plugin-cdk" }],
+    [
+      "meta",
+      {
+        property: "og:description",
+        content: "ESLint plugin for AWS CDK",
+      },
+    ],
+    [
+      "meta",
+      {
+        property: "og:url",
+        content: "https://ren-yamanashi.github.io/eslint-plugin-cdk/",
+      },
+    ],
+    [
+      "meta",
+      {
+        property: "og:image",
+        content:
+          "https://ren-yamanashi.github.io/eslint-plugin-cdk/img/eslint-plugin-cdk.png",
+      },
+    ],
+    // Twitter Card
+    ["meta", { name: "twitter:card", content: "summary_large_image" }],
+    ["meta", { name: "twitter:title", content: "eslint-plugin-cdk" }],
+    [
+      "meta",
+      {
+        name: "twitter:description",
+        content: "ESLint plugin for AWS CDK",
+      },
+    ],
+    [
+      "meta",
+      {
+        name: "twitter:image",
+        content:
+          "https://ren-yamanashi.github.io/eslint-plugin-cdk/img/eslint-plugin-cdk.png",
+      },
+    ],
+    // Other meta tags
+    ["meta", { name: "author", content: "ren-yamanashi" }],
+    [
+      "meta",
+      {
+        name: "keywords",
+        content: "eslint, aws-cdk, typescript, best-practices",
+      },
+    ],
   ],
   locales: {
     root: {
@@ -64,6 +116,10 @@ export default defineConfig({
               {
                 text: "no-mutable-public-fields",
                 link: "/rules/no-mutable-public-fields",
+              },
+              {
+                text: "no-mutable-props-interface",
+                link: "/rules/no-mutable-props-interface",
               },
               {
                 text: "no-import-private",
@@ -130,6 +186,10 @@ export default defineConfig({
               {
                 text: "no-mutable-public-fields",
                 link: "/ja/rules/no-mutable-public-fields",
+              },
+              {
+                text: "no-mutable-props-interface",
+                link: "/ja/rules/no-mutable-props-interface",
               },
               {
                 text: "no-import-private",

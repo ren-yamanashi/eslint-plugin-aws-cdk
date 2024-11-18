@@ -22,7 +22,7 @@ features:
     linkText: ルールを見る
     icon: 📚
   - title: Purpose driven
-    details: AWS CDK のベストプラクティスに基づくルールを提供し、CloudFormation の読みやすさや保守性を向上させます。
+    details: AWS CDK のベストプラクティスに基づくルールを提供し、可読性・保守性が高く、再利用可能なコードを書く手助けをします。
     icon: 🎯
   - title: Type Safety
     details: TypeScript の型システムを利用した堅牢なルールを提供し、より安全な CDK コードを書く手助けをします。
