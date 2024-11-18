@@ -62,6 +62,10 @@ export default defineConfig({
                 link: "/rules/no-public-class-fields",
               },
               {
+                text: "no-mutable-public-fields",
+                link: "/rules/no-mutable-public-fields",
+              },
+              {
                 text: "no-import-private",
                 link: "/rules/no-import-private",
               },
@@ -122,6 +126,10 @@ export default defineConfig({
               {
                 text: "no-public-class-fields",
                 link: "/ja/rules/no-public-class-fields",
+              },
+              {
+                text: "no-mutable-public-fields",
+                link: "/ja/rules/no-mutable-public-fields",
               },
               {
                 text: "no-import-private",
