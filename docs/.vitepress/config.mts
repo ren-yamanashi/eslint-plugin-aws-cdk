@@ -23,7 +23,7 @@ export default defineConfig({
       "meta",
       {
         property: "og:description",
-        content: "ESLint plugin for AWS CDK best practices",
+        content: "ESLint plugin for AWS CDK",
       },
     ],
     [
@@ -48,7 +48,7 @@ export default defineConfig({
       "meta",
       {
         name: "twitter:description",
-        content: "ESLint plugin for AWS CDK best practices",
+        content: "ESLint plugin for AWS CDK",
       },
     ],
     [

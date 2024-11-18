@@ -22,7 +22,7 @@ features:
     linkText: see rules
     icon: 📚
   - title: Purpose driven
-    details: A set of rules based on AWS CDK best practices, improving CloudFormation readability and maintainability.
+    details: It provides best practice rules for the AWS CDK to help you write readable, maintainable, and reusable code.
     icon: 🎯
   - title: Type Safety
     details: Robust rules leveraging TypeScript's type system to help you write safer CDK code.
