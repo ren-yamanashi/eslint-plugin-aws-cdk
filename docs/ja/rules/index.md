@@ -13,6 +13,8 @@ titleTemplate: ":title"
 - [no-construct-stack-suffix](/ja/rules/no-construct-stack-suffix)
 - [no-class-in-interface](/ja/rules/no-class-in-interface)
 - [no-public-class-fields](/ja/rules/no-public-class-fields)
+- [no-mutable-public-fields](/ja/rules/no-mutable-public-fields)
+- [no-mutable-props-interface](/ja/rules/no-mutable-props-interface)
 - [no-import-private](/ja/rules/no-import-private)
 
 ## `recommended`のルール内容
@@ -34,6 +36,7 @@ export default [
       "cdk/no-public-class-fields": "error",
       "cdk/pascal-case-construct-id": "error",
       "cdk/no-mutable-public-fields": "warn",
+      "cdk/no-mutable-props-interface": "warn",
       // NOTE: 上記のルールは、以下のように`recommended`を使用した場合と同じ内容です
       // ...eslintPluginCdk.configs.recommended.rules,
     },
