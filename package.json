@@ -1,6 +1,6 @@
 {
   "name": "@nigg/eslint-plugin-cdk",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "eslint plugin for AWS CDK projects",
   "main": "dist/index.mjs",
   "type": "module",
