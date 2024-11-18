@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-cdk - ESLint plugin for AWS CDK
+title: eslint-plugin-cdk - no-public-class-fields
 titleTemplate: ":title"
 ---
 

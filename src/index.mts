@@ -1,6 +1,7 @@
 import { noClassInInterfaceProps } from "./no-class-in-interface.mjs";
 import { noConstructStackSuffix } from "./no-construct-stack-suffix.mjs";
 import { noImportPrivate } from "./no-import-private.mjs";
+import { noMutablePropsInterface } from "./no-mutable-props-interface.mjs";
 import { noMutablePublicFields } from "./no-mutable-public-fields.mjs";
 import { noParentNameConstructIdMatch } from "./no-parent-name-construct-id-match.mjs";
 import { noPublicClassFields } from "./no-public-class-fields.mjs";
@@ -15,6 +16,7 @@ const plugin = {
     "no-public-class-fields": noPublicClassFields,
     "pascal-case-construct-id": pascalCaseConstructId,
     "no-mutable-public-fields": noMutablePublicFields,
+    "no-mutable-props-interface": noMutablePropsInterface,
   },
   configs: {
     recommended: {
@@ -26,6 +28,7 @@ const plugin = {
         "cdk/no-public-class-fields": "error",
         "cdk/pascal-case-construct-id": "error",
         "cdk/no-mutable-public-fields": "warn",
+        "cdk/no-mutable-props-interface": "warn",
       },
     },
   },

@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-cdk - ESLint plugin for AWS CDK
+title: eslint-plugin-cdk - pascal-case-construct-id
 titleTemplate: ":title"
 prev: false
 ---
