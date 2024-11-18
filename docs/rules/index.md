@@ -33,7 +33,7 @@ export default [
       "cdk/no-class-in-interface": "error",
       "cdk/no-construct-stack-suffix": "error",
       "cdk/no-parent-name-construct-id-match": "error",
-      "cdk/no-public-class-fields": "error",g
+      "cdk/no-public-class-fields": "error",
       "cdk/pascal-case-construct-id": "error",
       "cdk/no-mutable-public-fields": "warn",
       "cdk/no-mutable-props-interface": "warn",
