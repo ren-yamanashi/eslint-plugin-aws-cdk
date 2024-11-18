@@ -28,18 +28,19 @@ export const noParentNameConstructIdMatch = ESLintUtils.RuleCreator.withoutDocs(
           if (!parentClassName) return;
 
           for (const body of node.body) {
-            if (body.type !== "MethodDefinition") continue;
             if (
-              body.kind === "constructor" &&
-              body.value.type === "FunctionExpression"
+              body.type !== "MethodDefinition" ||
+              !["method", "constructor"].includes(body.kind) ||
+              body.value.type !== "FunctionExpression"
             ) {
-              validateConstructorBody({
-                node,
-                expression: body.value,
-                parentClassName,
-                context,
-              });
+              continue;
             }
+            validateConstructorBody({
+              node,
+              expression: body.value,
+              parentClassName,
+              context,
+            });
           }
         },
       };

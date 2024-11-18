@@ -147,6 +147,19 @@ ruleTester.run(
       }`,
         errors: [{ messageId: "noParentNameConstructIdMatch" }],
       },
+      // WHEN: in method
+      {
+        code: `
+      export class TestClass {
+        constructor(public id: string) {
+          this.test();
+        }
+        test() {
+          new SampleConstruct({ name: "sample" }, "TestClass");
+        }
+      }`,
+        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+      },
     ],
   }
 );
