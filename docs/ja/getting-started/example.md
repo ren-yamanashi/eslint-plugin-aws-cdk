@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-cdk - ESLint plugin for AWS CDK
+title: eslint-plugin-cdk - Example for eslint.config.mjs
 titleTemplate: ":title"
 prev: false
 ---

@@ -1,7 +1,8 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
-
+title: eslint-plugin-cdk - ESLint plugin for AWS CDK
+titleTemplate: ":title"
 hero:
   name: "eslint-plugin-cdk"
   text: "ESLint plugin for AWS CDK"
