@@ -11,8 +11,9 @@ export default defineConfig({
     [
       "link",
       {
+        rel: "icon",
         type: "image/png",
-        href: "/img/ogp.png",
+        href: "/img/eslint-plugin-cdk.png",
       },
     ],
     // setting OGP
@@ -36,7 +37,7 @@ export default defineConfig({
       "meta",
       {
         property: "og:image",
-        content: "https://eslint-plugin-cdk.dev/img/eslint-plugin-cdk.png",
+        content: "https://eslint-plugin-cdk.dev/img/ogp.png",
       },
     ],
     // Twitter Card
@@ -53,8 +54,7 @@ export default defineConfig({
       "meta",
       {
         name: "twitter:image",
-        content:
-          "https://ren-yamanashi.github.io/eslint-plugin-cdk/img/eslint-plugin-cdk.png",
+        content: "https://eslint-plugin-cdk.dev/img/ogp.png",
       },
     ],
     // Other meta tags
