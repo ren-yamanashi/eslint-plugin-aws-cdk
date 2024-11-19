@@ -1,7 +1,6 @@
 ---
 title: eslint-plugin-cdk - pascal-case-construct-id
 titleTemplate: ":title"
-prev: false
 ---
 
 # pascal-case-construct-id
