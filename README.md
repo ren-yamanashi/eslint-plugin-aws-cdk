@@ -34,4 +34,4 @@ export default [
 ];
 ```
 
-### For more detailed documentation, see [docs for eslint-plugin-cdk](https://ren-yamanashi.github.io/eslint-plugin-cdk/)
+### For more detailed documentation, see [docs for eslint-plugin-cdk](https://eslint-plugin-cdk.dev/)
