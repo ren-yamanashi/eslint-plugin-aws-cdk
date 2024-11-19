@@ -55,7 +55,7 @@ jobs:
       - name: Configure custom domain
         run: |
           echo "eslint-plugin-cdk.dev" > docs/.vitepress/dist/CNAME
-          cp docs/public/* docs/.vitepress/dist/
+          cp -r docs/public/* docs/.vitepress/dist/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
