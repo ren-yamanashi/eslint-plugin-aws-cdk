@@ -11,9 +11,8 @@ export default defineConfig({
     [
       "link",
       {
-        rel: "icon",
         type: "image/png",
-        href: "/img/eslint-plugin-cdk.png",
+        href: "/img/ogp.png",
       },
     ],
     // setting OGP
