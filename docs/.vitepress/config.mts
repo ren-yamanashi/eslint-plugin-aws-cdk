@@ -30,15 +30,14 @@ export default defineConfig({
       "meta",
       {
         property: "og:url",
-        content: "https://ren-yamanashi.github.io/eslint-plugin-cdk/",
+        content: "https://eslint-plugin-cdk.dev/",
       },
     ],
     [
       "meta",
       {
         property: "og:image",
-        content:
-          "https://ren-yamanashi.github.io/eslint-plugin-cdk/img/eslint-plugin-cdk.png",
+        content: "https://eslint-plugin-cdk.dev/img/eslint-plugin-cdk.png",
       },
     ],
     // Twitter Card
