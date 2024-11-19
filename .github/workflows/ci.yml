@@ -57,10 +57,9 @@ jobs:
         with:
           path: ./docs/.vitepress/dist
   deploy:
-    if: github.ref == 'refs/heads/main'
     needs: test-and-build
     environment:
-      name: github-pages
+      name: ${{ github.ref == 'refs/heads/main' && 'github-pages' }}
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     name: Deploy
