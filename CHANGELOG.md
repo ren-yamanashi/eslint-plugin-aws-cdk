@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.3.1 (2024-11-19)
+
+### Other changes
+
+- configuration custom domain ([#42](https://github.com/ren-yamanashi/eslint-plugin-cdk/issues/42)) ([80fba90](https://github.com/ren-yamanashi/eslint-plugin-cdk/commit/80fba90f05125b73bdef78203be68e1d88ba2323))
+- setting custom domain ([#43](https://github.com/ren-yamanashi/eslint-plugin-cdk/issues/43)) ([1d97766](https://github.com/ren-yamanashi/eslint-plugin-cdk/commit/1d9776645022370cf9858b150d26ee27f46c9784))
+
 ## 0.3.0 (2024-11-18)
 
 ### Bug fixes
