@@ -1,7 +1,6 @@
 ---
 title: eslint-plugin-cdk - Example for eslint.config.mjs
 titleTemplate: ":title"
-prev: false
 ---
 
 # Example
