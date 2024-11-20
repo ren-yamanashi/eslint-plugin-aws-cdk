@@ -13,11 +13,11 @@ next: false
 
 ```js
 // eslint.config.mjs
-import eslintPluginCdk from "eslint-cdk-plugin";
+import eslintCdkPlugin from "eslint-cdk-plugin";
 export default [
   {
     plugins: {
-      cdk: eslintPluginCdk,
+      cdk: eslintCdkPlugin,
     },
     rules: {
       ...cdkPlugin.configs.recommended.rules,

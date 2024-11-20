@@ -33,14 +33,14 @@ Note: This plugin only supports flatConfig
 
 ```js
 // eslint.config.mjs
-import eslintPluginCdk from "eslint-cdk-plugin";
+import eslintCdkPlugin from "eslint-cdk-plugin";
 export default [
   {
     plugins: {
-      cdk: eslintPluginCdk,
+      cdk: eslintCdkPlugin,
     },
     rules: {
-      ...eslintPluginCdk.configs.recommended.rules,
+      ...eslintCdkPlugin.configs.recommended.rules,
     },
   },
 ];
@@ -52,14 +52,14 @@ If you want to customize the rules, write eslint.config.mjs as follows:
 
 ```js
 // eslint.config.mjs
-import eslintPluginCdk from "eslint-cdk-plugin";
+import eslintCdkPlugin from "eslint-cdk-plugin";
 export default [
   {
     plugins: {
-      cdk: eslintPluginCdk,
+      cdk: eslintCdkPlugin,
     },
     rules: {
-      ...eslintPluginCdk.configs.recommended.rules,
+      ...eslintCdkPlugin.configs.recommended.rules,
       "cdk/no-public-class-fields": "warn",
     },
   },

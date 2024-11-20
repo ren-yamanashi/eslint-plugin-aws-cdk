@@ -13,11 +13,11 @@ When setting it, you need to write the following:
 
 ```js
 // eslint.config.mjs
-import eslintPluginCdk from "eslint-cdk-plugin";
+import eslintCdkPlugin from "eslint-cdk-plugin";
 export default [
   {
     plugins: {
-      cdk: eslintPluginCdk,
+      cdk: eslintCdkPlugin,
     },
     rules: {
       ...cdkPlugin.configs.recommended.rules,

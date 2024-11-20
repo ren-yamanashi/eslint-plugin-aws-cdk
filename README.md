@@ -21,14 +21,14 @@ pnpm install -D eslint-cdk-plugin
 
 ```js
 // eslint.config.mjs
-import eslintPluginCdk from "eslint-cdk-plugin";
+import eslintCdkPlugin from "eslint-cdk-plugin";
 export default [
   {
     plugins: {
-      cdk: eslintPluginCdk,
+      cdk: eslintCdkPlugin,
     },
     rules: {
-      ...eslintPluginCdk.configs.recommended.rules,
+      ...eslintCdkPlugin.configs.recommended.rules,
     },
   },
 ];

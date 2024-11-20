@@ -11,7 +11,7 @@ titleTemplate: ":title"
 
 ```js
 import eslint from "@eslint/js";
-import eslintPluginCdk from "eslint-cdk-plugin";
+import eslintCdkPlugin from "eslint-cdk-plugin";
 import tsEslint from "typescript-eslint";
 
 export default tsEslint.config(
@@ -29,7 +29,7 @@ export default tsEslint.config(
       },
     },
     plugins: {
-      cdk: eslintPluginCdk,
+      cdk: eslintCdkPlugin,
     },
     rules: {
       ...cdkPlugin.configs.recommended.rules,
