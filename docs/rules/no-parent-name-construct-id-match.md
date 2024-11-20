@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-cdk - no-parent-name-construct-id-match
+title: eslint-cdk-plugin - no-parent-name-construct-id-match
 titleTemplate: ":title"
 ---
 

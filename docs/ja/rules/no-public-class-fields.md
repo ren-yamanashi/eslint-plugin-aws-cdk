@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-cdk - no-public-class-fields
+title: eslint-cdk-plugin - no-public-class-fields
 titleTemplate: ":title"
 ---
 

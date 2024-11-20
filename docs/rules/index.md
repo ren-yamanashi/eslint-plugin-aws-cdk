@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-cdk - Rules
+title: eslint-cdk-plugin - Rules
 titleTemplate: ":title"
 ---
 
@@ -23,11 +23,11 @@ When using `recommended`, the actual content set is as follows.
 
 ```js
 // eslint.config.mjs
-import eslintPluginCdk from "@nigg/eslint-plugin-cdk";
+import eslintCdkPlugin from "eslint-cdk-plugin";
 export default [
   {
     plugins: {
-      cdk: eslintPluginCdk,
+      cdk: eslintCdkPlugin,
     },
     rules: {
       "cdk/no-class-in-interface": "error",
@@ -38,7 +38,7 @@ export default [
       "cdk/no-mutable-public-fields": "warn",
       "cdk/no-mutable-props-interface": "warn",
       // NOTE: The above rules are the same as when using `recommended`
-      // ...eslintPluginCdk.configs.recommended.rules,
+      // ...eslintCdkPlugin.configs.recommended.rules,
     },
   },
 ];
