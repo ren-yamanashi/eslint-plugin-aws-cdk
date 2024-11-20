@@ -9,5 +9,5 @@
     "source.fixAll.eslint"
   ],
   "typescript.preferences.importModuleSpecifier": "relative",
-  "cSpell.words": ["vitepress"]
+  "cSpell.words": ["TSES", "vitepress"]
 }

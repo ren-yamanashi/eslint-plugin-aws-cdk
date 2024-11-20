@@ -1,9 +1,20 @@
-import { ESLintUtils, TSESLint, TSESTree } from "@typescript-eslint/utils";
+import {
+  AST_NODE_TYPES,
+  ESLintUtils,
+  TSESLint,
+  TSESTree,
+} from "@typescript-eslint/utils";
 
 import { toPascalCase } from "./utils/convertString.mjs";
 
 type Context = TSESLint.RuleContext<"noParentNameConstructIdMatch", []>;
 
+/**
+ * Enforce that construct IDs does not match the parent construct name.
+ * @param context - The rule context provided by ESLint
+ * @returns An object containing the AST visitor functions
+ * @see {@link https://eslint-cdk-plugin.dev/rules/no-parent-name-construct-id-match} - Documentation
+ */
 export const noParentNameConstructIdMatch = ESLintUtils.RuleCreator.withoutDocs(
   {
     meta: {
@@ -23,15 +34,17 @@ export const noParentNameConstructIdMatch = ESLintUtils.RuleCreator.withoutDocs(
       return {
         ClassBody(node) {
           const parent = node.parent;
-          if (parent?.type !== "ClassDeclaration") return;
+          if (parent?.type !== AST_NODE_TYPES.ClassDeclaration) return;
+
           const parentClassName = parent.id?.name;
           if (!parentClassName) return;
 
           for (const body of node.body) {
+            // NOTE: Ignore if neither method nor constructor.
             if (
-              body.type !== "MethodDefinition" ||
+              body.type !== AST_NODE_TYPES.MethodDefinition ||
               !["method", "constructor"].includes(body.kind) ||
-              body.value.type !== "FunctionExpression"
+              body.value.type !== AST_NODE_TYPES.FunctionExpression
             ) {
               continue;
             }
@@ -65,9 +78,9 @@ const validateConstructorBody = <T extends TSESTree.ClassBody>({
 }): void => {
   for (const statement of expression.body.body) {
     switch (statement.type) {
-      case "VariableDeclaration": {
+      case AST_NODE_TYPES.VariableDeclaration: {
         const newExpression = statement.declarations[0].init;
-        if (newExpression?.type !== "NewExpression") continue;
+        if (newExpression?.type !== AST_NODE_TYPES.NewExpression) continue;
         validateConstructId({
           node,
           context,
@@ -76,8 +89,8 @@ const validateConstructorBody = <T extends TSESTree.ClassBody>({
         });
         break;
       }
-      case "ExpressionStatement": {
-        if (statement.expression?.type !== "NewExpression") break;
+      case AST_NODE_TYPES.ExpressionStatement: {
+        if (statement.expression?.type !== AST_NODE_TYPES.NewExpression) break;
         validateStatement({
           node,
           body: statement,
@@ -86,7 +99,7 @@ const validateConstructorBody = <T extends TSESTree.ClassBody>({
         });
         break;
       }
-      case "IfStatement": {
+      case AST_NODE_TYPES.IfStatement: {
         traverseStatements({
           node,
           context,
@@ -95,7 +108,7 @@ const validateConstructorBody = <T extends TSESTree.ClassBody>({
         });
         break;
       }
-      case "SwitchStatement": {
+      case AST_NODE_TYPES.SwitchStatement: {
         for (const switchCase of statement.cases) {
           for (const statement of switchCase.consequent) {
             traverseStatements({
@@ -129,7 +142,7 @@ const traverseStatements = <T extends TSESTree.ClassBody>({
   context: Context;
 }) => {
   switch (statement.type) {
-    case "BlockStatement": {
+    case AST_NODE_TYPES.BlockStatement: {
       for (const body of statement.body) {
         validateStatement({
           node,
@@ -140,9 +153,9 @@ const traverseStatements = <T extends TSESTree.ClassBody>({
       }
       break;
     }
-    case "ExpressionStatement": {
+    case AST_NODE_TYPES.ExpressionStatement: {
       const newExpression = statement.expression;
-      if (newExpression?.type !== "NewExpression") break;
+      if (newExpression?.type !== AST_NODE_TYPES.NewExpression) break;
       validateStatement({
         node,
         body: statement,
@@ -151,9 +164,9 @@ const traverseStatements = <T extends TSESTree.ClassBody>({
       });
       break;
     }
-    case "VariableDeclaration": {
+    case AST_NODE_TYPES.VariableDeclaration: {
       const newExpression = statement.declarations[0].init;
-      if (newExpression?.type !== "NewExpression") break;
+      if (newExpression?.type !== AST_NODE_TYPES.NewExpression) break;
       validateConstructId({
         node,
         context,
@@ -182,9 +195,9 @@ const validateStatement = <T extends TSESTree.ClassBody>({
   context: Context;
 }): void => {
   switch (body.type) {
-    case "VariableDeclaration": {
+    case AST_NODE_TYPES.VariableDeclaration: {
       const newExpression = body.declarations[0].init;
-      if (newExpression?.type !== "NewExpression") break;
+      if (newExpression?.type !== AST_NODE_TYPES.NewExpression) break;
       validateConstructId({
         node,
         context,
@@ -193,9 +206,9 @@ const validateStatement = <T extends TSESTree.ClassBody>({
       });
       break;
     }
-    case "ExpressionStatement": {
+    case AST_NODE_TYPES.ExpressionStatement: {
       const newExpression = body.expression;
-      if (newExpression?.type !== "NewExpression") break;
+      if (newExpression?.type !== AST_NODE_TYPES.NewExpression) break;
       validateConstructId({
         node,
         context,
@@ -204,7 +217,7 @@ const validateStatement = <T extends TSESTree.ClassBody>({
       });
       break;
     }
-    case "IfStatement": {
+    case AST_NODE_TYPES.IfStatement: {
       validateIfStatement({
         node,
         ifStatement: body,
@@ -213,7 +226,7 @@ const validateStatement = <T extends TSESTree.ClassBody>({
       });
       break;
     }
-    case "SwitchStatement": {
+    case AST_NODE_TYPES.SwitchStatement: {
       validateSwitchStatement({
         node,
         switchStatement: body,
@@ -293,7 +306,10 @@ const validateConstructId = <T extends TSESTree.ClassBody>({
 
   // NOTE: Treat the second argument as ID
   const secondArg = expression.arguments[1];
-  if (secondArg.type !== "Literal" || typeof secondArg.value !== "string") {
+  if (
+    secondArg.type !== AST_NODE_TYPES.Literal ||
+    typeof secondArg.value !== "string"
+  ) {
     return;
   }
 

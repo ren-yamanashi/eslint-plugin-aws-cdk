@@ -1,4 +1,4 @@
-import { noClassInInterfaceProps } from "./no-class-in-interface.mjs";
+import { noClassInInterfaceProps } from "./no-class-in-interface-props.mjs";
 import { noConstructStackSuffix } from "./no-construct-stack-suffix.mjs";
 import { noImportPrivate } from "./no-import-private.mjs";
 import { noMutablePropsInterface } from "./no-mutable-props-interface.mjs";

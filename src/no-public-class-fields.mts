@@ -1,4 +1,5 @@
 import {
+  AST_NODE_TYPES,
   ESLintUtils,
   ParserServicesWithTypeInformation,
   TSESLint,
@@ -8,6 +9,12 @@ import { SymbolFlags, TypeChecker } from "typescript";
 
 type Context = TSESLint.RuleContext<"noPublicClassFields", []>;
 
+/**
+ * Disallow class types in public class fields
+ * @param context - The rule context provided by ESLint
+ * @returns An object containing the AST visitor functions
+ * @see {@link https://eslint-cdk-plugin.dev/rules/no-public-class-fields} - Documentation
+ */
 export const noPublicClassFields = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     type: "problem",
@@ -37,9 +44,13 @@ export const noPublicClassFields = ESLintUtils.RuleCreator.withoutDocs({
         // NOTE: Check constructor parameter properties
         const constructor = node.body.body.find(
           (member): member is TSESTree.MethodDefinition =>
-            member.type === "MethodDefinition" && member.kind === "constructor"
+            member.type === AST_NODE_TYPES.MethodDefinition &&
+            member.kind === "constructor"
         );
-        if (!constructor || constructor.value.type !== "FunctionExpression") {
+        if (
+          !constructor ||
+          constructor.value.type !== AST_NODE_TYPES.FunctionExpression
+        ) {
           return;
         }
         validateConstructorParameterProperty({
@@ -53,6 +64,10 @@ export const noPublicClassFields = ESLintUtils.RuleCreator.withoutDocs({
   },
 });
 
+/**
+ * check the public variable of the class
+ * - if it is a class type, report an error
+ */
 const validateClassMember = ({
   node,
   context,
@@ -66,8 +81,8 @@ const validateClassMember = ({
 }) => {
   for (const member of node.body.body) {
     if (
-      member.type !== "PropertyDefinition" ||
-      member.key.type !== "Identifier"
+      member.type !== AST_NODE_TYPES.PropertyDefinition ||
+      member.key.type !== AST_NODE_TYPES.Identifier
     ) {
       continue;
     }
@@ -101,6 +116,10 @@ const validateClassMember = ({
   }
 };
 
+/**
+ * check the constructor parameter property
+ * - if it is a class type, report an error
+ */
 const validateConstructorParameterProperty = ({
   constructor,
   context,
@@ -114,8 +133,8 @@ const validateConstructorParameterProperty = ({
 }) => {
   for (const param of constructor.value.params) {
     if (
-      param.type !== "TSParameterProperty" ||
-      param.parameter.type !== "Identifier"
+      param.type !== AST_NODE_TYPES.TSParameterProperty ||
+      param.parameter.type !== AST_NODE_TYPES.Identifier
     ) {
       continue;
     }
