@@ -54,17 +54,16 @@ jobs:
         run: pnpm run docs:build
       - name: Configure custom domain
         run: |
-          echo "eslint-plugin-cdk.dev" > docs/.vitepress/dist/CNAME
+          echo "eslint-cdk-plugin.dev" > docs/.vitepress/dist/CNAME
           cp -r docs/public/* docs/.vitepress/dist/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./docs/.vitepress/dist
   deploy:
-    if: github.ref == 'refs/heads/main'
     needs: test-and-build
     environment:
-      name: github-pages
+      name: ${{ github.ref == 'refs/heads/main' && 'github-pages' }}
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     name: Deploy

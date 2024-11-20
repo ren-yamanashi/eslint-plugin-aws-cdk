@@ -29,14 +29,14 @@ export default defineConfig({
       "meta",
       {
         property: "og:url",
-        content: "https://eslint-plugin-cdk.dev/",
+        content: "https://eslint-cdk-plugin.dev/",
       },
     ],
     [
       "meta",
       {
         property: "og:image",
-        content: "https://eslint-plugin-cdk.dev/img/ogp.png",
+        content: "https://eslint-cdk-plugin.dev/img/ogp.png",
       },
     ],
     // Twitter Card
@@ -53,7 +53,7 @@ export default defineConfig({
       "meta",
       {
         name: "twitter:image",
-        content: "https://eslint-plugin-cdk.dev/img/ogp.png",
+        content: "https://eslint-cdk-plugin.dev/img/ogp.png",
       },
     ],
     // Other meta tags
