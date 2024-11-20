@@ -1,0 +1,127 @@
+---
+name: "🐛 Bug Report"
+description: Report a bug
+title: "(short issue description)"
+labels: [bug]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: What is the problem? A clear and concise description of the bug.
+    validations:
+      required: true
+
+  - type: markdown
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: |
+        1. Provide a minimal code example that reproduces the problem
+        2. Include your ESLint configuration
+        3. List the steps to reproduce the behavior
+      placeholder: |
+        ```typescript
+        // Your code example here
+        export class MyConstruct extends Construct {
+          // ...
+        }
+        ```
+
+        ```javascript
+        // Your ESLint config
+        export default [
+          {
+            plugins: {
+              cdk: eslintPluginCdk,
+            },
+            rules: {
+              "cdk/rule-name": "error"
+            }
+          }
+        ]
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Current Behavior
+      description: What actually happened? (Include any error messages)
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: eslint-cdk-plugin Version
+      description: Which version of eslint-cdk-plugin are you using?
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js Version
+    validations:
+      required: true
+
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      multiple: true
+      options:
+        - TypeScript
+        - JavaScript
+    validations:
+      required: true
+
+  - type: input
+    id: language-version
+    attributes:
+      label: Language Version
+      description: E.g. TypeScript (5.4.5)
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: |
+        Add any other context about the problem here:
+        - IDE/Editor
+        - Package Manager (npm/yarn/pnpm)
+        - Screenshots (if applicable)
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Checklist
+      description: Before submitting the issue, please confirm the following
+      options:
+        - label: I have searched for similar issues before creating this one
+          required: false
+        - label: I have provided all the necessary information to reproduce the issue
+          required: false
+        - label: I have verified this issue is related to eslint-cdk-plugin and not another dependency
+          required: false
