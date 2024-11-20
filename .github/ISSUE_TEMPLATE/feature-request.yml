@@ -30,7 +30,7 @@ body:
     validations:
       required: true
 
-  - type: markdown
+  - type: textarea
     id: incorrect-case
     attributes:
       label: Invalid Code Examples
@@ -45,7 +45,7 @@ body:
     validations:
       required: true
 
-  - type: markdown
+  - type: textarea
     id: correct-case
     attributes:
       label: Valid Code Examples

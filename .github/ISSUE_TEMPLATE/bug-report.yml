@@ -18,7 +18,7 @@ body:
     validations:
       required: true
 
-  - type: markdown
+  - type: textarea
     id: reproduction
     attributes:
       label: Steps to reproduce
