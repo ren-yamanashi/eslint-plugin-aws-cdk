@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.3.2 (2024-11-20)
+
+### Other changes
+
+- rename library ([fbe753d](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/fbe753d33406d2ce443d453198e649a89ddc3227))
+
 ### 0.3.1 (2024-11-19)
 
 ### Other changes
