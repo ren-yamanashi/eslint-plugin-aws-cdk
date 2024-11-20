@@ -14,7 +14,7 @@ hero:
       link: /getting-started/
     - theme: alt
       text: View on GitHub
-      link: https://github.com/ren-yamanashi/eslint-plugin-cdk
+      link: https://github.com/ren-yamanashi/eslint-cdk-plugin
 features:
   - title: Extensive Rules
     details: Extensive rules for AWS CDK development.

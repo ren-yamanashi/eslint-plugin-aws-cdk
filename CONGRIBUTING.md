@@ -46,7 +46,7 @@ When proposing a new rule:
 
 ```bash
 # Clone your fork
-https://github.com/ren-yamanashi/eslint-plugin-cdk.git
+https://github.com/ren-yamanashi/eslint-cdk-plugin.git
 
 # Install dependencies
 pnpm install
