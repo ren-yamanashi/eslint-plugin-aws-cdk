@@ -1,6 +1,6 @@
-# Contributing to eslint-plugin-cdk
+# Contributing to eslint-cdk-plugin
 
-Thank you for your interest in contributing to eslint-plugin-cdk!  
+Thank you for your interest in contributing to eslint-cdk-plugin!  
 This document provides guidelines and steps for contributing.
 
 ## Code of Conduct

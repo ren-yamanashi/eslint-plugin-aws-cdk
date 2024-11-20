@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-cdk - Example for eslint.config.mjs
+title: eslint-cdk-plugin - Example for eslint.config.mjs
 titleTemplate: ":title"
 ---
 
@@ -11,7 +11,7 @@ Note: We recommend using typescript-eslint together.
 
 ```js
 import eslint from "@eslint/js";
-import cdkPlugin from "@nigg/eslint-plugin-cdk";
+import cdkPlugin from "eslint-cdk-plugin";
 import tsEslint from "typescript-eslint";
 
 export default tsEslint.config(

@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-cdk - no-mutable-props-interface
+title: eslint-cdk-plugin - no-mutable-props-interface
 titleTemplate: ":title"
 ---
 

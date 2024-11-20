@@ -1,9 +1,9 @@
 ---
-title: eslint-plugin-cdk - Getting Started
+title: eslint-cdk-plugin - Getting Started
 titleTemplate: ":title"
 ---
 
-# eslint-plugin-cdk
+# eslint-cdk-plugin
 
 ## Install
 
@@ -12,15 +12,15 @@ Just run this:
 ::: code-group
 
 ```sh [npm]
-npm install -D @nigg/eslint-plugin-cdk
+npm install -D eslint-cdk-plugin
 ```
 
 ```sh [yarn]
-yarn add -D @nigg/eslint-plugin-cdk
+yarn add -D eslint-cdk-plugin
 ```
 
 ```sh [pnpm]
-pnpm install -D @nigg/eslint-plugin-cdk
+pnpm install -D eslint-cdk-plugin
 ```
 
 :::
@@ -33,7 +33,7 @@ Note: This plugin only supports flatConfig
 
 ```js
 // eslint.config.mjs
-import eslintPluginCdk from "@nigg/eslint-plugin-cdk";
+import eslintPluginCdk from "eslint-cdk-plugin";
 export default [
   {
     plugins: {
@@ -52,7 +52,7 @@ If you want to customize the rules, write eslint.config.mjs as follows:
 
 ```js
 // eslint.config.mjs
-import eslintPluginCdk from "@nigg/eslint-plugin-cdk";
+import eslintPluginCdk from "eslint-cdk-plugin";
 export default [
   {
     plugins: {

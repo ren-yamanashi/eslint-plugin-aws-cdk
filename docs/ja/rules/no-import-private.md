@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-cdk - no-import-private
+title: eslint-cdk-plugin - no-import-private
 titleTemplate: ":title"
 next: false
 ---
@@ -13,7 +13,7 @@ next: false
 
 ```js
 // eslint.config.mjs
-import eslintPluginCdk from "@nigg/eslint-plugin-cdk";
+import eslintPluginCdk from "eslint-cdk-plugin";
 export default [
   {
     plugins: {

@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-cdk - pascal-case-construct-id
+title: eslint-cdk-plugin - pascal-case-construct-id
 titleTemplate: ":title"
 ---
 

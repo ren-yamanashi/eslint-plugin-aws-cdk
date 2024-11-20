@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-cdk - no-mutable-public-fields
+title: eslint-cdk-plugin - no-mutable-public-fields
 titleTemplate: ":title"
 ---
 

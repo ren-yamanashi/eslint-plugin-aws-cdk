@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-cdk - Rules
+title: eslint-cdk-plugin - Rules
 titleTemplate: ":title"
 ---
 
@@ -23,7 +23,7 @@ When using `recommended`, the actual content set is as follows.
 
 ```js
 // eslint.config.mjs
-import eslintPluginCdk from "@nigg/eslint-plugin-cdk";
+import eslintPluginCdk from "eslint-cdk-plugin";
 export default [
   {
     plugins: {

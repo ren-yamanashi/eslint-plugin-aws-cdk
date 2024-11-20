@@ -1,4 +1,4 @@
-name: eslint-plugin-cdk CI
+name: eslint-cdk-plugin CI
 on:
   push:
     branches: [main]

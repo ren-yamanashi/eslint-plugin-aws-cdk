@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-cdk - no-class-in-interface
+title: eslint-cdk-plugin - no-class-in-interface
 titleTemplate: ":title"
 ---
 

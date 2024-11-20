@@ -1,11 +1,10 @@
 import { defineConfig } from "vitepress";
 import defaultConfig from "./sharedConfig.mjs";
 
-// https://vitepress.dev/reference/site-config
 export default defineConfig({
   ...defaultConfig,
   base: "/",
-  title: "eslint-plugin-cdk",
+  title: "eslint-cdk-plugin",
   description: "ESLint plugin for AWS CDK",
   head: [
     [
@@ -13,12 +12,12 @@ export default defineConfig({
       {
         rel: "icon",
         type: "image/png",
-        href: "/img/eslint-plugin-cdk.png",
+        href: "/img/logo.png",
       },
     ],
     // setting OGP
     ["meta", { property: "og:type", content: "website" }],
-    ["meta", { property: "og:title", content: "eslint-plugin-cdk" }],
+    ["meta", { property: "og:title", content: "eslint-cdk-plugin" }],
     [
       "meta",
       {
@@ -42,7 +41,7 @@ export default defineConfig({
     ],
     // Twitter Card
     ["meta", { name: "twitter:card", content: "summary_large_image" }],
-    ["meta", { name: "twitter:title", content: "eslint-plugin-cdk" }],
+    ["meta", { name: "twitter:title", content: "eslint-cdk-plugin" }],
     [
       "meta",
       {
@@ -73,7 +72,7 @@ export default defineConfig({
       lang: "en",
       themeConfig: {
         ...defaultConfig.themeConfig,
-        logo: "/img/eslint-plugin-cdk.png",
+        logo: "/img/logo.png",
         sidebar: [
           {
             text: "Getting Started",
@@ -140,10 +139,10 @@ export default defineConfig({
       label: "Japanese",
       lang: "ja",
       link: "/ja/",
-      title: "eslint-plugin-cdk",
+      title: "eslint-cdk-plugin",
       themeConfig: {
         ...defaultConfig.themeConfig,
-        logo: "/img/eslint-plugin-cdk.png",
+        logo: "/img/logo.png",
         sidebar: [
           {
             text: "Getting Started",
