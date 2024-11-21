@@ -16,7 +16,7 @@ hero:
       link: https://github.com/ren-yamanashi/eslint-cdk-plugin
 features:
   - title: Extensive Rules
-    details: AWS CDK 開発のための広範なルールを提供します。
+    details: AWS CDK 開発のための幅広いESLintルールを提供します。
     link: /ja/rules/
     linkText: ルールを見る
     icon: 📚
@@ -24,9 +24,9 @@ features:
     details: AWS CDK のベストプラクティスに基づくルールを提供し、可読性・保守性が高く、再利用可能なコードを書く手助けをします。
     icon: 🎯
   - title: Type Safety
-    details: TypeScript の型システムを利用した堅牢なルールを提供し、より安全な CDK コードを書く手助けをします。
+    details: TypeScript の型システムを利用したルールを提供し、より安全な CDK コードを書く手助けをします。
     icon: 💪
   - title: Ease of use
-    details: シンプルなセットアップとインストール、推奨設定ですぐに使用できます。
+    details: インストール後、推奨設定を使用してすぐに使用することができます。
     icon: 🔧
 ---

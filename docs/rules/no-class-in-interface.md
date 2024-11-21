@@ -5,6 +5,12 @@ titleTemplate: ":title"
 
 # no-class-in-interface
 
+<div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
+  ✅ Using
+  <a href="https://eslint-cdk-plugin.dev/rules/#recommended-rules">recommended</a>
+  in an ESLint configuration enables this rule.
+</div>
+
 This rule disallows using class types in interface properties.
 
 When class types are used in interface properties, it creates tight coupling between the interface and the class implementation.  

@@ -5,9 +5,14 @@ titleTemplate: ":title"
 
 # no-parent-name-construct-id-match
 
+<div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
+    ✅ <a href="https://eslint-cdk-plugin.dev/rules/#recommended-rules">recommended</a>
+  を使用した場合、このルールが有効になります。
+</div>
+
 このルールでは、親クラス名をコンストラクト ID として使用することを禁止します。
 
-コンストラクト ID に親クラス名と一致する文字列を指定すると、CloudFormation リソースの階層が不明瞭になるため、これは避けるべきです。
+コンストラクト ID に親クラス名と一致する文字列を指定すると、CloudFormation リソースの階層が不明瞭になるため、推奨されません。
 
 #### ✅ 正しい例
 

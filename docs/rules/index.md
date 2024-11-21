@@ -19,6 +19,23 @@ You can check the details of the rules on each page.
 
 ## `recommended` rules
 
+Using `recommended` makes it easy to set up.
+
+```js
+// eslint.config.mjs
+import eslintCdkPlugin from "eslint-cdk-plugin";
+export default [
+  {
+    plugins: {
+      cdk: eslintCdkPlugin,
+    },
+    rules: {
+      ...eslintCdkPlugin.configs.recommended.rules,
+    },
+  },
+];
+```
+
 When using `recommended`, the actual content set is as follows.
 
 ```js
@@ -37,8 +54,6 @@ export default [
       "cdk/pascal-case-construct-id": "error",
       "cdk/no-mutable-public-fields": "warn",
       "cdk/no-mutable-props-interface": "warn",
-      // NOTE: The above rules are the same as when using `recommended`
-      // ...eslintCdkPlugin.configs.recommended.rules,
     },
   },
 ];
