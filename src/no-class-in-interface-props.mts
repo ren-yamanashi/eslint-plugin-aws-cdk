@@ -1,6 +1,12 @@
-import { ESLintUtils } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 import { SymbolFlags } from "typescript";
 
+/**
+ * Enforces the use of interface types instead of class in interface properties
+ * @param context - The rule context provided by ESLint
+ * @returns An object containing the AST visitor functions
+ * @see {@link https://eslint-cdk-plugin.dev/rules/no-class-in-interface} - Documentation
+ */
 export const noClassInInterfaceProps = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     type: "problem",
@@ -20,15 +26,16 @@ export const noClassInInterfaceProps = ESLintUtils.RuleCreator.withoutDocs({
     return {
       TSInterfaceDeclaration(node) {
         for (const property of node.body.body) {
+          // NOTE: check property signature
           if (
-            property.type !== "TSPropertySignature" ||
-            property.key.type !== "Identifier"
+            property.type !== AST_NODE_TYPES.TSPropertySignature ||
+            property.key.type !== AST_NODE_TYPES.Identifier
           ) {
             continue;
           }
+
           const tsNode = parserServices.esTreeNodeToTSNodeMap.get(property);
           const type = checker.getTypeAtLocation(tsNode);
-
           if (!type.symbol) continue;
 
           // NOTE: check class type

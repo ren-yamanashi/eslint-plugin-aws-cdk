@@ -1,5 +1,11 @@
-import { ESLintUtils } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
+/**
+ * Disallow mutable public class fields
+ * @param context - The rule context provided by ESLint
+ * @returns An object containing the AST visitor functions
+ * @see {@link https://eslint-cdk-plugin.dev/rules/no-mutable-public-fields} - Documentation
+ */
 export const noMutablePublicFields = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     type: "problem",
@@ -19,9 +25,10 @@ export const noMutablePublicFields = ESLintUtils.RuleCreator.withoutDocs({
     return {
       ClassDeclaration(node) {
         for (const member of node.body.body) {
+          // NOTE: check property definition
           if (
-            member.type !== "PropertyDefinition" ||
-            member.key.type !== "Identifier"
+            member.type !== AST_NODE_TYPES.PropertyDefinition ||
+            member.key.type !== AST_NODE_TYPES.Identifier
           ) {
             continue;
           }

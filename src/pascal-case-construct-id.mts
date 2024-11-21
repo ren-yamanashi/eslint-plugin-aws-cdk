@@ -1,3 +1,4 @@
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { Rule } from "eslint";
 import { Expression, Node, SpreadElement } from "estree";
 
@@ -19,6 +20,9 @@ const isPascalCase = (str: string) => {
   return /^[A-Z][a-zA-Z0-9]*$/.test(str);
 };
 
+/**
+ * Check the construct ID is PascalCase
+ */
 const validateConstructId = <T extends Node>(
   node: T,
   context: Rule.RuleContext,
@@ -28,7 +32,10 @@ const validateConstructId = <T extends Node>(
 
   // NOTE: Treat the second argument as ID
   const secondArg = args[1];
-  if (secondArg.type !== "Literal" || typeof secondArg.value !== "string") {
+  if (
+    secondArg.type !== AST_NODE_TYPES.Literal ||
+    typeof secondArg.value !== "string"
+  ) {
     return;
   }
 
@@ -51,6 +58,12 @@ const validateConstructId = <T extends Node>(
   }
 };
 
+/**
+ * Enforce PascalCase for Construct ID.
+ * @param context - The rule context provided by ESLint
+ * @returns An object containing the AST visitor functions
+ * @see {@link https://eslint-cdk-plugin.dev/rules/pascal-case-construct-id} - Documentation
+ */
 export const pascalCaseConstructId: Rule.RuleModule = {
   meta: {
     type: "problem",
@@ -66,13 +79,13 @@ export const pascalCaseConstructId: Rule.RuleModule = {
   create(context) {
     return {
       ExpressionStatement(node) {
-        if (node.expression.type !== "NewExpression") return;
+        if (node.expression.type !== AST_NODE_TYPES.NewExpression) return;
         validateConstructId(node, context, node.expression.arguments);
       },
       VariableDeclaration(node) {
         if (!node.declarations.length) return;
         for (const declaration of node.declarations) {
-          if (declaration.init?.type !== "NewExpression") return;
+          if (declaration.init?.type !== AST_NODE_TYPES.NewExpression) return;
           validateConstructId(node, context, declaration.init.arguments);
         }
       },

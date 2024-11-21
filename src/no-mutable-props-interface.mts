@@ -1,5 +1,11 @@
-import { ESLintUtils } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
+/**
+ * Disallow mutable properties in Props interfaces
+ * @param context - The rule context provided by ESLint
+ * @returns An object containing the AST visitor functions
+ * @see {@link https://eslint-cdk-plugin.dev/rules/no-mutable-props-interface} - Documentation
+ */
 export const noMutablePropsInterface = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     type: "problem",
@@ -23,9 +29,10 @@ export const noMutablePropsInterface = ESLintUtils.RuleCreator.withoutDocs({
         if (!node.id.name.endsWith("Props")) return;
 
         for (const property of node.body.body) {
+          // NOTE: check property signature
           if (
-            property.type !== "TSPropertySignature" ||
-            property.key.type !== "Identifier"
+            property.type !== AST_NODE_TYPES.TSPropertySignature ||
+            property.key.type !== AST_NODE_TYPES.Identifier
           ) {
             continue;
           }
