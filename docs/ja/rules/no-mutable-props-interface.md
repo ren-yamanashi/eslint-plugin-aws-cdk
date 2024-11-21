@@ -12,7 +12,7 @@ titleTemplate: ":title"
 <div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
   🔧 このルールによってエラーになるコードは
   <a href="https://eslint.org/docs/latest/use/command-line-interface#--fix">
-    --fix ESLint コマンド
+    ESLint の --fix コマンド
   </a>
   で自動修正できます。
 </div>
