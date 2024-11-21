@@ -8,7 +8,7 @@ next: false
 
 <div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
   ℹ️ このルールは
-  <a href="https://eslint-cdk-plugin.dev/rules/#recommended-rules">recommended</a>
+  <a href="/ja/rules/#recommended-rules">recommended</a>
   ルールには含まれていません。
 </div>
 

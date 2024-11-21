@@ -7,7 +7,7 @@ titleTemplate: ":title"
 
 <div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
   ✅ Using
-  <a href="https://eslint-cdk-plugin.dev/rules/#recommended-rules">recommended</a>
+  <a href="/rules/#recommended-rules">recommended</a>
   in an ESLint configuration enables this rule.
 </div>
 <div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">

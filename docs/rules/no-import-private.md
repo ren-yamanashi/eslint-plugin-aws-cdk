@@ -8,7 +8,7 @@ next: false
 
 <div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
   ℹ️ This rule is not included in the
-  <a href="https://eslint-cdk-plugin.dev/rules/#recommended-rules">recommended</a>
+  <a href="/rules/#recommended-rules">recommended</a>
   rules.
 </div>
 
