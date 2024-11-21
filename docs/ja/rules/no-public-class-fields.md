@@ -5,9 +5,14 @@ titleTemplate: ":title"
 
 # no-public-class-fields
 
+<div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
+  ✅ <a href="https://eslint-cdk-plugin.dev/rules/#recommended-rules">recommended</a>
+  を使用した場合、このルールが有効になります。
+</div>
+
 このルールは、クラスの`public`変数にクラスを使用することを禁止します。
 
-`public`変数でクラス型を使用すると、密結合が作成され、可変状態が公開されるため、好ましくありません。
+`public`変数でクラス型を使用すると、密結合が作成され、可変状態が公開されるため、推奨されません。
 
 #### ✅ 正しい例
 

@@ -17,7 +17,24 @@ titleTemplate: ":title"
 - [no-mutable-props-interface](/ja/rules/no-mutable-props-interface)
 - [no-import-private](/ja/rules/no-import-private)
 
-## `recommended`のルール内容
+## `recommended` rules
+
+`recommended` を使用すると、簡単に設定をすることができます。
+
+```js
+// eslint.config.mjs
+import eslintCdkPlugin from "eslint-cdk-plugin";
+export default [
+  {
+    plugins: {
+      cdk: eslintCdkPlugin,
+    },
+    rules: {
+      ...eslintCdkPlugin.configs.recommended.rules,
+    },
+  },
+];
+```
 
 `recommended` を使用した場合、実際に設定される内容は以下の通りです。
 
@@ -37,8 +54,6 @@ export default [
       "cdk/pascal-case-construct-id": "error",
       "cdk/no-mutable-public-fields": "warn",
       "cdk/no-mutable-props-interface": "warn",
-      // NOTE: 上記のルールは、以下のように`recommended`を使用した場合と同じ内容です
-      // ...eslintCdkPlugin.configs.recommended.rules,
     },
   },
 ];

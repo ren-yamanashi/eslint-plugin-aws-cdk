@@ -31,10 +31,11 @@ Write `eslint.config.mjs` as follows:
 
 <div style="margin-top:16px; margin-bottom:16px; background-color: #595959; padding: 16px;border-radius: 4px;">
   🚨 This plugin only supports FlatConfig.
+  <br />
+  ❓ <a href="https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file-formats">
+    What's FlatConfig?
+  </a>
 </div>
-<a href="https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file-formats">
-  What's FlatConfig?
-</a>
 
 ```js
 // eslint.config.mjs
