@@ -6,7 +6,7 @@ titleTemplate: ":title"
 # no-mutable-public-fields
 
 <div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
-    ✅ <a href="https://eslint-cdk-plugin.dev/rules/#recommended-rules">recommended</a>
+    ✅ <a href="/ja/rules/#recommended-rules">recommended</a>
   を使用した場合、このルールが有効になります。
 </div>
 <div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
