@@ -3,15 +3,6 @@ import * as path from "path";
 import { Rule } from "eslint";
 
 /**
- * Split the directory path into segments (split at `/`)
- * @param dirPath - The directory path to split
- * @returns The segments of the directory path
- */
-const getDirSegments = (dirPath: string): string[] => {
-  return dirPath.split(path.sep).filter((segment) => segment !== "");
-};
-
-/**
  * Disallow importing modules from private directories at different levels of the hierarchy.
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
@@ -59,4 +50,13 @@ export const noImportPrivate: Rule.RuleModule = {
       },
     };
   },
+};
+
+/**
+ * Split the directory path into segments (split at `/`)
+ * @param dirPath - The directory path to split
+ * @returns The segments of the directory path
+ */
+const getDirSegments = (dirPath: string): string[] => {
+  return dirPath.split(path.sep).filter((segment) => segment !== "");
 };

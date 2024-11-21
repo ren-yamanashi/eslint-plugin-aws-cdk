@@ -57,8 +57,8 @@ export const noConstructStackSuffix = ESLintUtils.RuleCreator.withoutDocs({
  * Validate the constructor body for the parent class
  * - validate each statement in the constructor body
  */
-const validateConstructorBody = <T extends TSESTree.ClassBody>(
-  node: T,
+const validateConstructorBody = (
+  node: TSESTree.ClassBody,
   expression: TSESTree.FunctionExpression,
   context: Context
 ): void => {
@@ -96,8 +96,8 @@ const validateConstructorBody = <T extends TSESTree.ClassBody>(
  * - Handles BlockStatement, ExpressionStatement, and VariableDeclaration
  * - Validates construct IDs
  */
-const traverseStatements = <T extends TSESTree.ClassBody>(
-  node: T,
+const traverseStatements = (
+  node: TSESTree.ClassBody,
   statement: TSESTree.Statement,
   context: Context
 ): void => {
@@ -128,8 +128,8 @@ const traverseStatements = <T extends TSESTree.ClassBody>(
  * - Handles different types of statements (Variable, Expression, If, Switch)
  * - Extracts and validates construct IDs from new expressions
  */
-const validateStatement = <T extends TSESTree.ClassBody>(
-  node: T,
+const validateStatement = (
+  node: TSESTree.ClassBody,
   body: TSESTree.Statement,
   context: Context
 ): void => {
@@ -161,8 +161,8 @@ const validateStatement = <T extends TSESTree.ClassBody>(
  * Validate the `if` statement
  * - Validate recursively if `if` statements are nested
  */
-const validateIfStatement = <T extends TSESTree.ClassBody>(
-  node: T,
+const validateIfStatement = (
+  node: TSESTree.ClassBody,
   ifStatement: TSESTree.IfStatement,
   context: Context
 ): void => {
@@ -173,8 +173,8 @@ const validateIfStatement = <T extends TSESTree.ClassBody>(
  * Validate the `switch` statement
  * - Validate recursively if `switch` statements are nested
  */
-const validateSwitchStatement = <T extends TSESTree.ClassBody>(
-  node: T,
+const validateSwitchStatement = (
+  node: TSESTree.ClassBody,
   switchStatement: TSESTree.SwitchStatement,
   context: Context
 ): void => {
@@ -188,8 +188,8 @@ const validateSwitchStatement = <T extends TSESTree.ClassBody>(
 /**
  * Validate that construct ID does not end with "Construct" or "Stack"
  */
-const validateConstructId = <T extends TSESTree.ClassBody>(
-  node: T,
+const validateConstructId = (
+  node: TSESTree.ClassBody,
   context: Context,
   expression: TSESTree.NewExpression
 ): void => {
