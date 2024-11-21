@@ -27,9 +27,14 @@ pnpm install -D eslint-cdk-plugin
 
 ## Setting eslint config
 
-Write eslint.config.mjs as follows:
+Write `eslint.config.mjs` as follows:
 
-Note: This plugin only supports flatConfig
+<div style="margin-top:16px; margin-bottom:16px; background-color: #595959; padding: 16px;border-radius: 4px;">
+  🚨 This plugin only supports FlatConfig.
+</div>
+<a href="https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file-formats">
+  What's FlatConfig?
+</a>
 
 ```js
 // eslint.config.mjs
@@ -48,7 +53,7 @@ export default [
 
 ## Customize rules
 
-If you want to customize the rules, write eslint.config.mjs as follows:
+If you want to customize the rules, write `eslint.config.mjs` as follows:
 
 ```js
 // eslint.config.mjs

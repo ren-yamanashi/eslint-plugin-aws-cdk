@@ -5,6 +5,12 @@ titleTemplate: ":title"
 
 # no-public-class-fields
 
+<div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
+  ✅ Using
+  <a href="https://eslint-cdk-plugin.dev/rules/#recommended-rules">recommended</a>
+  in an ESLint configuration enables this rule.
+</div>
+
 This rule disallows using class types for public class fields.
 
 When class types are used in public fields, it creates tight coupling and exposes mutable state, so not good.

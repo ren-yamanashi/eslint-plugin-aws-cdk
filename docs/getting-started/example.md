@@ -5,9 +5,11 @@ titleTemplate: ":title"
 
 # Example
 
-Below is an example of eslint.config.mjs.
+Below is an example of `eslint.config.mjs`.
 
-Note: We recommend using typescript-eslint together.
+<div style="margin-top:16px; margin-bottom:16px; background-color: #595959; padding: 16px;border-radius: 4px;">
+  💡 We recommend using typescript-eslint together.
+</div>
 
 ```js
 import eslint from "@eslint/js";
@@ -16,10 +18,10 @@ import tsEslint from "typescript-eslint";
 
 export default tsEslint.config(
   eslint.configs.recommended,
-  ...tsEslint.configs.strict,
+  ...tsEslint.configs.recommended, // or ...tsEslint.configs.strict
   ...tsEslint.configs.stylistic,
   {
-    files: ["**/*.ts"],
+    files: ["lib/**/*.ts", "bin/*.ts"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
@@ -37,7 +39,7 @@ export default tsEslint.config(
     },
   },
   {
-    ignores: ["node_modules"],
+    ignores: ["cdk.out", "node_modules"],
   }
 );
 ```

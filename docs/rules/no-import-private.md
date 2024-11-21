@@ -6,9 +6,13 @@ next: false
 
 # no-import-private
 
-This rule disallows importing modules from `private` directories at different hierarchical levels.
+<div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
+  ℹ️ This rule is not included in the
+  <a href="https://eslint-cdk-plugin.dev/rules/#recommended-rules">recommended</a>
+  rules.
+</div>
 
-Note: This rule is not included in the `recommended` rules.  
+This rule disallows importing modules from `private` directories at different hierarchical levels.  
 When setting it, you need to write the following:
 
 ```js
