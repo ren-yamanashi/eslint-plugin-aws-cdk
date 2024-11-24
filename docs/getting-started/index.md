@@ -37,10 +37,18 @@ Write `eslint.config.mjs` as follows:
   </a>
 </div>
 
+This plugin is recommended to be used with `typescript-eslint` because it uses type information.
+
 ```js
 // eslint.config.mjs
+import eslint from "@eslint/js";
+import tsEslint from "typescript-eslint";
 import eslintCdkPlugin from "eslint-cdk-plugin";
+
 export default [
+  eslint.configs.recommended,
+  ...tsEslint.configs.recommended,
+  ...tsEslint.configs.stylistic,
   {
     plugins: {
       cdk: eslintCdkPlugin,
@@ -58,8 +66,14 @@ If you want to customize the rules, write `eslint.config.mjs` as follows:
 
 ```js
 // eslint.config.mjs
+import eslint from "@eslint/js";
+import tsEslint from "typescript-eslint";
 import eslintCdkPlugin from "eslint-cdk-plugin";
+
 export default [
+  eslint.configs.recommended,
+  ...tsEslint.configs.recommended,
+  ...tsEslint.configs.stylistic,
   {
     plugins: {
       cdk: eslintCdkPlugin,
