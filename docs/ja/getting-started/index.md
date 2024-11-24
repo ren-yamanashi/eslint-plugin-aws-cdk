@@ -37,10 +37,18 @@ pnpm install -D eslint-cdk-plugin
   </a>
 </div>
 
+このプラグインは型情報を使用するため、`typescript-eslint` と一緒に使用することを推奨します。
+
 ```js
 // eslint.config.mjs
+import eslint from "@eslint/js";
+import tsEslint from "typescript-eslint";
 import eslintCdkPlugin from "eslint-cdk-plugin";
+
 export default [
+  eslint.configs.recommended,
+  ...tsEslint.configs.recommended,
+  ...tsEslint.configs.stylistic,
   {
     plugins: {
       cdk: eslintCdkPlugin,
@@ -58,8 +66,14 @@ export default [
 
 ```js
 // eslint.config.mjs
+import eslint from "@eslint/js";
+import tsEslint from "typescript-eslint";
 import eslintCdkPlugin from "eslint-cdk-plugin";
+
 export default [
+  eslint.configs.recommended,
+  ...tsEslint.configs.recommended,
+  ...tsEslint.configs.stylistic,
   {
     plugins: {
       cdk: eslintCdkPlugin,
