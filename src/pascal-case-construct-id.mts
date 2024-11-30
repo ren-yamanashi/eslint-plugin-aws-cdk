@@ -41,17 +41,6 @@ export const pascalCaseConstructId = ESLintUtils.RuleCreator.withoutDocs({
     const parserServices = ESLintUtils.getParserServices(context);
     const checker = parserServices.program.getTypeChecker();
     return {
-      // ExpressionStatement(node) {
-      //   if (node.expression.type !== AST_NODE_TYPES.NewExpression) return;
-      //   validateConstructId(node, context, node.expression.arguments);
-      // },
-      // VariableDeclaration(node) {
-      //   if (!node.declarations.length) return;
-      //   for (const declaration of node.declarations) {
-      //     if (declaration.init?.type !== AST_NODE_TYPES.NewExpression) return;
-      //     validateConstructId(node, context, declaration.init.arguments);
-      //   }
-      // },
       NewExpression(node) {
         const type = checker.getTypeAtLocation(
           parserServices.esTreeNodeToTSNodeMap.get(node)
