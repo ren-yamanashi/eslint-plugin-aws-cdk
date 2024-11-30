@@ -11,14 +11,16 @@ titleTemplate: ":title"
   in an ESLint configuration enables this rule.
 </div>
 
-This rule disallows using class types for public class fields.
+This rule disallows using class types for public class fields.  
+(This rule applies only to classes that extends from `Construct` or `Stack`.)
 
 When class types are used in public fields, it creates tight coupling and exposes mutable state, so not good.
 
 #### ✅ Correct Examples
 
 ```ts
-import { IBucket } from "aws-cdk-lib/aws-s3";
+import { Construct } from "constructs";
+import { IBucket, Bucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {
   public readonly bucket: IBucket;
@@ -32,6 +34,7 @@ class MyConstruct extends Construct {
 #### ❌ Incorrect Examples
 
 ```ts
+import { Construct } from "constructs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {

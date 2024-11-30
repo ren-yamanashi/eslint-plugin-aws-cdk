@@ -25,6 +25,8 @@ Props で変更可能なパブリック変数を指定すると、意図しな�
 #### ✅ 正しい例
 
 ```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 interface MyConstructProps {
   readonly bucket: IBucket;
 }
@@ -33,6 +35,8 @@ interface MyConstructProps {
 #### ❌ 誤った例
 
 ```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 interface MyConstructProps {
   bucket: IBucket;
 }

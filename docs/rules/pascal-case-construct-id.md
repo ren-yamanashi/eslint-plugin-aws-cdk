@@ -18,16 +18,21 @@ titleTemplate: ":title"
   </a>
 </div>
 
-This rule enforces PascalCase for construct IDs.
+This rule enforces PascalCase for construct IDs.  
+(This rule applies only to classes that extends from `Construct` or `Stack`.)
 
 #### ✅ Correct Example
 
 ```ts
+import { Bucket } from "aws-cdk-lib/aws-s3";
+
 const bucket = new Bucket(this, "MyBucket");
 ```
 
 #### ❌ Incorrect Example
 
 ```ts
+import { Bucket } from "aws-cdk-lib/aws-s3";
+
 const bucket = new Bucket(this, "myBucket");
 ```

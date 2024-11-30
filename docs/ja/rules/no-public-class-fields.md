@@ -10,14 +10,16 @@ titleTemplate: ":title"
   を使用した場合、このルールが有効になります。
 </div>
 
-このルールは、クラスの`public`変数にクラスを使用することを禁止します。
+このルールは、クラスの`public`変数にクラスを使用することを禁止します。  
+(このルールは `Construct` または `Stack` を継承したクラスにのみ適用されます)
 
 `public`変数でクラス型を使用すると、密結合が作成され、可変状態が公開されるため、推奨されません。
 
 #### ✅ 正しい例
 
 ```ts
-import { IBucket } from "aws-cdk-lib/aws-s3";
+import { Construct } from "constructs";
+import { IBucket, Bucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {
   public readonly bucket: IBucket;
@@ -31,6 +33,7 @@ class MyConstruct extends Construct {
 #### ❌ 不正な例
 
 ```ts
+import { Construct } from "constructs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {

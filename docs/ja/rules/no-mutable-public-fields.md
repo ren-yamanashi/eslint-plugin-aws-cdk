@@ -17,14 +17,17 @@ titleTemplate: ":title"
   で自動修正できます。
 </div>
 
-このルールは、クラスのパブリック変数を変更可能にすることを禁止するものです。  
-(`readonly`でないパブリック変数の定義を禁止します)
+このルールは、クラスのパブリック変数を変更可能にすること(`readonly`でないパブリック変数の定義)を禁止するものです。  
+(このルールは `Construct` または `Stack` を継承したクラスにのみ適用されます)
 
 パブリック変数が変更可能である場合、意図しない副作用が発生する可能性があるため、推奨されません。
 
 #### ✅ 正しい例
 
 ```ts
+import { Construct } from "constructs";
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 export class MyConstruct extends Construct {
   public readonly bucket: IBucket;
 }
@@ -33,6 +36,9 @@ export class MyConstruct extends Construct {
 #### ❌ 不正な例
 
 ```ts
+import { Construct } from "constructs";
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 export class MyConstruct extends Construct {
   public bucket: IBucket;
 }
