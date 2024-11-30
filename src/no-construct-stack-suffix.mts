@@ -6,6 +6,7 @@ import {
 } from "@typescript-eslint/utils";
 
 import { toPascalCase } from "./utils/convertString.mjs";
+import { isConstructOrStackType } from "./utils/isConstructOrStackType.mjs";
 
 type Context = TSESLint.RuleContext<"noConstructStackSuffix", []>;
 
@@ -30,166 +31,30 @@ export const noConstructStackSuffix = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
+    const parserServices = ESLintUtils.getParserServices(context);
+    const checker = parserServices.program.getTypeChecker();
     return {
-      ClassBody(node) {
-        const parent = node.parent;
-        if (parent?.type !== "ClassDeclaration") return;
-        const className = parent.id?.name;
-        if (!className) return;
-
-        for (const body of node.body) {
-          // NOTE: Ignore if neither method nor constructor.
-          if (
-            body.type !== AST_NODE_TYPES.MethodDefinition ||
-            !["method", "constructor"].includes(body.kind) ||
-            body.value.type !== AST_NODE_TYPES.FunctionExpression
-          ) {
-            continue;
-          }
-          validateConstructorBody(node, body.value, context);
+      NewExpression(node) {
+        const type = checker.getTypeAtLocation(
+          parserServices.esTreeNodeToTSNodeMap.get(node)
+        );
+        if (!isConstructOrStackType(type)) {
+          return;
         }
+
+        if (node.arguments.length < 2) return;
+
+        validateConstructId(node, context, node);
       },
     };
   },
 });
 
 /**
- * Validate the constructor body for the parent class
- * - validate each statement in the constructor body
- */
-const validateConstructorBody = (
-  node: TSESTree.ClassBody,
-  expression: TSESTree.FunctionExpression,
-  context: Context
-): void => {
-  for (const statement of expression.body.body) {
-    switch (statement.type) {
-      case AST_NODE_TYPES.VariableDeclaration: {
-        const newExpression = statement.declarations[0].init;
-        if (newExpression?.type !== AST_NODE_TYPES.NewExpression) continue;
-        validateConstructId(node, context, newExpression);
-        break;
-      }
-      case AST_NODE_TYPES.ExpressionStatement: {
-        if (statement.expression?.type !== AST_NODE_TYPES.NewExpression) break;
-        validateStatement(node, statement, context);
-        break;
-      }
-      case AST_NODE_TYPES.IfStatement: {
-        traverseStatements(node, statement.consequent, context);
-        break;
-      }
-      case AST_NODE_TYPES.SwitchStatement: {
-        for (const switchCase of statement.cases) {
-          for (const statement of switchCase.consequent) {
-            traverseStatements(node, statement, context);
-          }
-        }
-        break;
-      }
-    }
-  }
-};
-
-/**
- * Recursively traverse and validate statements in the AST
- * - Handles BlockStatement, ExpressionStatement, and VariableDeclaration
- * - Validates construct IDs
- */
-const traverseStatements = (
-  node: TSESTree.ClassBody,
-  statement: TSESTree.Statement,
-  context: Context
-): void => {
-  switch (statement.type) {
-    case AST_NODE_TYPES.BlockStatement: {
-      for (const body of statement.body) {
-        validateStatement(node, body, context);
-      }
-      break;
-    }
-    case AST_NODE_TYPES.ExpressionStatement: {
-      const newExpression = statement.expression;
-      if (newExpression?.type !== AST_NODE_TYPES.NewExpression) break;
-      validateStatement(node, statement, context);
-      break;
-    }
-    case AST_NODE_TYPES.VariableDeclaration: {
-      const newExpression = statement.declarations[0].init;
-      if (newExpression?.type !== AST_NODE_TYPES.NewExpression) break;
-      validateConstructId(node, context, newExpression);
-      break;
-    }
-  }
-};
-
-/**
- * Validate a single statement in the AST
- * - Handles different types of statements (Variable, Expression, If, Switch)
- * - Extracts and validates construct IDs from new expressions
- */
-const validateStatement = (
-  node: TSESTree.ClassBody,
-  body: TSESTree.Statement,
-  context: Context
-): void => {
-  switch (body.type) {
-    case AST_NODE_TYPES.VariableDeclaration: {
-      const newExpression = body.declarations[0].init;
-      if (newExpression?.type !== AST_NODE_TYPES.NewExpression) break;
-      validateConstructId(node, context, newExpression);
-      break;
-    }
-    case AST_NODE_TYPES.ExpressionStatement: {
-      const newExpression = body.expression;
-      if (newExpression?.type !== AST_NODE_TYPES.NewExpression) break;
-      validateConstructId(node, context, newExpression);
-      break;
-    }
-    case AST_NODE_TYPES.IfStatement: {
-      validateIfStatement(node, body, context);
-      break;
-    }
-    case AST_NODE_TYPES.SwitchStatement: {
-      validateSwitchStatement(node, body, context);
-      break;
-    }
-  }
-};
-
-/**
- * Validate the `if` statement
- * - Validate recursively if `if` statements are nested
- */
-const validateIfStatement = (
-  node: TSESTree.ClassBody,
-  ifStatement: TSESTree.IfStatement,
-  context: Context
-): void => {
-  traverseStatements(node, ifStatement.consequent, context);
-};
-
-/**
- * Validate the `switch` statement
- * - Validate recursively if `switch` statements are nested
- */
-const validateSwitchStatement = (
-  node: TSESTree.ClassBody,
-  switchStatement: TSESTree.SwitchStatement,
-  context: Context
-): void => {
-  for (const statement of switchStatement.cases) {
-    for (const _consequent of statement.consequent) {
-      traverseStatements(node, _consequent, context);
-    }
-  }
-};
-
-/**
  * Validate that construct ID does not end with "Construct" or "Stack"
  */
 const validateConstructId = (
-  node: TSESTree.ClassBody,
+  node: TSESTree.Node,
   context: Context,
   expression: TSESTree.NewExpression
 ): void => {

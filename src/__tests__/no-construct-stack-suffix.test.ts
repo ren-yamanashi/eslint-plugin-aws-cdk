@@ -14,255 +14,73 @@ const ruleTester = new RuleTester({
 
 ruleTester.run("no-construct-stack-suffix", noConstructStackSuffix, {
   valid: [
+    // WHEN: construct id has no suffix, and extends Construct
+    {
+      code: `
+      class TestConstruct extends Construct {
+        constructor(props: any, id: string) {
+          super(props, id);
+        }
+      }
+      new TestConstruct("test", "ValidId");
+      `,
+    },
+    // WHEN: construct id has no suffix, and extends Stack
+    {
+      code: `
+      class Stack {}
+      class TestStack extends Stack {
+        constructor(props: any, id: string) {
+          super(props, id);
+        }
+      }
+      const test = new TestStack("test", "ValidId");
+      `,
+    },
+    // WHEN: construct id has suffix, and not extends Construct or Stack
     {
       code: `
       class TestClass {
+        constructor(public id: string) {}
+      }
+      const test = new TestClass("test", "SampleConstruct");
+      `,
+    },
+    {
+      code: `
+      class TestClass {
+        constructor(public id: string) {}
+      }
+      class Sample {
         constructor() {
-          const test = new TestClass("test", "ValidId");
+          const test = new TestClass("test", "SampleConstruct");
         }
       }`,
     },
   ],
   invalid: [
-    /**
-     *
-     * WHEN: construct id has "Construct" suffix
-     *
-     */
+    // WHEN: construct id has "Construct" suffix, and extends Construct
     {
       code: `
-      export class TestClass {
-        constructor(public id: string) {
-          new SampleConstruct({ name: "sample" }, "SampleConstruct");
+      class Construct {}
+      class SampleConstruct extends Construct {
+        constructor(props: any, id: string) {
+          super(props, id);
         }
-      }`,
+      }
+      new SampleConstruct({ name: "sample" }, "SampleConstruct");`,
       errors: [{ messageId: "noConstructStackSuffix" }],
     },
-    // variable declaration
+    // WHEN: stack id has "Stack" suffix, and extends Stack
     {
       code: `
-      export class TestClass {
-        constructor(public id: string) {
-          const test = new SampleConstruct({ name: "sample" }, "SampleConstruct");
+      class Stack {}
+      class SampleStack extends Stack {
+        constructor(props: any, id: string) {
+          super(props, id);
         }
-      }`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
-    },
-    // expression statement
-    {
-      code: `
-      class TestClass {
-        constructor() {
-          if (true) new SampleConstruct("test", "SampleConstruct");
-        }
-      }`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
-    },
-    // block statement
-    {
-      code: `
-      class TestClass {
-        constructor() {
-          if (true) {
-            const test = new SampleConstruct("test", "SampleConstruct");
-          }
-        }
-      }`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
-    },
-    // block statement / nested
-    {
-      code: `
-      class TestClass {
-        constructor() {
-          if (true) {
-            if (true) {
-              const test = new SampleConstruct("test", "SampleConstruct");
-            }
-          }
-        }
-      }`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
-    },
-    // switch statement
-    {
-      code: `
-      class TestClass {
-        constructor() {
-          switch (item.type) {
-            case "test":
-              const test = new SampleConstruct("test", "SampleConstruct");
-              break;
-          }
-        }
-      }`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
-    },
-    // switch statement
-    {
-      code: `
-      class TestClass {
-        constructor() {
-          switch (item.type) {
-            case "test": {
-              const test = new SampleConstruct("test", "SampleConstruct");
-              break;
-            }
-          }
-        }
-      }`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
-    },
-    // switch statement / nested
-    {
-      code: `
-      class TestClass {
-        constructor() {
-          switch (item.type) {
-            case "test": {
-              switch (item.type) {
-                case "test":
-                  const test = new SampleConstruct("test", "SampleConstruct");
-                  break;
-              }
-            }
-          }
-        }
-      }`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
-    },
-    // in method
-    {
-      code: `
-      export class TestClass {
-        constructor(public id: string) {
-          this.test();
-        }
-        test() {
-          new SampleConstruct({ name: "sample" }, "SampleConstruct");
-        }
-      }`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
-    },
-
-    /**
-     *
-     * WHEN: stack id has "Stack" suffix
-     *
-     */
-    {
-      code: `
-      export class TestClass {
-        constructor(public id: string) {
-          new SampleStack({ name: "sample" }, "SampleStack");
-        }
-      }`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
-    },
-    // variable declaration
-    {
-      code: `
-      export class TestClass {
-        constructor(public id: string) {
-          const test = new SampleStack({ name: "sample" }, "SampleStack");
-        }
-      }`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
-    },
-    // expression statement
-    {
-      code: `
-      class TestClass {
-        constructor() {
-          if (true) new SampleStack("test", "SampleStack");
-        }
-      }`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
-    },
-    // block statement
-    {
-      code: `
-      class TestClass {
-        constructor() {
-          if (true) {
-            const test = new SampleStack("test", "SampleStack");
-          }
-        }
-      }`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
-    },
-    // block statement / nested
-    {
-      code: `
-      class TestClass {
-        constructor() {
-          if (true) {
-            if (true) {
-              const test = new SampleStack("test", "SampleStack");
-            }
-          }
-        }
-      }`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
-    },
-    // switch statement
-    {
-      code: `
-      class TestClass {
-        constructor() {
-          switch (item.type) {
-            case "test":
-              const test = new SampleStack("test", "SampleStack");
-              break;
-          }
-        }
-      }`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
-    },
-    // switch statement
-    {
-      code: `
-      class TestClass {
-        constructor() {
-          switch (item.type) {
-            case "test": {
-              const test = new SampleStack("test", "SampleStack");
-              break;
-            }
-          }
-        }
-      }`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
-    },
-    // switch statement / nested
-    {
-      code: `
-      class TestClass {
-        constructor() {
-          switch (item.type) {
-            case "test": {
-              switch (item.type) {
-                case "test":
-                  const test = new SampleStack("test", "SampleStack");
-                  break;
-              }
-            }
-          }
-        }
-      }`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
-    },
-    // in method
-    {
-      code: `
-      export class TestClass {
-        constructor(public id: string) {
-          this.test();
-        }
-        test() {
-          new SampleStack({ name: "sample" }, "SampleStack");
-        }
-      }`,
+      }
+      new SampleStack({ name: "sample" }, "SampleStack");`,
       errors: [{ messageId: "noConstructStackSuffix" }],
     },
   ],
