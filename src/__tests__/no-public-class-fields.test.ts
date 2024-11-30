@@ -17,7 +17,8 @@ ruleTester.run("no-public-class-fields", noPublicClassFields, {
     // WHEN: field type is primitive
     {
       code: `
-      class TestClass {
+      class Construct {}
+      class TestClass extends Construct {
         public test: string;
       }
       `,
@@ -25,10 +26,11 @@ ruleTester.run("no-public-class-fields", noPublicClassFields, {
     // WHEN: field type is interface
     {
       code: `
+      class Construct {}
       interface ITest {
         value: string;
       }
-      class TestClass {
+      class TestClass extends Construct {
         public test: ITest;
       }
       `,
@@ -36,10 +38,11 @@ ruleTester.run("no-public-class-fields", noPublicClassFields, {
     // WHEN: field type is type alias
     {
       code: `
+      class Construct {}
       type TestType = {
         value: string;
       };
-      class TestClass {
+      class TestClass extends Construct {
         public test: TestType;
       }
       `,
@@ -47,8 +50,9 @@ ruleTester.run("no-public-class-fields", noPublicClassFields, {
     // WHEN: field is private
     {
       code: `
+      class Construct {}
       class DependencyClass {}
-      class TestClass {
+      class TestClass extends Construct {
         private test: DependencyClass;
       }
       `,
@@ -56,7 +60,8 @@ ruleTester.run("no-public-class-fields", noPublicClassFields, {
     // WHEN: field has no type annotation
     {
       code: `
-      class TestClass {
+      class Construct {}
+      class TestClass extends Construct {
         public test;
       }
       `,
@@ -64,9 +69,19 @@ ruleTester.run("no-public-class-fields", noPublicClassFields, {
     // WHEN: field is protected
     {
       code: `
+      class Construct {}
+      class DependencyClass {}
+      class TestClass extends Construct {
+        protected test: DependencyClass;
+      }
+      `,
+    },
+    // WHEN: super class is not a construct
+    {
+      code: `
       class DependencyClass {}
       class TestClass {
-        protected test: DependencyClass;
+        public test: DependencyClass;
       }
       `,
     },
@@ -75,8 +90,9 @@ ruleTester.run("no-public-class-fields", noPublicClassFields, {
     // WHEN: public field uses class type
     {
       code: `
+      class Construct {}
       class DependencyClass {}
-      class TestClass {
+      class TestClass extends Construct {
         public test: DependencyClass;
       }
       `,
@@ -85,8 +101,9 @@ ruleTester.run("no-public-class-fields", noPublicClassFields, {
     // WHEN: implicitly public field uses class type
     {
       code: `
+      class Construct {}
       class DependencyClass {}
-      class TestClass {
+      class TestClass extends Construct {
         test: DependencyClass;
       }
       `,
@@ -95,8 +112,9 @@ ruleTester.run("no-public-class-fields", noPublicClassFields, {
     // WHEN: readonly public field uses class type
     {
       code: `
+      class Construct {}
       class DependencyClass {}
-      class TestClass {
+      class TestClass extends Construct {
         public readonly test: DependencyClass;
       }
       `,
@@ -105,8 +123,9 @@ ruleTester.run("no-public-class-fields", noPublicClassFields, {
     // WHEN: constructor parameter property uses class type
     {
       code: `
+      class Construct {}
       class DependencyClass {}
-      class TestClass {
+      class TestClass extends Construct {
         constructor(public test: DependencyClass) {}
       }
       `,

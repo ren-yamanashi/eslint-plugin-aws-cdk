@@ -7,6 +7,8 @@ import {
 } from "@typescript-eslint/utils";
 import { SymbolFlags, TypeChecker } from "typescript";
 
+import { isConstructOrStackType } from "./utils/isConstructOrStackType.mjs";
+
 type Context = TSESLint.RuleContext<"noPublicClassFields", []>;
 
 /**
@@ -33,6 +35,13 @@ export const noPublicClassFields = ESLintUtils.RuleCreator.withoutDocs({
     const typeChecker = parserServices.program.getTypeChecker();
     return {
       ClassDeclaration(node) {
+        const type = typeChecker.getTypeAtLocation(
+          parserServices.esTreeNodeToTSNodeMap.get(node)
+        );
+        if (!isConstructOrStackType(type)) {
+          return;
+        }
+
         // NOTE: Check class members
         validateClassMember({
           node,

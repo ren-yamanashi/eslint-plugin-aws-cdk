@@ -17,13 +17,17 @@ titleTemplate: ":title"
   </a>
 </div>
 
-This rule disallow making public variables of a class mutable.
+This rule disallow making public variables of a class mutable.  
+(This rule applies only to classes that extends from `Construct` or `Stack`.)
 
 It's not good to have mutable public variables, because it can lead to unintended side effects.
 
 #### ✅ Correct Example
 
 ```ts
+import { Construct } from "constructs";
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 export class MyConstruct extends Construct {
   public readonly bucket: IBucket;
 }
@@ -32,6 +36,9 @@ export class MyConstruct extends Construct {
 #### ❌ Incorrect Example
 
 ```ts
+import { Construct } from "constructs";
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 export class MyConstruct extends Construct {
   public bucket: IBucket;
 }

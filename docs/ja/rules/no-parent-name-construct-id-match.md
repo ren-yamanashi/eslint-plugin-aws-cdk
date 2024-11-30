@@ -17,6 +17,9 @@ titleTemplate: ":title"
 #### ✅ 正しい例
 
 ```ts
+import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
@@ -28,6 +31,9 @@ export class MyConstruct extends Construct {
 #### ❌ 不正な例
 
 ```ts
+import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);

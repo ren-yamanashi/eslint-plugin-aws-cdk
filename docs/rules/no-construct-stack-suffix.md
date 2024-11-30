@@ -11,13 +11,17 @@ titleTemplate: ":title"
   in an ESLint configuration enables this rule.
 </div>
 
-This rule is to disallow using the `Construct` or `Stack` suffix in construct IDs and stack IDs.
+This rule is to disallow using the `Construct` or `Stack` suffix in construct IDs and stack IDs.  
+(This rule applies only to classes that extends from `Construct` or `Stack`.)
 
 If the Construct ID includes "Construct," the issues that should be stopped in the CDK world will leak into the CloudFormation template and the AWS world, so not good.(the same for Stack ID )
 
 #### ✅ Correct Example
 
 ```ts
+import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
@@ -29,6 +33,9 @@ export class MyConstruct extends Construct {
 #### ❌ Incorrect Example
 
 ```ts
+import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);

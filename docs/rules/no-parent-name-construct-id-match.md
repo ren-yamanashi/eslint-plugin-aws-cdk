@@ -18,6 +18,9 @@ It is not good to specify a string that matches the parent class name for constr
 #### ✅ Correct Example
 
 ```ts
+import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
@@ -29,6 +32,9 @@ export class MyConstruct extends Construct {
 #### ❌ Incorrect Example
 
 ```ts
+import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);

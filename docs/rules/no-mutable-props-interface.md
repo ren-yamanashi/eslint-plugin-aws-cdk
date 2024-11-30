@@ -24,6 +24,8 @@ It is not a good to specify mutable public properties in props, as this can lead
 #### ✅ Correct Example
 
 ```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 interface MyConstructProps {
   readonly bucket: IBucket;
 }
@@ -32,6 +34,8 @@ interface MyConstructProps {
 #### ❌ Incorrect Example
 
 ```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 interface MyConstructProps {
   bucket: IBucket;
 }

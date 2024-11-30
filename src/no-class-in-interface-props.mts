@@ -22,7 +22,7 @@ export const noClassInInterfaceProps = ESLintUtils.RuleCreator.withoutDocs({
   defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
-    const checker = parserServices.program.getTypeChecker();
+    const typeChecker = parserServices.program.getTypeChecker();
     return {
       TSInterfaceDeclaration(node) {
         for (const property of node.body.body) {
@@ -35,7 +35,7 @@ export const noClassInInterfaceProps = ESLintUtils.RuleCreator.withoutDocs({
           }
 
           const tsNode = parserServices.esTreeNodeToTSNodeMap.get(property);
-          const type = checker.getTypeAtLocation(tsNode);
+          const type = typeChecker.getTypeAtLocation(tsNode);
           if (!type.symbol) continue;
 
           // NOTE: check class type
