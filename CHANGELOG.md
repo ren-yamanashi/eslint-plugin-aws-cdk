@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.4.0 (2024-11-30)
+
+### New features/Updates to existing features
+
+- Apply rules only to classes that extends Construct ([#60](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/60)) ([6c64837](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/6c6483772779c50a5949234bdacecda62df2f0ee))
+
 ### 0.3.2 (2024-11-20)
 
 ### Other changes
