@@ -32,10 +32,10 @@ export const noConstructStackSuffix = ESLintUtils.RuleCreator.withoutDocs({
   defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
-    const checker = parserServices.program.getTypeChecker();
+    const typeChecker = parserServices.program.getTypeChecker();
     return {
       NewExpression(node) {
-        const type = checker.getTypeAtLocation(
+        const type = typeChecker.getTypeAtLocation(
           parserServices.esTreeNodeToTSNodeMap.get(node)
         );
         if (!isConstructOrStackType(type)) {
