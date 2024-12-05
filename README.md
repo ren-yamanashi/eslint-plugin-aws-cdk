@@ -1,12 +1,20 @@
-# eslint-cdk-plugin
+<p align="center"><img width="143px" height="130px" src="./assets/logo.png" alt="ESLint plugin for AWS CDK logo"></p>
 
-ESLint plugin for [AWS CDK](https://github.com/aws/aws-cdk).
+<h1 align="center">eslint-cdk-plugin</h1>
+<p align="center">
+  <a href="https://www.npmjs.com/package/eslint-cdk-plugin"><img src="https://img.shields.io/npm/v/eslint-cdk-plugin.svg" alt="NPM"></a>
+</p>
+<p align="center">ESLint plugin for AWS CDK</p>
 
-## Installation
+## 📔 Documentation
+
+See [here](https://eslint-cdk-plugin.dev/)
+
+## 📦 Installation
 
 ```bash
 # npm
-npm install --save-dev eslint-cdk-plugin
+npm install -D eslint-cdk-plugin
 
 # yarn
 yarn add -D eslint-cdk-plugin
@@ -15,7 +23,7 @@ yarn add -D eslint-cdk-plugin
 pnpm install -D eslint-cdk-plugin
 ```
 
-## Usage
+## 🚀 Usage
 
 ### Use recommended config
 
@@ -34,4 +42,33 @@ export default [
 ];
 ```
 
-### For more detailed documentation, see [docs for eslint-cdk-plugin](https://eslint-cdk-plugin.dev/)
+### Use custom config
+
+```js
+// eslint.config.mjs
+import eslintCdkPlugin from "eslint-cdk-plugin";
+export default [
+  {
+    plugins: {
+      cdk: eslintCdkPlugin,
+    },
+    rules: {
+      "cdk/no-class-in-interface": "error",
+      "cdk/no-construct-stack-suffix": "error",
+      "cdk/no-parent-name-construct-id-match": "error",
+    },
+  },
+];
+```
+
+## ❗ Issue
+
+If you have any questions or suggestions, please open an [issue](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues).
+
+## 💪 Contribution
+
+Contributions are welcome! Please see [Contribution Guide](./CONTRIBUTING.md) for more details.
+
+## ©️ License
+
+[MIT](http://opensource.org/licenses/MIT)

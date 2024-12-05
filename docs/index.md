@@ -16,6 +16,11 @@ hero:
       text: View on GitHub
       link: https://github.com/ren-yamanashi/eslint-cdk-plugin
 features:
+  - title: Ease of use
+    details: Simple setup and installation and ready to use with recommended settings.
+    link: /getting-started/
+    linkText: Getting Started
+    icon: 🔧
   - title: Extensive Rules
     details: Extensive rules for AWS CDK development.
     link: /rules/
@@ -27,7 +32,4 @@ features:
   - title: Type Safety
     details: Robust rules leveraging TypeScript's type system to help you write safer CDK code.
     icon: 💪
-  - title: Ease of use
-    details: Simple setup and installation and ready to use with recommended settings.
-    icon: 🔧
 ---

@@ -12,7 +12,7 @@ titleTemplate: ":title"
 ::: code-group
 
 ```sh [npm]
-npm install --save-dev eslint-cdk-plugin
+npm install -D eslint-cdk-plugin
 ```
 
 ```sh [yarn]
