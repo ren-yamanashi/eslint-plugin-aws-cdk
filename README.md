@@ -1,7 +1,6 @@
 <p align="center">
   <img width="160px" height="160px" src="./assets/logo.png" alt="ESLint plugin for AWS CDK logo">
 </p>
-
 <a href="https://eslint-cdk-plugin.dev/">
   <h1 align="center">eslint-cdk-plugin</h1>
 </a>
