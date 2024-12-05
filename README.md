@@ -32,7 +32,7 @@ pnpm install -D eslint-cdk-plugin
 
 ## 🚀 Usage
 
-### Use recommended config
+#### Use recommended config
 
 ```js
 // eslint.config.mjs
@@ -49,7 +49,7 @@ export default [
 ];
 ```
 
-### Use custom config
+#### Use custom config
 
 ```js
 // eslint.config.mjs
