@@ -2,15 +2,15 @@
   <img width="160px" height="160px" src="./assets/logo.png" alt="ESLint plugin for AWS CDK logo">
 </p>
 
-<p align="center">
-  <a href="https://eslint-cdk-plugin.dev/">
-    <h1 align="center">eslint-cdk-plugin</h1>
-  </a>
-</p>
-<p align="center">ESLint plugin for AWS CDK</p>
+<h1 align="center">eslint-cdk-plugin</h1>
+<a href="https://eslint-cdk-plugin.dev/">
+  <p align="center">ESLint plugin for AWS CDK</p>
+</a>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/eslint-cdk-plugin"><img src="https://img.shields.io/npm/v/eslint-cdk-plugin.svg" alt="NPM"></a>
+  <a href="https://www.npmjs.com/package/eslint-cdk-plugin">
+    <img src="https://img.shields.io/npm/v/eslint-cdk-plugin.svg" alt="NPM">
+  </a>
 </p>
 
 ## 📔 Documentation
