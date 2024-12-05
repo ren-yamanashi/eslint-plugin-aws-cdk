@@ -1,13 +1,16 @@
 <p align="center">
   <img width="160px" height="160px" src="./assets/logo.png" alt="ESLint plugin for AWS CDK logo">
 </p>
+
+<h1 align="center">eslint-cdk-plugin</h1>
 <a href="https://eslint-cdk-plugin.dev/">
-  <h1 align="center">eslint-cdk-plugin</h1>
+  <p align="center">ESLint plugin for AWS CDK</p>
 </a>
-<p align="center">ESLint plugin for AWS CDK</p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/eslint-cdk-plugin"><img src="https://img.shields.io/npm/v/eslint-cdk-plugin.svg" alt="NPM"></a>
+  <a href="https://www.npmjs.com/package/eslint-cdk-plugin">
+    <img src="https://img.shields.io/npm/v/eslint-cdk-plugin.svg" alt="NPM">
+  </a>
 </p>
 
 ## 📔 Documentation
@@ -29,7 +32,7 @@ pnpm install -D eslint-cdk-plugin
 
 ## 🚀 Usage
 
-### Use recommended config
+#### Use recommended config
 
 ```js
 // eslint.config.mjs
@@ -46,7 +49,7 @@ export default [
 ];
 ```
 
-### Use custom config
+#### Use custom config
 
 ```js
 // eslint.config.mjs
