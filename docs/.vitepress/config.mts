@@ -95,6 +95,10 @@ export default defineConfig({
                 link: "/rules/pascal-case-construct-id",
               },
               {
+                text: "require-passing-this",
+                link: "/rules/require-passing-this",
+              },
+              {
                 text: "no-parent-name-construct-id-match",
                 link: "/rules/no-parent-name-construct-id-match",
               },
@@ -163,6 +167,10 @@ export default defineConfig({
               {
                 text: "pascal-case-construct-id",
                 link: "/ja/rules/pascal-case-construct-id",
+              },
+              {
+                text: "require-passing-this",
+                link: "/ja/rules/require-passing-this",
               },
               {
                 text: "no-parent-name-construct-id-match",

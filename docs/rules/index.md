@@ -9,6 +9,7 @@ Currently we support the following rules:
 You can check the details of the rules on each page.
 
 - [pascal-case-construct-id](/rules/pascal-case-construct-id)
+- [require-passing-this](/rules/require-passing-this)
 - [no-parent-name-construct-id-match](/rules/no-parent-name-construct-id-match)
 - [no-construct-stack-suffix](/rules/no-construct-stack-suffix)
 - [no-class-in-interface](/rules/no-class-in-interface)
@@ -52,6 +53,7 @@ export default [
       "cdk/no-parent-name-construct-id-match": "error",
       "cdk/no-public-class-fields": "error",
       "cdk/pascal-case-construct-id": "error",
+      "cdk/require-passing-this": "error",
       "cdk/no-mutable-public-fields": "warn",
       "cdk/no-mutable-props-interface": "warn",
     },

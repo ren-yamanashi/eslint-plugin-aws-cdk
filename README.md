@@ -3,10 +3,7 @@
 </p>
 
 <h1 align="center">eslint-cdk-plugin</h1>
-<a href="https://eslint-cdk-plugin.dev/">
-  <p align="center">ESLint plugin for AWS CDK</p>
-</a>
-
+<p align="center">ESLint plugin for AWS CDK</p>
 <p align="center">
   <a href="https://www.npmjs.com/package/eslint-cdk-plugin">
     <img src="https://img.shields.io/npm/v/eslint-cdk-plugin.svg" alt="NPM">
@@ -15,7 +12,7 @@
 
 ## 📔 Documentation
 
-See [here](https://eslint-cdk-plugin.dev/)
+Please refer to the [website](https://eslint-cdk-plugin.dev/).
 
 ## 📦 Installation
 

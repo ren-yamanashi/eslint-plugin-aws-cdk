@@ -9,6 +9,7 @@ titleTemplate: ":title"
 ルールの詳細は、各ページをご覧ください。
 
 - [pascal-case-construct-id](/ja/rules/pascal-case-construct-id)
+- [require-passing-this](/ja/rules/require-passing-this)
 - [no-parent-name-construct-id-match](/ja/rules/no-parent-name-construct-id-match)
 - [no-construct-stack-suffix](/ja/rules/no-construct-stack-suffix)
 - [no-class-in-interface](/ja/rules/no-class-in-interface)
@@ -52,6 +53,7 @@ export default [
       "cdk/no-parent-name-construct-id-match": "error",
       "cdk/no-public-class-fields": "error",
       "cdk/pascal-case-construct-id": "error",
+      "cdk/require-passing-this": "error",
       "cdk/no-mutable-public-fields": "warn",
       "cdk/no-mutable-props-interface": "warn",
     },
