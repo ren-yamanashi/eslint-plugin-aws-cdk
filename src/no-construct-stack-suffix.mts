@@ -6,7 +6,7 @@ import {
 } from "@typescript-eslint/utils";
 
 import { toPascalCase } from "./utils/convertString.mjs";
-import { isConstructOrStackType } from "./utils/isConstructOrStackType.mjs";
+import { isConstructOrStackType } from "./utils/typeCheck.mjs";
 
 type Context = TSESLint.RuleContext<"noConstructStackSuffix", []>;
 
