@@ -20,7 +20,7 @@ titleTemplate: ":title"
 This rule enforces passing `this` in a `Construct`.  
 (This rule applies only to classes that extends `Construct`.)
 
-When creating AWS CDK resources, passing `this` to the constructor is crucial for maintaining the correct resource hierarchy.  
+When creating AWS CDK resources, passing `this` to the `Construct` is crucial for maintaining the correct resource hierarchy.  
 Using other values like `scope` can lead to:
 
 - Incorrect resource hierarchy in the generated CloudFormation template
