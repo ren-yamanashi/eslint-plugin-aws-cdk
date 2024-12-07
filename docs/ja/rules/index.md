@@ -10,6 +10,7 @@ titleTemplate: ":title"
 
 - [pascal-case-construct-id](/ja/rules/pascal-case-construct-id)
 - [require-passing-this](/ja/rules/require-passing-this)
+- [no-variable-construct-id](/ja/rules/no-variable-construct-id)
 - [no-parent-name-construct-id-match](/ja/rules/no-parent-name-construct-id-match)
 - [no-construct-stack-suffix](/ja/rules/no-construct-stack-suffix)
 - [no-class-in-interface](/ja/rules/no-class-in-interface)
@@ -54,6 +55,7 @@ export default [
       "cdk/no-public-class-fields": "error",
       "cdk/pascal-case-construct-id": "error",
       "cdk/require-passing-this": "error",
+      "cdk/no-variable-construct-id": "error",
       "cdk/no-mutable-public-fields": "warn",
       "cdk/no-mutable-props-interface": "warn",
     },
