@@ -35,6 +35,8 @@ import { Construct } from "constructs";
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
+
+    // ✅ Can use this
     new Bucket(this, "SampleBucket");
   }
 }
@@ -49,6 +51,8 @@ import { Construct } from "constructs";
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
+
+    // ❌ Shouldn't use scope
     new Bucket(scope, "SampleBucket");
   }
 }

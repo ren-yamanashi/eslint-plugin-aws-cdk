@@ -22,7 +22,8 @@ titleTemplate: ":title"
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
-  bucket: IBucket;
+  // ✅ interface のフィールドは使用できます
+  readonly bucket: IBucket;
 }
 ```
 
@@ -32,6 +33,7 @@ interface MyConstructProps {
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
-  bucket: Bucket;
+  // ❌ class のフィールドは使用しないでください
+  readonly bucket: Bucket;
 }
 ```

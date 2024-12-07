@@ -23,7 +23,8 @@ So not good.
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
-  bucket: IBucket;
+  // ✅ Can use an interface
+  readonly bucket: IBucket;
 }
 ```
 
@@ -33,6 +34,7 @@ interface MyConstructProps {
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
-  bucket: Bucket;
+  // ❌ Shouldn't use a class
+  readonly bucket: Bucket;
 }
 ```

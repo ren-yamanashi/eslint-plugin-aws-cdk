@@ -29,6 +29,7 @@ import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 export class MyConstruct extends Construct {
+  // ✅ readonly のフィールドは使用できます
   public readonly bucket: IBucket;
 }
 ```
@@ -40,6 +41,7 @@ import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 export class MyConstruct extends Construct {
+  // ❌ mutable なフィールドは使用しないでください
   public bucket: IBucket;
 }
 ```

@@ -28,6 +28,7 @@ Props で変更可能なパブリック変数を指定すると、意図しな�
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
+  // ✅ readonly のフィールドは使用できます
   readonly bucket: IBucket;
 }
 ```
@@ -38,6 +39,7 @@ interface MyConstructProps {
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
+  // ❌ mutable なフィールドは使用できません
   bucket: IBucket;
 }
 ```

@@ -29,6 +29,7 @@ import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 export class MyConstruct extends Construct {
+  // ✅ Can use readonly
   public readonly bucket: IBucket;
 }
 ```
@@ -40,6 +41,7 @@ import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 export class MyConstruct extends Construct {
+  // ❌ Shouldn't use mutable
   public bucket: IBucket;
 }
 ```

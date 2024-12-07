@@ -23,6 +23,8 @@ import { Bucket } from "aws-cdk-lib/aws-s3";
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
+
+    // ✅ 親コンストラクトと異なる名前は使用できます
     const bucket = new Bucket(this, "MyBucket");
   }
 }
@@ -37,6 +39,8 @@ import { Bucket } from "aws-cdk-lib/aws-s3";
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
+
+    // ❌ 親コンストラクトと同じ名前は使用できません
     const bucket = new Bucket(this, "MyConstruct");
   }
 }
