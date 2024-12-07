@@ -73,6 +73,10 @@ If you have any questions or suggestions, please open an [issue](https://github.
 
 Contributions are welcome! Please see [Contribution Guide](./CONTRIBUTING.md) for more details.
 
+## ⚓ Versioning Policy
+
+Please see [Versioning Policy](./VERSIONING_POLICY.md).
+
 ## ©️ License
 
 [MIT](http://opensource.org/licenses/MIT)
