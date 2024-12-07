@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.1 (2024-12-07)
+
+### Other changes
+
+- Modifying files to be included in npm ([#75](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/75)) ([32e71e1](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/32e71e17dff1b75c105d5deeea777d8f9e026722))
+- Modifying files to be included in npm ([#76](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/76)) ([c23505c](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/c23505c85f2e15cddb001abb6b090d0aef4d429c))
+
 ## 1.0.0 (2024-12-07)
 
 ### New features/Updates to existing features
