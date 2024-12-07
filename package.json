@@ -36,7 +36,10 @@
   "files": [
     "dist",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "CONTRIBUTING.md",
+    "VERSIONING_POLICY.md",
+    "assets"
   ],
   "keywords": [
     "eslint",
