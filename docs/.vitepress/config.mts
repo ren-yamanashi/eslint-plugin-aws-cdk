@@ -75,6 +75,11 @@ export default defineConfig({
         logo: "/img/logo.png",
         sidebar: [
           {
+            text: "Introduction",
+            collapsed: true,
+            link: "/introduction/",
+          },
+          {
             text: "Getting Started",
             collapsed: true,
             link: "/getting-started/",
@@ -152,6 +157,11 @@ export default defineConfig({
         ...defaultConfig.themeConfig,
         logo: "/img/logo.png",
         sidebar: [
+          {
+            text: "Introduction",
+            collapsed: true,
+            link: "/ja/introduction/",
+          },
           {
             text: "Getting Started",
             collapsed: true,
