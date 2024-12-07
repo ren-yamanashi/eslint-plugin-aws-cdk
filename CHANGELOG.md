@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.0.0 (2024-12-07)
+
+### New features/Updates to existing features
+
+- add rule 'no-variable-construct-id' ([#71](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/71)) ([b6bb694](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/b6bb6942afaea2ac7b4e7f0e0b1fb3c9d1e36f44))
+- add rule 'require-passing-this' ([#70](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/70)) ([4dbf1ec](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/4dbf1eceefde8712458cbeb016844d42b94078ae))
+
+### Documentation changes
+
+- add versioningPolicy ([#73](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/73)) ([e0fc81f](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/e0fc81f4a9d9ff74c7368dfa95678c2c4941ff4e))
+- fix link ([#56](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/56)) ([2d158de](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/2d158de326624e9516b3ff43ac5d473e64f79fed))
+- fix typo ([#40](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/40)) ([9439ab5](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/9439ab55b70a3fd8281b7e741520274753ee8445))
+- update documents ([#65](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/65)) ([0546c09](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/0546c09477df9f04f4654ba4e9408c7c19a116a0))
+- update example code ([#72](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/72)) ([ad0b86b](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/ad0b86b91002ba9621cfee6248bfd2fc479398c0))
+- update getting-started ([#57](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/57)) ([7ec284e](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/7ec284edbb4f1ebabc51f0916038825b06039abd))
+- update installation guid ([#58](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/58)) ([e376ad7](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/e376ad79d5064a8cc668034add8ccf91e025413d))
+- update README.md ([#66](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/66)) ([d09b260](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/d09b2603c2fd47624ed0015279904dfbde46d3af))
+- update README.md ([#67](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/67)) ([8589ccd](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/8589ccdf1d6441319a4d99ca99118f2b9ba02263))
+- update rule documents ([#55](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/55)) ([01d85b7](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/01d85b7944fd9a344069762ee78fb07784934acc))
+
 ## 0.4.0 (2024-11-30)
 
 ### New features/Updates to existing features
