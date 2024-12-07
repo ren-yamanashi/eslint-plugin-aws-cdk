@@ -41,7 +41,7 @@ import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 export class MyConstruct extends Construct {
-  // ❌ mutable なフィールドは使用しないでください
+  // ❌ mutable なフィールドは使用すべきではありません
   public bucket: IBucket;
 }
 ```

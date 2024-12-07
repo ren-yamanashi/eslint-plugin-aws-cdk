@@ -34,12 +34,12 @@ const bucket = new Bucket(this, "MyBucket");
 ```ts
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
-// ❌ camelCase は使用しないでください
+// ❌ camelCase は使用すべきではありません
 const bucket = new Bucket(this, "myBucket");
 
-// ❌ snake_case は使用しないでください
+// ❌ snake_case は使用すべきではありません
 const bucket = new Bucket(this, "my_bucket");
 
-// ❌ kebab-case は使用しないでください
+// ❌ kebab-case は使用すべきではありません
 const bucket = new Bucket(this, "my-bucket");
 ```

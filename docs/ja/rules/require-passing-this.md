@@ -52,7 +52,7 @@ export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // ❌ scope を使用しないでください
+    // ❌ scope を使用すべきではありません
     new Bucket(scope, "SampleBucket");
   }
 }

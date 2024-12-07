@@ -33,7 +33,7 @@ interface MyConstructProps {
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
-  // ❌ class のフィールドは使用しないでください
+  // ❌ class のフィールドは使用すべきではありません
   readonly bucket: Bucket;
 }
 ```

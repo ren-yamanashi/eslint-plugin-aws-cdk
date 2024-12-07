@@ -39,7 +39,7 @@ import { Construct } from "constructs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {
-  // ❌ class のフィールドは使用しないでください
+  // ❌ class のフィールドは使用すべきではありません
   public readonly bucket: Bucket;
 
   constructor(scope: Construct, id: string) {

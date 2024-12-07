@@ -39,7 +39,7 @@ interface MyConstructProps {
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
-  // ❌ mutable なフィールドは使用できません
+  // ❌ mutable なフィールドは使用すべきではありません
   bucket: IBucket;
 }
 ```

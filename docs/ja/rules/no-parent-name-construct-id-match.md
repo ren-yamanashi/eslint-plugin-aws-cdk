@@ -40,7 +40,7 @@ export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // ❌ 親コンストラクトと同じ名前は使用できません
+    // ❌ 親コンストラクトと同じ名前は使用すべきではありません
     const bucket = new Bucket(this, "MyConstruct");
   }
 }

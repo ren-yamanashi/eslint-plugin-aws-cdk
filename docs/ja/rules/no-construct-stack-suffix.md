@@ -41,7 +41,7 @@ export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // ❌ "Construct" サフィックスを使用しないでください
+    // ❌ "Construct" サフィックスを使用すべきではありません
     const bucket = new Bucket(this, "BucketConstruct");
   }
 }
