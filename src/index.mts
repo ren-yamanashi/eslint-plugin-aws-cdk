@@ -5,6 +5,7 @@ import { noMutablePropsInterface } from "./no-mutable-props-interface.mjs";
 import { noMutablePublicFields } from "./no-mutable-public-fields.mjs";
 import { noParentNameConstructIdMatch } from "./no-parent-name-construct-id-match.mjs";
 import { noPublicClassFields } from "./no-public-class-fields.mjs";
+import { noVariableConstructId } from "./no-variable-construct-id.mjs";
 import { pascalCaseConstructId } from "./pascal-case-construct-id.mjs";
 import { requirePassingThis } from "./require-passing-this.mjs";
 
@@ -19,6 +20,7 @@ const plugin = {
     "no-mutable-public-fields": noMutablePublicFields,
     "no-mutable-props-interface": noMutablePropsInterface,
     "require-passing-this": requirePassingThis,
+    "no-variable-construct-id": noVariableConstructId,
   },
   configs: {
     recommended: {
@@ -30,6 +32,7 @@ const plugin = {
         "cdk/no-public-class-fields": "error",
         "cdk/pascal-case-construct-id": "error",
         "cdk/require-passing-this": "error",
+        "cdk/no-variable-construct-id": "error",
         "cdk/no-mutable-public-fields": "warn",
         "cdk/no-mutable-props-interface": "warn",
       },

@@ -99,6 +99,10 @@ export default defineConfig({
                 link: "/rules/require-passing-this",
               },
               {
+                text: "no-variable-construct-id",
+                link: "/rules/no-variable-construct-id",
+              },
+              {
                 text: "no-parent-name-construct-id-match",
                 link: "/rules/no-parent-name-construct-id-match",
               },
@@ -171,6 +175,10 @@ export default defineConfig({
               {
                 text: "require-passing-this",
                 link: "/ja/rules/require-passing-this",
+              },
+              {
+                text: "no-variable-construct-id",
+                link: "/ja/rules/no-variable-construct-id",
               },
               {
                 text: "no-parent-name-construct-id-match",
