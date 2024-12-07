@@ -24,6 +24,8 @@ import { Bucket } from "aws-cdk-lib/aws-s3";
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
+
+    // ✅ "Construct" サフィックスが追加されていない場合は許可されます
     const bucket = new Bucket(this, "MyBucket");
   }
 }
@@ -38,6 +40,8 @@ import { Bucket } from "aws-cdk-lib/aws-s3";
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
+
+    // ❌ "Construct" サフィックスを使用すべきではありません
     const bucket = new Bucket(this, "BucketConstruct");
   }
 }

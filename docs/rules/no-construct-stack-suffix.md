@@ -25,6 +25,8 @@ import { Bucket } from "aws-cdk-lib/aws-s3";
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
+
+    // ✅ When the suffix "Construct" is not added, it is permitted.
     const bucket = new Bucket(this, "MyBucket");
   }
 }
@@ -39,6 +41,8 @@ import { Bucket } from "aws-cdk-lib/aws-s3";
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
+
+    // ❌ Shouldn't use the suffix "Construct"
     const bucket = new Bucket(this, "BucketConstruct");
   }
 }

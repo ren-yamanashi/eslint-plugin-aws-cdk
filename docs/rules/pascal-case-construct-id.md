@@ -26,6 +26,7 @@ This rule enforces PascalCase for construct IDs.
 ```ts
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
+// ✅ Can use PascalCase
 const bucket = new Bucket(this, "MyBucket");
 ```
 
@@ -34,5 +35,12 @@ const bucket = new Bucket(this, "MyBucket");
 ```ts
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
+// ❌ Shouldn't use camelCase
 const bucket = new Bucket(this, "myBucket");
+
+// ❌ Shouldn't use snake_case
+const bucket = new Bucket(this, "my_bucket");
+
+// ❌ Shouldn't use kebab-case
+const bucket = new Bucket(this, "my-bucket");
 ```

@@ -23,7 +23,9 @@ import { Construct } from "constructs";
 import { IBucket, Bucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {
+  // ✅ Can use interface public field
   public readonly bucket: IBucket;
+
   constructor(scope: Construct, id: string) {
     super(scope, id);
     this.bucket = new Bucket(this, "MyBucket");
@@ -38,7 +40,9 @@ import { Construct } from "constructs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {
+  // ❌ Shouldn't use class type public field
   public readonly bucket: Bucket;
+
   constructor(scope: Construct, id: string) {
     super(scope, id);
     this.bucket = new Bucket(this, "MyBucket");
