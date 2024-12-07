@@ -50,6 +50,10 @@ class MyConstruct extends Construct {
 ```ts
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
+export interface MyConstructProps {
+  stage: string;
+}
+
 class MyConstruct extends Construct {
   constructor(scope: Construct, id: string, props: MyConstructProps) {
     super(scope, id);
@@ -64,7 +68,7 @@ class MyConstruct extends Construct {
     new Bucket(this, id + "Bucket");
 
     // ❌ Shouldn't use a prop straight-up either
-    new Bucket(this, `${prop.stage}Bucket`);
+    new Bucket(this, `${props.stage}Bucket`);
   }
 }
 ```
