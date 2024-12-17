@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.2 (2024-12-17)
+
+### Bug fixes
+
+- rules that should apply only to constructs also apply to stacks ([#79](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/79)) ([78603e5](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/78603e539dd2a870f562efc84bae9b8b63b2a0f6))
+
 ### 1.0.1 (2024-12-07)
 
 ### Other changes
