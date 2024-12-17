@@ -5,7 +5,7 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import { isConstructType } from "./utils/typeCheck.mjs";
+import { isConstructType, isStackType } from "./utils/typeCheck.mjs";
 
 type Context = TSESLint.RuleContext<"noVariableConstructId", []>;
 
@@ -35,7 +35,7 @@ export const noVariableConstructId = ESLintUtils.RuleCreator.withoutDocs({
         const type = typeChecker.getTypeAtLocation(
           parserServices.esTreeNodeToTSNodeMap.get(node)
         );
-        if (!isConstructType(type)) {
+        if (!isConstructType(type) || isStackType(type)) {
           return;
         }
 

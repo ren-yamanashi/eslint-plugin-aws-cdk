@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
-import { isConstructType } from "./utils/typeCheck.mjs";
+import { isConstructType, isStackType } from "./utils/typeCheck.mjs";
 
 /**
  * Enforces that `this` is passed to the constructor
@@ -30,7 +30,11 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
           parserServices.esTreeNodeToTSNodeMap.get(node)
         );
 
-        if (!isConstructType(type) || !node.arguments.length) {
+        if (
+          !isConstructType(type) ||
+          isStackType(type) ||
+          !node.arguments.length
+        ) {
           return;
         }
 

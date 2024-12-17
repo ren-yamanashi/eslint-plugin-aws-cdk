@@ -8,7 +8,11 @@ type SuperClassType = "Construct" | "Stack";
  * @returns True if the type extends Construct or Stack, otherwise false
  */
 export const isConstructOrStackType = (type: Type): boolean => {
-  return isTargetSuperClassType(type, ["Construct", "Stack"]);
+  return isTargetSuperClassType(
+    type,
+    ["Construct", "Stack"],
+    isConstructOrStackType
+  );
 };
 
 /**
@@ -17,7 +21,16 @@ export const isConstructOrStackType = (type: Type): boolean => {
  * @returns True if the type extends Construct, otherwise false
  */
 export const isConstructType = (type: Type): boolean => {
-  return isTargetSuperClassType(type, ["Construct"]);
+  return isTargetSuperClassType(type, ["Construct"], isConstructType);
+};
+
+/**
+ * Check if the type extends Stack
+ * @param type - The type to check
+ * @returns True if the type extends Stack, otherwise false
+ */
+export const isStackType = (type: Type): boolean => {
+  return isTargetSuperClassType(type, ["Stack"], isStackType);
 };
 
 /**
@@ -28,7 +41,8 @@ export const isConstructType = (type: Type): boolean => {
  */
 const isTargetSuperClassType = (
   type: Type,
-  targetSuperClasses: SuperClassType[]
+  targetSuperClasses: SuperClassType[],
+  typeCheckFunction: (type: Type) => boolean
 ): boolean => {
   if (!type.symbol) return false;
 
@@ -39,5 +53,5 @@ const isTargetSuperClassType = (
 
   // NOTE: Check the base type
   const baseTypes = type.getBaseTypes() || [];
-  return baseTypes.some((baseType) => isConstructOrStackType(baseType));
+  return baseTypes.some((baseType) => typeCheckFunction(baseType));
 };
