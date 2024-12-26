@@ -34,6 +34,35 @@ pnpm install -D eslint-cdk-plugin
 Note: This plugin uses typescript type information and must be used with `typescript-eslint`.
 
 ```js
+import eslintCdkPlugin from "eslint-cdk-plugin";
+import tsEslint from "typescript-eslint";
+
+export default [
+  ...tsEslint.configs.recommended,
+  {
+    files: ["lib/**/*.ts", "bin/*.ts"],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        project: "./tsconfig.json",
+      },
+    },
+    // ✅ Add plugins
+    plugins: {
+      cdk: eslintCdkPlugin,
+    },
+    // ✅ Add rules (use recommended rules)
+    rules: {
+      ...eslintCdkPlugin.configs.recommended.rules,
+      "cdk/no-import-private": "error",
+    },
+  },
+];
+```
+
+<details><summary>You can also write the following</summary>
+
+```js
 // eslint.config.mjs
 import tsEslint from "typescript-eslint";
 import eslintCdkPlugin from "eslint-cdk-plugin";
@@ -59,6 +88,10 @@ export default tsEslint.config({
 });
 ```
 
+</details>
+
+<br />
+
 #### Use custom config
 
 ```js
@@ -66,6 +99,33 @@ export default tsEslint.config({
 import tsEslint from "typescript-eslint";
 import eslintCdkPlugin from "eslint-cdk-plugin";
 
+export default [
+  ...tsEslint.configs.recommended,
+  {
+    files: ["lib/**/*.ts", "bin/*.ts"],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        project: "./tsconfig.json",
+      },
+    },
+    // ✅ Add plugins
+    plugins: {
+      cdk: eslintCdkPlugin,
+    },
+    // ✅ Add rules (use custom rules)
+    rules: {
+      "cdk/no-class-in-interface": "error",
+      "cdk/no-construct-stack-suffix": "error",
+      "cdk/no-parent-name-construct-id-match": "error",
+    },
+  },
+];
+```
+
+<details><summary>You can also write the following</summary>
+
+```js
 export default tsEslint.config({
   files: ["lib/**/*.ts", "bin/*.ts"],
   languageOptions: {
@@ -88,6 +148,8 @@ export default tsEslint.config({
   },
 });
 ```
+
+</details>
 
 ## ❗ Issue
 
