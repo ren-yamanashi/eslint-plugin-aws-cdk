@@ -28,24 +28,22 @@ export const noImportPrivate: Rule.RuleModule = {
         const currentFilePath = context.filename;
         const currentDirPath = path.dirname(currentFilePath);
 
-        if (importPath.includes("/private")) {
-          const absoluteCurrentDirPath = path.resolve(currentDirPath);
-          const absoluteImportPath = path.resolve(currentDirPath, importPath);
+        if (!importPath.includes("/private")) return;
+        const absoluteCurrentDirPath = path.resolve(currentDirPath);
+        const absoluteImportPath = path.resolve(currentDirPath, importPath);
 
-          // NOTE: Get the directory from the import path up to the private directory
-          const importDirBeforePrivate =
-            absoluteImportPath.split("/private")[0];
+        // NOTE: Get the directory from the import path up to the private directory
+        const importDirBeforePrivate = absoluteImportPath.split("/private")[0];
 
-          const currentDirSegments = getDirSegments(absoluteCurrentDirPath);
-          const importDirSegments = getDirSegments(importDirBeforePrivate);
-          if (
-            currentDirSegments.length !== importDirSegments.length ||
-            currentDirSegments.some(
-              (segment, index) => segment !== importDirSegments[index]
-            )
-          ) {
-            context.report({ node, messageId: "noImportPrivate" });
-          }
+        const currentDirSegments = getDirSegments(absoluteCurrentDirPath);
+        const importDirSegments = getDirSegments(importDirBeforePrivate);
+        if (
+          currentDirSegments.length !== importDirSegments.length ||
+          currentDirSegments.some(
+            (segment, index) => segment !== importDirSegments[index]
+          )
+        ) {
+          context.report({ node, messageId: "noImportPrivate" });
         }
       },
     };

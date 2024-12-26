@@ -39,19 +39,13 @@ export const pascalCaseConstructId = ESLintUtils.RuleCreator.withoutDocs({
   defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
-    const typeChecker = parserServices.program.getTypeChecker();
     return {
       NewExpression(node) {
-        const type = typeChecker.getTypeAtLocation(
-          parserServices.esTreeNodeToTSNodeMap.get(node)
-        );
-        if (!isConstructOrStackType(type)) {
+        const type = parserServices.getTypeAtLocation(node);
+        if (!isConstructOrStackType(type) || node.arguments.length < 2) {
           return;
         }
-
-        if (node.arguments.length < 2) return;
-
-        validateConstructId(node, context, node);
+        validateConstructId(node, context);
       },
     };
   },
@@ -70,14 +64,13 @@ const isPascalCase = (str: string) => {
  * Check the construct ID is PascalCase
  */
 const validateConstructId = (
-  node: TSESTree.Node,
-  context: Context,
-  expression: TSESTree.NewExpression
+  node: TSESTree.NewExpression,
+  context: Context
 ) => {
-  if (expression.arguments.length < 2) return;
+  if (node.arguments.length < 2) return;
 
   // NOTE: Treat the second argument as ID
-  const secondArg = expression.arguments[1];
+  const secondArg = node.arguments[1];
   if (
     secondArg.type !== AST_NODE_TYPES.Literal ||
     typeof secondArg.value !== "string"
@@ -89,17 +82,14 @@ const validateConstructId = (
     ? QUOTE_TYPE.DOUBLE
     : QUOTE_TYPE.SINGLE;
 
-  if (!isPascalCase(secondArg.value)) {
-    context.report({
-      node,
-      messageId: "pascalCaseConstructId",
-      fix: (fixer) => {
-        const pascalCaseValue = toPascalCase(secondArg.value as string);
-        return fixer.replaceText(
-          secondArg,
-          `${quote}${pascalCaseValue}${quote}`
-        );
-      },
-    });
-  }
+  if (isPascalCase(secondArg.value)) return;
+
+  context.report({
+    node,
+    messageId: "pascalCaseConstructId",
+    fix: (fixer) => {
+      const pascalCaseValue = toPascalCase(secondArg.value as string);
+      return fixer.replaceText(secondArg, `${quote}${pascalCaseValue}${quote}`);
+    },
+  });
 };

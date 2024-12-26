@@ -299,15 +299,14 @@ const validateConstructId = ({
 
   const formattedConstructId = toPascalCase(secondArg.value as string);
   const formattedParentClassName = toPascalCase(parentClassName);
+  if (formattedParentClassName !== formattedConstructId) return;
 
-  if (formattedParentClassName === formattedConstructId) {
-    context.report({
-      node,
-      messageId: "noParentNameConstructIdMatch",
-      data: {
-        constructId: secondArg.value,
-        parentConstructName: parentClassName,
-      },
-    });
-  }
+  context.report({
+    node,
+    messageId: "noParentNameConstructIdMatch",
+    data: {
+      constructId: secondArg.value,
+      parentConstructName: parentClassName,
+    },
+  });
 };

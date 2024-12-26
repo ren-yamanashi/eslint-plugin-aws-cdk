@@ -7,7 +7,7 @@ import { SymbolFlags } from "typescript";
  * @returns An object containing the AST visitor functions
  * @see {@link https://eslint-cdk-plugin.dev/rules/no-class-in-interface} - Documentation
  */
-export const noClassInInterfaceProps = ESLintUtils.RuleCreator.withoutDocs({
+export const noClassInInterface = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     type: "problem",
     docs: {
@@ -22,7 +22,6 @@ export const noClassInInterfaceProps = ESLintUtils.RuleCreator.withoutDocs({
   defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
-    const typeChecker = parserServices.program.getTypeChecker();
     return {
       TSInterfaceDeclaration(node) {
         for (const property of node.body.body) {
@@ -34,8 +33,7 @@ export const noClassInInterfaceProps = ESLintUtils.RuleCreator.withoutDocs({
             continue;
           }
 
-          const tsNode = parserServices.esTreeNodeToTSNodeMap.get(property);
-          const type = typeChecker.getTypeAtLocation(tsNode);
+          const type = parserServices.getTypeAtLocation(property);
           if (!type.symbol) continue;
 
           // NOTE: check class type

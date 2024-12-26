@@ -5,7 +5,7 @@ import {
   TSESLint,
   TSESTree,
 } from "@typescript-eslint/utils";
-import { SymbolFlags, TypeChecker } from "typescript";
+import { SymbolFlags } from "typescript";
 
 import { isConstructOrStackType } from "./utils/typeCheck.mjs";
 
@@ -32,23 +32,13 @@ export const noPublicClassFields = ESLintUtils.RuleCreator.withoutDocs({
   defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
-    const typeChecker = parserServices.program.getTypeChecker();
     return {
       ClassDeclaration(node) {
-        const type = typeChecker.getTypeAtLocation(
-          parserServices.esTreeNodeToTSNodeMap.get(node)
-        );
-        if (!isConstructOrStackType(type)) {
-          return;
-        }
+        const type = parserServices.getTypeAtLocation(node);
+        if (!isConstructOrStackType(type)) return;
 
         // NOTE: Check class members
-        validateClassMember({
-          node,
-          context,
-          parserServices,
-          typeChecker,
-        });
+        validateClassMember(node, context, parserServices);
 
         // NOTE: Check constructor parameter properties
         const constructor = node.body.body.find(
@@ -62,12 +52,12 @@ export const noPublicClassFields = ESLintUtils.RuleCreator.withoutDocs({
         ) {
           return;
         }
-        validateConstructorParameterProperty({
+
+        validateConstructorParameterProperty(
           constructor,
           context,
-          parserServices,
-          typeChecker,
-        });
+          parserServices
+        );
       },
     };
   },
@@ -77,17 +67,11 @@ export const noPublicClassFields = ESLintUtils.RuleCreator.withoutDocs({
  * check the public variable of the class
  * - if it is a class type, report an error
  */
-const validateClassMember = ({
-  node,
-  context,
-  parserServices,
-  typeChecker,
-}: {
-  node: TSESTree.ClassDeclaration;
-  context: Context;
-  parserServices: ParserServicesWithTypeInformation;
-  typeChecker: TypeChecker;
-}) => {
+const validateClassMember = (
+  node: TSESTree.ClassDeclaration,
+  context: Context,
+  parserServices: ParserServicesWithTypeInformation
+) => {
   for (const member of node.body.body) {
     if (
       member.type !== AST_NODE_TYPES.PropertyDefinition ||
@@ -102,13 +86,9 @@ const validateClassMember = ({
     }
 
     // NOTE: Skip fields without type annotation
-    if (!member.typeAnnotation) {
-      continue;
-    }
+    if (!member.typeAnnotation) continue;
 
-    const tsNode = parserServices.esTreeNodeToTSNodeMap.get(member);
-    const type = typeChecker.getTypeAtLocation(tsNode);
-
+    const type = parserServices.getTypeAtLocation(member);
     if (!type.symbol) continue;
 
     const isClass = type.symbol.flags === SymbolFlags.Class;
@@ -129,17 +109,11 @@ const validateClassMember = ({
  * check the constructor parameter property
  * - if it is a class type, report an error
  */
-const validateConstructorParameterProperty = ({
-  constructor,
-  context,
-  parserServices,
-  typeChecker,
-}: {
-  constructor: TSESTree.MethodDefinition;
-  context: Context;
-  parserServices: ParserServicesWithTypeInformation;
-  typeChecker: TypeChecker;
-}) => {
+const validateConstructorParameterProperty = (
+  constructor: TSESTree.MethodDefinition,
+  context: Context,
+  parserServices: ParserServicesWithTypeInformation
+) => {
   for (const param of constructor.value.params) {
     if (
       param.type !== AST_NODE_TYPES.TSParameterProperty ||
@@ -154,13 +128,9 @@ const validateConstructorParameterProperty = ({
     }
 
     // NOTE: Skip parameters without type annotation
-    if (!param.parameter.typeAnnotation) {
-      continue;
-    }
+    if (!param.parameter.typeAnnotation) continue;
 
-    const tsNode = parserServices.esTreeNodeToTSNodeMap.get(param);
-    const type = typeChecker.getTypeAtLocation(tsNode);
-
+    const type = parserServices.getTypeAtLocation(param);
     if (!type.symbol) continue;
 
     const isClass = type.symbol.flags === SymbolFlags.Class;
