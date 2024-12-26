@@ -1,4 +1,4 @@
-import { noClassInInterfaceProps } from "./no-class-in-interface-props.mjs";
+import { noClassInInterface } from "./no-class-in-interface.mjs";
 import { noConstructStackSuffix } from "./no-construct-stack-suffix.mjs";
 import { noImportPrivate } from "./no-import-private.mjs";
 import { noMutablePropsInterface } from "./no-mutable-props-interface.mjs";
@@ -11,7 +11,7 @@ import { requirePassingThis } from "./require-passing-this.mjs";
 
 const plugin = {
   rules: {
-    "no-class-in-interface": noClassInInterfaceProps,
+    "no-class-in-interface": noClassInInterface,
     "no-construct-stack-suffix": noConstructStackSuffix,
     "no-import-private": noImportPrivate,
     "no-parent-name-construct-id-match": noParentNameConstructIdMatch,
@@ -35,6 +35,21 @@ const plugin = {
         "cdk/no-variable-construct-id": "error",
         "cdk/no-mutable-public-fields": "warn",
         "cdk/no-mutable-props-interface": "warn",
+      },
+    },
+    strict: {
+      plugins: ["cdk"],
+      rules: {
+        "cdk/no-class-in-interface": "error",
+        "cdk/no-construct-stack-suffix": "error",
+        "cdk/no-parent-name-construct-id-match": "error",
+        "cdk/no-public-class-fields": "error",
+        "cdk/pascal-case-construct-id": "error",
+        "cdk/require-passing-this": "error",
+        "cdk/no-variable-construct-id": "error",
+        "cdk/no-mutable-public-fields": "error",
+        "cdk/no-mutable-props-interface": "error",
+        "cdk/no-import-private": "error",
       },
     },
   },
