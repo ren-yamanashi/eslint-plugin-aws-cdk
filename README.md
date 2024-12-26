@@ -31,7 +31,7 @@ pnpm install -D eslint-cdk-plugin
 
 #### Use recommended config
 
-Note: This plugin uses typescript type information and must be used with `typescript-eslint`.
+Note: This plugin uses typescript type information and must be used in conjunction with [typescript-eslint](https://typescript-eslint.io/getting-started).
 
 ```js
 import eslintCdkPlugin from "eslint-cdk-plugin";
@@ -60,7 +60,7 @@ export default [
 ];
 ```
 
-<details><summary>You can also write the following</summary>
+<details><summary>`eslint.config.mts` can also be written as follows</summary>
 
 ```js
 // eslint.config.mjs
@@ -123,9 +123,12 @@ export default [
 ];
 ```
 
-<details><summary>You can also write the following</summary>
+<details><summary>`eslint.config.mts` can also be written as follows</summary>
 
 ```js
+import tsEslint from "typescript-eslint";
+import eslintCdkPlugin from "eslint-cdk-plugin";
+
 export default tsEslint.config({
   files: ["lib/**/*.ts", "bin/*.ts"],
   languageOptions: {
@@ -150,6 +153,8 @@ export default tsEslint.config({
 ```
 
 </details>
+
+<br />
 
 ## ❗ Issue
 
