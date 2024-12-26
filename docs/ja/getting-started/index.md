@@ -37,28 +37,70 @@ pnpm install -D eslint-cdk-plugin
   </a>
 </div>
 
-このプラグインは型情報を使用するため、`typescript-eslint` と一緒に使用することを推奨します。
+<div style="margin-top:16px; margin-bottom:16px; background-color: #595959; padding: 16px;border-radius: 4px;">
+  🚨 このプラグインは typescript の型情報を使う為
+  <a href="https://typescript-eslint.io/getting-started">
+    typescript-eslint
+  </a>
+  との併用が必要になります。
+</div>
 
 ```js
-// eslint.config.mjs
-import eslint from "@eslint/js";
-import tsEslint from "typescript-eslint";
 import eslintCdkPlugin from "eslint-cdk-plugin";
+import tsEslint from "typescript-eslint";
 
 export default [
-  eslint.configs.recommended,
   ...tsEslint.configs.recommended,
-  ...tsEslint.configs.stylistic,
   {
+    files: ["lib/**/*.ts", "bin/*.ts"],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        project: "./tsconfig.json",
+      },
+    },
+    // ✅ Add plugins
     plugins: {
       cdk: eslintCdkPlugin,
     },
+    // ✅ Add rules (use recommended rules)
     rules: {
       ...eslintCdkPlugin.configs.recommended.rules,
+      "cdk/no-import-private": "error",
     },
   },
 ];
 ```
+
+::: details `eslint.config.mts`は、次のように書くこともできます
+
+```js
+// eslint.config.mjs
+import tsEslint from "typescript-eslint";
+import eslintCdkPlugin from "eslint-cdk-plugin";
+
+export default tsEslint.config({
+  files: ["lib/**/*.ts", "bin/*.ts"],
+  languageOptions: {
+    parser: tsEslint.parser,
+    parserOptions: {
+      projectService: true,
+      project: "./tsconfig.json",
+    },
+  },
+  extends: [...tsEslint.configs.recommended],
+  // ✅ Add plugins
+  plugins: {
+    cdk: eslintCdkPlugin,
+  },
+  // ✅ Add rules (use recommended rules)
+  rules: {
+    ...eslintCdkPlugin.configs.recommended.rules,
+  },
+});
+```
+
+:::
 
 ## ルールのカスタマイズ
 
@@ -66,22 +108,60 @@ export default [
 
 ```js
 // eslint.config.mjs
-import eslint from "@eslint/js";
 import tsEslint from "typescript-eslint";
 import eslintCdkPlugin from "eslint-cdk-plugin";
 
 export default [
-  eslint.configs.recommended,
   ...tsEslint.configs.recommended,
-  ...tsEslint.configs.stylistic,
   {
+    files: ["lib/**/*.ts", "bin/*.ts"],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        project: "./tsconfig.json",
+      },
+    },
+    // ✅ Add plugins
     plugins: {
       cdk: eslintCdkPlugin,
     },
+    // ✅ Add rules (use custom rules)
     rules: {
-      ...eslintCdkPlugin.configs.recommended.rules,
-      "cdk/no-public-class-fields": "warn",
+      "cdk/no-class-in-interface": "error",
+      "cdk/no-construct-stack-suffix": "error",
+      "cdk/no-parent-name-construct-id-match": "error",
     },
   },
 ];
 ```
+
+::: details `eslint.config.mts`は、次のように書くこともできます
+
+```js
+import tsEslint from "typescript-eslint";
+import eslintCdkPlugin from "eslint-cdk-plugin";
+
+export default tsEslint.config({
+  files: ["lib/**/*.ts", "bin/*.ts"],
+  languageOptions: {
+    parser: tsEslint.parser,
+    parserOptions: {
+      projectService: true,
+      project: "./tsconfig.json",
+    },
+  },
+  extends: [...tsEslint.configs.recommended],
+  // ✅ Add plugins
+  plugins: {
+    cdk: eslintCdkPlugin,
+  },
+  // ✅ Add rules (use custom rules)
+  rules: {
+    "cdk/no-class-in-interface": "error",
+    "cdk/no-construct-stack-suffix": "error",
+    "cdk/no-parent-name-construct-id-match": "error",
+  },
+});
+```
+
+:::

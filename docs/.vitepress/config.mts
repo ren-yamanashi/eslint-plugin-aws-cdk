@@ -83,12 +83,6 @@ export default defineConfig({
             text: "Getting Started",
             collapsed: true,
             link: "/getting-started/",
-            items: [
-              {
-                text: "Example",
-                link: "/getting-started/example",
-              },
-            ],
           },
           {
             text: "Rules",
@@ -166,12 +160,6 @@ export default defineConfig({
             text: "Getting Started",
             collapsed: true,
             link: "/ja/getting-started/",
-            items: [
-              {
-                text: "Example",
-                link: "/ja/getting-started/example",
-              },
-            ],
           },
           {
             text: "Rules",
