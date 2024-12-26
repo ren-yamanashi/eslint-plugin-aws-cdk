@@ -24,17 +24,12 @@ export const noMutablePublicFields = ESLintUtils.RuleCreator.withoutDocs({
   defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
-    const typeChecker = parserServices.program.getTypeChecker();
-    const sourceCode = context.sourceCode;
 
     return {
       ClassDeclaration(node) {
-        const type = typeChecker.getTypeAtLocation(
-          parserServices.esTreeNodeToTSNodeMap.get(node)
-        );
-        if (!isConstructOrStackType(type)) {
-          return;
-        }
+        const sourceCode = context.sourceCode;
+        const type = parserServices.getTypeAtLocation(node);
+        if (!isConstructOrStackType(type)) return;
 
         for (const member of node.body.body) {
           // NOTE: check property definition

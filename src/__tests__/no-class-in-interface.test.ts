@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 
-import { noClassInInterfaceProps } from "../no-class-in-interface-props.mjs";
+import { noClassInInterface } from "../no-class-in-interface.mjs";
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -12,7 +12,7 @@ const ruleTester = new RuleTester({
   },
 });
 
-ruleTester.run("no-class-in-interface", noClassInInterfaceProps, {
+ruleTester.run("no-class-in-interface", noClassInInterface, {
   valid: [
     // WHEN: property type is string
     {

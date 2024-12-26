@@ -21,10 +21,10 @@ export const noMutablePropsInterface = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
-    const sourceCode = context.sourceCode;
-
     return {
       TSInterfaceDeclaration(node) {
+        const sourceCode = context.sourceCode;
+
         // NOTE: Interface name check for "Props"
         if (!node.id.name.endsWith("Props")) return;
 

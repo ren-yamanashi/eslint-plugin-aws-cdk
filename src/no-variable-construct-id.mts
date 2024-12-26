@@ -28,20 +28,19 @@ export const noVariableConstructId = ESLintUtils.RuleCreator.withoutDocs({
   defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
-    const typeChecker = parserServices.program.getTypeChecker();
-
     return {
       NewExpression(node) {
-        const type = typeChecker.getTypeAtLocation(
-          parserServices.esTreeNodeToTSNodeMap.get(node)
-        );
-        if (!isConstructType(type) || isStackType(type)) {
+        const type = parserServices.getTypeAtLocation(node);
+
+        if (
+          !isConstructType(type) ||
+          isStackType(type) ||
+          node.arguments.length < 2
+        ) {
           return;
         }
 
-        if (node.arguments.length < 2) return;
-
-        validateConstructId(node, context, node);
+        validateConstructId(node, context);
       },
     };
   },
@@ -51,16 +50,13 @@ export const noVariableConstructId = ESLintUtils.RuleCreator.withoutDocs({
  * Check if the construct ID is a literal string
  */
 const validateConstructId = (
-  node: TSESTree.Node,
-  context: Context,
-  expression: TSESTree.NewExpression
+  node: TSESTree.NewExpression,
+  context: Context
 ) => {
-  if (expression.arguments.length < 2 || isInsideLoop(node)) {
-    return;
-  }
+  if (node.arguments.length < 2 || isInsideLoop(node)) return;
 
   // NOTE: Treat the second argument as ID
-  const secondArg = expression.arguments[1];
+  const secondArg = node.arguments[1];
 
   // NOTE: When id is string literal, it's OK
   if (

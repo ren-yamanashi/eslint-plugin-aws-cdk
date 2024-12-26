@@ -23,12 +23,9 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
   defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
-    const typeChecker = parserServices.program.getTypeChecker();
     return {
       NewExpression(node) {
-        const type = typeChecker.getTypeAtLocation(
-          parserServices.esTreeNodeToTSNodeMap.get(node)
-        );
+        const type = parserServices.getTypeAtLocation(node);
 
         if (
           !isConstructType(type) ||
@@ -39,16 +36,15 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
         }
 
         const argument = node.arguments[0];
+        if (argument.type === AST_NODE_TYPES.ThisExpression) return;
 
-        if (argument.type !== AST_NODE_TYPES.ThisExpression) {
-          context.report({
-            node,
-            messageId: "requirePassingThis",
-            fix: (fixer) => {
-              return fixer.replaceText(argument, "this");
-            },
-          });
-        }
+        context.report({
+          node,
+          messageId: "requirePassingThis",
+          fix: (fixer) => {
+            return fixer.replaceText(argument, "this");
+          },
+        });
       },
     };
   },
