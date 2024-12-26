@@ -8,6 +8,7 @@
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "test": "vitest --run",
     "lint": "eslint --fix --config eslint.config.mjs",
+    "type-check": "tsc --noEmit",
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
     "release:patch": "standard-version --release-as patch",
@@ -24,11 +25,11 @@
     "standard-version": "^9.5.0",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.14.0",
-    "vitest": "^2.1.5"
+    "vitest": "^2.1.5",
+    "eslint": "9.10.0"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^8.14.0",
-    "eslint": "9.10.0"
+    "@typescript-eslint/utils": "^8.14.0"
   },
   "volta": {
     "node": "22.11.0"
