@@ -29,9 +29,9 @@ pnpm install -D eslint-cdk-plugin
 
 ## 🚀 Usage
 
-#### Use recommended config
-
 Note: This plugin uses typescript type information and must be used in conjunction with [typescript-eslint](https://typescript-eslint.io/getting-started).
+
+#### Use recommended config
 
 ```js
 import eslintCdkPlugin from "eslint-cdk-plugin";
