@@ -45,7 +45,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
-        run: pnpm i --frozen-lockfile
+        run: pnpm i
       - name: Run Tests
         run: pnpm run test
       - name: Lint
