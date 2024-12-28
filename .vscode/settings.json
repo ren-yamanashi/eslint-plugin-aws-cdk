@@ -14,5 +14,8 @@
     "MD001": false,
     "MD025": false,
     "MD033": false
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
   }
 }
