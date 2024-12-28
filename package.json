@@ -2,9 +2,9 @@
   "name": "eslint-cdk-plugin",
   "version": "1.0.2",
   "description": "eslint plugin for AWS CDK projects",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "main": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "type": "module",
   "exports": {
     "types": "./dist/index.d.ts",
     "require": {
