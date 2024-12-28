@@ -19,7 +19,7 @@
   "scripts": {
     "build": "pkgroll --tsconfig=tsconfig.build.json",
     "test": "vitest --run",
-    "lint": "eslint --fix --config eslint.config.mjs",
+    "lint": "eslint --fix --config eslint.config.js",
     "type-check": "tsc --noEmit",
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
