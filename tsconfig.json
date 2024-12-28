@@ -13,11 +13,11 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "rootDir": ".",
+    "rootDir": "src",
     "outDir": "./dist",
     "module": "ESNext",
     "moduleResolution": "bundler"
   },
-  "include": ["src", "src/__tests__"],
+  "include": ["src"],
   "exclude": ["dist", "node_modules"]
 }
