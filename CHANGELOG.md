@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.3 (2024-12-28)
+
+### Code refactoring
+
+- refactoring of rule codes ([#83](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/83)) ([041d59a](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/041d59aebeefda1828b73b1b180896872b080f27))
+
+### Documentation changes
+
+- update documents(vitepress and README) ([#84](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/84)) ([3d1cac9](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/3d1cac9ec4e6aa0afa35e19722d64f934173aa7e))
+
+### Bug fixes
+
+- update module name ([#85](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/85)) ([ad95cb2](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/ad95cb2467026555dcbcd34723691d2e8f0be6b3))
+
+### Other changes
+
+- **deps:** bump nanoid from 3.3.7 to 3.3.8 ([#87](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/87)) ([e45fb78](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/e45fb788af35ae69f9d26a8b57097533d2d7093e))
+- **deps:** bump nanoid from 3.3.7 to 3.3.8 in /docs ([#81](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/81)) ([4511900](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/45119005800e3715f2dd31d1b1963ea2fea41d95))
+- support commonjs ([#88](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/88)) ([d608976](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/d60897603c3f9e98bccbe347f86c6324a1cea0e9))
+- support declarationMap ([#89](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/89)) ([772e597](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/772e597b99022a09c77fbabd4f57f6c185b8068c))
+- update dependencies ([#86](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/86)) ([27626f6](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/27626f6823df17fe6865b724a432a15923178e2a))
+
 ### 1.0.2 (2024-12-17)
 
 ### Bug fixes
