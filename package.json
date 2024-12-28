@@ -64,9 +64,6 @@
     "type": "git",
     "url": "https://github.com/ren-yamanashi/eslint-cdk-plugin.git"
   },
-  "engines": {
-    "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
-  },
   "author": {
     "name": "ren-yamanashi"
   },
