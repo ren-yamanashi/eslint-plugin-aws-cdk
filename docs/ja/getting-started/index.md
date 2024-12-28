@@ -69,7 +69,6 @@ export default [
     // ✅ Add rules (use recommended rules)
     rules: {
       ...eslintCdkPlugin.configs.recommended.rules,
-      "cdk/no-import-private": "error",
     },
   },
 ];
@@ -127,7 +126,6 @@ module.exports = [
     },
     rules: {
       ...eslintCdkPlugin.configs.recommended.rules,
-      "cdk/no-import-private": "error",
     },
   },
   {
