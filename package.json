@@ -18,8 +18,6 @@
   },
   "scripts": {
     "build": "pkgroll --tsconfig=tsconfig.build.json",
-    "build:cjs": "tsc -p tsconfig.cjs.json",
-    "build:esm": "tsc -p tsconfig.esm.json",
     "test": "vitest --run",
     "lint": "eslint --fix --config eslint.config.mjs",
     "type-check": "tsc --noEmit",
