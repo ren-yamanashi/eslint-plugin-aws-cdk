@@ -1,19 +1,18 @@
-import { noClassInInterface } from "./no-class-in-interface.mjs";
-import { noConstructStackSuffix } from "./no-construct-stack-suffix.mjs";
-import { noImportPrivate } from "./no-import-private.mjs";
-import { noMutablePropsInterface } from "./no-mutable-props-interface.mjs";
-import { noMutablePublicFields } from "./no-mutable-public-fields.mjs";
-import { noParentNameConstructIdMatch } from "./no-parent-name-construct-id-match.mjs";
-import { noPublicClassFields } from "./no-public-class-fields.mjs";
-import { noVariableConstructId } from "./no-variable-construct-id.mjs";
-import { pascalCaseConstructId } from "./pascal-case-construct-id.mjs";
-import { requirePassingThis } from "./require-passing-this.mjs";
+import { noClassInInterface } from "./no-class-in-interface.js";
+import { noConstructStackSuffix } from "./no-construct-stack-suffix.js";
+import { noImportPrivate } from "./no-import-private.js";
+import { noMutablePropsInterface } from "./no-mutable-props-interface.js";
+import { noMutablePublicFields } from "./no-mutable-public-fields.js";
+import { noParentNameConstructIdMatch } from "./no-parent-name-construct-id-match.js";
+import { noPublicClassFields } from "./no-public-class-fields.js";
+import { noVariableConstructId } from "./no-variable-construct-id.js";
+import { pascalCaseConstructId } from "./pascal-case-construct-id.js";
+import { requirePassingThis } from "./require-passing-this.js";
 
 const plugin = {
   rules: {
     "no-class-in-interface": noClassInInterface,
     "no-construct-stack-suffix": noConstructStackSuffix,
-    "no-import-private": noImportPrivate,
     "no-parent-name-construct-id-match": noParentNameConstructIdMatch,
     "no-public-class-fields": noPublicClassFields,
     "pascal-case-construct-id": pascalCaseConstructId,
@@ -21,6 +20,7 @@ const plugin = {
     "no-mutable-props-interface": noMutablePropsInterface,
     "require-passing-this": requirePassingThis,
     "no-variable-construct-id": noVariableConstructId,
+    "no-import-private": noImportPrivate,
   },
   configs: {
     recommended: {

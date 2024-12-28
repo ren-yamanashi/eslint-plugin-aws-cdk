@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 
-import { noMutablePropsInterface } from "../no-mutable-props-interface.mjs";
+import { noMutablePropsInterface } from "../src/no-mutable-props-interface";
 
 const ruleTester = new RuleTester({
   languageOptions: {

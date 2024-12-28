@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 
-import { noClassInInterface } from "../no-class-in-interface.mjs";
+import { noClassInInterface } from "../src/no-class-in-interface";
 
 const ruleTester = new RuleTester({
   languageOptions: {

@@ -7,7 +7,12 @@ export default tsEslint.config(
   ...tsEslint.configs.strict,
   ...tsEslint.configs.stylistic,
   {
-    files: ["src/*.{mts,ts}", "src/**/*.{mts,ts}"],
+    files: [
+      "src/*.{mts,ts}",
+      "src/**/*.{mts,ts}",
+      "tests/*.{mts,ts}",
+      "tests/**/*.{mts,ts}",
+    ],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",

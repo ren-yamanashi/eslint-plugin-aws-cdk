@@ -61,7 +61,7 @@ pnpm lint
 #### Creating a New Rule
 
 1. Create a new file in `src`(file name should same rule name)
-2. Create corresponding test file in `src/__tests__`
+2. Create corresponding test file in `tests`
 3. Add rule to `src/index.ts`
 4. Add documentation in `docs`
 

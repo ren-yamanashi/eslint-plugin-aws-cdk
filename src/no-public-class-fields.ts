@@ -7,7 +7,7 @@ import {
 } from "@typescript-eslint/utils";
 import { SymbolFlags } from "typescript";
 
-import { isConstructOrStackType } from "./utils/typeCheck.mjs";
+import { isConstructOrStackType } from "./utils/typeCheck.js";
 
 type Context = TSESLint.RuleContext<"noPublicClassFields", []>;
 

@@ -5,8 +5,8 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import { toPascalCase } from "./utils/convertString.mjs";
-import { isConstructOrStackType } from "./utils/typeCheck.mjs";
+import { toPascalCase } from "./utils/convertString.js";
+import { isConstructOrStackType } from "./utils/typeCheck.js";
 
 type Context = TSESLint.RuleContext<"noConstructStackSuffix", []>;
 

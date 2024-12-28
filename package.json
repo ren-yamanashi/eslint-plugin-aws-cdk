@@ -2,10 +2,23 @@
   "name": "eslint-cdk-plugin",
   "version": "1.0.2",
   "description": "eslint plugin for AWS CDK projects",
-  "main": "dist/index.mjs",
-  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "dist/index.d.cts",
+  "exports": {
+    "require": {
+      "types": "./dist/index.d.cts",
+      "default": "./dist/index.cjs"
+    },
+    "import": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    }
+  },
   "scripts": {
-    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "build": "rm -rf dist && pnpm build:cjs && pnpm build:esm",
+    "build:cjs": "tsc -p tsconfig.cjs.json && npx tsx ./scripts/renameJsToCjs.ts",
+    "build:esm": "tsc -p tsconfig.esm.json",
     "test": "vitest --run",
     "lint": "eslint --fix --config eslint.config.mjs",
     "type-check": "tsc --noEmit",
@@ -21,12 +34,14 @@
     "@types/estree": "^1.0.6",
     "@types/node": "^22.9.0",
     "@typescript-eslint/rule-tester": "^8.14.0",
+    "eslint": "9.10.0",
     "eslint-plugin-import": "^2.31.0",
+    "pkgroll": "^2.6.0",
     "standard-version": "^9.5.0",
+    "tsup": "^8.3.5",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.14.0",
-    "vitest": "^2.1.5",
-    "eslint": "9.10.0"
+    "vitest": "^2.1.5"
   },
   "dependencies": {
     "@typescript-eslint/utils": "^8.14.0"
@@ -36,6 +51,7 @@
   },
   "files": [
     "dist",
+    "src",
     "README.md",
     "LICENSE"
   ],
