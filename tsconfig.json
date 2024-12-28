@@ -7,6 +7,8 @@
     "incremental": false,
     "declaration": true,
     "sourceMap": true,
+    // NOTE: This library uses `pkgroll` to generate d.ts, but once commented out because `pkgroll` does not support `declarationMap`.
+    // "declarationMap": true,
     "removeComments": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
