@@ -2,18 +2,22 @@
   "name": "eslint-cdk-plugin",
   "version": "1.0.2",
   "description": "eslint plugin for AWS CDK projects",
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.mjs",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     "types": "./dist/index.d.ts",
-    "module": "./dist/esm/index.mjs",
-    "import": "./dist/esm/index.mjs",
-    "require": "./dist/cjs/index.cjs",
-    "default": "./dist/esm/index.mjs"
+    "require": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.cjs"
+    },
+    "import": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
+    }
   },
   "scripts": {
-    "build": "rollup -c",
+    "build": "pkgroll --tsconfig=tsconfig.build.json",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:esm": "tsc -p tsconfig.esm.json",
     "test": "vitest --run",

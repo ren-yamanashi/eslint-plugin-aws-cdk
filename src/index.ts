@@ -9,50 +9,61 @@ import { noVariableConstructId } from "./rules/no-variable-construct-id";
 import { pascalCaseConstructId } from "./rules/pascal-case-construct-id";
 import { requirePassingThis } from "./rules/require-passing-this";
 
-export const eslintCdkPlugin = {
-  rules: {
-    "no-class-in-interface": noClassInInterface,
-    "no-construct-stack-suffix": noConstructStackSuffix,
-    "no-parent-name-construct-id-match": noParentNameConstructIdMatch,
-    "no-public-class-fields": noPublicClassFields,
-    "pascal-case-construct-id": pascalCaseConstructId,
-    "no-mutable-public-fields": noMutablePublicFields,
-    "no-mutable-props-interface": noMutablePropsInterface,
-    "require-passing-this": requirePassingThis,
-    "no-variable-construct-id": noVariableConstructId,
-    "no-import-private": noImportPrivate,
-  },
-  configs: {
-    recommended: {
-      plugins: ["cdk"],
-      rules: {
-        "cdk/no-class-in-interface": "error",
-        "cdk/no-construct-stack-suffix": "error",
-        "cdk/no-parent-name-construct-id-match": "error",
-        "cdk/no-public-class-fields": "error",
-        "cdk/pascal-case-construct-id": "error",
-        "cdk/require-passing-this": "error",
-        "cdk/no-variable-construct-id": "error",
-        "cdk/no-mutable-public-fields": "warn",
-        "cdk/no-mutable-props-interface": "warn",
-      },
-    },
-    strict: {
-      plugins: ["cdk"],
-      rules: {
-        "cdk/no-class-in-interface": "error",
-        "cdk/no-construct-stack-suffix": "error",
-        "cdk/no-parent-name-construct-id-match": "error",
-        "cdk/no-public-class-fields": "error",
-        "cdk/pascal-case-construct-id": "error",
-        "cdk/require-passing-this": "error",
-        "cdk/no-variable-construct-id": "error",
-        "cdk/no-mutable-public-fields": "error",
-        "cdk/no-mutable-props-interface": "error",
-        "cdk/no-import-private": "error",
-      },
+const rules = {
+  "no-class-in-interface": noClassInInterface,
+  "no-construct-stack-suffix": noConstructStackSuffix,
+  "no-parent-name-construct-id-match": noParentNameConstructIdMatch,
+  "no-public-class-fields": noPublicClassFields,
+  "pascal-case-construct-id": pascalCaseConstructId,
+  "no-mutable-public-fields": noMutablePublicFields,
+  "no-mutable-props-interface": noMutablePropsInterface,
+  "require-passing-this": requirePassingThis,
+  "no-variable-construct-id": noVariableConstructId,
+  "no-import-private": noImportPrivate,
+};
+
+const configs = {
+  recommended: {
+    plugins: ["cdk"],
+    rules: {
+      "cdk/no-class-in-interface": "error",
+      "cdk/no-construct-stack-suffix": "error",
+      "cdk/no-parent-name-construct-id-match": "error",
+      "cdk/no-public-class-fields": "error",
+      "cdk/pascal-case-construct-id": "error",
+      "cdk/require-passing-this": "error",
+      "cdk/no-variable-construct-id": "error",
+      "cdk/no-mutable-public-fields": "warn",
+      "cdk/no-mutable-props-interface": "warn",
     },
   },
+  strict: {
+    plugins: ["cdk"],
+    rules: {
+      "cdk/no-class-in-interface": "error",
+      "cdk/no-construct-stack-suffix": "error",
+      "cdk/no-parent-name-construct-id-match": "error",
+      "cdk/no-public-class-fields": "error",
+      "cdk/pascal-case-construct-id": "error",
+      "cdk/require-passing-this": "error",
+      "cdk/no-variable-construct-id": "error",
+      "cdk/no-mutable-public-fields": "error",
+      "cdk/no-mutable-props-interface": "error",
+      "cdk/no-import-private": "error",
+    },
+  },
+};
+
+export { configs, rules };
+
+export interface EslintCdkPlugin {
+  rules: typeof rules;
+  configs: typeof configs;
+}
+
+const eslintCdkPlugin: EslintCdkPlugin = {
+  rules,
+  configs,
 };
 
 export default eslintCdkPlugin;
