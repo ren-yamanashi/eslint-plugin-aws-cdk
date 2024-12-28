@@ -1,5 +1,6 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
-import { SymbolFlags } from "typescript";
+
+import { SymbolFlags } from "../types/symbolFlags";
 
 /**
  * Enforces the use of interface types instead of class in interface properties

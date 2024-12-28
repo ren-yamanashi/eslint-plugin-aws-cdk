@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 
-import { noPublicClassFields } from "../no-public-class-fields.mjs";
+import { noPublicClassFields } from "../rules/no-public-class-fields";
 
 const ruleTester = new RuleTester({
   languageOptions: {

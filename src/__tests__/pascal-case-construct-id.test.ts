@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 
-import { pascalCaseConstructId } from "../pascal-case-construct-id.mjs";
+import { pascalCaseConstructId } from "../rules/pascal-case-construct-id";
 
 const ruleTester = new RuleTester({
   languageOptions: {

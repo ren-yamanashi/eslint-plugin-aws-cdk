@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
-import { isConstructType, isStackType } from "./utils/typeCheck.mjs";
+import { isConstructType, isStackType } from "../utils/typeCheck";
 
 /**
  * Enforces that `this` is passed to the constructor

@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 
-import { requirePassingThis } from "../require-passing-this.mjs";
+import { requirePassingThis } from "../rules/require-passing-this";
 
 const ruleTester = new RuleTester({
   languageOptions: {

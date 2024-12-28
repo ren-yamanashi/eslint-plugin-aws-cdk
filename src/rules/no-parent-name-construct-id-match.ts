@@ -5,7 +5,7 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import { toPascalCase } from "./utils/convertString.mjs";
+import { toPascalCase } from "../utils/convertString";
 
 type Context = TSESLint.RuleContext<"noParentNameConstructIdMatch", []>;
 
