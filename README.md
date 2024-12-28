@@ -34,6 +34,7 @@ Note: This plugin uses typescript type information and must be used in conjuncti
 #### Use recommended config
 
 ```js
+// eslint.config.mjs
 import eslintCdkPlugin from "eslint-cdk-plugin";
 import tsEslint from "typescript-eslint";
 
@@ -60,7 +61,7 @@ export default [
 ];
 ```
 
-<details><summary>`eslint.config.mts` can also be written as follows</summary>
+<details><summary>`eslint.config.mjs` can also be written as follows</summary>
 
 ```js
 // eslint.config.mjs
@@ -123,9 +124,10 @@ export default [
 ];
 ```
 
-<details><summary>`eslint.config.mts` can also be written as follows</summary>
+<details><summary>`eslint.config.mjs` can also be written as follows</summary>
 
 ```js
+// eslint.config.mjs
 import tsEslint from "typescript-eslint";
 import eslintCdkPlugin from "eslint-cdk-plugin";
 
