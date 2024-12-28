@@ -5,9 +5,9 @@ import {
   TSESLint,
   TSESTree,
 } from "@typescript-eslint/utils";
-import { SymbolFlags } from "typescript";
 
-import { isConstructOrStackType } from "./utils/typeCheck.js";
+import { SymbolFlags } from "../types/symbolFlags";
+import { isConstructOrStackType } from "../utils/typeCheck";
 
 type Context = TSESLint.RuleContext<"noPublicClassFields", []>;
 

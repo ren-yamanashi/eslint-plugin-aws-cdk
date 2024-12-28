@@ -5,7 +5,7 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import { isConstructType, isStackType } from "./utils/typeCheck.js";
+import { isConstructType, isStackType } from "../utils/typeCheck";
 
 type Context = TSESLint.RuleContext<"noVariableConstructId", []>;
 

@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 
-import { noParentNameConstructIdMatch } from "../src/no-parent-name-construct-id-match";
+import { noParentNameConstructIdMatch } from "../rules/no-parent-name-construct-id-match";
 
 const ruleTester = new RuleTester({
   languageOptions: {

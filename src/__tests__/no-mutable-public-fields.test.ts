@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 
-import { noMutablePublicFields } from "../src/no-mutable-public-fields";
+import { noMutablePublicFields } from "../rules/no-mutable-public-fields";
 
 const ruleTester = new RuleTester({
   languageOptions: {

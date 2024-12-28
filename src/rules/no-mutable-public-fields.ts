@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
-import { isConstructOrStackType } from "./utils/typeCheck.js";
+import { isConstructOrStackType } from "../utils/typeCheck";
 
 /**
  * Disallow mutable public class fields

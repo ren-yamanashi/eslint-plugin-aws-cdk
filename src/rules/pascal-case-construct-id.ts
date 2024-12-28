@@ -5,8 +5,8 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import { toPascalCase } from "./utils/convertString.js";
-import { isConstructOrStackType } from "./utils/typeCheck.js";
+import { toPascalCase } from "../utils/convertString";
+import { isConstructOrStackType } from "../utils/typeCheck";
 
 const QUOTE_TYPE = {
   SINGLE: "'",

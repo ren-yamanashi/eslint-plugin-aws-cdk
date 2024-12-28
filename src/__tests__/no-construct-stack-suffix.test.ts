@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 
-import { noConstructStackSuffix } from "../src/no-construct-stack-suffix";
+import { noConstructStackSuffix } from "../rules/no-construct-stack-suffix";
 
 const ruleTester = new RuleTester({
   languageOptions: {

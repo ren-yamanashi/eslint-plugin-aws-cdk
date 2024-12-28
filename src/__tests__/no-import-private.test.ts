@@ -1,6 +1,6 @@
 import { RuleTester } from "eslint";
 
-import { noImportPrivate } from "../src/no-import-private.js";
+import { noImportPrivate } from "../rules/no-import-private.js";
 
 const ruleTester = new RuleTester({
   languageOptions: { ecmaVersion: "latest", sourceType: "module" },

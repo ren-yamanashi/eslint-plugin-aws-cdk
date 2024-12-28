@@ -2,21 +2,18 @@
   "name": "eslint-cdk-plugin",
   "version": "1.0.2",
   "description": "eslint plugin for AWS CDK projects",
-  "main": "dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "dist/index.d.cts",
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
-    "require": {
-      "types": "./dist/index.d.cts",
-      "default": "./dist/index.cjs"
-    },
-    "import": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
-    }
+    "types": "./dist/index.d.ts",
+    "module": "./dist/esm/index.mjs",
+    "import": "./dist/esm/index.mjs",
+    "require": "./dist/cjs/index.cjs",
+    "default": "./dist/esm/index.mjs"
   },
   "scripts": {
-    "build": "rm -rf dist && pnpm build:cjs && pnpm build:esm",
+    "build": "rollup -c",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:esm": "tsc -p tsconfig.esm.json",
     "test": "vitest --run",
@@ -31,12 +28,18 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
     "@types/estree": "^1.0.6",
     "@types/node": "^22.9.0",
     "@typescript-eslint/rule-tester": "^8.14.0",
     "eslint": "9.10.0",
     "eslint-plugin-import": "^2.31.0",
     "pkgroll": "^2.6.0",
+    "rollup": "^4.29.1",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-esbuild": "^6.1.1",
+    "rollup-plugin-node-externals": "^8.0.0",
     "standard-version": "^9.5.0",
     "tsup": "^8.3.5",
     "typescript": "^5.6.3",
@@ -51,7 +54,6 @@
   },
   "files": [
     "dist",
-    "src",
     "README.md",
     "LICENSE"
   ],

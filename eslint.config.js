@@ -1,5 +1,6 @@
 import eslint from "@eslint/js";
 import importPlugin from "eslint-plugin-import";
+import globals from "globals";
 import tsEslint from "typescript-eslint";
 
 export default tsEslint.config(
@@ -7,18 +8,16 @@ export default tsEslint.config(
   ...tsEslint.configs.strict,
   ...tsEslint.configs.stylistic,
   {
-    files: [
-      "src/*.{mts,ts}",
-      "src/**/*.{mts,ts}",
-      "tests/*.{mts,ts}",
-      "tests/**/*.{mts,ts}",
-    ],
+    files: ["src/*.{mts,ts}", "src/**/*.{mts,ts}"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
       parserOptions: {
         projectService: true,
         project: "./tsconfig.json",
+      },
+      globals: {
+        ...globals.node,
       },
     },
     plugins: {

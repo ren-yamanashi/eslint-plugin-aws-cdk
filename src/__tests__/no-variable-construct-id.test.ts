@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 
-import { noVariableConstructId } from "../src/no-variable-construct-id";
+import { noVariableConstructId } from "../rules/no-variable-construct-id";
 
 const ruleTester = new RuleTester({
   languageOptions: {

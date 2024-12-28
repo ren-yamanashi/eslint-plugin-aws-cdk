@@ -7,7 +7,6 @@
     "incremental": false,
     "declaration": true,
     "sourceMap": true,
-    "declarationMap": true,
     "removeComments": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -19,6 +18,6 @@
     "module": "ESNext",
     "moduleResolution": "bundler"
   },
-  "include": ["src", "tests"],
+  "include": ["src", "src/__tests__"],
   "exclude": ["dist", "node_modules"]
 }

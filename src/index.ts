@@ -1,15 +1,15 @@
-import { noClassInInterface } from "./no-class-in-interface.js";
-import { noConstructStackSuffix } from "./no-construct-stack-suffix.js";
-import { noImportPrivate } from "./no-import-private.js";
-import { noMutablePropsInterface } from "./no-mutable-props-interface.js";
-import { noMutablePublicFields } from "./no-mutable-public-fields.js";
-import { noParentNameConstructIdMatch } from "./no-parent-name-construct-id-match.js";
-import { noPublicClassFields } from "./no-public-class-fields.js";
-import { noVariableConstructId } from "./no-variable-construct-id.js";
-import { pascalCaseConstructId } from "./pascal-case-construct-id.js";
-import { requirePassingThis } from "./require-passing-this.js";
+import { noClassInInterface } from "./rules/no-class-in-interface";
+import { noConstructStackSuffix } from "./rules/no-construct-stack-suffix";
+import { noImportPrivate } from "./rules/no-import-private";
+import { noMutablePropsInterface } from "./rules/no-mutable-props-interface";
+import { noMutablePublicFields } from "./rules/no-mutable-public-fields";
+import { noParentNameConstructIdMatch } from "./rules/no-parent-name-construct-id-match";
+import { noPublicClassFields } from "./rules/no-public-class-fields";
+import { noVariableConstructId } from "./rules/no-variable-construct-id";
+import { pascalCaseConstructId } from "./rules/pascal-case-construct-id";
+import { requirePassingThis } from "./rules/require-passing-this";
 
-const plugin = {
+export const eslintCdkPlugin = {
   rules: {
     "no-class-in-interface": noClassInInterface,
     "no-construct-stack-suffix": noConstructStackSuffix,
@@ -55,4 +55,4 @@ const plugin = {
   },
 };
 
-export default plugin;
+export default eslintCdkPlugin;
