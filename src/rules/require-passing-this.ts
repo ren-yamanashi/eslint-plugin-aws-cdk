@@ -1,5 +1,6 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
+import { getConstructorPropertyNames } from "../utils/parseType";
 import { isConstructType, isStackType } from "../utils/typeCheck";
 
 /**
@@ -37,6 +38,9 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
 
         const argument = node.arguments[0];
         if (argument.type === AST_NODE_TYPES.ThisExpression) return;
+
+        const constructorPropertyNames = getConstructorPropertyNames(type);
+        if (constructorPropertyNames[0] !== "scope") return;
 
         context.report({
           node,

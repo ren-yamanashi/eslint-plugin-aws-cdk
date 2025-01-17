@@ -41,7 +41,7 @@ ruleTester.run("no-construct-stack-suffix", noConstructStackSuffix, {
     {
       code: `
       class TestClass {
-        constructor(public id: string) {}
+        constructor(props: any, id: string) {}
       }
       const test = new TestClass("test", "SampleConstruct");
       `,
@@ -49,13 +49,22 @@ ruleTester.run("no-construct-stack-suffix", noConstructStackSuffix, {
     {
       code: `
       class TestClass {
-        constructor(public id: string) {}
+        constructor(props: any, id: string) {}
       }
       class Sample {
         constructor() {
           const test = new TestClass("test", "SampleConstruct");
         }
       }`,
+    },
+    // WHEN: property name is not `id`
+    {
+      code: `
+      class TestClass {
+        constructor(props: any, validId: string) {}
+      }
+      const test = new TestClass("test", "SampleConstruct");
+      `,
     },
   ],
   invalid: [

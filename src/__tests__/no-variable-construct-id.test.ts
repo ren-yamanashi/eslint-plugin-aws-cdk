@@ -88,6 +88,23 @@ ruleTester.run("no-variable-construct-id", noVariableConstructId, {
       }
     `,
     },
+    // WHEN: property name is not `id`
+    {
+      code: `
+      class Construct {}
+      class TargetConstruct extends Construct {
+        constructor(scope: Construct, validId: string) {
+          super(scope, validId);
+        }
+      }
+      class SampleConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          new TargetConstruct(this, id);
+        }
+      }
+      `,
+    },
   ],
   invalid: [
     // WHEN: id is variable

@@ -6,6 +6,7 @@ import {
 } from "@typescript-eslint/utils";
 
 import { toPascalCase } from "../utils/convertString";
+import { getConstructorPropertyNames } from "../utils/parseType";
 import { isConstructOrStackType } from "../utils/typeCheck";
 
 const QUOTE_TYPE = {
@@ -45,6 +46,10 @@ export const pascalCaseConstructId = ESLintUtils.RuleCreator.withoutDocs({
         if (!isConstructOrStackType(type) || node.arguments.length < 2) {
           return;
         }
+
+        const constructorPropertyNames = getConstructorPropertyNames(type);
+        if (constructorPropertyNames[1] !== "id") return;
+
         validateConstructId(node, context);
       },
     };

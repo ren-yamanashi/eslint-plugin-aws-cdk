@@ -6,6 +6,7 @@ import {
 } from "@typescript-eslint/utils";
 
 import { toPascalCase } from "../utils/convertString";
+import { getConstructorPropertyNames } from "../utils/parseType";
 import { isConstructOrStackType } from "../utils/typeCheck";
 
 type Context = TSESLint.RuleContext<"noConstructStackSuffix", []>;
@@ -38,6 +39,10 @@ export const noConstructStackSuffix = ESLintUtils.RuleCreator.withoutDocs({
         if (!isConstructOrStackType(type) || node.arguments.length < 2) {
           return;
         }
+
+        const constructorPropertyNames = getConstructorPropertyNames(type);
+        if (constructorPropertyNames[1] !== "id") return;
+
         validateConstructId(node, context);
       },
     };

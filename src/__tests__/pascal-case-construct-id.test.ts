@@ -79,6 +79,17 @@ ruleTester.run("pascal-case-construct-id", pascalCaseConstructId, {
       }
       const test = new TestClass('test', 'ValidId');`,
     },
+    // WHEN: property name is not `id`
+    {
+      code: `
+      class Construct {}
+      class TestClass extends Construct {
+        constructor(props: any, validId: string) {
+          super(props, validId);
+        }
+      }
+      const test = new TestClass("test", "invalid_id");`,
+    },
   ],
   invalid: [
     // WHEN: id is snake_case(double quote)

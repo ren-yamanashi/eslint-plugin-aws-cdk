@@ -5,6 +5,7 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
+import { getConstructorPropertyNames } from "../utils/parseType";
 import { isConstructType, isStackType } from "../utils/typeCheck";
 
 type Context = TSESLint.RuleContext<"noVariableConstructId", []>;
@@ -39,6 +40,9 @@ export const noVariableConstructId = ESLintUtils.RuleCreator.withoutDocs({
         ) {
           return;
         }
+
+        const constructorPropertyNames = getConstructorPropertyNames(type);
+        if (constructorPropertyNames[1] !== "id") return;
 
         validateConstructId(node, context);
       },
