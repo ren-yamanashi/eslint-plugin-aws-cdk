@@ -2,6 +2,7 @@ import { isClassDeclaration, isConstructorDeclaration, Type } from "typescript";
 
 /**
  * Parses type to get the property names of the class constructor.
+ * @returns The property names of the class constructor.
  */
 export const getConstructorPropertyNames = (type: Type): string[] => {
   const declarations = type.symbol?.declarations;
