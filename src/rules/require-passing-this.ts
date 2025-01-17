@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
-import { getConstructorPropertyNames } from "../utils/parseNode";
+import { getConstructorPropertyNames } from "../utils/parseType";
 import { isConstructType, isStackType } from "../utils/typeCheck";
 
 /**
