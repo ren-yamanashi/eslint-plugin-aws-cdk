@@ -24,7 +24,6 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
   defaultOptions: [],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
-
     return {
       NewExpression(node) {
         const type = parserServices.getTypeAtLocation(node);
