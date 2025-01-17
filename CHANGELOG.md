@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.4 (2025-01-17)
+
+### Bug fixes
+
+- check property names during instantiation ([#94](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/94)) ([4143df2](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/4143df2b093a3de3e973afab67bb69ce80785ab9))
+
 ### 1.0.3 (2024-12-28)
 
 ### Code refactoring
