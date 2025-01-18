@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.5 (2025-01-18)
+
+### Bug fixes
+
+- rules also apply to `Stage` Class ([#96](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/96)) ([2cf120c](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/2cf120c29e328b1562769a306b2e3e88f260e473))
+
 ### 1.0.4 (2025-01-17)
 
 ### Bug fixes
