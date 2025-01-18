@@ -6,7 +6,7 @@ import {
 } from "@typescript-eslint/utils";
 
 import { getConstructorPropertyNames } from "../utils/parseType";
-import { isConstructType, isStackType } from "../utils/typeCheck";
+import { isConstructType } from "../utils/typeCheck";
 
 type Context = TSESLint.RuleContext<"noVariableConstructId", []>;
 
@@ -33,13 +33,7 @@ export const noVariableConstructId = ESLintUtils.RuleCreator.withoutDocs({
       NewExpression(node) {
         const type = parserServices.getTypeAtLocation(node);
 
-        if (
-          !isConstructType(type) ||
-          isStackType(type) ||
-          node.arguments.length < 2
-        ) {
-          return;
-        }
+        if (!isConstructType(type) || node.arguments.length < 2) return;
 
         const constructorPropertyNames = getConstructorPropertyNames(type);
         if (constructorPropertyNames[1] !== "id") return;

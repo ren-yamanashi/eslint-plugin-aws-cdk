@@ -5,9 +5,14 @@ type SuperClassType = "Construct" | "Stack";
 /**
  * Check if the type extends Construct or Stack
  * @param type - The type to check
+ * @param ignoredClasses - Classes that inherit from Construct Class or Stack Class but do not want to be treated as Construct Class or Stack Class
  * @returns True if the type extends Construct or Stack, otherwise false
  */
-export const isConstructOrStackType = (type: Type): boolean => {
+export const isConstructOrStackType = (
+  type: Type,
+  ignoredClasses: readonly string[] = ["App", "Stage"] as const
+): boolean => {
+  if (ignoredClasses.includes(type.symbol?.name ?? "")) return false;
   return isTargetSuperClassType(
     type,
     ["Construct", "Stack"],
@@ -18,19 +23,15 @@ export const isConstructOrStackType = (type: Type): boolean => {
 /**
  * Check if the type extends Construct
  * @param type - The type to check
+ * @param ignoredClasses - Classes that inherit from Construct Class but do not want to be treated as Construct Class
  * @returns True if the type extends Construct, otherwise false
  */
-export const isConstructType = (type: Type): boolean => {
+export const isConstructType = (
+  type: Type,
+  ignoredClasses: readonly string[] = ["App", "Stage", "Stack"] as const
+): boolean => {
+  if (ignoredClasses.includes(type.symbol?.name ?? "")) return false;
   return isTargetSuperClassType(type, ["Construct"], isConstructType);
-};
-
-/**
- * Check if the type extends Stack
- * @param type - The type to check
- * @returns True if the type extends Stack, otherwise false
- */
-export const isStackType = (type: Type): boolean => {
-  return isTargetSuperClassType(type, ["Stack"], isStackType);
 };
 
 /**
