@@ -126,6 +126,10 @@ export default defineConfig({
                 link: "/rules/no-mutable-props-interface",
               },
               {
+                text: "require-jsdoc",
+                link: "/rules/require-jsdoc",
+              },
+              {
                 text: "no-import-private",
                 link: "/rules/no-import-private",
               },
@@ -201,6 +205,10 @@ export default defineConfig({
               {
                 text: "no-mutable-props-interface",
                 link: "/ja/rules/no-mutable-props-interface",
+              },
+              {
+                text: "require-jsdoc",
+                link: "/ja/rules/require-jsdoc",
               },
               {
                 text: "no-import-private",

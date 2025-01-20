@@ -5,12 +5,6 @@ titleTemplate: ":title"
 
 # require-jsdoc
 
-<div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
-  ✅ Using
-  <a href="/rules/#recommended-rules">recommended</a>
-  in an ESLint configuration enables this rule.
-</div>
-
 This rule requires JSDoc comments for interface properties and public properties in Construct classes.
 
 Adding JSDoc comments to properties makes the code more maintainable and easier to understand by providing clear documentation of what each property represents.
@@ -18,41 +12,40 @@ Adding JSDoc comments to properties makes the code more maintainable and easier 
 #### ✅ Correct Examples
 
 ```ts
-// Interface properties
 interface MyConstructProps {
+  // ✅ JSDoc comment for interface property
   /** S3 bucket to be specified for the resource */
   readonly bucket: IBucket;
-  /** The name of the bucket */
-  readonly bucketName: string;
 }
+```
 
-// Construct class public properties
+```ts
 import { Construct } from "constructs";
 
 class MyConstruct extends Construct {
+  // ✅ JSDoc comment for public property
   /** The S3 bucket created by this construct */
   public readonly bucket: IBucket;
 
-  private readonly bucketName: string; // private properties don't require JSDoc
+  // ✅ When the property is not public, this rule is not applied
+  private readonly bucketName: string;
 }
 ```
 
 #### ❌ Incorrect Examples
 
 ```ts
-// Missing JSDoc for interface property
 interface MyConstructProps {
-  bucket: IBucket; // ❌ Missing JSDoc comment
-  /** The name of the bucket */
-  bucketName: string;
+  // ❌ Missing JSDoc comment
+  readonly bucket: IBucket;
 }
+```
 
-// Missing JSDoc for public property in Construct
+```ts
 import { Construct } from "constructs";
 
 class MyConstruct extends Construct {
-  public readonly bucket: IBucket; // ❌ Missing JSDoc comment
-
-  private readonly bucketName: string;
+  // ❌ Missing JSDoc comment
+  public readonly bucket: IBucket;
 }
 ```
