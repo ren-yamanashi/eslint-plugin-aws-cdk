@@ -24,7 +24,7 @@ import { Construct } from "constructs";
 
 class MyConstruct extends Construct {
   // ✅ JSDocコメントが記載されている
-  /** このConstructで作成されたS3バケット */
+  /** Constructで作成されたS3バケット */
   public readonly bucket: IBucket;
 
   // ✅ publicでないプロパティには、このルールは適用されません
@@ -36,7 +36,7 @@ class MyConstruct extends Construct {
 
 ```ts
 interface MyConstructProps {
-  // ❌ JSDocコメントがありません
+  // ❌ JSDocコメントを記載する必要があります
   readonly bucket: IBucket;
 }
 ```
@@ -45,7 +45,7 @@ interface MyConstructProps {
 import { Construct } from "constructs";
 
 class MyConstruct extends Construct {
-  // ❌ JSDocコメントがありません
+  // ❌ JSDocコメントを記載する必要があります
   public readonly bucket: IBucket;
 }
 ```

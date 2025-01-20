@@ -36,7 +36,7 @@ class MyConstruct extends Construct {
 
 ```ts
 interface MyConstructProps {
-  // ❌ Missing JSDoc comment
+  // ❌ Must write JSDoc comment
   readonly bucket: IBucket;
 }
 ```
@@ -45,7 +45,7 @@ interface MyConstructProps {
 import { Construct } from "constructs";
 
 class MyConstruct extends Construct {
-  // ❌ Missing JSDoc comment
+  // ❌ Must write JSDoc comment
   public readonly bucket: IBucket;
 }
 ```
