@@ -5,7 +5,7 @@ titleTemplate: ":title"
 
 # require-jsdoc
 
-This rule requires JSDoc comments for interface properties and public properties in Construct classes.
+This rule requires JSDoc comments for interface properties and, public properties in Construct classes.
 
 Adding JSDoc comments to properties makes the code more maintainable and easier to understand by providing clear documentation of what each property represents.
 
