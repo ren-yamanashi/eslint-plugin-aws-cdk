@@ -18,3 +18,4 @@ You can check the details of the rules on each page.
 - [no-mutable-public-fields](/rules/no-mutable-public-fields)
 - [no-mutable-props-interface](/rules/no-mutable-props-interface)
 - [no-import-private](/rules/no-import-private)
+- [require-jsdoc](/rules/require-jsdoc)
