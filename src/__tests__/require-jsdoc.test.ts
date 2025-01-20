@@ -18,7 +18,9 @@ ruleTester.run("require-jsdoc", requireJSDoc, {
       // WHEN: Interface with JSDoc comments
       code: `
         interface TestProps {
-          /** Description for prop1 */
+          /**
+           * Description for prop1
+           */
           prop1: string;
           /** Description for prop2 */
           prop2: number;
@@ -30,7 +32,9 @@ ruleTester.run("require-jsdoc", requireJSDoc, {
       code: `
         import { Construct } from 'constructs';
         class TestConstruct extends Construct {
-          /** Description for prop1 */
+          /**
+           * Description for prop1
+           */
           public prop1: string;
           /** Description for prop2 */
           public prop2: number;
