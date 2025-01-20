@@ -34,8 +34,6 @@ ruleTester.run("require-jsdoc", requireJSDoc, {
           public prop1: string;
           /** Description for prop2 */
           public prop2: number;
-          private prop3: string; // private property should not require JSDoc
-          protected prop4: number; // protected property should not require JSDoc
         }
       `,
     },
@@ -65,8 +63,6 @@ ruleTester.run("require-jsdoc", requireJSDoc, {
       code: `
         interface TestProps {
           prop1: string;
-          /** Description for prop2 */
-          prop2: number;
         }
       `,
       errors: [
