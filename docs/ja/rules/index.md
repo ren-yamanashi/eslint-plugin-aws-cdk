@@ -18,3 +18,4 @@ titleTemplate: ":title"
 - [no-mutable-public-fields](/ja/rules/no-mutable-public-fields)
 - [no-mutable-props-interface](/ja/rules/no-mutable-props-interface)
 - [no-import-private](/ja/rules/no-import-private)
+- [require-jsdoc](/ja/rules/require-jsdoc)
