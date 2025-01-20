@@ -15,6 +15,7 @@ const ruleTester = new RuleTester({
 ruleTester.run("require-jsdoc", requireJSDoc, {
   valid: [
     {
+      // WHEN: Interface with JSDoc comments
       code: `
         interface TestProps {
           /** Description for prop1 */
@@ -25,6 +26,7 @@ ruleTester.run("require-jsdoc", requireJSDoc, {
       `,
     },
     {
+      // WHEN: Construct class with JSDoc comments
       code: `
         import { Construct } from 'constructs';
         class TestConstruct extends Construct {
@@ -38,9 +40,20 @@ ruleTester.run("require-jsdoc", requireJSDoc, {
       `,
     },
     {
+      // WHEN: property is not public
+      code: `
+        import { Construct } from 'constructs';
+        class TestConstruct extends Construct {
+          private prop3: string;
+          protected prop4: number;
+        }
+      `,
+    },
+    {
+      // WHEN: non-Construct class
       code: `
         class NormalClass {
-          public prop1: string; // non-Construct class should not require JSDoc
+          public prop1: string;
           private prop2: number;
         }
       `,
@@ -48,6 +61,7 @@ ruleTester.run("require-jsdoc", requireJSDoc, {
   ],
   invalid: [
     {
+      // WHEN: interface without JSDoc comments
       code: `
         interface TestProps {
           prop1: string;
@@ -63,13 +77,11 @@ ruleTester.run("require-jsdoc", requireJSDoc, {
       ],
     },
     {
+      // WHEN: Construct class without JSDoc comments
       code: `
         import { Construct } from 'constructs';
         class TestConstruct extends Construct {
           public prop1: string;
-          /** Description for prop2 */
-          public prop2: number;
-          private prop3: string;
         }
       `,
       errors: [

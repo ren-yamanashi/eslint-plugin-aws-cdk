@@ -1,4 +1,10 @@
-import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
+import {
+  AST_NODE_TYPES,
+  AST_TOKEN_TYPES,
+  ESLintUtils,
+} from "@typescript-eslint/utils";
+
+import { isConstructType } from "../utils/typeCheck";
 
 /**
  * Require JSDoc comments for properties in interfaces and Constructs
@@ -11,7 +17,7 @@ export const requireJSDocProps = ESLintUtils.RuleCreator.withoutDocs({
     type: "problem",
     docs: {
       description:
-        "Require JSDoc comments for properties in interfaces and Constructs",
+        "Require JSDoc comments for properties in interfaces and public properties in Constructs",
     },
     messages: {
       missingJSDoc:
@@ -21,6 +27,7 @@ export const requireJSDocProps = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [],
   create(context) {
+    const parserServices = ESLintUtils.getParserServices(context);
     return {
       TSPropertySignature(node) {
         if (
@@ -33,7 +40,8 @@ export const requireJSDocProps = ESLintUtils.RuleCreator.withoutDocs({
         const sourceCode = context.sourceCode;
         const comments = sourceCode.getCommentsBefore(node);
         const hasJSDoc = comments.some(
-          (comment) => comment.type === "Block" && comment.value.startsWith("*")
+          ({ type, value }) =>
+            type === AST_TOKEN_TYPES.Block && value.startsWith("*")
         );
 
         if (!hasJSDoc) {
@@ -49,13 +57,12 @@ export const requireJSDocProps = ESLintUtils.RuleCreator.withoutDocs({
       PropertyDefinition(node) {
         if (
           node.key.type !== AST_NODE_TYPES.Identifier ||
-          !node.parent ||
           node.parent.type !== AST_NODE_TYPES.ClassBody
         ) {
           return;
         }
 
-        // Check if the class extends Construct
+        // NOTE: Check if the class extends Construct
         const classDeclaration = node.parent.parent;
         if (
           classDeclaration.type !== AST_NODE_TYPES.ClassDeclaration ||
@@ -64,10 +71,17 @@ export const requireJSDocProps = ESLintUtils.RuleCreator.withoutDocs({
           return;
         }
 
+        // NOTE: Check if the class extends Construct and the property is public
+        const classType = parserServices.getTypeAtLocation(classDeclaration);
+        if (!isConstructType(classType) || node.accessibility !== "public") {
+          return;
+        }
+
         const sourceCode = context.sourceCode;
         const comments = sourceCode.getCommentsBefore(node);
         const hasJSDoc = comments.some(
-          (comment) => comment.type === "Block" && comment.value.startsWith("*")
+          ({ type, value }) =>
+            type === AST_TOKEN_TYPES.Block && value.startsWith("*")
         );
 
         if (!hasJSDoc) {
