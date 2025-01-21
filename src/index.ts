@@ -22,7 +22,7 @@ const rules = {
   "require-passing-this": requirePassingThis,
   "no-variable-construct-id": noVariableConstructId,
   "require-jsdoc": requireJSDoc,
-  "require-default-doc-optional-props": requirePropsDefaultDoc,
+  "require-props-default-doc": requirePropsDefaultDoc,
   "no-import-private": noImportPrivate,
 };
 
@@ -54,7 +54,7 @@ const configs = {
       "cdk/no-mutable-public-fields": "error",
       "cdk/no-mutable-props-interface": "error",
       "cdk/no-import-private": "error",
-      "cdk/require-default-doc-optional-props": "error",
+      "cdk/require-props-default-doc": "error",
       "cdk/require-jsdoc": "error",
     },
   },
