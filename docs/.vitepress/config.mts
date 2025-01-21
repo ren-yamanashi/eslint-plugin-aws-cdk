@@ -130,8 +130,8 @@ export default defineConfig({
                 link: "/rules/require-jsdoc",
               },
               {
-                text: "require-default-doc-optional-props",
-                link: "/rules/require-default-doc-optional-props",
+                text: "require-props-default-doc",
+                link: "/rules/require-props-default-doc",
               },
               {
                 text: "no-import-private",
@@ -215,8 +215,8 @@ export default defineConfig({
                 link: "/ja/rules/require-jsdoc",
               },
               {
-                text: "require-default-doc-optional-props",
-                link: "/ja/rules/require-default-doc-optional-props",
+                text: "require-props-default-doc",
+                link: "/ja/rules/require-props-default-doc",
               },
               {
                 text: "no-import-private",

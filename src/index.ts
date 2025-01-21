@@ -7,9 +7,9 @@ import { noParentNameConstructIdMatch } from "./rules/no-parent-name-construct-i
 import { noPublicClassFields } from "./rules/no-public-class-fields";
 import { noVariableConstructId } from "./rules/no-variable-construct-id";
 import { pascalCaseConstructId } from "./rules/pascal-case-construct-id";
-import { requireDefaultDocOptionalProps } from "./rules/require-default-doc-optional-props";
 import { requireJSDoc } from "./rules/require-jsdoc";
 import { requirePassingThis } from "./rules/require-passing-this";
+import { requirePropsDefaultDoc } from "./rules/require-props-default-doc";
 
 const rules = {
   "no-class-in-interface": noClassInInterface,
@@ -22,7 +22,7 @@ const rules = {
   "require-passing-this": requirePassingThis,
   "no-variable-construct-id": noVariableConstructId,
   "require-jsdoc": requireJSDoc,
-  "require-default-doc-optional-props": requireDefaultDocOptionalProps,
+  "require-default-doc-optional-props": requirePropsDefaultDoc,
   "no-import-private": noImportPrivate,
 };
 

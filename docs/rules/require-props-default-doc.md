@@ -1,9 +1,9 @@
 ---
-title: eslint-cdk-plugin - require-default-doc-optional-props
+title: eslint-cdk-plugin - require-props-default-doc
 titleTemplate: ":title"
 ---
 
-# require-default-doc-optional-props
+# require-props-default-doc
 
 Requires `@default` JSDoc documentation for optional properties in Props interfaces.(e.g., `MyConstructProps`, `StackProps`).  
 This rule does not apply to class properties or non-Props interfaces.

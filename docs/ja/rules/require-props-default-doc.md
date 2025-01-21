@@ -1,9 +1,9 @@
 ---
-title: eslint-cdk-plugin - require-default-doc-optional-props
+title: eslint-cdk-plugin - require-props-default-doc
 titleTemplate: ":title"
 ---
 
-# require-default-doc-optional-props
+# require-props-default-doc
 
 Props インターフェイスのオプショナルのプロパティには `@default` JSDoc ドキュメントを必須とします（例：`MyConstructProps`、`StackProps`）  
 クラスのプロパティや Props ではないインターフェースには適用されません。

@@ -18,5 +18,5 @@ You can check the details of the rules on each page.
 - [no-mutable-public-fields](/rules/no-mutable-public-fields)
 - [no-mutable-props-interface](/rules/no-mutable-props-interface)
 - [require-jsdoc](/rules/require-jsdoc)
-- [require-default-doc-optional-props](/rules/require-default-doc-optional-props)
+- [require-props-default-doc](/rules/require-props-default-doc)
 - [no-import-private](/rules/no-import-private)
