@@ -5,8 +5,8 @@ titleTemplate: ":title"
 
 # require-default-doc-optional-props
 
-Requires `@default` JSDoc documentation for optional properties in interfaces.  
-This rule does not apply to class properties.
+Requires `@default` JSDoc documentation for optional properties in Props interfaces.(e.g., `MyConstructProps`, `StackProps`).  
+This rule does not apply to class properties or non-Props interfaces.
 
 #### ✅ Correct Examples
 
@@ -16,6 +16,11 @@ interface MyConstructProps {
   /**
    * @default - No S3 bucket
    */
+  readonly bucket?: IBucket;
+}
+
+// ✅ Not checked because interface name doesn't end with 'Props'
+interface Config {
   readonly bucket?: IBucket;
 }
 ```
@@ -30,7 +35,7 @@ interface MyConstructProps {
 ```
 
 ```ts
-interface MyConstructProps {
+interface StackProps {
   // ❌ Must write `@default` JSDoc comment
   /** Some description without default value */
   readonly bucket?: IBucket;

@@ -5,7 +5,7 @@ import {
 } from "@typescript-eslint/utils";
 
 /**
- * Requires @default JSDoc documentation for optional properties in interfaces
+ * Requires @default JSDoc documentation for optional properties in interfaces ending with 'Props'
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
  * @see {@link https://eslint-cdk-plugin.dev/rules/require-default-doc-optional-props} - Documentation
@@ -16,12 +16,12 @@ export const requireDefaultDocOptionalProps =
       type: "suggestion",
       docs: {
         description:
-          "Require @default JSDoc for optional properties in interfaces",
+          "Require @default JSDoc for optional properties in interfaces ending with 'Props'",
       },
       schema: [],
       messages: {
         missingDefaultDoc:
-          "Optional interface property '{{ propertyName }}' must have @default JSDoc documentation",
+          "Optional property '{{ propertyName }}' in Props interface must have @default JSDoc documentation",
       },
     },
     defaultOptions: [],
@@ -34,6 +34,14 @@ export const requireDefaultDocOptionalProps =
           // NOTE: Check if the parent is an interface
           const parent = node.parent?.parent;
           if (parent?.type !== AST_NODE_TYPES.TSInterfaceDeclaration) {
+            return;
+          }
+
+          // NOTE: Check if the interface name ends with 'Props'
+          if (
+            parent.id.type !== AST_NODE_TYPES.Identifier ||
+            !parent.id.name.endsWith("Props")
+          ) {
             return;
           }
 

@@ -5,8 +5,8 @@ titleTemplate: ":title"
 
 # require-default-doc-optional-props
 
-インターフェースのオプショナルなプロパティに対して `@default` JSDoc ドキュメンテーションを必須とします。  
-このルールはクラスのプロパティには適用されません。
+Props インターフェイスのオプショナルのプロパティには `@default` JSDoc ドキュメントを必須とします（例：`MyConstructProps`、`StackProps`）  
+クラスのプロパティや Props ではないインターフェースには適用されません。
 
 #### ✅ Correct Examples
 
@@ -16,6 +16,11 @@ interface MyConstructProps {
   /**
    * @default - S3バケットを紐づけない
    */
+  readonly bucket?: IBucket;
+}
+
+// ✅ インターフェース名が'Props'で終わらないため、チェックされない
+interface Config {
   readonly bucket?: IBucket;
 }
 ```

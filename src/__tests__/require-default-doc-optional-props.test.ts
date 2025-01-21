@@ -18,9 +18,9 @@ ruleTester.run(
   {
     valid: [
       {
-        // WHEN: Optional property has @default JSDoc
+        // WHEN: Optional property has @default JSDoc in Props interface
         code: `
-        interface Props {
+        interface MyConstructProps {
           /**
            * @default undefined
            */
@@ -37,9 +37,17 @@ ruleTester.run(
       `,
       },
       {
-        // WHEN: Optional property is in a class with JSDoc
+        // WHEN: Optional property is in a non-Props interface
         code: `
-        class Example {
+        interface Config {
+          optional?: number;
+        }
+      `,
+      },
+      {
+        // WHEN: Optional property with JSDoc is in a non-Props interface
+        code: `
+        interface Config {
           /** Some description */
           optional?: string;
         }
@@ -48,9 +56,9 @@ ruleTester.run(
     ],
     invalid: [
       {
-        // WHEN: Optional property has no JSDoc
+        // WHEN: Optional property has no JSDoc in Props interface
         code: `
-        interface Props {
+        interface MyConstructProps {
           optional?: number;
         }
       `,
@@ -62,9 +70,9 @@ ruleTester.run(
         ],
       },
       {
-        // WHEN: Optional property has no @default JSDoc
+        // WHEN: Optional property has no @default JSDoc in Props interface
         code: `
-        interface Props {
+        interface StackProps {
           /** Some description */
           optional?: string;
         }
