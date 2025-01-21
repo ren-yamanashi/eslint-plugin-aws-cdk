@@ -17,5 +17,6 @@ titleTemplate: ":title"
 - [no-public-class-fields](/ja/rules/no-public-class-fields)
 - [no-mutable-public-fields](/ja/rules/no-mutable-public-fields)
 - [no-mutable-props-interface](/ja/rules/no-mutable-props-interface)
-- [no-import-private](/ja/rules/no-import-private)
 - [require-jsdoc](/ja/rules/require-jsdoc)
+- [require-default-doc-optional-props](/ja/rules/require-default-doc-optional-props)
+- [no-import-private](/ja/rules/no-import-private)

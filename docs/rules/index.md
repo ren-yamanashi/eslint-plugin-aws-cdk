@@ -17,5 +17,6 @@ You can check the details of the rules on each page.
 - [no-public-class-fields](/rules/no-public-class-fields)
 - [no-mutable-public-fields](/rules/no-mutable-public-fields)
 - [no-mutable-props-interface](/rules/no-mutable-props-interface)
-- [no-import-private](/rules/no-import-private)
 - [require-jsdoc](/rules/require-jsdoc)
+- [require-default-doc-optional-props](/rules/require-default-doc-optional-props)
+- [no-import-private](/rules/no-import-private)
