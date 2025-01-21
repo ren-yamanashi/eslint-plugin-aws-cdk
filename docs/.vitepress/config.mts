@@ -134,6 +134,10 @@ export default defineConfig({
                 link: "/rules/require-props-default-doc",
               },
               {
+                text: "props-name-convention",
+                link: "/rules/props-name-convention",
+              },
+              {
                 text: "no-import-private",
                 link: "/rules/no-import-private",
               },
@@ -217,6 +221,10 @@ export default defineConfig({
               {
                 text: "require-props-default-doc",
                 link: "/ja/rules/require-props-default-doc",
+              },
+              {
+                text: "props-name-convention",
+                link: "/ja/rules/props-name-convention",
               },
               {
                 text: "no-import-private",

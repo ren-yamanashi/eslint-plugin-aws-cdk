@@ -19,4 +19,5 @@ You can check the details of the rules on each page.
 - [no-mutable-props-interface](/rules/no-mutable-props-interface)
 - [require-jsdoc](/rules/require-jsdoc)
 - [require-props-default-doc](/rules/require-props-default-doc)
+- [props-name-convention](/rules/props-name-convention)
 - [no-import-private](/rules/no-import-private)

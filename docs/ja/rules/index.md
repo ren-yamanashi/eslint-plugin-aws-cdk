@@ -19,4 +19,5 @@ titleTemplate: ":title"
 - [no-mutable-props-interface](/ja/rules/no-mutable-props-interface)
 - [require-jsdoc](/ja/rules/require-jsdoc)
 - [require-props-default-doc](/ja/rules/require-props-default-doc)
+- [props-name-convention](/ja/rules/props-name-convention)
 - [no-import-private](/ja/rules/no-import-private)

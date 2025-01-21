@@ -7,6 +7,7 @@ import { noParentNameConstructIdMatch } from "./rules/no-parent-name-construct-i
 import { noPublicClassFields } from "./rules/no-public-class-fields";
 import { noVariableConstructId } from "./rules/no-variable-construct-id";
 import { pascalCaseConstructId } from "./rules/pascal-case-construct-id";
+import { propsNameConvention } from "./rules/props-name-convention";
 import { requireJSDoc } from "./rules/require-jsdoc";
 import { requirePassingThis } from "./rules/require-passing-this";
 import { requirePropsDefaultDoc } from "./rules/require-props-default-doc";
@@ -23,6 +24,7 @@ const rules = {
   "no-variable-construct-id": noVariableConstructId,
   "require-jsdoc": requireJSDoc,
   "require-props-default-doc": requirePropsDefaultDoc,
+  "props-name-convention": propsNameConvention,
   "no-import-private": noImportPrivate,
 };
 
@@ -39,6 +41,7 @@ const configs = {
       "cdk/no-variable-construct-id": "error",
       "cdk/no-mutable-public-fields": "warn",
       "cdk/no-mutable-props-interface": "warn",
+      "cdk/props-name-convention": "warn",
     },
   },
   strict: {
@@ -55,6 +58,7 @@ const configs = {
       "cdk/no-mutable-props-interface": "error",
       "cdk/no-import-private": "error",
       "cdk/require-props-default-doc": "error",
+      "cdk/props-name-convention": "error",
       "cdk/require-jsdoc": "error",
     },
   },
