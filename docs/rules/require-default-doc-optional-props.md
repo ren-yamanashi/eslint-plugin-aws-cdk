@@ -5,9 +5,8 @@ titleTemplate: ":title"
 
 # require-default-doc-optional-props
 
-Requires `@default` JSDoc documentation for optional properties in interfaces.
-
-This rule enforces that all optional properties in interfaces must have `@default` JSDoc documentation to clearly indicate their default value when not specified. This rule does not apply to class properties.
+Requires `@default` JSDoc documentation for optional properties in interfaces.  
+This rule does not apply to class properties.
 
 #### ✅ Correct Examples
 
