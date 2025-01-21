@@ -9,6 +9,7 @@ import { noVariableConstructId } from "./rules/no-variable-construct-id";
 import { pascalCaseConstructId } from "./rules/pascal-case-construct-id";
 import { requireJSDoc } from "./rules/require-jsdoc";
 import { requirePassingThis } from "./rules/require-passing-this";
+import { requirePropsDefaultDoc } from "./rules/require-props-default-doc";
 
 const rules = {
   "no-class-in-interface": noClassInInterface,
@@ -21,6 +22,7 @@ const rules = {
   "require-passing-this": requirePassingThis,
   "no-variable-construct-id": noVariableConstructId,
   "require-jsdoc": requireJSDoc,
+  "require-props-default-doc": requirePropsDefaultDoc,
   "no-import-private": noImportPrivate,
 };
 
@@ -52,6 +54,7 @@ const configs = {
       "cdk/no-mutable-public-fields": "error",
       "cdk/no-mutable-props-interface": "error",
       "cdk/no-import-private": "error",
+      "cdk/require-props-default-doc": "error",
       "cdk/require-jsdoc": "error",
     },
   },
