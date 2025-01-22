@@ -17,7 +17,7 @@ titleTemplate: ":title"
   で自動修正できます。
 </div>
 
-このルールは、コンストラクトまたはスタックの、`Props`(インターフェース)のパブリック変数を変更可能にすることを禁止します。  
+このルールは、コンストラクトまたはスタックの、`Props`(interface)のパブリック変数を変更可能にすることを禁止します。  
 (`readonly`でない Props 変数の定義を禁止します)
 
 Props で変更可能なパブリック変数を指定すると、意図しない副作用を引き起こす可能性があるため推奨されません。
@@ -30,6 +30,15 @@ import { IBucket } from "aws-cdk-lib/aws-s3";
 interface MyConstructProps {
   // ✅ readonly のフィールドは使用できます
   readonly bucket: IBucket;
+}
+```
+
+```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
+// ✅ Props ではない interface には、このルールは適用されません
+interface MyInterface {
+  bucket: IBucket;
 }
 ```
 

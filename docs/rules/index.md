@@ -139,7 +139,7 @@ Currently we support the following rules:
   <li class="rule-item">
     <div class="rule-info">
       <a href="/rules/require-passing-this" class="rule-name">require-passing-this</a>
-      <span class="rule-description">Require passing this in Construct constructors</span>
+      <span class="rule-description">Require passing <code>this</code> in Construct constructors</span>
     </div>
     <div class="rule-status">
       <span class="status-icon recommended">✅</span>
@@ -169,7 +169,7 @@ Currently we support the following rules:
   <li class="rule-item">
     <div class="rule-info">
       <a href="/rules/no-construct-stack-suffix" class="rule-name">no-construct-stack-suffix</a>
-      <span class="rule-description">Disallow Construct suffix in Construct names(same for Stack)</span>
+      <span class="rule-description">Disallow Construct and Stack names not to use the "Construct" or "Stack" suffix</span>
     </div>
     <div class="rule-status">
       <span class="status-icon recommended">✅</span>
@@ -189,7 +189,7 @@ Currently we support the following rules:
   <li class="rule-item">
     <div class="rule-info">
       <a href="/rules/no-public-class-fields" class="rule-name">no-public-class-fields</a>
-      <span class="rule-description">Disallow public class fields</span>
+      <span class="rule-description">Disallow specifying the <code>Class</code> type in the public variable of the Class</span>
     </div>
     <div class="rule-status">
       <span class="status-icon recommended">✅</span>
@@ -199,7 +199,7 @@ Currently we support the following rules:
   <li class="rule-item">
     <div class="rule-info">
       <a href="/rules/no-mutable-public-fields" class="rule-name">no-mutable-public-fields</a>
-      <span class="rule-description">Disallow mutable public fields in classes</span>
+      <span class="rule-description">Enforces specifying <code>readonly</code> in the public variables of the Class</span>
     </div>
     <div class="rule-status">
       <span class="status-icon recommended">✅</span>
@@ -209,7 +209,7 @@ Currently we support the following rules:
   <li class="rule-item">
     <div class="rule-info">
       <a href="/rules/no-mutable-props-interface" class="rule-name">no-mutable-props-interface</a>
-      <span class="rule-description">Disallow mutable properties in interfaces</span>
+      <span class="rule-description">Enforces specifying <code>readonly</code> in the properties of the Props(interface)</span>
     </div>
     <div class="rule-status">
       <span class="status-icon recommended">✅</span>
@@ -219,7 +219,7 @@ Currently we support the following rules:
   <li class="rule-item">
     <div class="rule-info">
       <a href="/rules/require-jsdoc" class="rule-name">require-jsdoc</a>
-      <span class="rule-description">Require JSDoc comments for interface properties and public properties</span>
+      <span class="rule-description">Require JSDoc comments for interface properties and Construct's public properties</span>
     </div>
     <div class="rule-status">
       <span class="status-icon recommended"/>
@@ -229,7 +229,7 @@ Currently we support the following rules:
   <li class="rule-item">
     <div class="rule-info">
       <a href="/rules/require-props-default-doc" class="rule-name">require-props-default-doc</a>
-      <span class="rule-description">Require @default JSDoc for optional properties</span>
+      <span class="rule-description">Require <code>@default</code> JSDoc for optional properties of Props(interface)</span>
     </div>
     <div class="rule-status">
       <span class="status-icon recommended"/>
@@ -239,7 +239,7 @@ Currently we support the following rules:
   <li class="rule-item">
     <div class="rule-info">
       <a href="/rules/props-name-convention" class="rule-name">props-name-convention</a>
-      <span class="rule-description">Enforce props interface name to follow ${ConstructName}Props format</span>
+      <span class="rule-description">Enforce Props(interface) name to follow <code>${ConstructName}Props</code> format</span>
     </div>
     <div class="rule-status">
       <span class="status-icon recommended"/>
