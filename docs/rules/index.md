@@ -104,18 +104,20 @@ const { theme } = useData()
 
 # Rules
 
+## Rules Reference
+
 <div class="legend">
   <div class="legend-item">
     <div class="legend-icon">
       <span class="status-icon recommended">✅</span>
     </div>
-    <span class="legend-text">Using the recommended config from <code>eslint-cdk-plugin</code> in a configuration file enables this rule</span>
+    <span class="legend-text">Using the <a href="/rules/#recommended-rules">recommended</a> settings will enables this rule</span>
   </div>
   <div class="legend-item">
     <div class="legend-icon">
       <span class="status-icon fixable">🔧</span>
     </div>
-    <span class="legend-text">Some problems reported by this rule are automatically fixable by the 
+    <span class="legend-text">Problems reported by this rule can be fixed automatically with the
     <a href="https://eslint.org/docs/latest/use/command-line-interface#--fix">--fix command line</a>
     option</span>
   </div>
@@ -255,3 +257,34 @@ Currently we support the following rules:
     </div>
   </li>
 </ul>
+
+## Recommended Rules
+
+Recommended rules for code correctness that you can drop in without additional configuration.  
+when use recommended rules, configure as follows.
+
+```js
+// eslint.config.mjs
+import tsEslint from "typescript-eslint";
+import eslintCdkPlugin from "eslint-cdk-plugin";
+
+export default tsEslint.config({
+  files: ["lib/**/*.ts", "bin/*.ts"],
+  languageOptions: {
+    parser: tsEslint.parser,
+    parserOptions: {
+      projectService: true,
+      project: "./tsconfig.json",
+    },
+  },
+  extends: [...tsEslint.configs.recommended],
+  // ✅ Add plugins
+  plugins: {
+    cdk: eslintCdkPlugin,
+  },
+  // ✅ Add rules (use recommended rules)
+  rules: {
+    ...eslintCdkPlugin.configs.recommended.rules,
+  },
+});
+```
