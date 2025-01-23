@@ -19,7 +19,7 @@ interface MyConstructProps {
   readonly bucket?: IBucket;
 }
 
-// ✅ Not checked because interface name doesn't end with 'Props'
+// ✅ This rule does not apply to interfaces that are not Props
 interface Config {
   readonly bucket?: IBucket;
 }

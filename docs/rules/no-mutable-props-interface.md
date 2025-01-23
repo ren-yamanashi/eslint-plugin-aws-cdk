@@ -32,6 +32,15 @@ interface MyConstructProps {
 }
 ```
 
+```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
+// ✅ This rule does not apply to interfaces that are not Props
+interface MyInterface {
+  bucket: IBucket;
+}
+```
+
 #### ❌ Incorrect Example
 
 ```ts
