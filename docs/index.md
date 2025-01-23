@@ -6,7 +6,7 @@ titleTemplate: ":title"
 hero:
   name: "eslint-cdk-plugin"
   text: "ESLint plugin for AWS CDK"
-  tagline: AWS CDK best practices enforcing ESLint plugin
+  tagline: ESLint Plugin to enforce AWS CDK best practices
   image: /img/logo.png
   actions:
     - theme: brand
