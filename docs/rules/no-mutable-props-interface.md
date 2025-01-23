@@ -31,7 +31,7 @@ export default [
   {
     // ... some configs
     rules: {
-      "cdk/no-mutable-public-fields": "error",
+      "cdk/no-mutable-props-interface": "error",
     },
   },
 ];
