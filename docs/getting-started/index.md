@@ -121,9 +121,11 @@ module.exports = [
       },
     },
     plugins: {
+      // ✅ Add plugins
       cdk: eslintCdkPlugin,
     },
     rules: {
+      // ✅ Add rules (use recommended rules)
       ...eslintCdkPlugin.configs.recommended.rules,
     },
   },

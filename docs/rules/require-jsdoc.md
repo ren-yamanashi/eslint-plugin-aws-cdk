@@ -12,6 +12,8 @@ Adding JSDoc comments to properties makes the code more maintainable and easier 
 #### ✅ Correct Examples
 
 ```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 interface MyConstructProps {
   // ✅ JSDoc comment for interface property
   /** S3 bucket to be specified for the resource */
@@ -21,6 +23,7 @@ interface MyConstructProps {
 
 ```ts
 import { Construct } from "constructs";
+import { IBucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {
   // ✅ JSDoc comment for public property
@@ -35,6 +38,8 @@ class MyConstruct extends Construct {
 #### ❌ Incorrect Examples
 
 ```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 interface MyConstructProps {
   // ❌ Must write JSDoc comment
   readonly bucket: IBucket;
@@ -43,6 +48,7 @@ interface MyConstructProps {
 
 ```ts
 import { Construct } from "constructs";
+import { IBucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {
   // ❌ Must write JSDoc comment

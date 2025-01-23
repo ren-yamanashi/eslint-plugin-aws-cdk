@@ -29,8 +29,8 @@ Using other values like `scope` can lead to:
 #### ✅ Correct Example
 
 ```ts
-import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
 
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
@@ -45,8 +45,8 @@ export class MyConstruct extends Construct {
 #### ❌ Incorrect Example
 
 ```ts
-import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
 
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {

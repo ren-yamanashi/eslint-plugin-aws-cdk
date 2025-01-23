@@ -13,6 +13,9 @@ Construct クラスの Props(interface) 名が `${ConstructName}Props` の形式
 #### ✅ 正しい例
 
 ```ts
+import { Construct } from "constructs";
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 // ✅ Props(interface) 名が`${ConstructName}Props`の形式に従っている
 interface MyConstructProps {
   readonly bucket?: IBucket;
@@ -26,6 +29,8 @@ class MyConstruct extends Construct {
 ```
 
 ```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 // ✅ Construct クラスではない interface には、このルールは適用されません
 interface SampleInterface {
   readonly bucket?: IBucket;
@@ -39,6 +44,9 @@ class NotConstruct {
 #### ❌ 誤った例
 
 ```ts
+import { Construct } from "constructs";
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 // ❌ Props(interface) 名は `${ConstructName}Props` の形式に従う必要があります
 interface Props {
   readonly bucket?: IBucket;

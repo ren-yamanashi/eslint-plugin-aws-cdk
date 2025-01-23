@@ -17,7 +17,7 @@ titleTemplate: ":title"
   </a>
 </div>
 
-This rule disallow making public properties of constructs or stack `props` (interfaces) mutable.
+This rule disallow making public properties of constructs or stack `Props` (interfaces) mutable.
 
 It is not a good to specify mutable public properties in props, as this can lead to unintended side effects.
 
@@ -29,6 +29,15 @@ import { IBucket } from "aws-cdk-lib/aws-s3";
 interface MyConstructProps {
   // ✅ Can use readonly
   readonly bucket: IBucket;
+}
+```
+
+```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
+// ✅ This rule does not apply to interfaces that are not Props
+interface MyInterface {
+  bucket: IBucket;
 }
 ```
 

@@ -11,6 +11,8 @@ Props インターフェイスのオプショナルのプロパティには `@de
 #### ✅ Correct Examples
 
 ```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 interface MyConstructProps {
   // ✅ `@default` コメントが記載されている
   /**
@@ -19,7 +21,7 @@ interface MyConstructProps {
   readonly bucket?: IBucket;
 }
 
-// ✅ インターフェース名が'Props'で終わらないため、チェックされない
+// ✅ Props ではない interface には、このルールは適用されません
 interface Config {
   readonly bucket?: IBucket;
 }
@@ -28,6 +30,8 @@ interface Config {
 #### ❌ Incorrect Examples
 
 ```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 interface MyConstructProps {
   // ❌ `@default`コメントを記載する必要があります
   readonly bucket?: IBucket;
@@ -35,6 +39,8 @@ interface MyConstructProps {
 ```
 
 ```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 interface MyConstructProps {
   // ❌ `@default`コメントを記載する必要があります
   /** デフォルト値の説明がないJSDocコメント */

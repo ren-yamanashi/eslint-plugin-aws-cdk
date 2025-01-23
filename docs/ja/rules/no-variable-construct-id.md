@@ -23,6 +23,7 @@ titleTemplate: ":title"
 #### ✅ 正しい例
 
 ```ts
+import { Construct } from "constructs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 export interface MyConstructProps {
@@ -47,6 +48,7 @@ class MyConstruct extends Construct {
 #### ❌ 不正な例
 
 ```ts
+import { Construct } from "constructs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 export interface MyConstructProps {

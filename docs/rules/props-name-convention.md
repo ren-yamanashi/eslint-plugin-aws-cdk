@@ -13,6 +13,9 @@ Following a consistent naming pattern clarifies the relationship between Constru
 #### ✅ Correct Examples
 
 ```ts
+import { Construct } from "constructs";
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 // ✅ Props(interface) name follows the format of `${ConstructName}Props`
 interface MyConstructProps {
   readonly bucket?: IBucket;
@@ -26,6 +29,8 @@ class MyConstruct extends Construct {
 ```
 
 ```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 // ✅ This rule does not apply to interfaces that are not Construct classes
 interface Props {
   readonly bucket?: string;
@@ -39,6 +44,9 @@ class NotConstruct {
 #### ❌ Incorrect Examples
 
 ```ts
+import { Construct } from "constructs";
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 interface Props {
   // ❌ Props interface name must follow ${ConstructName}Props format
   readonly bucket?: string;

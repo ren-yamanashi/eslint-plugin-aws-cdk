@@ -12,6 +12,8 @@ titleTemplate: ":title"
 #### ✅ 正しい例
 
 ```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 interface MyConstructProps {
   // ✅ JSDocコメントが記載されている
   /** リソースに指定するS3バケット */
@@ -21,6 +23,7 @@ interface MyConstructProps {
 
 ```ts
 import { Construct } from "constructs";
+import { IBucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {
   // ✅ JSDocコメントが記載されている
@@ -35,6 +38,8 @@ class MyConstruct extends Construct {
 #### ❌ 誤った例
 
 ```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 interface MyConstructProps {
   // ❌ JSDocコメントを記載する必要があります
   readonly bucket: IBucket;
@@ -43,6 +48,7 @@ interface MyConstructProps {
 
 ```ts
 import { Construct } from "constructs";
+import { IBucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {
   // ❌ JSDocコメントを記載する必要があります
