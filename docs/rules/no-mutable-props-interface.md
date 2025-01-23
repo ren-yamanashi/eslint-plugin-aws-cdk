@@ -17,7 +17,7 @@ titleTemplate: ":title"
   </a>
 </div>
 
-This rule disallow making public properties of constructs or stack `props` (interfaces) mutable.
+This rule disallow making public properties of constructs or stack `Props` (interfaces) mutable.
 
 It is not a good to specify mutable public properties in props, as this can lead to unintended side effects.
 
