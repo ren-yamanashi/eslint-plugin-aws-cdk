@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.1.0 (2025-01-23)
+
+### New features/Updates to existing features
+
+- add `props-name-convention` rule ([#105](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/105)) ([6d828c7](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/6d828c70062d3a69575bb1648e97e3178200d959))
+- add `require-default-doc-optional-props` rule ([#104](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/104)) ([bdd179e](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/bdd179eb63484e3c2213c8aaaea03a58b751501c))
+- add `require-jsdoc` rule ([#101](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/101)) ([72620e0](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/72620e0c8d63dc0a5d8097d5b00c4bb0efc93762))
+
+### Documentation changes
+
+- adapt the text of the document ([#110](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/110)) ([02b67e3](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/02b67e3bfaf8d1d1b4c20470f24d27cce0bc6599))
+- adapt the text of the document ([#111](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/111)) ([b1f6b54](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/b1f6b544e30d558219a3838fd644709ef7fd1886))
+- add JSDoc to `require-jsdoc` rule ([#106](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/106)) ([791d883](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/791d8831434ae88cab1bfd9c1d947d9f83649ff1))
+- add strict rule ([#108](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/108)) ([52e3ebd](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/52e3ebd2974f0738a806a9c0265936b353ba65da))
+- unification of item names ([#109](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/109)) ([5142747](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/51427476d33f5a5c8f4e4c08d5088e8ba7ad0e90))
+- update rule documents ([#107](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/107)) ([af3219d](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/af3219d3ded6d5e3b6d9e49928c069d734feafa6))
+
 ### 1.0.5 (2025-01-18)
 
 ### Bug fixes
