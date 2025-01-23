@@ -35,7 +35,7 @@ class MyConstruct extends Construct {
 }
 ```
 
-#### ❌ 誤った例
+#### ❌ 不正な例
 
 ```ts
 import { IBucket } from "aws-cdk-lib/aws-s3";

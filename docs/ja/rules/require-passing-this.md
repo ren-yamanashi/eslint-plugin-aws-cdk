@@ -26,7 +26,7 @@ AWS CDK リソースを作成するとき、`Construct` に `this` を渡すこ�
 - 生成される CloudFormation テンプレートのリソース階層が正しくない
 - 予期しないリソースの命名
 
-#### ✅ Correct Example
+#### ✅ 正しい例
 
 ```ts
 import { Construct } from "constructs";
@@ -42,7 +42,7 @@ export class MyConstruct extends Construct {
 }
 ```
 
-#### ❌ Incorrect Example
+#### ❌ 不正な例
 
 ```ts
 import { Construct } from "constructs";
