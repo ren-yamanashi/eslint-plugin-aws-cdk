@@ -5,8 +5,30 @@ titleTemplate: ":title"
 
 # require-props-default-doc
 
+<div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
+  ℹ️ このルールは
+  <a href="/ja/rules/#recommended-rules">recommended</a>
+  ルールには含まれていません。
+</div>
+
 Props インターフェイスのオプショナルのプロパティには `@default` JSDoc ドキュメントを必須とします（例：`MyConstructProps`、`StackProps`）  
 クラスのプロパティや Props ではないインターフェースには適用されません。
+
+---
+
+#### 🔧 使用方法
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/require-props-default-doc": "error",
+    },
+  },
+];
+```
 
 #### ✅ 正しい例
 

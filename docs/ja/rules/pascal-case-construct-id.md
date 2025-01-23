@@ -20,6 +20,22 @@ titleTemplate: ":title"
 このルールは、コンストラクト ID に PascalCase を強制します。  
 (このルールは `Construct` または `Stack` を継承したクラスにのみ適用されます)
 
+---
+
+#### 🔧 使用方法
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/pascal-case-construct-id": "error",
+    },
+  },
+];
+```
+
 #### ✅ 正しい例
 
 ```ts

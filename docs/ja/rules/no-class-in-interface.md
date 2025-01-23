@@ -16,6 +16,22 @@ titleTemplate: ":title"
 さらに、クラスは本質的に変更可能であるため、インターフェイスのプロパティ型としてクラスを使用すると予期しない動作が発生する可能性があります。  
 したがって、このようなコードは推奨されません。
 
+---
+
+#### 🔧 使用方法
+
+```ts
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/no-class-in-interface": "error",
+    },
+  },
+];
+```
+
 #### ✅ 正しい例
 
 ```ts

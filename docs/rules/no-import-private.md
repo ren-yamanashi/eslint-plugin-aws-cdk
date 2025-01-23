@@ -23,7 +23,6 @@ By disallowing imports from a different hierarchy, it promotes proper modulariza
 
 ```js
 // eslint.config.mjs
-
 export default [
   {
     // ... some configs

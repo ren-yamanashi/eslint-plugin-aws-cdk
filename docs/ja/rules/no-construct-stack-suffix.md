@@ -15,6 +15,22 @@ titleTemplate: ":title"
 
 コンストラクト ID に `Construct` が含まれていると、CDK の世界で止めるべき問題が CloudFormation テンプレートおよび AWS の世界に漏れてしまうため、好ましくありません。(スタック ID についても同様です)
 
+---
+
+#### 🔧 使用方法
+
+```ts
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/no-construct-stack-suffix": "error",
+    },
+  },
+];
+```
+
 #### ✅ 正しい例
 
 ```ts

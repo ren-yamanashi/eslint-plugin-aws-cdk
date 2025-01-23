@@ -5,6 +5,12 @@ titleTemplate: ":title"
 
 # props-name-convention
 
+<div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
+  ℹ️ This rule is not included in the
+  <a href="/rules/#recommended-rules">recommended</a>
+  rules.
+</div>
+
 Forces the Props(interface) name of the Construct class to follow the form `${ConstructName}Props`.  
 Where `${ConstructName}` is the name of the Construct class.
 

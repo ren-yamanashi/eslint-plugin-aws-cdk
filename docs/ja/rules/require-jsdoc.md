@@ -5,9 +5,31 @@ titleTemplate: ":title"
 
 # require-jsdoc
 
+<div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
+  ℹ️ このルールは
+  <a href="/ja/rules/#recommended-rules">recommended</a>
+  ルールには含まれていません。
+</div>
+
 このルールは、インターフェースのプロパティと Construct クラスの public プロパティに JSDoc コメントの記載を必須とします。
 
 プロパティに JSDoc コメントを追加することで、各プロパティが何を表しているのかが明確になり、コードの保守性と理解のしやすさが向上します。
+
+---
+
+#### 🔧 使用方法
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/require-jsdoc": "error",
+    },
+  },
+];
+```
 
 #### ✅ 正しい例
 

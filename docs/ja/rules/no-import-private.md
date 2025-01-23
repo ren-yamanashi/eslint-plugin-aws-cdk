@@ -14,26 +14,24 @@ next: false
 
 このルールは、異なる階層レベルの `private` ディレクトリからのモジュールのインポートを禁止します。
 
-設定する場合は、次のように記述する必要があります。
+`private`ディレクトリは、親ディレクトリ内でのみ使用される内部実装を格納することを目的としています。  
+異なる階層からのインポートを禁止することで、適切なモジュール化とカプセル化を促進します。
+
+---
+
+#### 🔧 使用方法
 
 ```js
 // eslint.config.mjs
-import eslintCdkPlugin from "eslint-cdk-plugin";
 export default [
   {
-    plugins: {
-      cdk: eslintCdkPlugin,
-    },
+    // ... some configs
     rules: {
-      ...cdkPlugin.configs.recommended.rules,
       "cdk/no-import-private": "error",
     },
   },
 ];
 ```
-
-`private`ディレクトリは、親ディレクトリ内でのみ使用される内部実装を格納することを目的としています。  
-異なる階層からのインポートを禁止することで、適切なモジュール化とカプセル化を促進します。
 
 #### ✅ 正しい例
 
