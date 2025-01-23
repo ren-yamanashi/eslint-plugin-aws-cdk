@@ -13,6 +13,7 @@ Construct クラスの Props(interface) 名が `${ConstructName}Props` の形式
 #### ✅ 正しい例
 
 ```ts
+import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 // ✅ Props(interface) 名が`${ConstructName}Props`の形式に従っている
@@ -43,6 +44,7 @@ class NotConstruct {
 #### ❌ 誤った例
 
 ```ts
+import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 // ❌ Props(interface) 名は `${ConstructName}Props` の形式に従う必要があります

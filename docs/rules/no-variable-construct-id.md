@@ -24,6 +24,7 @@ Using variables for construct ID (logical ID) is not appropriate because it may 
 #### ✅ Correct Example
 
 ```ts
+import { Construct } from "constructs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 export interface MyConstructProps {
@@ -48,6 +49,7 @@ class MyConstruct extends Construct {
 #### ❌ Incorrect Example
 
 ```ts
+import { Construct } from "constructs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 export interface MyConstructProps {

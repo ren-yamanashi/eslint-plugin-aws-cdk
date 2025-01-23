@@ -13,6 +13,7 @@ Following a consistent naming pattern clarifies the relationship between Constru
 #### ✅ Correct Examples
 
 ```ts
+import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 // ✅ Props(interface) name follows the format of `${ConstructName}Props`
@@ -43,6 +44,7 @@ class NotConstruct {
 #### ❌ Incorrect Examples
 
 ```ts
+import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 interface Props {

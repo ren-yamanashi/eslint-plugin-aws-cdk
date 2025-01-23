@@ -22,6 +22,7 @@ interface MyConstructProps {
 ```
 
 ```ts
+import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {
@@ -46,6 +47,7 @@ interface MyConstructProps {
 ```
 
 ```ts
+import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {

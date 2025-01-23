@@ -11,6 +11,8 @@ This rule does not apply to class properties or non-Props interfaces.
 #### ✅ Correct Examples
 
 ```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 interface MyConstructProps {
   // ✅ `@default` JSDoc comment for optional property
   /**
@@ -28,6 +30,8 @@ interface Config {
 #### ❌ Incorrect Examples
 
 ```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 interface MyConstructProps {
   // ❌ Must write `@default` JSDoc comment
   readonly bucket?: IBucket;
@@ -35,6 +39,8 @@ interface MyConstructProps {
 ```
 
 ```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
 interface StackProps {
   // ❌ Must write `@default` JSDoc comment
   /** Some description without default value */

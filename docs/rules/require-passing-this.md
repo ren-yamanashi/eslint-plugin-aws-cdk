@@ -29,6 +29,7 @@ Using other values like `scope` can lead to:
 #### ✅ Correct Example
 
 ```ts
+import { Construct } from "constructs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 export class MyConstruct extends Construct {
@@ -44,6 +45,7 @@ export class MyConstruct extends Construct {
 #### ❌ Incorrect Example
 
 ```ts
+import { Construct } from "constructs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 export class MyConstruct extends Construct {
