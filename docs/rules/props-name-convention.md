@@ -47,8 +47,8 @@ class NotConstruct {
 import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
+// ❌ Props interface name must follow ${ConstructName}Props format
 interface Props {
-  // ❌ Props interface name must follow ${ConstructName}Props format
   readonly bucket?: string;
 }
 
