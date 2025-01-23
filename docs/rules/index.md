@@ -179,7 +179,7 @@ Currently we support the following rules:
   <li class="rule-item">
     <div class="rule-info">
       <a href="/rules/no-class-in-interface" class="rule-name">no-class-in-interface</a>
-      <span class="rule-description">Disallow class types in interface properties</span>
+      <span class="rule-description">Disallow <code>Class</code> type in interface properties</span>
     </div>
     <div class="rule-status">
       <span class="status-icon recommended">✅</span>

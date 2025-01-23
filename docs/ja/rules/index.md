@@ -180,7 +180,7 @@ const { theme } = useData()
   <li class="rule-item">
     <div class="rule-info">
       <a href="/ja/rules/no-class-in-interface" class="rule-name">no-class-in-interface</a>
-      <span class="rule-description">interface のプロパティにクラスを使用しないように強制します</span>
+      <span class="rule-description">interface のプロパティに<code>Class</code> 型を使用しないように強制します</span>
     </div>
     <div class="rule-status">
       <span class="status-icon recommended">✅</span>
