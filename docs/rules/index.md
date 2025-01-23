@@ -288,3 +288,34 @@ export default tsEslint.config({
   },
 });
 ```
+
+## Strict Rules
+
+Strict Rules provides all available rules to improve code quality and consistency.  
+When using strict rules, configure as follows.
+
+```js
+// eslint.config.mjs
+import tsEslint from "typescript-eslint";
+import eslintCdkPlugin from "eslint-cdk-plugin";
+
+export default tsEslint.config({
+  files: ["lib/**/*.ts", "bin/*.ts"],
+  languageOptions: {
+    parser: tsEslint.parser,
+    parserOptions: {
+      projectService: true,
+      project: "./tsconfig.json",
+    },
+  },
+  extends: [...tsEslint.configs.recommended],
+  // ✅ Add plugins
+  plugins: {
+    cdk: eslintCdkPlugin,
+  },
+  // ✅ Add rules (use strict rules)
+  rules: {
+    ...eslintCdkPlugin.configs.strict.rules,
+  },
+});
+```
