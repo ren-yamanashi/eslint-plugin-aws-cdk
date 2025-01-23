@@ -30,7 +30,6 @@ AWS CDK リソースを作成するとき、`Construct` に `this` を渡すこ�
 
 ```ts
 import { Bucket } from "aws-cdk-lib/aws-s3";
-import { Construct } from "constructs";
 
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
@@ -46,7 +45,6 @@ export class MyConstruct extends Construct {
 
 ```ts
 import { Bucket } from "aws-cdk-lib/aws-s3";
-import { Construct } from "constructs";
 
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
