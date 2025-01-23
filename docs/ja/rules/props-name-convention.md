@@ -41,7 +41,7 @@ class NotConstruct {
 }
 ```
 
-#### ❌ 誤った例
+#### ❌ 不正な例
 
 ```ts
 import { Construct } from "constructs";

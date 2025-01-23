@@ -8,7 +8,7 @@ titleTemplate: ":title"
 Props インターフェイスのオプショナルのプロパティには `@default` JSDoc ドキュメントを必須とします（例：`MyConstructProps`、`StackProps`）  
 クラスのプロパティや Props ではないインターフェースには適用されません。
 
-#### ✅ Correct Examples
+#### ✅ 正しい例
 
 ```ts
 import { IBucket } from "aws-cdk-lib/aws-s3";
@@ -27,7 +27,7 @@ interface Config {
 }
 ```
 
-#### ❌ Incorrect Examples
+#### ❌ 不正な例
 
 ```ts
 import { IBucket } from "aws-cdk-lib/aws-s3";
