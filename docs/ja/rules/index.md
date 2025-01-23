@@ -289,3 +289,34 @@ export default tsEslint.config({
   },
 });
 ```
+
+## Strict Rules
+
+`strict` ルールは、利用可能なすべてのルールを提供します。  
+このルールを使用する場合は、以下のように設定します。
+
+```js
+// eslint.config.mjs
+import tsEslint from "typescript-eslint";
+import eslintCdkPlugin from "eslint-cdk-plugin";
+
+export default tsEslint.config({
+  files: ["lib/**/*.ts", "bin/*.ts"],
+  languageOptions: {
+    parser: tsEslint.parser,
+    parserOptions: {
+      projectService: true,
+      project: "./tsconfig.json",
+    },
+  },
+  extends: [...tsEslint.configs.recommended],
+  plugins: {
+    // ✅ Add plugins
+    cdk: eslintCdkPlugin,
+  },
+  // ✅ Add rules (use strict rules)
+  rules: {
+    ...eslintCdkPlugin.configs.strict.rules,
+  },
+});
+```
