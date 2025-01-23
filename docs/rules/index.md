@@ -189,7 +189,7 @@ Currently we support the following rules:
   <li class="rule-item">
     <div class="rule-info">
       <a href="/rules/no-public-class-fields" class="rule-name">no-public-class-fields</a>
-      <span class="rule-description">Disallow specifying the <code>Class</code> type in the public variable of the Class</span>
+      <span class="rule-description">Disallow specifying the <code>Class</code> type in the public variable of the Construct or Stack</span>
     </div>
     <div class="rule-status">
       <span class="status-icon recommended">✅</span>
@@ -199,7 +199,7 @@ Currently we support the following rules:
   <li class="rule-item">
     <div class="rule-info">
       <a href="/rules/no-mutable-public-fields" class="rule-name">no-mutable-public-fields</a>
-      <span class="rule-description">Enforces specifying <code>readonly</code> in the public variables of the Class</span>
+      <span class="rule-description">Enforces specifying <code>readonly</code> in the public variables of the Construct or Stack</span>
     </div>
     <div class="rule-status">
       <span class="status-icon recommended">✅</span>

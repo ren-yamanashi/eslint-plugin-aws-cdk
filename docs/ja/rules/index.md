@@ -190,7 +190,7 @@ const { theme } = useData()
   <li class="rule-item">
     <div class="rule-info">
       <a href="/ja/rules/no-public-class-fields" class="rule-name">no-public-class-fields</a>
-      <span class="rule-description">クラスの public 変数に <code>Class</code> 型を指定できないように強制します</span>
+      <span class="rule-description">Construct または Stack の public 変数に <code>Class</code> 型を指定できないように強制します</span>
     </div>
     <div class="rule-status">
       <span class="status-icon recommended">✅</span>
@@ -200,7 +200,7 @@ const { theme } = useData()
   <li class="rule-item">
     <div class="rule-info">
       <a href="/ja/rules/no-mutable-public-fields" class="rule-name">no-mutable-public-fields</a>
-      <span class="rule-description">Class の public 変数に <code>readonly</code> を指定することを強制します</span>
+      <span class="rule-description">Construct または Stack の public 変数に <code>readonly</code> を指定することを強制します</span>
     </div>
     <div class="rule-status">
       <span class="status-icon recommended">✅</span>
