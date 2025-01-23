@@ -17,6 +17,22 @@ When class types are used in interface properties, it creates tight coupling bet
 Additionally, classes are mutable by nature, which can lead to unexpected behavior when used as interface property types.  
 So not good.
 
+---
+
+#### 🔧 How to use
+
+```ts
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/no-class-in-interface": "error",
+    },
+  },
+];
+```
+
 #### ✅ Correct Example
 
 ```ts

@@ -21,6 +21,22 @@ This rule disallow making public properties of constructs or stack `Props` (inte
 
 It is not a good to specify mutable public properties in props, as this can lead to unintended side effects.
 
+---
+
+#### 🔧 How to use
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/no-mutable-public-fields": "error",
+    },
+  },
+];
+```
+
 #### ✅ Correct Example
 
 ```ts

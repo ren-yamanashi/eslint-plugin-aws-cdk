@@ -26,6 +26,22 @@ Using other values like `scope` can lead to:
 - Incorrect resource hierarchy in the generated CloudFormation template
 - Unexpected resource naming
 
+---
+
+#### 🔧 How to use
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/require-passing-this": "error",
+    },
+  },
+];
+```
+
 #### ✅ Correct Example
 
 ```ts

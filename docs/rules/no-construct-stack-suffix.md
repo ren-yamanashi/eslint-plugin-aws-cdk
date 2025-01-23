@@ -16,6 +16,22 @@ This rule is to disallow using the `Construct` or `Stack` suffix in construct ID
 
 If the Construct ID includes "Construct," the issues that should be stopped in the CDK world will leak into the CloudFormation template and the AWS world, so not good.(the same for Stack ID )
 
+---
+
+#### 🔧 How to use
+
+```ts
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/no-construct-stack-suffix": "error",
+    },
+  },
+];
+```
+
 #### ✅ Correct Example
 
 ```ts

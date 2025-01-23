@@ -21,6 +21,22 @@ titleTemplate: ":title"
 This rule enforces PascalCase for construct IDs.  
 (This rule applies only to classes that extends from `Construct` or `Stack`.)
 
+---
+
+#### 🔧 How to use
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/pascal-case-construct-id": "error",
+    },
+  },
+];
+```
+
 #### ✅ Correct Example
 
 ```ts

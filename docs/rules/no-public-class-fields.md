@@ -16,6 +16,22 @@ This rule disallows using class types for public class fields.
 
 When class types are used in public fields, it creates tight coupling and exposes mutable state, so not good.
 
+---
+
+#### 🔧 How to use
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/no-public-class-fields": "error",
+    },
+  },
+];
+```
+
 #### ✅ Correct Examples
 
 ```ts

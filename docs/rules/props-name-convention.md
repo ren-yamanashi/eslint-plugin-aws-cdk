@@ -10,6 +10,22 @@ Where `${ConstructName}` is the name of the Construct class.
 
 Following a consistent naming pattern clarifies the relationship between Construct and its Props(interface), improving code maintainability and ease of understanding.
 
+---
+
+#### 🔧 How to use
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/props-name-convention": "error",
+    },
+  },
+];
+```
+
 #### ✅ Correct Examples
 
 ```ts

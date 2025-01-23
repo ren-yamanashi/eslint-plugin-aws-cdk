@@ -9,6 +9,22 @@ This rule requires JSDoc comments for interface properties and, public propertie
 
 Adding JSDoc comments to properties makes the code more maintainable and easier to understand by providing clear documentation of what each property represents.
 
+---
+
+#### 🔧 How to use
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/require-jsdoc": "error",
+    },
+  },
+];
+```
+
 #### ✅ Correct Examples
 
 ```ts

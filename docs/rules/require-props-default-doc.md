@@ -8,6 +8,22 @@ titleTemplate: ":title"
 Requires `@default` JSDoc documentation for optional properties in Props interfaces.(e.g., `MyConstructProps`, `StackProps`).  
 This rule does not apply to class properties or non-Props interfaces.
 
+---
+
+#### 🔧 How to use
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/require-props-default-doc": "error",
+    },
+  },
+];
+```
+
 #### ✅ Correct Examples
 
 ```ts

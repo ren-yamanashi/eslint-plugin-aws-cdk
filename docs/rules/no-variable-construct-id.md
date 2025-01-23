@@ -21,6 +21,22 @@ Using variables for construct ID (logical ID) is not appropriate because it may 
 - Resource recreation when the parameter is changed
 - Users mix unnecessary strings because they pay too much attention to the uniqueness of the ID
 
+---
+
+#### 🔧 How to use
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/no-variable-construct-id": "error",
+    },
+  },
+];
+```
+
 #### ✅ Correct Example
 
 ```ts
