@@ -5,9 +5,31 @@ titleTemplate: ":title"
 
 # require-jsdoc
 
+<div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
+  ℹ️ This rule is not included in the
+  <a href="/rules/#recommended-rules">recommended</a>
+  rules.
+</div>
+
 This rule requires JSDoc comments for interface properties and, public properties in Construct classes.
 
 Adding JSDoc comments to properties makes the code more maintainable and easier to understand by providing clear documentation of what each property represents.
+
+---
+
+#### 🔧 How to use
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/require-jsdoc": "error",
+    },
+  },
+];
+```
 
 #### ✅ Correct Examples
 

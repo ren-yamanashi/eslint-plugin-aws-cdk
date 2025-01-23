@@ -14,6 +14,22 @@ titleTemplate: ":title"
 
 コンストラクト ID に親クラス名と一致する文字列を指定すると、CloudFormation リソースの階層が不明瞭になるため、推奨されません。
 
+---
+
+#### 🔧 使用方法
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/no-parent-name-construct-id-match": "error",
+    },
+  },
+];
+```
+
 #### ✅ 正しい例
 
 ```ts

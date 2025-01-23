@@ -15,6 +15,22 @@ This rule disallows using the parent class name as the construct IDs.
 
 It is not good to specify a string that matches the parent class name for construct ID, as it makes the CloudFormation resource hierarchy unclear.
 
+---
+
+#### 🔧 How to use
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/no-parent-name-construct-id-match": "error",
+    },
+  },
+];
+```
+
 #### ✅ Correct Example
 
 ```ts

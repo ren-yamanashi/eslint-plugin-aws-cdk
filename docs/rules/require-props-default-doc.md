@@ -5,8 +5,30 @@ titleTemplate: ":title"
 
 # require-props-default-doc
 
+<div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
+  ℹ️ This rule is not included in the
+  <a href="/rules/#recommended-rules">recommended</a>
+  rules.
+</div>
+
 Requires `@default` JSDoc documentation for optional properties in Props interfaces.(e.g., `MyConstructProps`, `StackProps`).  
 This rule does not apply to class properties or non-Props interfaces.
+
+---
+
+#### 🔧 How to use
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/require-props-default-doc": "error",
+    },
+  },
+];
+```
 
 #### ✅ Correct Examples
 

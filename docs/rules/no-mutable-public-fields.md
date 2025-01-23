@@ -22,6 +22,22 @@ This rule disallow making public variables of a class mutable.
 
 It's not good to have mutable public variables, because it can lead to unintended side effects.
 
+---
+
+#### 🔧 How to use
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/no-mutable-public-fields": "error",
+    },
+  },
+];
+```
+
 #### ✅ Correct Example
 
 ```ts

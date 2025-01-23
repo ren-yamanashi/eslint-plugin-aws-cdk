@@ -15,6 +15,22 @@ titleTemplate: ":title"
 
 `public`変数でクラス型を使用すると、密結合が作成され、可変状態が公開されるため、推奨されません。
 
+---
+
+#### 🔧 使用方法
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    // ... some configs
+    rules: {
+      "cdk/no-public-class-fields": "error",
+    },
+  },
+];
+```
+
 #### ✅ 正しい例
 
 ```ts

@@ -12,27 +12,26 @@ next: false
   rules.
 </div>
 
-This rule disallows importing modules from `private` directories at different hierarchical levels.  
-When setting it, you need to write the following:
+This rule disallows importing modules from `private` directories at different hierarchical levels.
+
+The private directory is intended to contain internal implementation that should only be used within its parent directory.  
+By disallowing imports from a different hierarchy, it promotes proper modularization and encapsulation.
+
+---
+
+#### 🔧 How to use
 
 ```js
 // eslint.config.mjs
-import eslintCdkPlugin from "eslint-cdk-plugin";
 export default [
   {
-    plugins: {
-      cdk: eslintCdkPlugin,
-    },
+    // ... some configs
     rules: {
-      ...cdkPlugin.configs.recommended.rules,
       "cdk/no-import-private": "error",
     },
   },
 ];
 ```
-
-The private directory is intended to contain internal implementation that should only be used within its parent directory.  
-By disallowing imports from a different hierarchy, it promotes proper modularization and encapsulation.
 
 #### ✅ Correct Example
 
