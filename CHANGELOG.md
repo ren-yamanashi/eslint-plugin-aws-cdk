@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.1.1 (2025-01-24)
+
+### Bug fixes
+
+- remove dependencies with typescript ([#115](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/115)) ([042571f](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/042571fa21f8c7da510d8c4020e2773bc8087fc7))
+
+
 ## 1.1.0 (2025-01-23)
 
 ### New features/Updates to existing features
