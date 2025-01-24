@@ -1,4 +1,12 @@
-import { isClassDeclaration, isConstructorDeclaration, Type } from "typescript";
+import {
+  ClassDeclaration,
+  ConstructorDeclaration,
+  Declaration,
+  Node,
+  Type,
+} from "typescript";
+
+import { SyntaxKind } from "../types/symbolFlags";
 
 /**
  * Parses type to get the property names of the class constructor.
@@ -17,4 +25,22 @@ export const getConstructorPropertyNames = (type: Type): string[] => {
   if (!constructor?.parameters.length) return [];
 
   return constructor.parameters.map((param) => param.name.getText());
+};
+
+/**
+ * Implementing `isClassDeclaration` defined in typescript on your own, in order not to include TypeScript in dependencies
+ */
+const isClassDeclaration = (
+  declaration: Declaration
+): declaration is ClassDeclaration => {
+  return declaration.kind === SyntaxKind.ClassDeclaration;
+};
+
+/**
+ * Implementing `isConstructorDeclaration` defined in typescript on your own, in order not to include TypeScript in dependencies
+ */
+const isConstructorDeclaration = (
+  node: Node
+): node is ConstructorDeclaration => {
+  return node.kind === SyntaxKind.Constructor;
 };
