@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
-import { SymbolFlags } from "../types/symbolFlags";
+import { SYMBOL_FLAGS } from "../constants/tsInternalFlags";
 
 /**
  * Enforces the use of interface types instead of class in interface properties
@@ -38,7 +38,7 @@ export const noClassInInterface = ESLintUtils.RuleCreator.withoutDocs({
           if (!type.symbol) continue;
 
           // NOTE: check class type
-          const isClass = type.symbol.flags === SymbolFlags.Class;
+          const isClass = type.symbol.flags === SYMBOL_FLAGS.CLASS;
           if (!isClass) continue;
 
           context.report({

@@ -1,14 +1,14 @@
 /**
  * Implementing `SymbolFlags` defined in typescript on your own, in order not to include TypeScript in dependencies
  */
-export enum SymbolFlags {
-  Class = 32,
-}
+export const SYMBOL_FLAGS = {
+  CLASS: 32,
+} as const;
 
 /**
  * Implementing `SyntaxKind` defined in typescript on your own, in order not to include TypeScript in dependencies
  */
-export enum SyntaxKind {
-  ClassDeclaration = 263,
-  Constructor = 176,
-}
+export const SYNTAX_KIND = {
+  CLASS_DECLARATION: 263,
+  CONSTRUCTOR: 176,
+} as const;
