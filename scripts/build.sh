@@ -9,7 +9,7 @@ DIST_DIR="dist"
 TYPES_DIR="${DIST_DIR}/types"
 
 # build types
-npx tsc -p tsconfig.build.json || exit 1
+npx tsc -p tsconfig.build.json
 
 # Delete unnecessary files (other than those related to index.d.ts)
 find ${DIST_DIR} -mindepth 1 ! -name 'index.d.ts' ! -name 'index.d.ts.map' -exec rm -rf {} +
@@ -20,7 +20,7 @@ mv ${DIST_DIR}/index.d.ts ${TYPES_DIR}/
 mv ${DIST_DIR}/index.d.ts.map ${TYPES_DIR}/
 
 # build
-pkgroll --tsconfig=tsconfig.build.json || exit 1
+pkgroll --tsconfig=tsconfig.build.json
 
 # restore type definition files
 mv ${TYPES_DIR}/index.d.ts ${DIST_DIR}/

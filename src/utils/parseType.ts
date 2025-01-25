@@ -6,7 +6,7 @@ import {
   Type,
 } from "typescript";
 
-import { SyntaxKind } from "../types/symbolFlags";
+import { SYNTAX_KIND } from "../constants/tsInternalFlags";
 
 /**
  * Parses type to get the property names of the class constructor.
@@ -33,7 +33,7 @@ export const getConstructorPropertyNames = (type: Type): string[] => {
 const isClassDeclaration = (
   declaration: Declaration
 ): declaration is ClassDeclaration => {
-  return declaration.kind === SyntaxKind.ClassDeclaration;
+  return declaration.kind === SYNTAX_KIND.CLASS_DECLARATION;
 };
 
 /**
@@ -42,5 +42,5 @@ const isClassDeclaration = (
 const isConstructorDeclaration = (
   node: Node
 ): node is ConstructorDeclaration => {
-  return node.kind === SyntaxKind.Constructor;
+  return node.kind === SYNTAX_KIND.CONSTRUCTOR;
 };

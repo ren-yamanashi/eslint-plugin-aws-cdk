@@ -6,7 +6,7 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import { SymbolFlags } from "../types/symbolFlags";
+import { SYMBOL_FLAGS } from "../constants/tsInternalFlags";
 import { isConstructOrStackType } from "../utils/typeCheck";
 
 type Context = TSESLint.RuleContext<"noPublicClassFields", []>;
@@ -91,7 +91,7 @@ const validateClassMember = (
     const type = parserServices.getTypeAtLocation(member);
     if (!type.symbol) continue;
 
-    const isClass = type.symbol.flags === SymbolFlags.Class;
+    const isClass = type.symbol.flags === SYMBOL_FLAGS.CLASS;
     if (!isClass) continue;
 
     context.report({
@@ -133,7 +133,7 @@ const validateConstructorParameterProperty = (
     const type = parserServices.getTypeAtLocation(param);
     if (!type.symbol) continue;
 
-    const isClass = type.symbol.flags === SymbolFlags.Class;
+    const isClass = type.symbol.flags === SYMBOL_FLAGS.CLASS;
     if (!isClass) continue;
 
     context.report({
