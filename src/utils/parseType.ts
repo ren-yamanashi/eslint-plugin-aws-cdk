@@ -33,6 +33,9 @@ export const getConstructorPropertyNames = (type: Type): string[] => {
 const isClassDeclaration = (
   declaration: Declaration
 ): declaration is ClassDeclaration => {
+  // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
+  //       Therefore, the type information structures do not match.
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return declaration.kind === SYNTAX_KIND.CLASS_DECLARATION;
 };
 
@@ -42,5 +45,8 @@ const isClassDeclaration = (
 const isConstructorDeclaration = (
   node: Node
 ): node is ConstructorDeclaration => {
+  // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
+  //       Therefore, the type information structures do not match.
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return node.kind === SYNTAX_KIND.CONSTRUCTOR;
 };

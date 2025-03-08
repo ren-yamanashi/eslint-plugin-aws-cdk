@@ -10,15 +10,19 @@ export default tsEslint.config(
     files: ["src/*.{mts,ts}", "src/**/*.{mts,ts}"],
     languageOptions: {
       ecmaVersion: "latest",
-      sourceType: "module",
+      parser: tsEslint.parser,
       parserOptions: {
         projectService: true,
-        project: "./tsconfig.json",
+        tsconfigRootDir: import.meta.dirname,
       },
     },
     plugins: {
       import: importPlugin,
     },
+    extends: [
+      ...tsEslint.configs.strictTypeChecked,
+      ...tsEslint.configs.stylisticTypeChecked,
+    ],
     rules: {
       /**
        *
@@ -27,6 +31,7 @@ export default tsEslint.config(
        */
       "@typescript-eslint/consistent-indexed-object-style": "off",
       "@typescript-eslint/consistent-type-definitions": "off",
+      "@typescript-eslint/no-unnecessary-condition": "off",
       /**
        *
        * Enable rules
