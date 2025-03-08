@@ -37,7 +37,9 @@ export const noClassInInterface = ESLintUtils.RuleCreator.withoutDocs({
           const type = parserServices.getTypeAtLocation(property);
           if (!type.symbol) continue;
 
-          // NOTE: check class type
+          // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
+          //       Therefore, the type information structures do not match.
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
           const isClass = type.symbol.flags === SYMBOL_FLAGS.CLASS;
           if (!isClass) continue;
 

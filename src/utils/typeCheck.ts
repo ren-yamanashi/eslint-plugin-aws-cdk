@@ -53,6 +53,6 @@ const isTargetSuperClassType = (
   }
 
   // NOTE: Check the base type
-  const baseTypes = type.getBaseTypes() || [];
+  const baseTypes = type.getBaseTypes() ?? [];
   return baseTypes.some((baseType) => typeCheckFunction(baseType));
 };

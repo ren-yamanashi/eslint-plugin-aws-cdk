@@ -91,6 +91,9 @@ const validateClassMember = (
     const type = parserServices.getTypeAtLocation(member);
     if (!type.symbol) continue;
 
+    // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
+    //       Therefore, the type information structures do not match.
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     const isClass = type.symbol.flags === SYMBOL_FLAGS.CLASS;
     if (!isClass) continue;
 
@@ -133,6 +136,9 @@ const validateConstructorParameterProperty = (
     const type = parserServices.getTypeAtLocation(param);
     if (!type.symbol) continue;
 
+    // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
+    //       Therefore, the type information structures do not match.
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     const isClass = type.symbol.flags === SYMBOL_FLAGS.CLASS;
     if (!isClass) continue;
 

@@ -93,7 +93,7 @@ const validateConstructId = (
     node,
     messageId: "pascalCaseConstructId",
     fix: (fixer) => {
-      const pascalCaseValue = toPascalCase(secondArg.value as string);
+      const pascalCaseValue = toPascalCase(secondArg.value);
       return fixer.replaceText(secondArg, `${quote}${pascalCaseValue}${quote}`);
     },
   });

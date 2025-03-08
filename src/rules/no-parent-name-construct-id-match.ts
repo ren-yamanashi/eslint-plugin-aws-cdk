@@ -297,7 +297,7 @@ const validateConstructId = ({
     return;
   }
 
-  const formattedConstructId = toPascalCase(secondArg.value as string);
+  const formattedConstructId = toPascalCase(secondArg.value);
   const formattedParentClassName = toPascalCase(parentClassName);
   if (formattedParentClassName !== formattedConstructId) return;
 
