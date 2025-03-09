@@ -15,6 +15,12 @@ titleTemplate: ":title"
 
 コンストラクト ID に `Construct` が含まれていると、CDK の世界で止めるべき問題が CloudFormation テンプレートおよび AWS の世界に漏れてしまうため、好ましくありません。(スタック ID についても同様です)
 
+## オプション
+
+このルールには以下のプロパティを持つオプションオブジェクトがあります：
+
+- `disallowedSuffixes` (デフォルト: `["Construct", "Stack"]`) - 禁止するサフィックスの配列。"Construct"、"Stack"、または両方を含めることができます。
+
 ---
 
 #### 🔧 使用方法
@@ -25,7 +31,20 @@ export default [
   {
     // ... some configs
     rules: {
+      // デフォルト: "Construct" と "Stack" の両方のサフィックスを禁止
       "cdk/no-construct-stack-suffix": "error",
+
+      // "Construct" サフィックスのみを禁止
+      "cdk/no-construct-stack-suffix": [
+        "error",
+        { disallowedSuffixes: ["Construct"] },
+      ],
+
+      // "Stack" サフィックスのみを禁止
+      "cdk/no-construct-stack-suffix": [
+        "error",
+        { disallowedSuffixes: ["Stack"] },
+      ],
     },
   },
 ];

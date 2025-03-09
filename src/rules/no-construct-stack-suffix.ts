@@ -9,7 +9,20 @@ import { toPascalCase } from "../utils/convertString";
 import { getConstructorPropertyNames } from "../utils/parseType";
 import { isConstructOrStackType } from "../utils/typeCheck";
 
-type Context = TSESLint.RuleContext<"noConstructStackSuffix", []>;
+const SUFFIX_TYPE = {
+  CONSTRUCT: "Construct",
+  STACK: "Stack",
+} as const;
+
+type SuffixType = (typeof SUFFIX_TYPE)[keyof typeof SUFFIX_TYPE];
+
+type Options = [
+  {
+    disallowedSuffixes?: SuffixType[];
+  }
+];
+
+type Context = TSESLint.RuleContext<"noConstructStackSuffix", Options>;
 
 /**
  * Enforces that Construct IDs do not end with 'Construct' or 'Stack' suffix
@@ -28,11 +41,34 @@ export const noConstructStackSuffix = ESLintUtils.RuleCreator.withoutDocs({
       noConstructStackSuffix:
         "{{ classType }} ID '{{ id }}' should not include {{ suffix }} suffix.",
     },
-    schema: [],
+    schema: [
+      {
+        type: "object",
+        properties: {
+          disallowedSuffixes: {
+            type: "array",
+            items: {
+              type: "string",
+              enum: [SUFFIX_TYPE.CONSTRUCT, SUFFIX_TYPE.STACK],
+            },
+            uniqueItems: true,
+          },
+        },
+        additionalProperties: false,
+      },
+    ],
   },
-  defaultOptions: [],
+  defaultOptions: [
+    {
+      disallowedSuffixes: [SUFFIX_TYPE.CONSTRUCT, SUFFIX_TYPE.STACK],
+    },
+  ],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
+    const options = context.options[0] ?? {
+      disallowedSuffixes: [SUFFIX_TYPE.CONSTRUCT, SUFFIX_TYPE.STACK],
+    };
+
     return {
       NewExpression(node) {
         const type = parserServices.getTypeAtLocation(node);
@@ -43,7 +79,7 @@ export const noConstructStackSuffix = ESLintUtils.RuleCreator.withoutDocs({
         const constructorPropertyNames = getConstructorPropertyNames(type);
         if (constructorPropertyNames[1] !== "id") return;
 
-        validateConstructId(node, context);
+        validateConstructId(node, context, options);
       },
     };
   },
@@ -54,7 +90,8 @@ export const noConstructStackSuffix = ESLintUtils.RuleCreator.withoutDocs({
  */
 const validateConstructId = (
   node: TSESTree.NewExpression,
-  context: Context
+  context: Context,
+  options: { disallowedSuffixes: SuffixType[] }
 ): void => {
   // NOTE: Treat the second argument as ID
   const secondArg = node.arguments[1];
@@ -66,25 +103,32 @@ const validateConstructId = (
   }
 
   const formattedConstructId = toPascalCase(secondArg.value);
+  const disallowedSuffixes = options.disallowedSuffixes;
 
-  if (formattedConstructId.endsWith("Construct")) {
+  if (
+    disallowedSuffixes.includes(SUFFIX_TYPE.CONSTRUCT) &&
+    formattedConstructId.endsWith(SUFFIX_TYPE.CONSTRUCT)
+  ) {
     context.report({
       node,
       messageId: "noConstructStackSuffix",
       data: {
         classType: "Construct",
         id: secondArg.value,
-        suffix: "Construct",
+        suffix: SUFFIX_TYPE.CONSTRUCT,
       },
     });
-  } else if (formattedConstructId.endsWith("Stack")) {
+  } else if (
+    disallowedSuffixes.includes(SUFFIX_TYPE.STACK) &&
+    formattedConstructId.endsWith(SUFFIX_TYPE.STACK)
+  ) {
     context.report({
       node,
       messageId: "noConstructStackSuffix",
       data: {
         classType: "Stack",
         id: secondArg.value,
-        suffix: "Stack",
+        suffix: SUFFIX_TYPE.STACK,
       },
     });
   }
