@@ -13,7 +13,9 @@ titleTemplate: ":title"
 
 This rule enforces that constructors of classes extending `Construct` have the property names `scope, id` or `scope, id, props`.
 
-All Construct constructors should have a consistent property naming pattern to maintain uniformity across the codebase. Additional parameters after the first three are allowed as long as the first three follow the pattern.
+All Construct constructors should have a consistent property naming pattern to maintain uniformity across the codebase.
+
+Note: Additional parameters after the first three are allowed as long as the first three follow the pattern.
 
 ---
 
@@ -47,7 +49,7 @@ export class MyConstruct extends Construct {
 ```ts
 import { Construct } from "constructs";
 
-interface MyConstructProps {
+export interface MyConstructProps {
   bucketName: string;
 }
 
@@ -62,7 +64,7 @@ export class MyConstruct extends Construct {
 ```ts
 import { Construct } from "constructs";
 
-interface MyConstructProps {
+export interface MyConstructProps {
   bucketName?: string;
 }
 
@@ -77,7 +79,7 @@ export class MyConstruct extends Construct {
 ```ts
 import { Construct } from "constructs";
 
-interface MyConstructProps {
+export interface MyConstructProps {
   bucketName: string;
 }
 
@@ -95,21 +97,6 @@ export class MyConstruct extends Construct {
 ```
 
 #### ❌ Incorrect Examples
-
-```ts
-import { Construct } from "constructs";
-
-interface MyConstructProps {
-  bucketName: string;
-}
-
-// ❌ Third parameter is not named "props"
-export class MyConstruct extends Construct {
-  constructor(scope: Construct, id: string, myProps: MyConstructProps) {
-    super(scope, id);
-  }
-}
-```
 
 ```ts
 import { Construct } from "constructs";
@@ -136,18 +123,13 @@ export class MyConstruct extends Construct {
 ```ts
 import { Construct } from "constructs";
 
-interface MyConstructProps {
+export interface MyConstructProps {
   bucketName: string;
 }
 
-// ❌ Third parameter is not named "props" (even with additional parameters)
+// ❌ Third parameter is not named "props"
 export class MyConstruct extends Construct {
-  constructor(
-    scope: Construct,
-    id: string,
-    myProps: MyConstructProps,
-    resourceName: string
-  ) {
+  constructor(scope: Construct, id: string, myProps: MyConstructProps) {
     super(scope, id);
   }
 }
