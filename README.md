@@ -35,27 +35,16 @@ Note: This plugin uses typescript type information and must be used in conjuncti
 
 ```js
 // eslint.config.mjs
-import eslintCdkPlugin from "eslint-cdk-plugin";
+import cdkPlugin from "eslint-cdk-plugin";
 import tsEslint from "typescript-eslint";
 
 export default [
   ...tsEslint.configs.recommended,
+  // ✅ Add plugins
+  cdkPlugin.configs.recommended,
   {
     files: ["lib/**/*.ts", "bin/*.ts"],
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-        project: "./tsconfig.json",
-      },
-    },
-    // ✅ Add plugins
-    plugins: {
-      cdk: eslintCdkPlugin,
-    },
-    // ✅ Add rules (use recommended rules)
-    rules: {
-      ...eslintCdkPlugin.configs.recommended.rules,
-    },
+    // ... some configs
   },
 ];
 ```
@@ -65,7 +54,7 @@ export default [
 ```js
 // eslint.config.mjs
 import tsEslint from "typescript-eslint";
-import eslintCdkPlugin from "eslint-cdk-plugin";
+import cdkPlugin from "eslint-cdk-plugin";
 
 export default [
   ...tsEslint.configs.recommended,
@@ -79,7 +68,7 @@ export default [
     },
     // ✅ Add plugins
     plugins: {
-      cdk: eslintCdkPlugin,
+      cdk: cdkPlugin,
     },
     // ✅ Add rules (use custom rules)
     rules: {

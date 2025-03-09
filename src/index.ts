@@ -1,3 +1,7 @@
+import tsParser from "@typescript-eslint/parser";
+
+import { name, version } from "../package.json";
+
 import { constructConstructorProperty } from "./rules/construct-constructor-property";
 import { noClassInInterface } from "./rules/no-class-in-interface";
 import { noConstructStackSuffix } from "./rules/no-construct-stack-suffix";
@@ -14,60 +18,76 @@ import { requirePassingThis } from "./rules/require-passing-this";
 import { requirePropsDefaultDoc } from "./rules/require-props-default-doc";
 
 const rules = {
-  "construct-constructor-property": constructConstructorProperty,
   "no-class-in-interface": noClassInInterface,
   "no-construct-stack-suffix": noConstructStackSuffix,
   "no-parent-name-construct-id-match": noParentNameConstructIdMatch,
   "no-public-class-fields": noPublicClassFields,
   "pascal-case-construct-id": pascalCaseConstructId,
-  "no-mutable-public-fields": noMutablePublicFields,
-  "no-mutable-props-interface": noMutablePropsInterface,
   "require-passing-this": requirePassingThis,
   "no-variable-construct-id": noVariableConstructId,
+  "no-mutable-public-fields": noMutablePublicFields,
+  "no-mutable-props-interface": noMutablePropsInterface,
+  "construct-constructor-property": constructConstructorProperty,
   "require-jsdoc": requireJSDoc,
   "require-props-default-doc": requirePropsDefaultDoc,
   "props-name-convention": propsNameConvention,
   "no-import-private": noImportPrivate,
 };
 
+const cdkPlugin = {
+  meta: { name, version },
+  rules,
+};
+
+const createFlatConfig = (rules: Record<string, unknown>) => {
+  return {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        parser: tsParser,
+        sourceType: "module",
+      },
+    },
+    plugins: {
+      cdk: cdkPlugin,
+    },
+    rules,
+  };
+};
+
+const recommended = createFlatConfig({
+  "cdk/no-class-in-interface": "error",
+  "cdk/no-construct-stack-suffix": "error",
+  "cdk/no-parent-name-construct-id-match": "error",
+  "cdk/no-public-class-fields": "error",
+  "cdk/pascal-case-construct-id": "error",
+  "cdk/require-passing-this": ["error", { allowNonThisAndDisallowScope: true }],
+  "cdk/no-variable-construct-id": "error",
+  "cdk/no-mutable-public-fields": "warn",
+  "cdk/no-mutable-props-interface": "warn",
+  "cdk/construct-constructor-property": "error",
+});
+
+const strict = createFlatConfig({
+  "cdk/no-class-in-interface": "error",
+  "cdk/no-construct-stack-suffix": "error",
+  "cdk/no-parent-name-construct-id-match": "error",
+  "cdk/no-public-class-fields": "error",
+  "cdk/pascal-case-construct-id": "error",
+  "cdk/require-passing-this": "error",
+  "cdk/no-variable-construct-id": "error",
+  "cdk/no-mutable-public-fields": "error",
+  "cdk/no-mutable-props-interface": "error",
+  "cdk/construct-constructor-property": "error",
+  "cdk/require-jsdoc": "error",
+  "cdk/require-props-default-doc": "error",
+  "cdk/props-name-convention": "error",
+  "cdk/no-import-private": "error",
+});
+
 const configs = {
-  recommended: {
-    plugins: ["cdk"],
-    rules: {
-      "cdk/construct-constructor-property": "error",
-      "cdk/no-class-in-interface": "error",
-      "cdk/no-construct-stack-suffix": "error",
-      "cdk/no-parent-name-construct-id-match": "error",
-      "cdk/no-public-class-fields": "error",
-      "cdk/pascal-case-construct-id": "error",
-      "cdk/require-passing-this": [
-        "error",
-        { allowNonThisAndDisallowScope: true },
-      ],
-      "cdk/no-variable-construct-id": "error",
-      "cdk/no-mutable-public-fields": "warn",
-      "cdk/no-mutable-props-interface": "warn",
-    },
-  },
-  strict: {
-    plugins: ["cdk"],
-    rules: {
-      "cdk/construct-constructor-property": "error",
-      "cdk/no-class-in-interface": "error",
-      "cdk/no-construct-stack-suffix": "error",
-      "cdk/no-parent-name-construct-id-match": "error",
-      "cdk/no-public-class-fields": "error",
-      "cdk/pascal-case-construct-id": "error",
-      "cdk/require-passing-this": "error",
-      "cdk/no-variable-construct-id": "error",
-      "cdk/no-mutable-public-fields": "error",
-      "cdk/no-mutable-props-interface": "error",
-      "cdk/no-import-private": "error",
-      "cdk/require-props-default-doc": "error",
-      "cdk/props-name-convention": "error",
-      "cdk/require-jsdoc": "error",
-    },
-  },
+  recommended,
+  strict,
 };
 
 export { configs, rules };

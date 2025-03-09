@@ -38,7 +38,7 @@ body:
         export default [
           {
             plugins: {
-              cdk: eslintPluginCdk
+              cdk: cdkPlugin
             },
             rules: {
               // ...
