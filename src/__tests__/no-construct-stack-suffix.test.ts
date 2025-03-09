@@ -66,6 +66,30 @@ ruleTester.run("no-construct-stack-suffix", noConstructStackSuffix, {
       const test = new TestClass("test", "SampleConstruct");
       `,
     },
+    // WHEN: disallowedSuffixes does not include "Construct", construct id with "Construct" suffix is allowed
+    {
+      code: `
+      class Construct {}
+      class SampleConstruct extends Construct {
+        constructor(props: any, id: string) {
+          super(props, id);
+        }
+      }
+      new SampleConstruct({ name: "sample" }, "SampleConstruct");`,
+      options: [{ disallowedSuffixes: ["Stack"] }],
+    },
+    // WHEN: disallowedSuffixes does not include "Stack", stack id with "Stack" suffix is allowed
+    {
+      code: `
+      class Stack {}
+      class SampleStack extends Stack {
+        constructor(props: any, id: string) {
+          super(props, id);
+        }
+      }
+      new SampleStack({ name: "sample" }, "SampleStack");`,
+      options: [{ disallowedSuffixes: ["Construct"] }],
+    },
   ],
   invalid: [
     // WHEN: construct id has "Construct" suffix, and extends Construct
@@ -90,6 +114,32 @@ ruleTester.run("no-construct-stack-suffix", noConstructStackSuffix, {
         }
       }
       new SampleStack({ name: "sample" }, "SampleStack");`,
+      errors: [{ messageId: "noConstructStackSuffix" }],
+    },
+    // WHEN: disallowedSuffixes includes only "Construct", only construct id with "Construct" suffix is disallowed
+    {
+      code: `
+      class Construct {}
+      class SampleConstruct extends Construct {
+        constructor(props: any, id: string) {
+          super(props, id);
+        }
+      }
+      new SampleConstruct({ name: "sample" }, "SampleConstruct");`,
+      options: [{ disallowedSuffixes: ["Construct"] }],
+      errors: [{ messageId: "noConstructStackSuffix" }],
+    },
+    // WHEN: disallowedSuffixes includes only "Stack", only stack id with "Stack" suffix is disallowed
+    {
+      code: `
+      class Stack {}
+      class SampleStack extends Stack {
+        constructor(props: any, id: string) {
+          super(props, id);
+        }
+      }
+      new SampleStack({ name: "sample" }, "SampleStack");`,
+      options: [{ disallowedSuffixes: ["Stack"] }],
       errors: [{ messageId: "noConstructStackSuffix" }],
     },
   ],

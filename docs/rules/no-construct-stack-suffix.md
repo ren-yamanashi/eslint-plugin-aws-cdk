@@ -16,6 +16,12 @@ This rule is to disallow using the `Construct` or `Stack` suffix in construct ID
 
 If the Construct ID includes "Construct," the issues that should be stopped in the CDK world will leak into the CloudFormation template and the AWS world, so not good.(the same for Stack ID )
 
+## Options
+
+This rule has an options object with the following properties:
+
+- `disallowedSuffixes` (default: `["Construct", "Stack"]`) - An array of suffixes to disallow. Can include "Construct", "Stack", or both.
+
 ---
 
 #### 🔧 How to use
@@ -26,7 +32,20 @@ export default [
   {
     // ... some configs
     rules: {
+      // Default: disallow both "Construct" and "Stack" suffixes
       "cdk/no-construct-stack-suffix": "error",
+
+      // Disallow only "Construct" suffix
+      "cdk/no-construct-stack-suffix": [
+        "error",
+        { disallowedSuffixes: ["Construct"] },
+      ],
+
+      // Disallow only "Stack" suffix
+      "cdk/no-construct-stack-suffix": [
+        "error",
+        { disallowedSuffixes: ["Stack"] },
+      ],
     },
   },
 ];
