@@ -30,7 +30,7 @@ AWS CDK リソースを作成するとき、`Construct` に `this` を渡すこ�
 
 このルールには以下のプロパティを持つオプションオブジェクトがあります：
 
-- `allowNonThisForNonScope` (デフォルト: `false`) - `true` の場合、`scope` という名前ではないコンストラクタパラメータに対して `this` 以外の値を許可します。これは、あるコンストラクトを別のコンストラクトの子として作成したい場合に便利です。
+- `allowNonThisAndDisallowScope` (デフォルト: `false`、推奨: `true`) - `true` の場合、`scope` という名前ではないコンストラクタパラメータに対して `this` 以外の値を許可しますが、`scope` の直接使用は引き続き禁止します。これは、あるコンストラクトを別のコンストラクトの子として作成したい場合に便利です。
 
 ---
 
@@ -46,7 +46,10 @@ export default [
       "cdk/require-passing-this": "error",
 
       // `scope`という名前ではないコンストラクタパラメータに対して`this`以外の値を許可
-      "cdk/require-passing-this": ["error", { allowNonThisForNonScope: true }],
+      "cdk/require-passing-this": [
+        "error",
+        { allowNonThisAndDisallowScope: true },
+      ],
     },
   },
 ];
@@ -65,9 +68,9 @@ export class MyConstruct extends Construct {
     // ✅ this を使用できます
     new Bucket(this, "SampleBucket");
 
-    // ✅ allowNonThisForNonScope: true の場合、'scope'という名前ではないパラメータに対して this 以外の値を使用できます
+    // ✅ allowNonThisAndDisallowScope: true の場合、'scope'という名前ではないパラメータに対して this 以外の値を使用できます
     const sample = new SampleConstruct(this, "Sample");
-    new OtherConstruct(sample, "Child"); // allowNonThisForNonScope が true の場合は有効
+    new OtherConstruct(sample, "Child"); // allowNonThisAndDisallowScope が true の場合は有効
   }
 }
 ```

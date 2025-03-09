@@ -10,7 +10,7 @@ import { isConstructType } from "../utils/typeCheck";
 type MessageIds = "requirePassingThis";
 type Options = [
   {
-    allowNonThisForNonScope?: boolean;
+    allowNonThisAndDisallowScope?: boolean;
   }
 ];
 
@@ -35,7 +35,7 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
       {
         type: "object",
         properties: {
-          allowNonThisForNonScope: {
+          allowNonThisAndDisallowScope: {
             type: "boolean",
             default: false,
           },
@@ -47,7 +47,7 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
   },
   defaultOptions: [
     {
-      allowNonThisForNonScope: false,
+      allowNonThisAndDisallowScope: false,
     },
   ],
   create(context: Context) {

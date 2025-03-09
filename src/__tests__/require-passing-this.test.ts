@@ -65,7 +65,7 @@ ruleTester.run("require-passing-this", requirePassingThis, {
       }
       `,
     },
-    // WHEN: allowNonThisForNonScope is true and property name is not `scope`
+    // WHEN: allowNonThisAndDisallowScope is true and property name is not `scope`
     {
       code: `
       class Construct {}
@@ -82,7 +82,7 @@ ruleTester.run("require-passing-this", requirePassingThis, {
         }
       }
       `,
-      options: [{ allowNonThisForNonScope: true }],
+      options: [{ allowNonThisAndDisallowScope: true }],
     },
   ],
   invalid: [
@@ -118,7 +118,7 @@ ruleTester.run("require-passing-this", requirePassingThis, {
       }
       `,
     },
-    // WHEN: allowNonThisForNonScope is true but property name is `scope`
+    // WHEN: allowNonThisAndDisallowScope is true but property name is `scope`
     {
       code: `
       class Construct {}
@@ -134,7 +134,7 @@ ruleTester.run("require-passing-this", requirePassingThis, {
         }
       }
       `,
-      options: [{ allowNonThisForNonScope: true }],
+      options: [{ allowNonThisAndDisallowScope: true }],
       errors: [{ messageId: "requirePassingThis" }],
       output: `
       class Construct {}
