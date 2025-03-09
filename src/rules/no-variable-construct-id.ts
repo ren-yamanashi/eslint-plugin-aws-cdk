@@ -79,12 +79,11 @@ const validateConstructId = (
 };
 
 /**
- * Check if the node is inside a loop statement or array method like forEach
+ * Check if the node is inside a loop statement
  */
 const isInsideLoop = (node: TSESTree.Node): boolean => {
   let current = node.parent;
   while (current) {
-    // Check for traditional loop statements
     if (
       current.type === AST_NODE_TYPES.ForStatement ||
       current.type === AST_NODE_TYPES.ForInStatement ||
@@ -95,7 +94,7 @@ const isInsideLoop = (node: TSESTree.Node): boolean => {
       return true;
     }
 
-    // Check for array methods like forEach, map, etc.
+    // NOTE: Check for array methods like forEach, map, etc.
     if (
       current.type === AST_NODE_TYPES.CallExpression &&
       current.callee.type === AST_NODE_TYPES.MemberExpression &&

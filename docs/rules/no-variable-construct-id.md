@@ -58,11 +58,6 @@ class MyConstruct extends Construct {
     for (const [key, value] of Object.entries(props.environments)) {
       new Bucket(this, `${key}Bucket`);
     }
-
-    // ✅ Can use a variable in forEach and other array methods
-    props.environments.forEach((value, key) => {
-      new Bucket(this, `${key}Bucket`);
-    });
   }
 }
 ```
