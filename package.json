@@ -20,7 +20,7 @@
     "build": "sh scripts/build.sh",
     "test": "vitest --run",
     "lint": "eslint --fix --config eslint.config.js",
-    "type-check": "tsc --noEmit",
+    "check": "tsc --noEmit",
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
     "release:patch": "standard-version --release-as patch",
