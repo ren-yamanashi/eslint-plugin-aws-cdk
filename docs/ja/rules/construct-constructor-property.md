@@ -13,7 +13,9 @@ titleTemplate: ":title"
 
 このルールは、`Construct`を継承するクラスのコンストラクタが`scope, id`または`scope, id, props`というプロパティ名を持つことを強制します。
 
-すべての Construct コンストラクタは、コードベース全体で一貫性を維持するために統一されたプロパティ命名パターンを持つべきです。最初の 3 つのパラメータがパターンに従っていれば、それ以降の追加パラメータは許可されます。
+すべての Construct コンストラクタは、コードベース全体で一貫性を維持するために統一されたプロパティ命名パターンを持つべきです。
+
+※最初の 3 つのパラメータがパターンに従っていれば、それ以降の追加パラメータは許可されます
 
 ---
 
@@ -23,7 +25,7 @@ titleTemplate: ":title"
 // eslint.config.mjs
 export default [
   {
-    // ... 他の設定
+    // ... some configs
     rules: {
       "cdk/construct-constructor-property": "error",
     },
@@ -47,7 +49,7 @@ export class MyConstruct extends Construct {
 ```ts
 import { Construct } from "constructs";
 
-interface MyConstructProps {
+export interface MyConstructProps {
   bucketName: string;
 }
 
@@ -62,7 +64,7 @@ export class MyConstruct extends Construct {
 ```ts
 import { Construct } from "constructs";
 
-interface MyConstructProps {
+export interface MyConstructProps {
   bucketName?: string;
 }
 
@@ -77,7 +79,7 @@ export class MyConstruct extends Construct {
 ```ts
 import { Construct } from "constructs";
 
-interface MyConstructProps {
+export interface MyConstructProps {
   bucketName: string;
 }
 
@@ -95,21 +97,6 @@ export class MyConstruct extends Construct {
 ```
 
 #### ❌ 誤った例
-
-```ts
-import { Construct } from "constructs";
-
-interface MyConstructProps {
-  bucketName: string;
-}
-
-// ❌ 3番目のパラメータが"props"という名前ではない
-export class MyConstruct extends Construct {
-  constructor(scope: Construct, id: string, myProps: MyConstructProps) {
-    super(scope, id);
-  }
-}
-```
 
 ```ts
 import { Construct } from "constructs";
@@ -136,18 +123,13 @@ export class MyConstruct extends Construct {
 ```ts
 import { Construct } from "constructs";
 
-interface MyConstructProps {
+export interface MyConstructProps {
   bucketName: string;
 }
 
-// ❌ 3番目のパラメータが"props"という名前ではない（追加パラメータがあっても）
+// ❌ 3番目のパラメータが"props"という名前ではない
 export class MyConstruct extends Construct {
-  constructor(
-    scope: Construct,
-    id: string,
-    myProps: MyConstructProps,
-    resourceName: string
-  ) {
+  constructor(scope: Construct, id: string, myProps: MyConstructProps) {
     super(scope, id);
   }
 }
