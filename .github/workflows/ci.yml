@@ -48,6 +48,8 @@ jobs:
         run: pnpm i
       - name: Run Tests
         run: pnpm run test
+      - name: Type Check
+        run: pnpm run check
       - name: Lint
         run: pnpm run lint
       - name: Build docs
