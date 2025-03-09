@@ -37,7 +37,10 @@ const configs = {
       "cdk/no-parent-name-construct-id-match": "error",
       "cdk/no-public-class-fields": "error",
       "cdk/pascal-case-construct-id": "error",
-      "cdk/require-passing-this": "error",
+      "cdk/require-passing-this": [
+        "error",
+        { allowNonThisAndDisallowScope: true },
+      ],
       "cdk/no-variable-construct-id": "error",
       "cdk/no-mutable-public-fields": "warn",
       "cdk/no-mutable-props-interface": "warn",
