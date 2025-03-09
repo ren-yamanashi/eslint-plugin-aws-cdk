@@ -15,7 +15,7 @@ This rule enforces the use of no variables in construct IDs.
 (This rule applies only to classes that extends from `Construct`)
 
 Using variables for construct ID (logical ID) is not appropriate because it may cause the following problems.  
-(loop processing is not covered)
+(loop processing including for, while, forEach, map, etc. is not covered)
 
 - Unnecessary duplication
 - Resource recreation when the parameter is changed
@@ -58,6 +58,11 @@ class MyConstruct extends Construct {
     for (const [key, value] of Object.entries(props.environments)) {
       new Bucket(this, `${key}Bucket`);
     }
+
+    // ✅ Can use a variable in forEach and other array methods
+    props.environments.forEach((value, key) => {
+      new Bucket(this, `${key}Bucket`);
+    });
   }
 }
 ```
