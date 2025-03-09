@@ -41,7 +41,6 @@ const configs = {
       "cdk/no-variable-construct-id": "error",
       "cdk/no-mutable-public-fields": "warn",
       "cdk/no-mutable-props-interface": "warn",
-      "cdk/props-name-convention": "warn",
     },
   },
   strict: {
