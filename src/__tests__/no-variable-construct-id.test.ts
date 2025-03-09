@@ -88,6 +88,47 @@ ruleTester.run("no-variable-construct-id", noVariableConstructId, {
       }
     `,
     },
+    // WHEN: id is variable in a forEach method
+    {
+      code: `
+      class Construct {}
+      class TargetConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class SampleConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          const items = ['a', 'b', 'c'];
+          items.forEach(item => {
+            new TargetConstruct(this, item);
+          });
+        }
+      }
+    `,
+    },
+    // WHEN: id is variable in other array methods (map, filter, etc.)
+    {
+      code: `
+      class Construct {}
+      class TargetConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class SampleConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          const items = ['a', 'b', 'c'];
+          items.map(item => {
+            new TargetConstruct(this, item);
+            return item;
+          });
+        }
+      }
+    `,
+    },
     // WHEN: property name is not `id`
     {
       code: `

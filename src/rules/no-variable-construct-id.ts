@@ -93,6 +93,25 @@ const isInsideLoop = (node: TSESTree.Node): boolean => {
     ) {
       return true;
     }
+
+    // NOTE: Check for array methods like forEach, map, etc.
+    if (
+      current.type === AST_NODE_TYPES.CallExpression &&
+      current.callee.type === AST_NODE_TYPES.MemberExpression &&
+      current.callee.property.type === AST_NODE_TYPES.Identifier &&
+      [
+        "forEach",
+        "map",
+        "filter",
+        "reduce",
+        "flatMap",
+        "some",
+        "every",
+      ].includes(current.callee.property.name)
+    ) {
+      return true;
+    }
+
     current = current.parent;
   }
   return false;
