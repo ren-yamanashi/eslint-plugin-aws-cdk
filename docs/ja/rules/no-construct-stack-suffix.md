@@ -7,7 +7,7 @@ titleTemplate: ":title"
 
 <div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
   ✅ <a href="/ja/rules/#recommended-rules">recommended</a>
-  を使用した場合、このルールが有効になります。
+  を使用した場合、このルールが"Construct"サフィックスのみを禁止するオプションで有効になります。
 </div>
 
 このルールは、コンストラクト ID およびスタック ID で `Construct` または `Stack` サフィックスの使用を禁止するものです。  
@@ -20,6 +20,8 @@ titleTemplate: ":title"
 このルールには以下のプロパティを持つオプションオブジェクトがあります：
 
 - `disallowedSuffixes` (デフォルト: `["Construct", "Stack"]`) - 禁止するサフィックスの配列。"Construct"、"Stack"、または両方を含めることができます。
+
+注意: `recommended` 設定を使用する場合、このルールは "Construct" サフィックスのみを禁止するように設定されています。
 
 ---
 
@@ -34,7 +36,7 @@ export default [
       // デフォルト: "Construct" と "Stack" の両方のサフィックスを禁止
       "cdk/no-construct-stack-suffix": "error",
 
-      // "Construct" サフィックスのみを禁止
+      // "Construct" サフィックスのみを禁止 (recommended 設定と同じ)
       "cdk/no-construct-stack-suffix": [
         "error",
         { disallowedSuffixes: ["Construct"] },
@@ -71,13 +73,17 @@ export class MyConstruct extends Construct {
 ```ts
 import { Construct } from "constructs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
+import { Stack } from "aws-cdk-lib";
 
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // ❌ "Construct" サフィックスを使用すべきではありません
+    // ❌ "Construct" サフィックスを使用すべきではありません (recommended 設定で禁止)
     const bucket = new Bucket(this, "BucketConstruct");
+
+    // ❌ "Stack" サフィックスを使用すべきではありません (recommended 設定では許可されています)
+    const myStack = new MyStack(this, "MyStack");
   }
 }
 ```

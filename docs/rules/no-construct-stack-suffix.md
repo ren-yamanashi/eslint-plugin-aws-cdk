@@ -8,7 +8,7 @@ titleTemplate: ":title"
 <div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
   ✅ Using
   <a href="/rules/#recommended-rules">recommended</a>
-  in an ESLint configuration enables this rule.
+  in an ESLint configuration enables this rule with the option to disallow only the "Construct" suffix.
 </div>
 
 This rule is to disallow using the `Construct` or `Stack` suffix in construct IDs and stack IDs.  
@@ -21,6 +21,8 @@ If the Construct ID includes "Construct," the issues that should be stopped in t
 This rule has an options object with the following properties:
 
 - `disallowedSuffixes` (default: `["Construct", "Stack"]`) - An array of suffixes to disallow. Can include "Construct", "Stack", or both.
+
+Note: When using the `recommended` configuration, this rule is configured to disallow only the "Construct" suffix.
 
 ---
 
@@ -35,7 +37,7 @@ export default [
       // Default: disallow both "Construct" and "Stack" suffixes
       "cdk/no-construct-stack-suffix": "error",
 
-      // Disallow only "Construct" suffix
+      // Disallow only "Construct" suffix (same as recommended config)
       "cdk/no-construct-stack-suffix": [
         "error",
         { disallowedSuffixes: ["Construct"] },
@@ -72,13 +74,17 @@ export class MyConstruct extends Construct {
 ```ts
 import { Construct } from "constructs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
+import { Stack } from "aws-cdk-lib";
 
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // ❌ Shouldn't use the suffix "Construct"
+    // ❌ Shouldn't use the suffix "Construct" (disallowed in recommended config)
     const bucket = new Bucket(this, "BucketConstruct");
+
+    // ❌ Shouldn't use the suffix "Stack" (allowed in recommended config)
+    const myStack = new MyStack(this, "MyStack");
   }
 }
 ```
