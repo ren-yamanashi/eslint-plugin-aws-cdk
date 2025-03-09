@@ -1,11 +1,11 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 import { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
-import { constructConstructorSignature } from "../rules/construct-constructor-signature";
+import { constructConstructorProperty } from "../rules/construct-constructor-property";
 
 // 型アサーションを使用して、型エラーを解決するのだ
-const typedRule = constructConstructorSignature as ESLintUtils.RuleModule<
-  "invalidConstructorSignature",
+const typedRule = constructConstructorProperty as ESLintUtils.RuleModule<
+  "invalidConstructorProperty",
   [],
   {
     ClassDeclaration(node: TSESTree.ClassDeclaration): void;
@@ -22,7 +22,7 @@ const ruleTester = new RuleTester({
   },
 });
 
-ruleTester.run("construct-constructor-signature", typedRule, {
+ruleTester.run("construct-constructor-property", typedRule, {
   valid: [
     // WHEN: constructor has "scope, id" signature
     {
@@ -73,9 +73,7 @@ ruleTester.run("construct-constructor-signature", typedRule, {
       }
       `,
     },
-  ],
-  invalid: [
-    // WHEN: constructor has more than 3 parameters
+    // WHEN: constructor has more than 3 parameters but first three are "scope, id, props"
     {
       code: `
       class Construct {}
@@ -87,8 +85,9 @@ ruleTester.run("construct-constructor-signature", typedRule, {
         }
       }
       `,
-      errors: [{ messageId: "invalidConstructorSignature" }],
     },
+  ],
+  invalid: [
     // WHEN: constructor has 3 parameters but third parameter is not named "props"
     {
       code: `
@@ -101,7 +100,7 @@ ruleTester.run("construct-constructor-signature", typedRule, {
         }
       }
       `,
-      errors: [{ messageId: "invalidConstructorSignature" }],
+      errors: [{ messageId: "invalidConstructorProperty" }],
     },
     // WHEN: constructor has less than 2 parameters
     {
@@ -114,7 +113,7 @@ ruleTester.run("construct-constructor-signature", typedRule, {
         }
       }
       `,
-      errors: [{ messageId: "invalidConstructorSignature" }],
+      errors: [{ messageId: "invalidConstructorProperty" }],
     },
     // WHEN: constructor has 2 parameters but first is not named "scope"
     {
@@ -127,7 +126,7 @@ ruleTester.run("construct-constructor-signature", typedRule, {
         }
       }
       `,
-      errors: [{ messageId: "invalidConstructorSignature" }],
+      errors: [{ messageId: "invalidConstructorProperty" }],
     },
     // WHEN: constructor has 2 parameters but second is not named "id"
     {
@@ -140,7 +139,21 @@ ruleTester.run("construct-constructor-signature", typedRule, {
         }
       }
       `,
-      errors: [{ messageId: "invalidConstructorSignature" }],
+      errors: [{ messageId: "invalidConstructorProperty" }],
+    },
+    // WHEN: constructor has 4 parameters but third is not named "props"
+    {
+      code: `
+      class Construct {}
+      interface MyConstructProps {}
+      
+      export class MyConstruct extends Construct {
+        constructor(scope: Construct, id: string, myProps: MyConstructProps, resourceName: string) { 
+          super(scope, id);
+        }
+      }
+      `,
+      errors: [{ messageId: "invalidConstructorProperty" }],
     },
   ],
 });

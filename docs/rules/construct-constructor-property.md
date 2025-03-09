@@ -1,9 +1,9 @@
 ---
-title: eslint-cdk-plugin - construct-constructor-signature
+title: eslint-cdk-plugin - construct-constructor-property
 titleTemplate: ":title"
 ---
 
-# construct-constructor-signature
+# construct-constructor-property
 
 <div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
   ✅ Using
@@ -11,9 +11,9 @@ titleTemplate: ":title"
   in an ESLint configuration enables this rule.
 </div>
 
-This rule enforces that constructors of classes extending `Construct` have the signature `scope, id` or `scope, id, props`.
+This rule enforces that constructors of classes extending `Construct` have the property names `scope, id` or `scope, id, props`.
 
-Following the AWS CDK best practices, all Construct constructors should have a consistent signature pattern to maintain uniformity across the codebase.
+Following the AWS CDK best practices, all Construct constructors should have a consistent property naming pattern to maintain uniformity across the codebase. Additional parameters after the first three are allowed as long as the first three follow the pattern.
 
 ## Options
 
@@ -29,7 +29,7 @@ export default [
   {
     // ... some configs
     rules: {
-      "cdk/construct-constructor-signature": "error",
+      "cdk/construct-constructor-property": "error",
     },
   },
 ];
@@ -40,7 +40,7 @@ export default [
 ```ts
 import { Construct } from "constructs";
 
-// ✅ Constructor with "scope, id" signature
+// ✅ Constructor with "scope, id" property names
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
@@ -55,7 +55,7 @@ interface MyConstructProps {
   bucketName: string;
 }
 
-// ✅ Constructor with "scope, id, props" signature
+// ✅ Constructor with "scope, id, props" property names
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string, props: MyConstructProps) {
     super(scope, id);
@@ -70,15 +70,13 @@ interface MyConstructProps {
   bucketName?: string;
 }
 
-// ✅ Constructor with "scope, id, props?" signature (optional props)
+// ✅ Constructor with "scope, id, props?" property names (optional props)
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string, props?: MyConstructProps) {
     super(scope, id);
   }
 }
 ```
-
-#### ❌ Incorrect Examples
 
 ```ts
 import { Construct } from "constructs";
@@ -87,7 +85,7 @@ interface MyConstructProps {
   bucketName: string;
 }
 
-// ❌ Constructor with more than 3 parameters
+// ✅ Constructor with additional parameters after "scope, id, props"
 export class MyConstruct extends Construct {
   constructor(
     scope: Construct,
@@ -99,6 +97,8 @@ export class MyConstruct extends Construct {
   }
 }
 ```
+
+#### ❌ Incorrect Examples
 
 ```ts
 import { Construct } from "constructs";
@@ -133,6 +133,26 @@ import { Construct } from "constructs";
 export class MyConstruct extends Construct {
   constructor(scope: Construct, myId: string) {
     super(scope, myId);
+  }
+}
+```
+
+```ts
+import { Construct } from "constructs";
+
+interface MyConstructProps {
+  bucketName: string;
+}
+
+// ❌ Third parameter is not named "props" (even with additional parameters)
+export class MyConstruct extends Construct {
+  constructor(
+    scope: Construct,
+    id: string,
+    myProps: MyConstructProps,
+    resourceName: string
+  ) {
+    super(scope, id);
   }
 }
 ```

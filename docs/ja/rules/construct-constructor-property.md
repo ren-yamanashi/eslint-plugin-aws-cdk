@@ -1,9 +1,9 @@
 ---
-title: eslint-cdk-plugin - construct-constructor-signature
+title: eslint-cdk-plugin - construct-constructor-property
 titleTemplate: ":title"
 ---
 
-# construct-constructor-signature
+# construct-constructor-property
 
 <div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
   ✅ ESLint設定で
@@ -11,9 +11,9 @@ titleTemplate: ":title"
   を使用すると、このルールが有効になります。
 </div>
 
-このルールは、`Construct`を継承するクラスのコンストラクタが`scope, id`または`scope, id, props`という署名を持つことを強制します。
+このルールは、`Construct`を継承するクラスのコンストラクタが`scope, id`または`scope, id, props`というプロパティ名を持つことを強制します。
 
-AWS CDK のベストプラクティスに従い、すべての Construct コンストラクタは、コードベース全体で一貫性を維持するために統一された署名パターンを持つべきです。
+AWS CDK のベストプラクティスに従い、すべての Construct コンストラクタは、コードベース全体で一貫性を維持するために統一されたプロパティ命名パターンを持つべきです。最初の 3 つのパラメータがパターンに従っていれば、それ以降の追加パラメータは許可されます。
 
 ## オプション
 
@@ -29,7 +29,7 @@ export default [
   {
     // ... 他の設定
     rules: {
-      "cdk/construct-constructor-signature": "error",
+      "cdk/construct-constructor-property": "error",
     },
   },
 ];
@@ -40,7 +40,7 @@ export default [
 ```ts
 import { Construct } from "constructs";
 
-// ✅ "scope, id"の署名を持つコンストラクタ
+// ✅ "scope, id"のプロパティ名を持つコンストラクタ
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
@@ -55,7 +55,7 @@ interface MyConstructProps {
   bucketName: string;
 }
 
-// ✅ "scope, id, props"の署名を持つコンストラクタ
+// ✅ "scope, id, props"のプロパティ名を持つコンストラクタ
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string, props: MyConstructProps) {
     super(scope, id);
@@ -70,15 +70,13 @@ interface MyConstructProps {
   bucketName?: string;
 }
 
-// ✅ "scope, id, props?"の署名を持つコンストラクタ（オプションのprops）
+// ✅ "scope, id, props?"のプロパティ名を持つコンストラクタ（オプションのprops）
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string, props?: MyConstructProps) {
     super(scope, id);
   }
 }
 ```
-
-#### ❌ 誤った例
 
 ```ts
 import { Construct } from "constructs";
@@ -87,7 +85,7 @@ interface MyConstructProps {
   bucketName: string;
 }
 
-// ❌ 3つ以上のパラメータを持つコンストラクタ
+// ✅ "scope, id, props"の後に追加パラメータを持つコンストラクタ
 export class MyConstruct extends Construct {
   constructor(
     scope: Construct,
@@ -99,6 +97,8 @@ export class MyConstruct extends Construct {
   }
 }
 ```
+
+#### ❌ 誤った例
 
 ```ts
 import { Construct } from "constructs";
@@ -133,6 +133,26 @@ import { Construct } from "constructs";
 export class MyConstruct extends Construct {
   constructor(scope: Construct, myId: string) {
     super(scope, myId);
+  }
+}
+```
+
+```ts
+import { Construct } from "constructs";
+
+interface MyConstructProps {
+  bucketName: string;
+}
+
+// ❌ 3番目のパラメータが"props"という名前ではない（追加パラメータがあっても）
+export class MyConstruct extends Construct {
+  constructor(
+    scope: Construct,
+    id: string,
+    myProps: MyConstructProps,
+    resourceName: string
+  ) {
+    super(scope, id);
   }
 }
 ```
