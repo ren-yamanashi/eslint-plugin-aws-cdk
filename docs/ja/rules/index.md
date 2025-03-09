@@ -276,28 +276,18 @@ const { theme } = useData()
 
 ```js
 // eslint.config.mjs
+import cdkPlugin from "eslint-cdk-plugin";
 import tsEslint from "typescript-eslint";
-import eslintCdkPlugin from "eslint-cdk-plugin";
 
-export default tsEslint.config({
-  files: ["lib/**/*.ts", "bin/*.ts"],
-  languageOptions: {
-    parser: tsEslint.parser,
-    parserOptions: {
-      projectService: true,
-      project: "./tsconfig.json",
-    },
-  },
-  extends: [...tsEslint.configs.recommended],
+export default [
+  ...tsEslint.configs.recommended,
   // ✅ Add plugins
-  plugins: {
-    cdk: eslintCdkPlugin,
+  cdkPlugin.configs.recommended,
+  {
+    files: ["lib/**/*.ts", "bin/*.ts"],
+    // ... some configs
   },
-  // ✅ Add rules (use recommended rules)
-  rules: {
-    ...eslintCdkPlugin.configs.recommended.rules,
-  },
-});
+];
 ```
 
 ## Strict Rules
@@ -307,26 +297,16 @@ export default tsEslint.config({
 
 ```js
 // eslint.config.mjs
+import cdkPlugin from "eslint-cdk-plugin";
 import tsEslint from "typescript-eslint";
-import eslintCdkPlugin from "eslint-cdk-plugin";
 
-export default tsEslint.config({
-  files: ["lib/**/*.ts", "bin/*.ts"],
-  languageOptions: {
-    parser: tsEslint.parser,
-    parserOptions: {
-      projectService: true,
-      project: "./tsconfig.json",
-    },
+export default [
+  ...tsEslint.configs.recommended,
+  // ✅ Add plugins
+  cdkPlugin.configs.strict,
+  {
+    files: ["lib/**/*.ts", "bin/*.ts"],
+    // ... some configs
   },
-  extends: [...tsEslint.configs.recommended],
-  plugins: {
-    // ✅ Add plugins
-    cdk: eslintCdkPlugin,
-  },
-  // ✅ Add rules (use strict rules)
-  rules: {
-    ...eslintCdkPlugin.configs.strict.rules,
-  },
-});
+];
 ```

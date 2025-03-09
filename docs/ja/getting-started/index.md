@@ -49,120 +49,37 @@ pnpm install -D eslint-cdk-plugin
 
 ```js
 // eslint.config.mjs
-import eslintCdkPlugin from "eslint-cdk-plugin";
+import cdkPlugin from "eslint-cdk-plugin";
 import tsEslint from "typescript-eslint";
 
 export default [
   ...tsEslint.configs.recommended,
+  // ✅ Add plugins
+  cdkPlugin.configs.recommended,
   {
     files: ["lib/**/*.ts", "bin/*.ts"],
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-        project: "./tsconfig.json",
-      },
-    },
-    // ✅ Add plugins
-    plugins: {
-      cdk: eslintCdkPlugin,
-    },
-    // ✅ Add rules (use recommended rules)
-    rules: {
-      ...eslintCdkPlugin.configs.recommended.rules,
-    },
+    // ... some configs
   },
 ];
 ```
-
-::: details `eslint.config.mjs`は、次のように書くこともできます
-
-```js
-// eslint.config.mjs
-import tsEslint from "typescript-eslint";
-import eslintCdkPlugin from "eslint-cdk-plugin";
-
-export default tsEslint.config({
-  files: ["lib/**/*.ts", "bin/*.ts"],
-  languageOptions: {
-    parser: tsEslint.parser,
-    parserOptions: {
-      projectService: true,
-      project: "./tsconfig.json",
-    },
-  },
-  extends: [...tsEslint.configs.recommended],
-  // ✅ Add plugins
-  plugins: {
-    cdk: eslintCdkPlugin,
-  },
-  // ✅ Add rules (use recommended rules)
-  rules: {
-    ...eslintCdkPlugin.configs.recommended.rules,
-  },
-});
-```
-
-:::
 
 ### CJS を使用する場合
 
 ```js
 // eslint.config.cjs
-const eslintCdkPlugin = require("eslint-cdk-plugin");
+const cdkPlugin = require("eslint-cdk-plugin");
 const tsEslint = require("typescript-eslint");
 
 module.exports = [
   ...tsEslint.configs.recommended,
+  // ✅ Add plugins
+  cdkPlugin.configs.recommended,
   {
     files: ["lib/**/*.ts", "bin/*.ts"],
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-        project: "./tsconfig.json",
-      },
-    },
-    plugins: {
-      cdk: eslintCdkPlugin,
-    },
-    rules: {
-      ...eslintCdkPlugin.configs.recommended.rules,
-    },
-  },
-  {
-    ignores: ["node_modules", "*.js"],
+    // ... some configs
   },
 ];
 ```
-
-::: details `eslint.config.cjs` は次のように書くこともできます
-
-```js
-// eslint.config.cjs
-const tsEslint = require("typescript-eslint");
-const eslintCdkPlugin = require("eslint-cdk-plugin");
-
-module.exports = tsEslint.config({
-  files: ["lib/**/*.ts", "bin/*.ts"],
-  languageOptions: {
-    parser: tsEslint.parser,
-    parserOptions: {
-      projectService: true,
-      project: "./tsconfig.json",
-    },
-  },
-  extends: [...tsEslint.configs.recommended],
-  // ✅ Add plugins
-  plugins: {
-    cdk: eslintCdkPlugin,
-  },
-  // ✅ Add rules (use recommended rules)
-  rules: {
-    ...eslintCdkPlugin.configs.recommended.rules,
-  },
-});
-```
-
-:::
 
 ## ルールのカスタマイズ
 
@@ -172,7 +89,7 @@ module.exports = tsEslint.config({
 ```js
 // eslint.config.mjs
 import tsEslint from "typescript-eslint";
-import eslintCdkPlugin from "eslint-cdk-plugin";
+import cdkPlugin from "eslint-cdk-plugin";
 
 export default [
   ...tsEslint.configs.recommended,
@@ -186,7 +103,7 @@ export default [
     },
     // ✅ Add plugins
     plugins: {
-      cdk: eslintCdkPlugin,
+      cdk: cdkPlugin,
     },
     // ✅ Add rules (use custom rules)
     rules: {

@@ -18,16 +18,16 @@ import { requirePassingThis } from "./rules/require-passing-this";
 import { requirePropsDefaultDoc } from "./rules/require-props-default-doc";
 
 const rules = {
-  "construct-constructor-property": constructConstructorProperty,
   "no-class-in-interface": noClassInInterface,
   "no-construct-stack-suffix": noConstructStackSuffix,
   "no-parent-name-construct-id-match": noParentNameConstructIdMatch,
   "no-public-class-fields": noPublicClassFields,
   "pascal-case-construct-id": pascalCaseConstructId,
-  "no-mutable-public-fields": noMutablePublicFields,
-  "no-mutable-props-interface": noMutablePropsInterface,
   "require-passing-this": requirePassingThis,
   "no-variable-construct-id": noVariableConstructId,
+  "no-mutable-public-fields": noMutablePublicFields,
+  "no-mutable-props-interface": noMutablePropsInterface,
+  "construct-constructor-property": constructConstructorProperty,
   "require-jsdoc": requireJSDoc,
   "require-props-default-doc": requirePropsDefaultDoc,
   "props-name-convention": propsNameConvention,
@@ -56,7 +56,6 @@ const createFlatConfig = (rules: Record<string, unknown>) => {
 };
 
 const recommended = createFlatConfig({
-  "cdk/construct-constructor-property": "error",
   "cdk/no-class-in-interface": "error",
   "cdk/no-construct-stack-suffix": "error",
   "cdk/no-parent-name-construct-id-match": "error",
@@ -66,10 +65,10 @@ const recommended = createFlatConfig({
   "cdk/no-variable-construct-id": "error",
   "cdk/no-mutable-public-fields": "warn",
   "cdk/no-mutable-props-interface": "warn",
+  "cdk/construct-constructor-property": "error",
 });
 
 const strict = createFlatConfig({
-  "cdk/construct-constructor-property": "error",
   "cdk/no-class-in-interface": "error",
   "cdk/no-construct-stack-suffix": "error",
   "cdk/no-parent-name-construct-id-match": "error",
@@ -79,10 +78,11 @@ const strict = createFlatConfig({
   "cdk/no-variable-construct-id": "error",
   "cdk/no-mutable-public-fields": "error",
   "cdk/no-mutable-props-interface": "error",
-  "cdk/no-import-private": "error",
+  "cdk/construct-constructor-property": "error",
+  "cdk/require-jsdoc": "error",
   "cdk/require-props-default-doc": "error",
   "cdk/props-name-convention": "error",
-  "cdk/require-jsdoc": "error",
+  "cdk/no-import-private": "error",
 });
 
 const configs = {
