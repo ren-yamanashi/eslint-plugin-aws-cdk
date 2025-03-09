@@ -48,6 +48,23 @@ ruleTester.run("require-passing-this", requirePassingThis, {
       }
       `,
     },
+    // WHEN: property name is not `scope`
+    {
+      code: `
+      class Construct {}
+      class SampleConstruct extends Construct {
+        constructor(validProperty: Construct, id: string) {
+          super(validProperty, id);
+        }
+      }
+      class TestConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          new SampleConstruct(scope, "ValidId");
+        }
+      }
+      `,
+    },
     // WHEN: allowNonThisAndDisallowScope is true and passing a non-scope variable
     {
       code: `

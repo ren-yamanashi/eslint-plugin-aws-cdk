@@ -32,10 +32,9 @@ AWS CDK リソースを作成するとき、`Construct` に `this` を渡すこ�
 
 ### `allowNonThisAndDisallowScope` (デフォルト: `false`)
 
-`true` の場合、Construct コンストラクタの第一引数に `this` 以外の値を指定できるようになりますが、`scope` 変数自体の使用は引き続き禁止します。  
-これは、あるコンストラクトを別のコンストラクトの子として作成したい場合に便利です。
+`true` の場合、Construct コンストラクタの第一引数に `this` 以外の値を指定できるようになります (ただし、`scope` 変数の使用は禁止されます) これは、あるコンストラクトを別のコンストラクトの子として作成したい場合に便利です。
 
-`recommended` ルールセットでは `true` が指定されています
+※`recommended` ルールセットでは `true` が指定されています
 
 ---
 
@@ -47,10 +46,10 @@ export default [
   {
     // ... some configs
     rules: {
-      // デフォルト: すべてのConstructインスタンス化で`this`を要求
+      // デフォルト: すべての Construct インスタンス化で this を要求
       "cdk/require-passing-this": "error",
 
-      // `this`以外の値を許可(`scope` 変数は禁止)
+      // this 以外の値を許可 (scope 変数は禁止)
       "cdk/require-passing-this": [
         "error",
         { allowNonThisAndDisallowScope: true },
@@ -73,7 +72,7 @@ export class MyConstruct extends Construct {
     // ✅ this を使用できます
     new Bucket(this, "SampleBucket");
 
-    // ✅ allowNonThisAndDisallowScope: true の場合、`scope` 以外の変数を使用できます
+    // ✅ allowNonThisAndDisallowScope が true の場合、this 以外の変数を使用できます(ただし、scope 変数は禁止)
     const sample = new SampleConstruct(this, "Sample");
     new OtherConstruct(sample, "Child"); // allowNonThisAndDisallowScope が true の場合は有効
   }
