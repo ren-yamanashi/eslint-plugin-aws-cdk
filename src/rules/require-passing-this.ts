@@ -4,6 +4,7 @@ import {
   TSESLint,
 } from "@typescript-eslint/utils";
 
+import { getConstructorPropertyNames } from "../utils/parseType";
 import { isConstructType } from "../utils/typeCheck";
 
 type Options = [
@@ -63,6 +64,10 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
 
         // NOTE: If the first argument is already `this`, it's valid
         if (argument.type === AST_NODE_TYPES.ThisExpression) return;
+
+        // NOTE: If the first argument is not `scope`, it's valid
+        const constructorPropertyNames = getConstructorPropertyNames(type);
+        if (constructorPropertyNames[0] !== "scope") return;
 
         // NOTE: If `allowNonThisAndDisallowScope` is false, require `this` for all cases
         if (!options.allowNonThisAndDisallowScope) {
