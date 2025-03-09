@@ -16,7 +16,6 @@ Before creating issue, please check the existing issues to avoid duplicates.
 When you create a bug issue, include as following content:
 
 - A clear and descriptive title
-- Steps to reproduce the behavior
 - Expected behavior
 - Actual behavior
 - Code samples if applicable
