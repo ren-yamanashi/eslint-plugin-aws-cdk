@@ -72,7 +72,7 @@ export class MyConstruct extends Construct {
     // ✅ Can use this
     new Bucket(this, "SampleBucket");
 
-    // ✅ With allowNonThisAndDisallowScope: true, can use non-this values except 'scope'
+    // ✅ With allowNonThisAndDisallowScope: true, can use non-this values except `scope` variable
     const sample = new SampleConstruct(this, "Sample");
     new OtherConstruct(sample, "Child"); // Valid when allowNonThisAndDisallowScope is true
   }

@@ -6,14 +6,13 @@ import {
 
 import { isConstructType } from "../utils/typeCheck";
 
-type MessageIds = "requirePassingThis";
 type Options = [
   {
     allowNonThisAndDisallowScope?: boolean;
   }
 ];
 
-type Context = TSESLint.RuleContext<MessageIds, Options>;
+type Context = TSESLint.RuleContext<"requirePassingThis", Options>;
 
 /**
  * Enforces that `this` is passed to the constructor
@@ -62,35 +61,34 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
 
         const argument = node.arguments[0];
 
-        // If the first argument is already 'this', it's valid
+        // NOTE: If the first argument is already `this`, it's valid
         if (argument.type === AST_NODE_TYPES.ThisExpression) return;
 
-        // If allowNonThisAndDisallowScope is true, allow non-this values except 'scope'
-        if (options.allowNonThisAndDisallowScope) {
-          // Check if the argument is the 'scope' variable
-          if (
-            argument.type === AST_NODE_TYPES.Identifier &&
-            argument.name === "scope"
-          ) {
-            context.report({
-              node,
-              messageId: "requirePassingThis",
-              fix: (fixer) => {
-                return fixer.replaceText(argument, "this");
-              },
-            });
-          }
+        // NOTE: If `allowNonThisAndDisallowScope` is false, require `this` for all cases
+        if (!options.allowNonThisAndDisallowScope) {
+          context.report({
+            node,
+            messageId: "requirePassingThis",
+            fix: (fixer) => {
+              return fixer.replaceText(argument, "this");
+            },
+          });
           return;
         }
-
-        // If allowNonThisAndDisallowScope is false, require 'this' for all cases
-        context.report({
-          node,
-          messageId: "requirePassingThis",
-          fix: (fixer) => {
-            return fixer.replaceText(argument, "this");
-          },
-        });
+        // NOTE: If `allowNonThisAndDisallowScope` is true, allow non-`this` values except `scope` variable
+        // Check if the argument is the `scope` variable
+        if (
+          argument.type === AST_NODE_TYPES.Identifier &&
+          argument.name === "scope"
+        ) {
+          context.report({
+            node,
+            messageId: "requirePassingThis",
+            fix: (fixer) => {
+              return fixer.replaceText(argument, "this");
+            },
+          });
+        }
       },
     };
   },
