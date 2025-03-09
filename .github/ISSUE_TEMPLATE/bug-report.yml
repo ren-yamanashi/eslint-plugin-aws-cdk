@@ -19,44 +19,12 @@ body:
       required: true
 
   - type: textarea
-    id: reproduction
-    attributes:
-      label: Steps to reproduce
-      description: |
-        1. Provide a minimal code example that reproduces the problem
-        2. Include your ESLint configuration
-        3. List the steps to reproduce the behavior
-      placeholder: |
-        ```typescript
-        // Your code example here
-        export class MyConstruct extends Construct {
-          // ...
-        }
-        ```
-
-        ```javascript
-        // Your ESLint config
-        export default [
-          {
-            plugins: {
-              cdk: eslintPluginCdk,
-            },
-            rules: {
-              "cdk/rule-name": "error"
-            }
-          }
-        ]
-        ```
-    validations:
-      required: true
-
-  - type: textarea
     id: expected
     attributes:
       label: Expected Behavior
       description: What did you expect to happen?
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: current
@@ -64,7 +32,7 @@ body:
       label: Current Behavior
       description: What actually happened? (Include any error messages)
     validations:
-      required: true
+      required: false
 
   - type: input
     id: plugin-version

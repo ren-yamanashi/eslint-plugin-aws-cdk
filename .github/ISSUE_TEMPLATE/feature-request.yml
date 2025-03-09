@@ -28,7 +28,7 @@ body:
       placeholder: |
         Example: This rule would help prevent ...
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: incorrect-case
