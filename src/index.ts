@@ -1,3 +1,4 @@
+import { constructConstructorSignature } from "./rules/construct-constructor-signature";
 import { noClassInInterface } from "./rules/no-class-in-interface";
 import { noConstructStackSuffix } from "./rules/no-construct-stack-suffix";
 import { noImportPrivate } from "./rules/no-import-private";
@@ -13,6 +14,7 @@ import { requirePassingThis } from "./rules/require-passing-this";
 import { requirePropsDefaultDoc } from "./rules/require-props-default-doc";
 
 const rules = {
+  "construct-constructor-signature": constructConstructorSignature,
   "no-class-in-interface": noClassInInterface,
   "no-construct-stack-suffix": noConstructStackSuffix,
   "no-parent-name-construct-id-match": noParentNameConstructIdMatch,
@@ -32,8 +34,12 @@ const configs = {
   recommended: {
     plugins: ["cdk"],
     rules: {
+      "cdk/construct-constructor-signature": "error",
       "cdk/no-class-in-interface": "error",
-      "cdk/no-construct-stack-suffix": "error",
+      "cdk/no-construct-stack-suffix": [
+        "error",
+        { disallowedSuffixes: ["Construct"] },
+      ],
       "cdk/no-parent-name-construct-id-match": "error",
       "cdk/no-public-class-fields": "error",
       "cdk/pascal-case-construct-id": "error",
@@ -49,6 +55,7 @@ const configs = {
   strict: {
     plugins: ["cdk"],
     rules: {
+      "cdk/construct-constructor-signature": "error",
       "cdk/no-class-in-interface": "error",
       "cdk/no-construct-stack-suffix": "error",
       "cdk/no-parent-name-construct-id-match": "error",

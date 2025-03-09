@@ -149,6 +149,16 @@ const { theme } = useData()
   </li>
   <li class="rule-item">
     <div class="rule-info">
+      <a href="/ja/rules/construct-constructor-signature" class="rule-name">construct-constructor-signature</a>
+      <span class="rule-description">Constructを継承するクラスのコンストラクタが「scope, id」または「scope, id, props」という署名を持つことを強制します</span>
+    </div>
+    <div class="rule-status">
+      <span class="status-icon recommended">✅</span>
+      <span class="status-icon fixable"/>
+    </div>
+  </li>
+  <li class="rule-item">
+    <div class="rule-info">
       <a href="/ja/rules/no-variable-construct-id" class="rule-name">no-variable-construct-id</a>
       <span class="rule-description">Construct ID に変数を使用しないように強制します</span>
     </div>
