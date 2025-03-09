@@ -1,5 +1,4 @@
 import eslint from "@eslint/js";
-import importPlugin from "eslint-plugin-import";
 import tsEslint from "typescript-eslint";
 
 export default tsEslint.config(
@@ -15,9 +14,6 @@ export default tsEslint.config(
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
-    },
-    plugins: {
-      import: importPlugin,
     },
     extends: [
       ...tsEslint.configs.strictTypeChecked,
