@@ -51,8 +51,9 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
     },
   ],
   create(context: Context) {
-    // Note: We keep the option for backward compatibility and documentation purposes,
-    // but the default behavior is now to allow non-this values for non-scope parameters
+    const options = context.options[0] || {
+      allowNonThisAndDisallowScope: false,
+    };
     const parserServices = ESLintUtils.getParserServices(context);
     return {
       NewExpression(node) {
@@ -66,8 +67,14 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
         const constructorPropertyNames = getConstructorPropertyNames(type);
         const firstParamName = constructorPropertyNames[0];
 
-        // If the first parameter is not named 'scope', we don't enforce passing 'this'
-        if (firstParamName !== "scope") return;
+        // If allowNonThisAndDisallowScope is true, we only enforce 'this' for parameters named 'scope'
+        // Otherwise, we enforce 'this' for all parameters
+        if (
+          options.allowNonThisAndDisallowScope &&
+          firstParamName !== "scope"
+        ) {
+          return;
+        }
 
         context.report({
           node,

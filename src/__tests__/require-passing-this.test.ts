@@ -48,7 +48,7 @@ ruleTester.run("require-passing-this", requirePassingThis, {
       }
       `,
     },
-    // WHEN: property name is not `scope`
+    // WHEN: property name is not `scope` but allowNonThisAndDisallowScope is true
     {
       code: `
       class Construct {}
@@ -64,6 +64,7 @@ ruleTester.run("require-passing-this", requirePassingThis, {
         }
       }
       `,
+      options: [{ allowNonThisAndDisallowScope: true }],
     },
     // WHEN: allowNonThisAndDisallowScope is true and property name is not `scope`
     {
@@ -86,7 +87,7 @@ ruleTester.run("require-passing-this", requirePassingThis, {
     },
   ],
   invalid: [
-    // WHEN: not passing `this` to a constructor
+    // WHEN: not passing `this` to a constructor with scope parameter
     {
       code: `
       class Construct {}
@@ -108,6 +109,38 @@ ruleTester.run("require-passing-this", requirePassingThis, {
       class SampleConstruct extends Construct {
         constructor(scope: Construct, id: string) {
           super(scope, id);
+        }
+      }
+      class TestConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          new SampleConstruct(this, "ValidId");
+        }
+      }
+      `,
+    },
+    // WHEN: not passing `this` to a constructor with non-scope parameter (allowNonThisAndDisallowScope is false by default)
+    {
+      code: `
+      class Construct {}
+      class SampleConstruct extends Construct {
+        constructor(validProperty: Construct, id: string) {
+          super(validProperty, id);
+        }
+      }
+      class TestConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          new SampleConstruct(scope, "ValidId");
+        }
+      }
+      `,
+      errors: [{ messageId: "requirePassingThis" }],
+      output: `
+      class Construct {}
+      class SampleConstruct extends Construct {
+        constructor(validProperty: Construct, id: string) {
+          super(validProperty, id);
         }
       }
       class TestConstruct extends Construct {
