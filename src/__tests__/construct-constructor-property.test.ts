@@ -3,7 +3,6 @@ import { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
 import { constructConstructorProperty } from "../rules/construct-constructor-property";
 
-// 型アサーションを使用して、型エラーを解決するのだ
 const typedRule = constructConstructorProperty as ESLintUtils.RuleModule<
   "invalidConstructorProperty",
   [],
