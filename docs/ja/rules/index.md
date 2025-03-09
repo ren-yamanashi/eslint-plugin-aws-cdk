@@ -219,6 +219,16 @@ const { theme } = useData()
   </li>
   <li class="rule-item">
     <div class="rule-info">
+      <a href="/ja/rules/construct-constructor-property" class="rule-name">construct-constructor-property</a>
+      <span class="rule-description">Constructを継承するクラスのコンストラクタが「scope, id」または「scope, id, props」というプロパティ名を持つことを強制します</span>
+    </div>
+    <div class="rule-status">
+      <span class="status-icon recommended">✅</span>
+      <span class="status-icon fixable"/>
+    </div>
+  </li>
+  <li class="rule-item">
+    <div class="rule-info">
       <a href="/ja/rules/require-jsdoc" class="rule-name">require-jsdoc</a>
       <span class="rule-description">Interface のプロパティと Constructで公開する変数に JSDoc を書くことを強制します</span>
     </div>

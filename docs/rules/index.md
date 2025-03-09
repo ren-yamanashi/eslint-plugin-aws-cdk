@@ -218,6 +218,16 @@ Currently we support the following rules:
   </li>
   <li class="rule-item">
     <div class="rule-info">
+      <a href="/rules/construct-constructor-property" class="rule-name">construct-constructor-property</a>
+      <span class="rule-description">Enforces that constructors of classes extending Construct have the property names 'scope, id' or 'scope, id, props'</span>
+    </div>
+    <div class="rule-status">
+      <span class="status-icon recommended">✅</span>
+      <span class="status-icon fixable"/>
+    </div>
+  </li>
+  <li class="rule-item">
+    <div class="rule-info">
       <a href="/rules/require-jsdoc" class="rule-name">require-jsdoc</a>
       <span class="rule-description">Require JSDoc comments for interface properties and Construct's public properties</span>
     </div>
