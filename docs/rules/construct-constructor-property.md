@@ -15,10 +15,6 @@ This rule enforces that constructors of classes extending `Construct` have the p
 
 All Construct constructors should have a consistent property naming pattern to maintain uniformity across the codebase. Additional parameters after the first three are allowed as long as the first three follow the pattern.
 
-## Options
-
-This rule has no options.
-
 ---
 
 #### 🔧 How to use
