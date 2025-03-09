@@ -30,7 +30,11 @@ Using other values like `scope` can lead to:
 
 This rule has an options object with the following properties:
 
-- `allowNonThisAndDisallowScope` (default: `false`, recommended: `true`) - When `true`, allows non-`this` values for constructor parameters not named `scope`, but still disallows using `scope` directly. This is useful when you want to create a construct as a child of another construct.
+### `allowNonThisAndDisallowScope` (default: `false`)
+
+When `true`, allows non-`this` values for the first argument of a Construct constructor, except for the `scope` variable itself. This is useful when you want to create a construct as a child of another construct.
+
+`recommended` rule set has `true` specified
 
 ---
 
@@ -45,7 +49,7 @@ export default [
       // Default: require `this` for all Construct instantiations
       "cdk/require-passing-this": "error",
 
-      // Allow non-`this` values for constructor parameters not named `scope`
+      // Allow non-`this` values (except `scope` variable)
       "cdk/require-passing-this": [
         "error",
         { allowNonThisAndDisallowScope: true },
@@ -68,7 +72,7 @@ export class MyConstruct extends Construct {
     // ✅ Can use this
     new Bucket(this, "SampleBucket");
 
-    // ✅ With allowNonThisAndDisallowScope: true, can use non-this values for parameters not named 'scope'
+    // ✅ With allowNonThisAndDisallowScope: true, can use non-this values except 'scope'
     const sample = new SampleConstruct(this, "Sample");
     new OtherConstruct(sample, "Child"); // Valid when allowNonThisAndDisallowScope is true
   }
@@ -86,7 +90,7 @@ export class MyConstruct extends Construct {
     super(scope, id);
 
     // ❌ Shouldn't use scope
-    new Bucket(scope, "SampleBucket");
+    new Bucket(scope, "SampleBucket"); // Invalid even when allowNonThisAndDisallowScope is true
   }
 }
 ```

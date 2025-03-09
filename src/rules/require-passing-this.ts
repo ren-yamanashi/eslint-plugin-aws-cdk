@@ -4,7 +4,6 @@ import {
   TSESLint,
 } from "@typescript-eslint/utils";
 
-import { getConstructorPropertyNames } from "../utils/parseType";
 import { isConstructType } from "../utils/typeCheck";
 
 type MessageIds = "requirePassingThis";
@@ -62,20 +61,29 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
         if (!isConstructType(type) || !node.arguments.length) return;
 
         const argument = node.arguments[0];
+
+        // If the first argument is already 'this', it's valid
         if (argument.type === AST_NODE_TYPES.ThisExpression) return;
 
-        const constructorPropertyNames = getConstructorPropertyNames(type);
-        const firstParamName = constructorPropertyNames[0];
-
-        // If allowNonThisAndDisallowScope is true, we only enforce 'this' for parameters named 'scope'
-        // Otherwise, we enforce 'this' for all parameters
-        if (
-          options.allowNonThisAndDisallowScope &&
-          firstParamName !== "scope"
-        ) {
+        // If allowNonThisAndDisallowScope is true, allow non-this values except 'scope'
+        if (options.allowNonThisAndDisallowScope) {
+          // Check if the argument is the 'scope' variable
+          if (
+            argument.type === AST_NODE_TYPES.Identifier &&
+            argument.name === "scope"
+          ) {
+            context.report({
+              node,
+              messageId: "requirePassingThis",
+              fix: (fixer) => {
+                return fixer.replaceText(argument, "this");
+              },
+            });
+          }
           return;
         }
 
+        // If allowNonThisAndDisallowScope is false, require 'this' for all cases
         context.report({
           node,
           messageId: "requirePassingThis",
