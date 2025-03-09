@@ -123,6 +123,4 @@ const validateConstructorProperty = (
       return;
     }
   }
-
-  // 第四引数以降はチェックしないのだ
 };

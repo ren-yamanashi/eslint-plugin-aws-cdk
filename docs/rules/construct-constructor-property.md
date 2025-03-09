@@ -13,7 +13,7 @@ titleTemplate: ":title"
 
 This rule enforces that constructors of classes extending `Construct` have the property names `scope, id` or `scope, id, props`.
 
-Following the AWS CDK best practices, all Construct constructors should have a consistent property naming pattern to maintain uniformity across the codebase. Additional parameters after the first three are allowed as long as the first three follow the pattern.
+All Construct constructors should have a consistent property naming pattern to maintain uniformity across the codebase. Additional parameters after the first three are allowed as long as the first three follow the pattern.
 
 ## Options
 
