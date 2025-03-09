@@ -26,6 +26,12 @@ Using other values like `scope` can lead to:
 - Incorrect resource hierarchy in the generated CloudFormation template
 - Unexpected resource naming
 
+## Options
+
+This rule has an options object with the following properties:
+
+- `allowNonThisForNonScope` (default: `false`) - When `true`, allows non-`this` values for constructor parameters not named `scope`. This is useful when you want to create a construct as a child of another construct.
+
 ---
 
 #### 🔧 How to use
@@ -36,7 +42,11 @@ export default [
   {
     // ... some configs
     rules: {
+      // Default: require `this` for all Construct instantiations
       "cdk/require-passing-this": "error",
+
+      // Allow non-`this` values for constructor parameters not named `scope`
+      "cdk/require-passing-this": ["error", { allowNonThisForNonScope: true }],
     },
   },
 ];
@@ -54,6 +64,10 @@ export class MyConstruct extends Construct {
 
     // ✅ Can use this
     new Bucket(this, "SampleBucket");
+
+    // ✅ With allowNonThisForNonScope: true, can use non-this values for parameters not named 'scope'
+    const sample = new SampleConstruct(this, "Sample");
+    new OtherConstruct(sample, "Child"); // Valid when allowNonThisForNonScope is true
   }
 }
 ```

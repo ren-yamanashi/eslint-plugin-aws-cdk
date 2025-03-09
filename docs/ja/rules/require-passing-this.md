@@ -26,6 +26,12 @@ AWS CDK リソースを作成するとき、`Construct` に `this` を渡すこ�
 - 生成される CloudFormation テンプレートのリソース階層が正しくない
 - 予期しないリソースの命名
 
+## オプション
+
+このルールには以下のプロパティを持つオプションオブジェクトがあります：
+
+- `allowNonThisForNonScope` (デフォルト: `false`) - `true` の場合、`scope` という名前ではないコンストラクタパラメータに対して `this` 以外の値を許可します。これは、あるコンストラクトを別のコンストラクトの子として作成したい場合に便利です。
+
 ---
 
 #### 🔧 使用方法
@@ -36,7 +42,11 @@ export default [
   {
     // ... some configs
     rules: {
+      // デフォルト: すべてのConstructインスタンス化で`this`を要求
       "cdk/require-passing-this": "error",
+
+      // `scope`という名前ではないコンストラクタパラメータに対して`this`以外の値を許可
+      "cdk/require-passing-this": ["error", { allowNonThisForNonScope: true }],
     },
   },
 ];
@@ -54,6 +64,10 @@ export class MyConstruct extends Construct {
 
     // ✅ this を使用できます
     new Bucket(this, "SampleBucket");
+
+    // ✅ allowNonThisForNonScope: true の場合、'scope'という名前ではないパラメータに対して this 以外の値を使用できます
+    const sample = new SampleConstruct(this, "Sample");
+    new OtherConstruct(sample, "Child"); // allowNonThisForNonScope が true の場合は有効
   }
 }
 ```

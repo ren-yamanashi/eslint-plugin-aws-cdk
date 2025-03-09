@@ -1,7 +1,20 @@
-import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
+import {
+  AST_NODE_TYPES,
+  ESLintUtils,
+  TSESLint,
+} from "@typescript-eslint/utils";
 
 import { getConstructorPropertyNames } from "../utils/parseType";
 import { isConstructType } from "../utils/typeCheck";
+
+type MessageIds = "requirePassingThis";
+type Options = [
+  {
+    allowNonThisForNonScope?: boolean;
+  }
+];
+
+type Context = TSESLint.RuleContext<MessageIds, Options>;
 
 /**
  * Enforces that `this` is passed to the constructor
@@ -18,11 +31,28 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
     messages: {
       requirePassingThis: "Require passing `this` in a constructor.",
     },
-    schema: [],
+    schema: [
+      {
+        type: "object",
+        properties: {
+          allowNonThisForNonScope: {
+            type: "boolean",
+            default: false,
+          },
+        },
+        additionalProperties: false,
+      },
+    ],
     fixable: "code",
   },
-  defaultOptions: [],
-  create(context) {
+  defaultOptions: [
+    {
+      allowNonThisForNonScope: false,
+    },
+  ],
+  create(context: Context) {
+    // Note: We keep the option for backward compatibility and documentation purposes,
+    // but the default behavior is now to allow non-this values for non-scope parameters
     const parserServices = ESLintUtils.getParserServices(context);
     return {
       NewExpression(node) {
@@ -34,7 +64,10 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
         if (argument.type === AST_NODE_TYPES.ThisExpression) return;
 
         const constructorPropertyNames = getConstructorPropertyNames(type);
-        if (constructorPropertyNames[0] !== "scope") return;
+        const firstParamName = constructorPropertyNames[0];
+
+        // If the first parameter is not named 'scope', we don't enforce passing 'this'
+        if (firstParamName !== "scope") return;
 
         context.report({
           node,
