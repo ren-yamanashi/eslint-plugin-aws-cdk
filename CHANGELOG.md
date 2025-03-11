@@ -2,12 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### 1.1.1 (2025-01-24)
+## 2.0.0 (2025-03-11)
+
+### Bug fixes
+
+- allow construct IDs to use variables within forEach [#122](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/122) ([#130](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/130))
+
+### New features/Updates to existing features
+
+- add `construct-constructor-signature` rule [#118](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/118) ([#131](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/131))
+- add allowNonThisForNonScope option to `require-passing-this` rule [#123](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/123) ([#129](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/129))
+- add disallowedSuffixes option to `no-construct-stack-suffix` rule [#124](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/124) ([#128](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/128))
+- support recommended and strict option ([#133](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/133))
+
+## 1.1.1 (2025-01-24)
 
 ### Bug fixes
 
 - remove dependencies with typescript ([#115](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/115)) ([042571f](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/042571fa21f8c7da510d8c4020e2773bc8087fc7))
-
 
 ## 1.1.0 (2025-01-23)
 
