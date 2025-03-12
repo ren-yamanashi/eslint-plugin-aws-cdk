@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 2.0.1 (2025-03-12)
+
+### Bug fixes
+
+- update languageOptions.parser ([#137](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/137)) ([aca9cbc](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/aca9cbcc6dbe9a6d5345b36c9bce2b5acc12d814))
+
 ## 2.0.0 (2025-03-11)
 
 ### Bug fixes
