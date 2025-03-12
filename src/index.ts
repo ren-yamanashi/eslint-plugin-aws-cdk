@@ -42,10 +42,9 @@ const cdkPlugin = {
 const createFlatConfig = (rules: Record<string, unknown>) => {
   return {
     languageOptions: {
+      parser: tsParser,
       parserOptions: {
         projectService: true,
-        parser: tsParser,
-        sourceType: "module",
       },
     },
     plugins: {
