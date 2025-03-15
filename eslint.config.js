@@ -71,11 +71,11 @@ export default tsEslint.config(
   //       Reference: https://eslint.org/docs/latest/use/configure/configuration-files#globally-ignoring-files-with-ignores
   {
     ignores: [
+      "*.js",
       "dist",
       "node_modules",
       ".vscode",
       "package.json",
-      "vitest.config.mjs",
       "docs",
       "examples",
     ],
