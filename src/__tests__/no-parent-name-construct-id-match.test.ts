@@ -20,26 +20,65 @@ ruleTester.run(
       // WHEN: child id not same parent construct name
       {
         code: `
-      class TestClass {
-        constructor() {
-          const test = new TestClass("test", "validId");
+      class Construct {}
+      class SampleConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class TestConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          new SampleConstruct(this, "ValidId");
         }
       }`,
       },
-      // WHEN: child id not same parent construct name (typescript)
+      // WHEN: child id not included parent construct name(typescript)
       {
         code: `
-      class TestClass {
-        constructor(props: any, id: string) {
-          const test = new TestClass("test", "validId");
+      class Construct {}
+      class SampleConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class TestConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          new SampleConstruct(this, "Test-ValidId-Construct");
         }
       }`,
       },
-      // WHEN: construct does not have child
+      // WHEN: instantiating class does not extend Construct
       {
         code: `
+      class Construct {}
+      class SampleClass {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class TestConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          new SampleClass(scope, "TestConstruct");
+        }
+      }`,
+      },
+      // WHEN: parent class does not extend Construct
+      {
+        code: `
+      class Construct {}
+      class SampleClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
       class TestClass {
-        constructor() {}
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          new SampleClass(scope, "TestConstruct");
+        }
       }`,
       },
     ],
@@ -47,9 +86,16 @@ ruleTester.run(
       // WHEN: child class inside constructor (expression statement)
       {
         code: `
-      export class TestClass {
-        constructor(public id: string) {
-          new SampleConstruct({ name: "sample" }, "TestClass");
+      class Construct {}
+      class SampleClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class TestClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          new SampleClass(scope, "TestClass");
         }
       }`,
         errors: [{ messageId: "noParentNameConstructIdMatch" }],
@@ -57,9 +103,16 @@ ruleTester.run(
       // WHEN: child class inside constructor (variable declaration)
       {
         code: `
-      export class TestClass {
-        constructor(public id: string) {
-          const test =new SampleConstruct({ name: "sample" }, "TestClass");
+      class Construct {}
+      class SampleClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class TestClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          const test = new SampleClass(scope, "TestClass");
         }
       }`,
         errors: [{ messageId: "noParentNameConstructIdMatch" }],
@@ -67,9 +120,16 @@ ruleTester.run(
       // WHEN: child statement inside if statement inside constructor (expression statement)
       {
         code: `
-      class TestClass {
-        constructor() {
-          if (true) new Sample("test", "TestClass");
+      class Construct {}
+      class SampleClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class TestClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          if (true) new SampleClass(scope, "TestClass");
         }
       }`,
         errors: [{ messageId: "noParentNameConstructIdMatch" }],
@@ -77,10 +137,17 @@ ruleTester.run(
       // WHEN: child statement inside if statement inside constructor (block statement)
       {
         code: `
-      class TestClass {
-        constructor() {
+      class Construct {}
+      class SampleClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class TestClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
           if (true) {
-            const test = new Sample("test", "TestClass");
+            new SampleClass(scope, "TestClass");
           }
         }
       }`,
@@ -89,11 +156,18 @@ ruleTester.run(
       // WHEN: child statement inside if statement inside inside constructor (block statement / nested)
       {
         code: `
-      class TestClass {
-        constructor() {
+      class Construct {}
+      class SampleClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class TestClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
           if (true) {
             if (true) {
-              const test = new Sample("test", "TestClass");
+              new SampleClass(scope, "TestClass");
             }
           }
         }
@@ -103,11 +177,18 @@ ruleTester.run(
       // WHEN: child statement inside switch statement inside inside constructor (expression statement)
       {
         code: `
-      class TestClass {
-        constructor() {
+      class Construct {}
+      class SampleClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class TestClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
           switch (item.type) {
             case "test":
-              const test = new Sample("test", "TestClass");
+              const test = new SampleClass(scope, "TestClass");
               break;
           }
         }
@@ -117,11 +198,18 @@ ruleTester.run(
       // WHEN: child statement inside switch statement inside inside constructor (block statement)
       {
         code: `
-      class TestClass {
-        constructor() {
+      class Construct {}
+      class SampleClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class TestClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
           switch (item.type) {
             case "test": {
-              const test = new Sample("test", "TestClass");
+              const test = new SampleClass(scope, "TestClass");
               break;
             }
           }
@@ -132,13 +220,20 @@ ruleTester.run(
       // WHEN: child statement inside switch statement inside inside constructor (block statement / nested)
       {
         code: `
-      class TestClass {
-        constructor() {
+      class Construct {}
+      class SampleClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class TestClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
           switch (item.type) {
             case "test": {
               switch (item.type) {
                 case "test":
-                  const test = new Sample("test", "TestClass");
+                  const test = new SampleClass(scope, "TestClass");
                   break;
               }
             }
@@ -150,12 +245,18 @@ ruleTester.run(
       // WHEN: in method
       {
         code: `
-      export class TestClass {
-        constructor(public id: string) {
-          this.test();
+      class Construct {}
+      class SampleClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class TestClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
         }
         test() {
-          new SampleConstruct({ name: "sample" }, "TestClass");
+          new SampleClass(scope, "TestClass");
         }
       }`,
         errors: [{ messageId: "noParentNameConstructIdMatch" }],

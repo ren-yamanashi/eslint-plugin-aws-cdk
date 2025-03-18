@@ -1,11 +1,13 @@
 import {
   AST_NODE_TYPES,
   ESLintUtils,
+  ParserServicesWithTypeInformation,
   TSESLint,
   TSESTree,
 } from "@typescript-eslint/utils";
 
 import { toPascalCase } from "../utils/convertString";
+import { isConstructOrStackType } from "../utils/typeCheck";
 
 type Context = TSESLint.RuleContext<"noParentNameConstructIdMatch", []>;
 
@@ -14,6 +16,7 @@ type ValidateStatementArgs<T extends TSESTree.Statement> = {
   statement: T;
   parentClassName: string;
   context: Context;
+  parserServices: ParserServicesWithTypeInformation;
 };
 
 type ValidateExpressionArgs<T extends TSESTree.Expression> = {
@@ -21,6 +24,7 @@ type ValidateExpressionArgs<T extends TSESTree.Expression> = {
   expression: T;
   parentClassName: string;
   context: Context;
+  parserServices: ParserServicesWithTypeInformation;
 };
 
 /**
@@ -45,8 +49,13 @@ export const noParentNameConstructIdMatch = ESLintUtils.RuleCreator.withoutDocs(
     },
     defaultOptions: [],
     create(context) {
+      const parserServices = ESLintUtils.getParserServices(context);
       return {
         ClassBody(node) {
+          const type = parserServices.getTypeAtLocation(node);
+
+          if (!isConstructOrStackType(type)) return;
+
           const parent = node.parent;
           if (parent?.type !== AST_NODE_TYPES.ClassDeclaration) return;
 
@@ -67,6 +76,7 @@ export const noParentNameConstructIdMatch = ESLintUtils.RuleCreator.withoutDocs(
               expression: body.value,
               parentClassName,
               context,
+              parserServices,
             });
           }
         },
@@ -84,6 +94,7 @@ const validateConstructorBody = ({
   expression,
   parentClassName,
   context,
+  parserServices,
 }: ValidateExpressionArgs<TSESTree.FunctionExpression>): void => {
   for (const statement of expression.body.body) {
     switch (statement.type) {
@@ -95,6 +106,7 @@ const validateConstructorBody = ({
           context,
           expression: newExpression,
           parentClassName,
+          parserServices,
         });
         break;
       }
@@ -105,6 +117,7 @@ const validateConstructorBody = ({
           statement,
           parentClassName,
           context,
+          parserServices,
         });
         break;
       }
@@ -114,6 +127,7 @@ const validateConstructorBody = ({
           context,
           parentClassName,
           statement: statement.consequent,
+          parserServices,
         });
         break;
       }
@@ -125,6 +139,7 @@ const validateConstructorBody = ({
               context,
               parentClassName,
               statement,
+              parserServices,
             });
           }
         }
@@ -144,6 +159,7 @@ const traverseStatements = ({
   statement,
   parentClassName,
   context,
+  parserServices,
 }: ValidateStatementArgs<TSESTree.Statement>) => {
   switch (statement.type) {
     case AST_NODE_TYPES.BlockStatement: {
@@ -153,6 +169,7 @@ const traverseStatements = ({
           statement: body,
           parentClassName,
           context,
+          parserServices,
         });
       }
       break;
@@ -165,6 +182,7 @@ const traverseStatements = ({
         statement,
         parentClassName,
         context,
+        parserServices,
       });
       break;
     }
@@ -176,6 +194,7 @@ const traverseStatements = ({
         context,
         expression: newExpression,
         parentClassName,
+        parserServices,
       });
       break;
     }
@@ -192,6 +211,7 @@ const validateStatement = ({
   statement,
   parentClassName,
   context,
+  parserServices,
 }: ValidateStatementArgs<TSESTree.Statement>): void => {
   switch (statement.type) {
     case AST_NODE_TYPES.VariableDeclaration: {
@@ -202,6 +222,7 @@ const validateStatement = ({
         context,
         expression: newExpression,
         parentClassName,
+        parserServices,
       });
       break;
     }
@@ -213,6 +234,7 @@ const validateStatement = ({
         context,
         expression: newExpression,
         parentClassName,
+        parserServices,
       });
       break;
     }
@@ -222,6 +244,7 @@ const validateStatement = ({
         statement,
         parentClassName,
         context,
+        parserServices,
       });
       break;
     }
@@ -231,6 +254,7 @@ const validateStatement = ({
         statement,
         parentClassName,
         context,
+        parserServices,
       });
       break;
     }
@@ -246,12 +270,14 @@ const validateIfStatement = ({
   statement,
   parentClassName,
   context,
+  parserServices,
 }: ValidateStatementArgs<TSESTree.IfStatement>): void => {
   traverseStatements({
     node,
     context,
     parentClassName,
     statement: statement.consequent,
+    parserServices,
   });
 };
 
@@ -264,6 +290,7 @@ const validateSwitchStatement = ({
   statement,
   parentClassName,
   context,
+  parserServices,
 }: ValidateStatementArgs<TSESTree.SwitchStatement>): void => {
   for (const caseStatement of statement.cases) {
     for (const _consequent of caseStatement.consequent) {
@@ -272,6 +299,7 @@ const validateSwitchStatement = ({
         context,
         parentClassName,
         statement: _consequent,
+        parserServices,
       });
     }
   }
@@ -285,7 +313,10 @@ const validateConstructId = ({
   context,
   expression,
   parentClassName,
+  parserServices,
 }: ValidateExpressionArgs<TSESTree.NewExpression>): void => {
+  const type = parserServices.getTypeAtLocation(expression);
+
   if (expression.arguments.length < 2) return;
 
   // NOTE: Treat the second argument as ID
@@ -299,14 +330,17 @@ const validateConstructId = ({
 
   const formattedConstructId = toPascalCase(secondArg.value);
   const formattedParentClassName = toPascalCase(parentClassName);
-  if (formattedParentClassName !== formattedConstructId) return;
 
-  context.report({
-    node,
-    messageId: "noParentNameConstructIdMatch",
-    data: {
-      constructId: secondArg.value,
-      parentConstructName: parentClassName,
-    },
-  });
+  if (!isConstructOrStackType(type)) return;
+
+  if (formattedConstructId.includes(formattedParentClassName)) {
+    context.report({
+      node,
+      messageId: "noParentNameConstructIdMatch",
+      data: {
+        constructId: secondArg.value,
+        parentConstructName: parentClassName,
+      },
+    });
+  }
 };
