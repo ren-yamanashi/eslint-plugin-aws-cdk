@@ -28,7 +28,7 @@ Using other values like `scope` can lead to:
 
 ## Options
 
-This rule has an options object with the following properties:
+This rule has an options with the following properties:
 
 ### `allowNonThisAndDisallowScope` (default: `false`)
 

@@ -49,6 +49,24 @@ ruleTester.run(
         }
       }`,
       },
+      // WHEN: child id included parent construct name(typescript)
+      //       and disallowContainingParentName is false
+      {
+        code: `
+      class Construct {}
+      class SampleConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class TestConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          new SampleConstruct(this, "SampleTestConstruct");
+        }
+      }`,
+        options: [{ disallowContainingParentName: false }],
+      },
       // WHEN: instantiating class does not extend Construct
       {
         code: `
@@ -100,6 +118,27 @@ ruleTester.run(
       }`,
         errors: [{ messageId: "noParentNameConstructIdMatch" }],
       },
+
+      // WHEN: child class inside constructor (expression statement)
+      //       and disallowContainingParentName is true
+      {
+        code: `
+      class Construct {}
+      class SampleClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class TestClass extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          new SampleClass(scope, "SampleTestClass");
+        }
+      }`,
+        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+        options: [{ disallowContainingParentName: true }],
+      },
+
       // WHEN: child class inside constructor (variable declaration)
       {
         code: `

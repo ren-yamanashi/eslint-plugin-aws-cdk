@@ -57,7 +57,10 @@ const createFlatConfig = (rules: Record<string, unknown>) => {
 const recommended = createFlatConfig({
   "cdk/no-class-in-interface": "error",
   "cdk/no-construct-stack-suffix": "error",
-  "cdk/no-parent-name-construct-id-match": "error",
+  "cdk/no-parent-name-construct-id-match": [
+    "error",
+    { disallowContainingParentName: false },
+  ],
   "cdk/no-public-class-fields": "error",
   "cdk/pascal-case-construct-id": "error",
   "cdk/require-passing-this": ["error", { allowNonThisAndDisallowScope: true }],
@@ -70,7 +73,10 @@ const recommended = createFlatConfig({
 const strict = createFlatConfig({
   "cdk/no-class-in-interface": "error",
   "cdk/no-construct-stack-suffix": "error",
-  "cdk/no-parent-name-construct-id-match": "error",
+  "cdk/no-parent-name-construct-id-match": [
+    "error",
+    { disallowContainingParentName: true },
+  ],
   "cdk/no-public-class-fields": "error",
   "cdk/pascal-case-construct-id": "error",
   "cdk/require-passing-this": "error",

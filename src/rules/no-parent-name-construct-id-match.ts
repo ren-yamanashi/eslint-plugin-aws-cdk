@@ -9,7 +9,13 @@ import {
 import { toPascalCase } from "../utils/convertString";
 import { isConstructOrStackType, isConstructType } from "../utils/typeCheck";
 
-type Context = TSESLint.RuleContext<"noParentNameConstructIdMatch", []>;
+type Options = [
+  {
+    disallowContainingParentName?: boolean;
+  }
+];
+
+type Context = TSESLint.RuleContext<"noParentNameConstructIdMatch", Options>;
 
 type ValidateStatementArgs<T extends TSESTree.Statement> = {
   node: TSESTree.ClassBody;
@@ -17,6 +23,7 @@ type ValidateStatementArgs<T extends TSESTree.Statement> = {
   parentClassName: string;
   context: Context;
   parserServices: ParserServicesWithTypeInformation;
+  option: Options[0];
 };
 
 type ValidateExpressionArgs<T extends TSESTree.Expression> = {
@@ -25,6 +32,7 @@ type ValidateExpressionArgs<T extends TSESTree.Expression> = {
   parentClassName: string;
   context: Context;
   parserServices: ParserServicesWithTypeInformation;
+  option: Options[0];
 };
 
 /**
@@ -45,10 +53,29 @@ export const noParentNameConstructIdMatch = ESLintUtils.RuleCreator.withoutDocs(
         noParentNameConstructIdMatch:
           "Construct ID '{{ constructId }}' should not match parent construct name '{{ parentConstructName }}'. Use a more specific identifier.",
       },
-      schema: [],
+      schema: [
+        {
+          type: "object",
+          properties: {
+            disallowContainingParentName: {
+              type: "boolean",
+              default: false,
+            },
+          },
+          additionalProperties: false,
+        },
+      ],
     },
-    defaultOptions: [],
-    create(context) {
+    defaultOptions: [
+      {
+        disallowContainingParentName: false,
+      },
+    ],
+
+    create(context: Context) {
+      const option = context.options[0] || {
+        disallowContainingParentName: false,
+      };
       const parserServices = ESLintUtils.getParserServices(context);
       return {
         ClassBody(node) {
@@ -77,6 +104,7 @@ export const noParentNameConstructIdMatch = ESLintUtils.RuleCreator.withoutDocs(
               parentClassName,
               context,
               parserServices,
+              option,
             });
           }
         },
@@ -95,6 +123,7 @@ const validateConstructorBody = ({
   parentClassName,
   context,
   parserServices,
+  option,
 }: ValidateExpressionArgs<TSESTree.FunctionExpression>): void => {
   for (const statement of expression.body.body) {
     switch (statement.type) {
@@ -107,6 +136,7 @@ const validateConstructorBody = ({
           expression: newExpression,
           parentClassName,
           parserServices,
+          option,
         });
         break;
       }
@@ -118,6 +148,7 @@ const validateConstructorBody = ({
           parentClassName,
           context,
           parserServices,
+          option,
         });
         break;
       }
@@ -128,6 +159,7 @@ const validateConstructorBody = ({
           parentClassName,
           statement: statement.consequent,
           parserServices,
+          option,
         });
         break;
       }
@@ -140,6 +172,7 @@ const validateConstructorBody = ({
               parentClassName,
               statement,
               parserServices,
+              option,
             });
           }
         }
@@ -160,6 +193,7 @@ const traverseStatements = ({
   parentClassName,
   context,
   parserServices,
+  option,
 }: ValidateStatementArgs<TSESTree.Statement>) => {
   switch (statement.type) {
     case AST_NODE_TYPES.BlockStatement: {
@@ -170,6 +204,7 @@ const traverseStatements = ({
           parentClassName,
           context,
           parserServices,
+          option,
         });
       }
       break;
@@ -183,6 +218,7 @@ const traverseStatements = ({
         parentClassName,
         context,
         parserServices,
+        option,
       });
       break;
     }
@@ -195,6 +231,7 @@ const traverseStatements = ({
         expression: newExpression,
         parentClassName,
         parserServices,
+        option,
       });
       break;
     }
@@ -212,6 +249,7 @@ const validateStatement = ({
   parentClassName,
   context,
   parserServices,
+  option,
 }: ValidateStatementArgs<TSESTree.Statement>): void => {
   switch (statement.type) {
     case AST_NODE_TYPES.VariableDeclaration: {
@@ -223,6 +261,7 @@ const validateStatement = ({
         expression: newExpression,
         parentClassName,
         parserServices,
+        option,
       });
       break;
     }
@@ -235,6 +274,7 @@ const validateStatement = ({
         expression: newExpression,
         parentClassName,
         parserServices,
+        option,
       });
       break;
     }
@@ -245,6 +285,7 @@ const validateStatement = ({
         parentClassName,
         context,
         parserServices,
+        option,
       });
       break;
     }
@@ -255,6 +296,7 @@ const validateStatement = ({
         parentClassName,
         context,
         parserServices,
+        option,
       });
       break;
     }
@@ -271,6 +313,7 @@ const validateIfStatement = ({
   parentClassName,
   context,
   parserServices,
+  option,
 }: ValidateStatementArgs<TSESTree.IfStatement>): void => {
   traverseStatements({
     node,
@@ -278,6 +321,7 @@ const validateIfStatement = ({
     parentClassName,
     statement: statement.consequent,
     parserServices,
+    option,
   });
 };
 
@@ -291,6 +335,7 @@ const validateSwitchStatement = ({
   parentClassName,
   context,
   parserServices,
+  option,
 }: ValidateStatementArgs<TSESTree.SwitchStatement>): void => {
   for (const caseStatement of statement.cases) {
     for (const _consequent of caseStatement.consequent) {
@@ -300,6 +345,7 @@ const validateSwitchStatement = ({
         parentClassName,
         statement: _consequent,
         parserServices,
+        option,
       });
     }
   }
@@ -314,6 +360,7 @@ const validateConstructId = ({
   expression,
   parentClassName,
   parserServices,
+  option,
 }: ValidateExpressionArgs<TSESTree.NewExpression>): void => {
   const type = parserServices.getTypeAtLocation(expression);
 
@@ -333,7 +380,21 @@ const validateConstructId = ({
 
   if (!isConstructType(type)) return;
 
-  if (formattedConstructId.includes(formattedParentClassName)) {
+  if (
+    option.disallowContainingParentName &&
+    formattedConstructId.includes(formattedParentClassName)
+  ) {
+    context.report({
+      node,
+      messageId: "noParentNameConstructIdMatch",
+      data: {
+        constructId: secondArg.value,
+        parentConstructName: parentClassName,
+      },
+    });
+    return;
+  }
+  if (formattedParentClassName === formattedConstructId) {
     context.report({
       node,
       messageId: "noParentNameConstructIdMatch",
