@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 2.2.0 (2025-03-18)
+
+### New features/Updates to existing features
+
+- add options to no-parent-name-construct-id-match ([#142](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/142)) ([91210a0](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/91210a014ba76c69487f90fefb799bcd11d24466))
+
 ## 2.1.0 (2025-03-18)
 
 ### New features/Updates to existing features
