@@ -18,7 +18,7 @@ If the Construct ID includes "Construct," the issues that should be stopped in t
 
 ## Options
 
-This rule has an options object with the following properties:
+This rule has an options with the following properties:
 
 - `disallowedSuffixes` (default: `["Construct", "Stack"]`) - An array of suffixes to disallow. Can include "Construct", "Stack", or both.
 
