@@ -7,7 +7,7 @@ import {
 } from "@typescript-eslint/utils";
 
 import { toPascalCase } from "../utils/convertString";
-import { isConstructOrStackType } from "../utils/typeCheck";
+import { isConstructOrStackType, isConstructType } from "../utils/typeCheck";
 
 type Context = TSESLint.RuleContext<"noParentNameConstructIdMatch", []>;
 
@@ -331,7 +331,7 @@ const validateConstructId = ({
   const formattedConstructId = toPascalCase(secondArg.value);
   const formattedParentClassName = toPascalCase(parentClassName);
 
-  if (!isConstructOrStackType(type)) return;
+  if (!isConstructType(type)) return;
 
   if (formattedConstructId.includes(formattedParentClassName)) {
     context.report({
