@@ -1,3 +1,6 @@
+packages:
+  - .
+  - docs
 engineStrict: true
 executionEnv:
   nodeVersion: ">=22"
