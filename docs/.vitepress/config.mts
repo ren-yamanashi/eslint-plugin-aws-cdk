@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress";
+import llmstxt from 'vitepress-plugin-llms';
 import defaultConfig from "./sharedConfig.mjs";
 
 export default defineConfig({
@@ -244,4 +245,12 @@ export default defineConfig({
       },
     },
   },
+  vite: {
+    plugins: [llmstxt({
+      ignoreFiles: [
+        'index.md',
+        'ja/index.md',
+      ]
+    })]
+  }
 });
