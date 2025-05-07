@@ -5,12 +5,12 @@ titleTemplate: ":title"
 
 # no-mutable-public-fields
 
-<div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
+<div class="info-item">
   ✅ Using
   <a href="/rules/#recommended-rules">recommended</a>
   in an ESLint configuration enables this rule.
 </div>
-<div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
+<div class="info-item">
   🔧 Some problems reported by this rule are automatically fixable by the
   <a href="https://eslint.org/docs/latest/use/command-line-interface#--fix">
     --fix ESLint command line option

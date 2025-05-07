@@ -29,7 +29,7 @@ pnpm install -D eslint-cdk-plugin
 
 Write `eslint.config.mjs` as follows:
 
-<div style="margin-top:16px; margin-bottom:16px; background-color: #595959; padding: 16px;border-radius: 4px;">
+<div class="info-item">
   🚨 This plugin only supports FlatConfig.
   <br />
   ❓ <a href="https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file-formats">
@@ -37,7 +37,7 @@ Write `eslint.config.mjs` as follows:
   </a>
 </div>
 
-<div style="margin-top:16px; margin-bottom:16px; background-color: #595959; padding: 16px;border-radius: 4px;">
+<div class="info-item">
   🚨 This plugin uses typescript type information and must be used in conjunction with
   <a href="https://typescript-eslint.io/getting-started">
     typescript-eslint

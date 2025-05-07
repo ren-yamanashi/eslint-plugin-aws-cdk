@@ -5,7 +5,7 @@ titleTemplate: ":title"
 
 # require-props-default-doc
 
-<div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
+<div class="info-item">
   ℹ️ This rule is not included in the
   <a href="/rules/#recommended-rules">recommended</a>
   rules.

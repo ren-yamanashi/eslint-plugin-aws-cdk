@@ -1,5 +1,5 @@
 import { defineConfig } from "vitepress";
-import llmstxt from 'vitepress-plugin-llms';
+import llmstxt from "vitepress-plugin-llms";
 import defaultConfig from "./sharedConfig.mjs";
 
 export default defineConfig({
@@ -127,6 +127,10 @@ export default defineConfig({
                 link: "/rules/no-mutable-props-interface",
               },
               {
+                text: "construct-constructor-property",
+                link: "/rules/construct-constructor-property",
+              },
+              {
                 text: "require-jsdoc",
                 link: "/rules/require-jsdoc",
               },
@@ -216,6 +220,10 @@ export default defineConfig({
                 link: "/ja/rules/no-mutable-props-interface",
               },
               {
+                text: "construct-constructor-property",
+                link: "/ja/rules/construct-constructor-property",
+              },
+              {
                 text: "require-jsdoc",
                 link: "/ja/rules/require-jsdoc",
               },
@@ -246,11 +254,10 @@ export default defineConfig({
     },
   },
   vite: {
-    plugins: [llmstxt({
-      ignoreFiles: [
-        'index.md',
-        'ja/index.md',
-      ]
-    })]
-  }
+    plugins: [
+      llmstxt({
+        ignoreFiles: ["index.md", "ja/index.md"],
+      }),
+    ],
+  },
 });

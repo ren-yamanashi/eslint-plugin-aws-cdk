@@ -6,7 +6,7 @@ next: false
 
 # no-import-private
 
-<div style="margin-top: 16px; background-color: #595959; padding: 16px; border-radius: 4px;">
+<div class="info-item">
   ℹ️ このルールは
   <a href="/ja/rules/#recommended-rules">recommended</a>
   ルールには含まれていません。
