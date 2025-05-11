@@ -18,7 +18,6 @@ type Options = [
 type Context = TSESLint.RuleContext<"noParentNameConstructIdMatch", Options>;
 
 type ValidateStatementArgs<T extends TSESTree.Statement> = {
-  node: TSESTree.ClassBody;
   statement: T;
   parentClassName: string;
   context: Context;
@@ -27,7 +26,6 @@ type ValidateStatementArgs<T extends TSESTree.Statement> = {
 };
 
 type ValidateExpressionArgs<T extends TSESTree.Expression> = {
-  node: TSESTree.ClassBody;
   expression: T;
   parentClassName: string;
   context: Context;
@@ -99,7 +97,6 @@ export const noParentNameConstructIdMatch = ESLintUtils.RuleCreator.withoutDocs(
               continue;
             }
             validateConstructorBody({
-              node,
               expression: body.value,
               parentClassName,
               context,
@@ -118,7 +115,6 @@ export const noParentNameConstructIdMatch = ESLintUtils.RuleCreator.withoutDocs(
  * - validate each statement in the constructor body
  */
 const validateConstructorBody = ({
-  node,
   expression,
   parentClassName,
   context,
@@ -131,7 +127,6 @@ const validateConstructorBody = ({
         const newExpression = statement.declarations[0].init;
         if (newExpression?.type !== AST_NODE_TYPES.NewExpression) continue;
         validateConstructId({
-          node,
           context,
           expression: newExpression,
           parentClassName,
@@ -143,7 +138,6 @@ const validateConstructorBody = ({
       case AST_NODE_TYPES.ExpressionStatement: {
         if (statement.expression?.type !== AST_NODE_TYPES.NewExpression) break;
         validateStatement({
-          node,
           statement,
           parentClassName,
           context,
@@ -154,7 +148,6 @@ const validateConstructorBody = ({
       }
       case AST_NODE_TYPES.IfStatement: {
         traverseStatements({
-          node,
           context,
           parentClassName,
           statement: statement.consequent,
@@ -167,7 +160,6 @@ const validateConstructorBody = ({
         for (const switchCase of statement.cases) {
           for (const statement of switchCase.consequent) {
             traverseStatements({
-              node,
               context,
               parentClassName,
               statement,
@@ -188,7 +180,6 @@ const validateConstructorBody = ({
  * - Validates construct IDs against parent class name
  */
 const traverseStatements = ({
-  node,
   statement,
   parentClassName,
   context,
@@ -199,7 +190,6 @@ const traverseStatements = ({
     case AST_NODE_TYPES.BlockStatement: {
       for (const body of statement.body) {
         validateStatement({
-          node,
           statement: body,
           parentClassName,
           context,
@@ -213,7 +203,6 @@ const traverseStatements = ({
       const newExpression = statement.expression;
       if (newExpression?.type !== AST_NODE_TYPES.NewExpression) break;
       validateStatement({
-        node,
         statement,
         parentClassName,
         context,
@@ -226,7 +215,6 @@ const traverseStatements = ({
       const newExpression = statement.declarations[0].init;
       if (newExpression?.type !== AST_NODE_TYPES.NewExpression) break;
       validateConstructId({
-        node,
         context,
         expression: newExpression,
         parentClassName,
@@ -244,7 +232,6 @@ const traverseStatements = ({
  * - Extracts and validates construct IDs from new expressions
  */
 const validateStatement = ({
-  node,
   statement,
   parentClassName,
   context,
@@ -256,7 +243,6 @@ const validateStatement = ({
       const newExpression = statement.declarations[0].init;
       if (newExpression?.type !== AST_NODE_TYPES.NewExpression) break;
       validateConstructId({
-        node,
         context,
         expression: newExpression,
         parentClassName,
@@ -269,7 +255,6 @@ const validateStatement = ({
       const newExpression = statement.expression;
       if (newExpression?.type !== AST_NODE_TYPES.NewExpression) break;
       validateConstructId({
-        node,
         context,
         expression: newExpression,
         parentClassName,
@@ -280,7 +265,6 @@ const validateStatement = ({
     }
     case AST_NODE_TYPES.IfStatement: {
       validateIfStatement({
-        node,
         statement,
         parentClassName,
         context,
@@ -291,7 +275,6 @@ const validateStatement = ({
     }
     case AST_NODE_TYPES.SwitchStatement: {
       validateSwitchStatement({
-        node,
         statement,
         parentClassName,
         context,
@@ -308,7 +291,6 @@ const validateStatement = ({
  * - Validate recursively if `if` statements are nested
  */
 const validateIfStatement = ({
-  node,
   statement,
   parentClassName,
   context,
@@ -316,7 +298,6 @@ const validateIfStatement = ({
   option,
 }: ValidateStatementArgs<TSESTree.IfStatement>): void => {
   traverseStatements({
-    node,
     context,
     parentClassName,
     statement: statement.consequent,
@@ -330,7 +311,6 @@ const validateIfStatement = ({
  * - Validate recursively if `switch` statements are nested
  */
 const validateSwitchStatement = ({
-  node,
   statement,
   parentClassName,
   context,
@@ -340,7 +320,6 @@ const validateSwitchStatement = ({
   for (const caseStatement of statement.cases) {
     for (const _consequent of caseStatement.consequent) {
       traverseStatements({
-        node,
         context,
         parentClassName,
         statement: _consequent,
@@ -355,7 +334,6 @@ const validateSwitchStatement = ({
  * Validate that parent construct name and child id do not match
  */
 const validateConstructId = ({
-  node,
   context,
   expression,
   parentClassName,
@@ -385,7 +363,7 @@ const validateConstructId = ({
     formattedConstructId.includes(formattedParentClassName)
   ) {
     context.report({
-      node,
+      node: secondArg,
       messageId: "noParentNameConstructIdMatch",
       data: {
         constructId: secondArg.value,
@@ -396,7 +374,7 @@ const validateConstructId = ({
   }
   if (formattedParentClassName === formattedConstructId) {
     context.report({
-      node,
+      node: secondArg,
       messageId: "noParentNameConstructIdMatch",
       data: {
         constructId: secondArg.value,

@@ -90,7 +90,7 @@ const validateConstructId = (
   if (isPascalCase(secondArg.value)) return;
 
   context.report({
-    node,
+    node: secondArg,
     messageId: "pascalCaseConstructId",
     fix: (fixer) => {
       const pascalCaseValue = toPascalCase(secondArg.value);

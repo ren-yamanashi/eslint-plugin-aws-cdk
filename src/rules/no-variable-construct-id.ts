@@ -73,7 +73,7 @@ const validateConstructId = (
   }
 
   context.report({
-    node,
+    node: secondArg,
     messageId: "noVariableConstructId",
   });
 };

@@ -72,7 +72,7 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
         // NOTE: If `allowNonThisAndDisallowScope` is false, require `this` for all cases
         if (!options.allowNonThisAndDisallowScope) {
           context.report({
-            node,
+            node: argument,
             messageId: "requirePassingThis",
             fix: (fixer) => {
               return fixer.replaceText(argument, "this");
@@ -87,7 +87,7 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
           argument.name === "scope"
         ) {
           context.report({
-            node,
+            node: argument,
             messageId: "requirePassingThis",
             fix: (fixer) => {
               return fixer.replaceText(argument, "this");
