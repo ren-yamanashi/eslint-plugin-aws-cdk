@@ -67,7 +67,7 @@ const validateConstructorProperty = (
   // NOTE: Check if the constructor has at least 2 parameters
   if (params.length < 2) {
     context.report({
-      node: constructor,
+      node: constructor.value,
       messageId: "invalidConstructorProperty",
     });
     return;
@@ -80,7 +80,7 @@ const validateConstructorProperty = (
     firstParam.name !== "scope"
   ) {
     context.report({
-      node: constructor,
+      node: firstParam,
       messageId: "invalidConstructorProperty",
     });
     return;
@@ -93,7 +93,7 @@ const validateConstructorProperty = (
     secondParam.name !== "id"
   ) {
     context.report({
-      node: constructor,
+      node: secondParam,
       messageId: "invalidConstructorProperty",
     });
     return;
@@ -109,7 +109,7 @@ const validateConstructorProperty = (
     thirdParam.name !== "props"
   ) {
     context.report({
-      node: constructor,
+      node: thirdParam,
       messageId: "invalidConstructorProperty",
     });
     return;

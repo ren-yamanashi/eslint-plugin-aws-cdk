@@ -110,7 +110,7 @@ const validateConstructId = (
     formattedConstructId.endsWith(SUFFIX_TYPE.CONSTRUCT)
   ) {
     context.report({
-      node,
+      node: secondArg,
       messageId: "noConstructStackSuffix",
       data: {
         classType: "Construct",
@@ -123,7 +123,7 @@ const validateConstructId = (
     formattedConstructId.endsWith(SUFFIX_TYPE.STACK)
   ) {
     context.report({
-      node,
+      node: secondArg,
       messageId: "noConstructStackSuffix",
       data: {
         classType: "Stack",
