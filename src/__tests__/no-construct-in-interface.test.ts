@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 
-import { noClassInInterface } from "../rules/no-class-in-interface";
+import { noConstructInInterface } from "../rules/no-construct-in-interface";
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -12,7 +12,7 @@ const ruleTester = new RuleTester({
   },
 });
 
-ruleTester.run("no-class-in-interface", noClassInInterface, {
+ruleTester.run("no-construct-in-interface", noConstructInInterface, {
   valid: [
     // WHEN: property type is string
     {
@@ -22,7 +22,7 @@ ruleTester.run("no-class-in-interface", noClassInInterface, {
       }
       `,
     },
-    // WHEN: property type is type
+    // WHEN: property type is custom type
     {
       code: `
       type TestType = {
@@ -41,8 +41,7 @@ ruleTester.run("no-class-in-interface", noClassInInterface, {
       }
       `,
     },
-  ],
-  invalid: [
+    // WHEN: property type is class but not CDK Construct
     {
       code: `
       class TestClass {}
@@ -50,7 +49,18 @@ ruleTester.run("no-class-in-interface", noClassInInterface, {
         test: TestClass;
       }
       `,
-      errors: [{ messageId: "noClassInInterfaceProps" }],
+    },
+  ],
+  invalid: [
+    {
+      code: `
+      class Construct {}
+      class TestClass extends Construct {}
+      interface TestInterface {
+        test: TestClass;
+      }
+      `,
+      errors: [{ messageId: "noConstructInInterfaceProps" }],
     },
   ],
 });

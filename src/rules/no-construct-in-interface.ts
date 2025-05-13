@@ -1,22 +1,22 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
-import { SYMBOL_FLAGS } from "../constants/tsInternalFlags";
+import { isConstructOrStackType } from "../utils/typeCheck";
 
 /**
- * Enforces the use of interface types instead of class in interface properties
+ * Enforces the use of interface types instead of CDK Construct types in interface properties
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
  * @see {@link https://eslint-cdk-plugin.dev/rules/no-class-in-interface} - Documentation
  */
-export const noClassInInterface = ESLintUtils.RuleCreator.withoutDocs({
+export const noConstructInInterface = ESLintUtils.RuleCreator.withoutDocs({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallow class types in interface properties",
+      description: "Disallow CDK Construct types in interface properties",
     },
     messages: {
-      noClassInInterfaceProps:
-        "Interface property '{{ propertyName }}' should not use class type '{{ typeName }}'. Consider using an interface or type alias instead.",
+      noConstructInInterfaceProps:
+        "Interface property '{{ propertyName }}' should not use CDK Construct type '{{ typeName }}'. Consider using an interface or type alias instead.",
     },
     schema: [],
   },
@@ -35,17 +35,11 @@ export const noClassInInterface = ESLintUtils.RuleCreator.withoutDocs({
           }
 
           const type = parserServices.getTypeAtLocation(property);
-          if (!type.symbol) continue;
-
-          // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
-          //       Therefore, the type information structures do not match.
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-          const isClass = type.symbol.flags === SYMBOL_FLAGS.CLASS;
-          if (!isClass) continue;
+          if (!isConstructOrStackType(type)) continue;
 
           context.report({
             node: property,
-            messageId: "noClassInInterfaceProps",
+            messageId: "noConstructInInterfaceProps",
             data: {
               propertyName: property.key.name,
               typeName: type.symbol.name,
