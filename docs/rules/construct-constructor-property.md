@@ -11,11 +11,11 @@ titleTemplate: ":title"
   in an ESLint configuration enables this rule.
 </div>
 
-This rule enforces that constructors of classes extending `Construct` have the property names `scope, id` or `scope, id, props`.
+This rule enforces that constructors of CDK Construct classes have specific parameter names: `scope, id` or `scope, id, props`.
 
-All Construct constructors should have a consistent property naming pattern to maintain uniformity across the codebase.
+All Construct constructors should follow a consistent parameter naming pattern to maintain uniformity and predictability across the codebase.
 
-Note: Additional parameters after the first three are allowed as long as the first three follow the pattern.
+Note: Additional parameters are allowed after the first three, as long as the initial parameters follow the prescribed pattern.
 
 ---
 
@@ -38,7 +38,7 @@ export default [
 ```ts
 import { Construct } from "constructs";
 
-// ✅ Constructor with "scope, id" property names
+// ✅ Constructor with "scope, id" parameter names
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
@@ -53,7 +53,7 @@ export interface MyConstructProps {
   bucketName: string;
 }
 
-// ✅ Constructor with "scope, id, props" property names
+// ✅ Constructor with "scope, id, props" parameter names
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string, props: MyConstructProps) {
     super(scope, id);
@@ -68,7 +68,7 @@ export interface MyConstructProps {
   bucketName?: string;
 }
 
-// ✅ Constructor with "scope, id, props?" property names (optional props)
+// ✅ Constructor with "scope, id, props?" parameter names (optional props)
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string, props?: MyConstructProps) {
     super(scope, id);
