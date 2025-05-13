@@ -1,9 +1,9 @@
 ---
-title: eslint-cdk-plugin - no-mutable-props-interface
+title: eslint-cdk-plugin - no-mutable-property-of-props-interface
 titleTemplate: ":title"
 ---
 
-# no-mutable-props-interface
+# no-mutable-property-of-props-interface
 
 <div class="info-item">
     ✅ <a href="/ja/rules/#recommended-rules">recommended</a>
@@ -17,10 +17,10 @@ titleTemplate: ":title"
   で自動修正できます。
 </div>
 
-このルールは、コンストラクトまたはスタックの、`Props`(interface)のパブリック変数を変更可能にすることを禁止します。  
-(`readonly`でない Props 変数の定義を禁止します)
+このルールは、CDK Construct または Stack の、`Props` (interface) の `public` プロパティを変更可能にすることを禁止します。  
+(`readonly` 修飾子がない Props プロパティの定義を禁止します)
 
-Props で変更可能なパブリック変数を指定すると、意図しない副作用を引き起こす可能性があるため推奨されません。
+Props で変更可能な `public` プロパティを指定すると、意図しない副作用を引き起こす可能性があるため、推奨されません。
 
 ---
 
@@ -32,7 +32,7 @@ export default [
   {
     // ... some configs
     rules: {
-      "cdk/no-mutable-props-interface": "error",
+      "cdk/no-mutable-property-of-props-interface": "error",
     },
   },
 ];
@@ -44,7 +44,7 @@ export default [
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
-  // ✅ readonly のフィールドは使用できます
+  // ✅ readonly なプロパティは許可されます
   readonly bucket: IBucket;
 }
 ```
@@ -64,7 +64,7 @@ interface MyInterface {
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
-  // ❌ mutable なフィールドは使用すべきではありません
+  // ❌ Props のプロパティは `readonly` にすべきです
   bucket: IBucket;
 }
 ```

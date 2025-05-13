@@ -1,9 +1,9 @@
 ---
-title: eslint-cdk-plugin - no-mutable-props-interface
+title: eslint-cdk-plugin - no-mutable-property-of-props-interface
 titleTemplate: ":title"
 ---
 
-# no-mutable-props-interface
+# no-mutable-property-of-props-interface
 
 <div class="info-item">
   ✅ Using
@@ -17,9 +17,10 @@ titleTemplate: ":title"
   </a>
 </div>
 
-This rule disallow making public properties of constructs or stack `Props` (interfaces) mutable.
+This rule disallows mutable properties in `Props` interfaces for CDK Constructs or Stacks.
+(It prohibits defining properties in an interface whose name ends with "Props" without the `readonly` modifier.)
 
-It is not a good to specify mutable public properties in props, as this can lead to unintended side effects.
+Specifying mutable properties in `Props` interfaces is not recommended as it can lead to unintended side effects.
 
 ---
 
@@ -31,7 +32,7 @@ export default [
   {
     // ... some configs
     rules: {
-      "cdk/no-mutable-props-interface": "error",
+      "cdk/no-mutable-property-of-props-interface": "error",
     },
   },
 ];
@@ -43,7 +44,7 @@ export default [
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
-  // ✅ Can use readonly
+  // ✅ readonly properties are allowed
   readonly bucket: IBucket;
 }
 ```
@@ -51,7 +52,7 @@ interface MyConstructProps {
 ```ts
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
-// ✅ This rule does not apply to interfaces that are not Props
+// ✅ This rule does not apply to interfaces not ending with "Props"
 interface MyInterface {
   bucket: IBucket;
 }
@@ -63,7 +64,7 @@ interface MyInterface {
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
-  // ❌ Shouldn't use mutable
+  // ❌ Properties in "Props" interfaces should be readonly
   bucket: IBucket;
 }
 ```

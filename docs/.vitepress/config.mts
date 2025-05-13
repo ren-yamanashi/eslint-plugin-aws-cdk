@@ -123,8 +123,8 @@ export default defineConfig({
                 link: "/rules/no-mutable-public-property-of-construct",
               },
               {
-                text: "no-mutable-props-interface",
-                link: "/rules/no-mutable-props-interface",
+                text: "no-mutable-property-of-props-interface",
+                link: "/rules/no-mutable-property-of-props-interface",
               },
               {
                 text: "construct-constructor-property",
@@ -216,8 +216,8 @@ export default defineConfig({
                 link: "/ja/rules/no-mutable-public-property-of-construct",
               },
               {
-                text: "no-mutable-props-interface",
-                link: "/ja/rules/no-mutable-props-interface",
+                text: "no-mutable-property-of-props-interface",
+                link: "/ja/rules/no-mutable-property-of-props-interface",
               },
               {
                 text: "construct-constructor-property",
