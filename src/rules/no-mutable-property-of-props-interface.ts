@@ -4,7 +4,7 @@ import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
  * Disallow mutable properties of Construct Props (interface)
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
- * @see {@link https://eslint-cdk-plugin.dev/rules/no-mutable-props-interface} - Documentation
+ * @see {@link https://eslint-cdk-plugin.dev/rules/no-mutable-property-of-props-interface} - Documentation
  */
 export const noMutablePropertyOfPropsInterface =
   ESLintUtils.RuleCreator.withoutDocs({

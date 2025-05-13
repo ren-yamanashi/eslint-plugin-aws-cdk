@@ -209,7 +209,7 @@ const { theme } = useData()
   </li>
   <li class="rule-item">
     <div class="rule-info">
-      <a href="/ja/rules/no-mutable-props-interface" class="rule-name">no-mutable-props-interface</a>
+      <a href="/ja/rules/no-mutable-property-of-props-interface" class="rule-name">no-mutable-property-of-props-interface</a>
       <span class="rule-description">Props(interface) のプロパティに <code>readonly</code> を指定することを強制します</span>
     </div>
     <div class="rule-status">

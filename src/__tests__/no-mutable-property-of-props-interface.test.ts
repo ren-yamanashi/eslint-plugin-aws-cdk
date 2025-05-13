@@ -13,7 +13,7 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run(
-  "no-mutable-props-interface",
+  "no-mutable-property-of-props-interface",
   noMutablePropertyOfPropsInterface,
   {
     valid: [
