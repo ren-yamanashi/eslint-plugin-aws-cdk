@@ -3,7 +3,7 @@ import tsParser from "@typescript-eslint/parser";
 import { name, version } from "../package.json";
 
 import { constructConstructorProperty } from "./rules/construct-constructor-property";
-import { noClassInInterface } from "./rules/no-class-in-interface";
+import { noConstructInInterface } from "./rules/no-construct-in-interface";
 import { noConstructStackSuffix } from "./rules/no-construct-stack-suffix";
 import { noImportPrivate } from "./rules/no-import-private";
 import { noMutablePropsInterface } from "./rules/no-mutable-props-interface";
@@ -18,7 +18,7 @@ import { requirePassingThis } from "./rules/require-passing-this";
 import { requirePropsDefaultDoc } from "./rules/require-props-default-doc";
 
 const rules = {
-  "no-class-in-interface": noClassInInterface,
+  "no-construct-in-interface": noConstructInInterface,
   "no-construct-stack-suffix": noConstructStackSuffix,
   "no-parent-name-construct-id-match": noParentNameConstructIdMatch,
   "no-public-class-fields": noPublicClassFields,
@@ -55,7 +55,7 @@ const createFlatConfig = (rules: Record<string, unknown>) => {
 };
 
 const recommended = createFlatConfig({
-  "cdk/no-class-in-interface": "error",
+  "cdk/no-construct-in-interface": "error",
   "cdk/no-construct-stack-suffix": "error",
   "cdk/no-parent-name-construct-id-match": [
     "error",
@@ -71,7 +71,7 @@ const recommended = createFlatConfig({
 });
 
 const strict = createFlatConfig({
-  "cdk/no-class-in-interface": "error",
+  "cdk/no-construct-in-interface": "error",
   "cdk/no-construct-stack-suffix": "error",
   "cdk/no-parent-name-construct-id-match": [
     "error",

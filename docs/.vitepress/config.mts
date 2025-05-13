@@ -111,8 +111,8 @@ export default defineConfig({
                 link: "/rules/no-construct-stack-suffix",
               },
               {
-                text: "no-class-in-interface",
-                link: "/rules/no-class-in-interface",
+                text: "no-construct-in-interface",
+                link: "/rules/no-construct-in-interface",
               },
               {
                 text: "no-public-class-fields",
@@ -204,8 +204,8 @@ export default defineConfig({
                 link: "/ja/rules/no-construct-stack-suffix",
               },
               {
-                text: "no-class-in-interface",
-                link: "/ja/rules/no-class-in-interface",
+                text: "no-construct-in-interface",
+                link: "/ja/rules/no-construct-in-interface",
               },
               {
                 text: "no-public-class-fields",
