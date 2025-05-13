@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 
-import { noMutablePropsInterface } from "../rules/no-mutable-props-interface";
+import { noMutablePropertyOfPropsInterface } from "../rules/no-mutable-property-of-props-interface";
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -12,90 +12,94 @@ const ruleTester = new RuleTester({
   },
 });
 
-ruleTester.run("no-mutable-props-interface", noMutablePropsInterface, {
-  valid: [
-    // WHEN: All properties are readonly
-    {
-      code: `
+ruleTester.run(
+  "no-mutable-props-interface",
+  noMutablePropertyOfPropsInterface,
+  {
+    valid: [
+      // WHEN: All properties are readonly
+      {
+        code: `
         interface TestProps {
           readonly name: string;
           readonly age: number;
         }
       `,
-    },
-    // WHEN: Interface name does not end with "Props"
-    {
-      code: `
+      },
+      // WHEN: Interface name does not end with "Props"
+      {
+        code: `
         interface Test {
           name: string;
           age: number;
         }
       `,
-    },
-    // WHEN: Optional properties are readonly
-    {
-      code: `
+      },
+      // WHEN: Optional properties are readonly
+      {
+        code: `
         interface UserProps {
           readonly name: string;
           readonly age?: number;
         }
       `,
-    },
-  ],
-  invalid: [
-    // WHEN: readonly is not set
-    {
-      code: `
+      },
+    ],
+    invalid: [
+      // WHEN: readonly is not set
+      {
+        code: `
         interface TestProps {
           name: string;
           age: number;
         }
       `,
-      output: `
+        output: `
         interface TestProps {
           readonly name: string;
           readonly age: number;
         }
       `,
-      errors: [
-        { messageId: "noMutablePropsInterface" },
-        { messageId: "noMutablePropsInterface" },
-      ],
-    },
-    // WHEN: Some properties do not have readonly
-    {
-      code: `
+        errors: [
+          { messageId: "noMutablePropertyOfPropsInterface" },
+          { messageId: "noMutablePropertyOfPropsInterface" },
+        ],
+      },
+      // WHEN: Some properties do not have readonly
+      {
+        code: `
         interface UserProps {
           readonly name: string;
           age: number;
         }
       `,
-      output: `
+        output: `
         interface UserProps {
           readonly name: string;
           readonly age: number;
         }
       `,
-      errors: [{ messageId: "noMutablePropsInterface" }],
-    },
-    // WHEN: Optional properties do not have readonly
-    {
-      code: `
+        errors: [{ messageId: "noMutablePropertyOfPropsInterface" }],
+      },
+      // WHEN: Optional properties do not have readonly
+      {
+        code: `
         interface ConfigProps {
           name: string;
           age?: number;
         }
       `,
-      output: `
+        output: `
         interface ConfigProps {
           readonly name: string;
           readonly age?: number;
         }
       `,
-      errors: [
-        { messageId: "noMutablePropsInterface" },
-        { messageId: "noMutablePropsInterface" },
-      ],
-    },
-  ],
-});
+        errors: [
+          { messageId: "noMutablePropertyOfPropsInterface" },
+          { messageId: "noMutablePropertyOfPropsInterface" },
+        ],
+      },
+    ],
+  }
+);
