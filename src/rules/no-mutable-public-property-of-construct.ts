@@ -6,7 +6,7 @@ import { isConstructOrStackType } from "../utils/typeCheck";
  * Disallow mutable public properties of Construct
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
- * @see {@link https://eslint-cdk-plugin.dev/rules/no-mutable-public-fields} - Documentation
+ * @see {@link https://eslint-cdk-plugin.dev/rules/no-mutable-public-property-of-construct} - Documentation
  */
 export const noMutablePublicPropertyOfConstruct =
   ESLintUtils.RuleCreator.withoutDocs({

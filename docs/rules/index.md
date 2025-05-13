@@ -198,7 +198,7 @@ Currently we support the following rules:
   </li>
   <li class="rule-item">
     <div class="rule-info">
-      <a href="/rules/no-mutable-public-fields" class="rule-name">no-mutable-public-fields</a>
+      <a href="/rules/no-mutable-public-property-of-construct" class="rule-name">no-mutable-public-property-of-construct</a>
       <span class="rule-description">Enforces specifying <code>readonly</code> in the public variables of the Construct or Stack</span>
     </div>
     <div class="rule-status">
