@@ -1,9 +1,9 @@
 ---
-title: eslint-cdk-plugin - no-mutable-public-fields
+title: eslint-cdk-plugin - no-mutable-public-property-of-construct
 titleTemplate: ":title"
 ---
 
-# no-mutable-public-fields
+# no-mutable-public-property-of-construct
 
 <div class="info-item">
     ✅ <a href="/ja/rules/#recommended-rules">recommended</a>
@@ -17,10 +17,12 @@ titleTemplate: ":title"
   で自動修正できます。
 </div>
 
-このルールは、クラスのパブリック変数を変更可能にすること(`readonly`でないパブリック変数の定義)を禁止するものです。  
-(このルールは `Construct` または `Stack` を継承したクラスにのみ適用されます)
+このルールは、CDK Construct の `public` プロパティを変更可能にすること(`readonly` 修飾子がない `public` プロパティの定義)を禁止するものです。
 
-パブリック変数が変更可能である場合、意図しない副作用が発生する可能性があるため、推奨されません。
+Construct は多くの場合、状態を持つ AWS リソースを表します。  
+これらの `public` プロパティを `readonly` にすることで、Construct のインスタンス化後に意図しない変更が加えられることを防ぎ、予測可能で保守性の高いコードを実現できます。
+
+そのため、`public` プロパティには `readonly` 修飾子を指定することを推奨します。
 
 ---
 
@@ -32,7 +34,7 @@ export default [
   {
     // ... some configs
     rules: {
-      "cdk/no-mutable-public-fields": "error",
+      "cdk/no-mutable-public-property-of-construct": "error",
     },
   },
 ];
@@ -45,7 +47,7 @@ import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 export class MyConstruct extends Construct {
-  // ✅ readonly のフィールドは使用できます
+  // ✅ `public` かつ `readonly` なプロパティは許可されます
   public readonly bucket: IBucket;
 }
 ```
@@ -57,7 +59,7 @@ import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 export class MyConstruct extends Construct {
-  // ❌ mutable なフィールドは使用すべきではありません
+  // ❌ `public` プロパティは `readonly` にすべきです
   public bucket: IBucket;
 }
 ```

@@ -1,9 +1,9 @@
 ---
-title: eslint-cdk-plugin - no-mutable-public-fields
+title: eslint-cdk-plugin - no-mutable-public-property-of-construct
 titleTemplate: ":title"
 ---
 
-# no-mutable-public-fields
+# no-mutable-public-property-of-construct
 
 <div class="info-item">
   ✅ Using
@@ -17,10 +17,12 @@ titleTemplate: ":title"
   </a>
 </div>
 
-This rule disallow making public variables of a class mutable.  
-(This rule applies only to classes that extends from `Construct` or `Stack`.)
+This rule disallows making `public` properties of a CDK Construct mutable (i.e. disallow defining `public` properties without the `readonly` modifier).
 
-It's not good to have mutable public variables, because it can lead to unintended side effects.
+Constructs often represent stateful AWS resources.
+Making these `public` properties `readonly` helps prevent unintended modifications after the Construct has been instantiated, leading to more predictable and maintainable code.
+
+Therefore, it is recommended to specify the `readonly` modifier for `public` properties.
 
 ---
 
@@ -32,7 +34,7 @@ export default [
   {
     // ... some configs
     rules: {
-      "cdk/no-mutable-public-fields": "error",
+      "cdk/no-mutable-public-property-of-construct": "error",
     },
   },
 ];
@@ -45,7 +47,7 @@ import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 export class MyConstruct extends Construct {
-  // ✅ Can use readonly
+  // ✅ public readonly properties are allowed
   public readonly bucket: IBucket;
 }
 ```
@@ -57,7 +59,7 @@ import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 export class MyConstruct extends Construct {
-  // ❌ Shouldn't use mutable
+  // ❌ public properties should be readonly
   public bucket: IBucket;
 }
 ```
