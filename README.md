@@ -72,7 +72,7 @@ export default [
     },
     // ✅ Add rules (use custom rules)
     rules: {
-      "cdk/no-class-in-interface": "error",
+      "cdk/no-construct-in-interface": "error",
       "cdk/no-construct-stack-suffix": "error",
       "cdk/no-parent-name-construct-id-match": "error",
     },

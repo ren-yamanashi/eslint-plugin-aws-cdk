@@ -111,16 +111,16 @@ export default defineConfig({
                 link: "/rules/no-construct-stack-suffix",
               },
               {
-                text: "no-class-in-interface",
-                link: "/rules/no-class-in-interface",
+                text: "no-construct-in-interface",
+                link: "/rules/no-construct-in-interface",
               },
               {
                 text: "no-public-class-fields",
                 link: "/rules/no-public-class-fields",
               },
               {
-                text: "no-mutable-public-fields",
-                link: "/rules/no-mutable-public-fields",
+                text: "no-mutable-public-property-of-construct",
+                link: "/rules/no-mutable-public-property-of-construct",
               },
               {
                 text: "no-mutable-props-interface",
@@ -204,16 +204,16 @@ export default defineConfig({
                 link: "/ja/rules/no-construct-stack-suffix",
               },
               {
-                text: "no-class-in-interface",
-                link: "/ja/rules/no-class-in-interface",
+                text: "no-construct-in-interface",
+                link: "/ja/rules/no-construct-in-interface",
               },
               {
                 text: "no-public-class-fields",
                 link: "/ja/rules/no-public-class-fields",
               },
               {
-                text: "no-mutable-public-fields",
-                link: "/ja/rules/no-mutable-public-fields",
+                text: "no-mutable-public-property-of-construct",
+                link: "/ja/rules/no-mutable-public-property-of-construct",
               },
               {
                 text: "no-mutable-props-interface",
