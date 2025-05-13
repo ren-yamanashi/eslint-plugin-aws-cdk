@@ -1,0 +1,145 @@
+import {
+  AST_NODE_TYPES,
+  ESLintUtils,
+  ParserServicesWithTypeInformation,
+  TSESLint,
+  TSESTree,
+} from "@typescript-eslint/utils";
+
+import { isConstructOrStackType } from "../utils/typeCheck";
+
+type Context = TSESLint.RuleContext<
+  "noConstructInPublicPropertyOfConstruct",
+  []
+>;
+
+/**
+ * Disallow Construct types in public property of Construct
+ * @param context - The rule context provided by ESLint
+ * @returns An object containing the AST visitor functions
+ * @see {@link https://eslint-cdk-plugin.dev/rules/no-public-class-fields} - Documentation
+ */
+export const noConstructInPublicPropertyOfConstruct =
+  ESLintUtils.RuleCreator.withoutDocs({
+    meta: {
+      type: "problem",
+      docs: {
+        description: "Disallow Construct types in public property of Construct",
+      },
+      messages: {
+        noConstructInPublicPropertyOfConstruct:
+          "Public property '{{ propertyName }}' of Construct should not use Construct type '{{ typeName }}'. Consider using an interface or type alias instead.",
+      },
+      schema: [],
+    },
+    defaultOptions: [],
+    create(context) {
+      const parserServices = ESLintUtils.getParserServices(context);
+      return {
+        ClassDeclaration(node) {
+          const type = parserServices.getTypeAtLocation(node);
+          if (!isConstructOrStackType(type)) return;
+
+          // NOTE: Check class members
+          validatePublicPropertyOfConstruct(node, context, parserServices);
+
+          // NOTE: Check constructor parameter properties
+          const constructor = node.body.body.find(
+            (member): member is TSESTree.MethodDefinition =>
+              member.type === AST_NODE_TYPES.MethodDefinition &&
+              member.kind === "constructor"
+          );
+          if (
+            !constructor ||
+            constructor.value.type !== AST_NODE_TYPES.FunctionExpression
+          ) {
+            return;
+          }
+
+          validateConstructorParameterProperty(
+            constructor,
+            context,
+            parserServices
+          );
+        },
+      };
+    },
+  });
+
+/**
+ * check the public property of Construct
+ * - if it is a Construct type, report an error
+ */
+const validatePublicPropertyOfConstruct = (
+  node: TSESTree.ClassDeclaration,
+  context: Context,
+  parserServices: ParserServicesWithTypeInformation
+) => {
+  for (const property of node.body.body) {
+    if (
+      property.type !== AST_NODE_TYPES.PropertyDefinition ||
+      property.key.type !== AST_NODE_TYPES.Identifier
+    ) {
+      continue;
+    }
+
+    // NOTE: Skip private and protected fields
+    if (["private", "protected"].includes(property.accessibility ?? "")) {
+      continue;
+    }
+
+    // NOTE: Skip fields without type annotation
+    if (!property.typeAnnotation) continue;
+
+    const type = parserServices.getTypeAtLocation(property);
+    if (!isConstructOrStackType(type)) continue;
+
+    context.report({
+      node: property,
+      messageId: "noConstructInPublicPropertyOfConstruct",
+      data: {
+        propertyName: property.key.name,
+        typeName: type.symbol.name,
+      },
+    });
+  }
+};
+
+/**
+ * check the constructor parameter property
+ * - if it is a Construct type, report an error
+ */
+const validateConstructorParameterProperty = (
+  constructor: TSESTree.MethodDefinition,
+  context: Context,
+  parserServices: ParserServicesWithTypeInformation
+) => {
+  for (const param of constructor.value.params) {
+    if (
+      param.type !== AST_NODE_TYPES.TSParameterProperty ||
+      param.parameter.type !== AST_NODE_TYPES.Identifier
+    ) {
+      continue;
+    }
+
+    // NOTE: Skip private and protected parameters
+    if (["private", "protected"].includes(param.accessibility ?? "")) {
+      continue;
+    }
+
+    // NOTE: Skip parameters without type annotation
+    if (!param.parameter.typeAnnotation) continue;
+
+    const type = parserServices.getTypeAtLocation(param);
+    if (!isConstructOrStackType(type)) continue;
+
+    context.report({
+      node: param,
+      messageId: "noConstructInPublicPropertyOfConstruct",
+      data: {
+        propertyName: param.parameter.name,
+        typeName: type.symbol.name,
+      },
+    });
+  }
+};
