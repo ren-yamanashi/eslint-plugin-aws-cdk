@@ -1,19 +1,20 @@
 ---
-title: eslint-cdk-plugin - no-public-class-fields
+title: eslint-cdk-plugin - no-construct-in-public-property-of-construct
 titleTemplate: ":title"
 ---
 
-# no-public-class-fields
+# no-construct-in-public-property-of-construct
 
 <div class="info-item">
   ✅ <a href="/ja/rules/#recommended-rules">recommended</a>
   を使用した場合、このルールが有効になります。
 </div>
 
-このルールは、クラスの`public`変数にクラスを使用することを禁止します。  
-(このルールは `Construct` または `Stack` を継承したクラスにのみ適用されます)
+このルールは、CDK Construct の `public` プロパティに Construct 型 (例: `Bucket`) を指定することを禁止します。
 
-`public`変数でクラス型を使用すると、密結合が作成され、可変状態が公開されるため、推奨されません。
+Construct の `public` プロパティに Construct 型を使用すると、Construct 同士が密結合になり、また可変状態が外部に公開されるため、推奨されません。
+
+代わりに、読み取り専用リソースのための interface (例: `IBucket`) を指定することが推奨されます
 
 ---
 
@@ -25,7 +26,7 @@ export default [
   {
     // ... some configs
     rules: {
-      "cdk/no-public-class-fields": "error",
+      "cdk/no-construct-in-public-property-of-construct": "error",
     },
   },
 ];
@@ -38,7 +39,7 @@ import { Construct } from "constructs";
 import { IBucket, Bucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {
-  // ✅ interface のフィールドは使用できます
+  // ✅ 読み取り専用の interface (`IBucket` など) は使用できます
   public readonly bucket: IBucket;
 
   constructor(scope: Construct, id: string) {
@@ -55,7 +56,7 @@ import { Construct } from "constructs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {
-  // ❌ class のフィールドは使用すべきではありません
+  // ❌ Construct 型 (`Bucket` など) のプロパティは使用すべきではありません
   public readonly bucket: Bucket;
 
   constructor(scope: Construct, id: string) {

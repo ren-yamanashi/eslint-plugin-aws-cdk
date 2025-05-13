@@ -1,9 +1,9 @@
 ---
-title: eslint-cdk-plugin - no-public-class-fields
+title: eslint-cdk-plugin - no-construct-in-public-property-of-construct
 titleTemplate: ":title"
 ---
 
-# no-public-class-fields
+# no-construct-in-public-property-of-construct
 
 <div class="info-item">
   ✅ Using
@@ -11,10 +11,11 @@ titleTemplate: ":title"
   in an ESLint configuration enables this rule.
 </div>
 
-This rule disallows using class types for public class fields.  
-(This rule applies only to classes that extends from `Construct` or `Stack`.)
+This rule disallows specifying Construct types (e.g. `Bucket`) for `public` properties of a CDK Construct.
 
-When class types are used in public fields, it creates tight coupling and exposes mutable state, so not good.
+Using Construct types for `public` properties of a Construct is discouraged because it can lead to tight coupling between Constructs and expose mutable state externally.
+
+Instead, it is recommended to specify an interface for read-only resources (e.g. `IBucket`).
 
 ---
 
@@ -26,7 +27,7 @@ export default [
   {
     // ... some configs
     rules: {
-      "cdk/no-public-class-fields": "error",
+      "cdk/no-construct-in-public-property-of-construct": "error",
     },
   },
 ];
@@ -39,7 +40,7 @@ import { Construct } from "constructs";
 import { IBucket, Bucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {
-  // ✅ Can use interface public field
+  // ✅ Read-only interfaces (e.g. `IBucket`) can be used
   public readonly bucket: IBucket;
 
   constructor(scope: Construct, id: string) {
@@ -49,14 +50,14 @@ class MyConstruct extends Construct {
 }
 ```
 
-#### ❌ Incorrect Examples
+#### ❌ Incorrect Example
 
 ```ts
 import { Construct } from "constructs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {
-  // ❌ Shouldn't use class type public field
+  // ❌ Construct types (e.g. `Bucket`) should not be used for properties
   public readonly bucket: Bucket;
 
   constructor(scope: Construct, id: string) {

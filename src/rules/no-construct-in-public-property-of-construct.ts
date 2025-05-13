@@ -17,7 +17,7 @@ type Context = TSESLint.RuleContext<
  * Disallow Construct types in public property of Construct
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
- * @see {@link https://eslint-cdk-plugin.dev/rules/no-public-class-fields} - Documentation
+ * @see {@link https://eslint-cdk-plugin.dev/rules/no-construct-in-public-property-of-construct} - Documentation
  */
 export const noConstructInPublicPropertyOfConstruct =
   ESLintUtils.RuleCreator.withoutDocs({
