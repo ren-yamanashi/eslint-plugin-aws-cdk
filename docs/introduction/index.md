@@ -1,13 +1,16 @@
 # Introduction
 
-ESLint plugin for [AWS CDK](https://aws.amazon.com/cdk/).
+This is an ESLint plugin for the [AWS Cloud Development Kit (AWS CDK)](https://aws.amazon.com/cdk/).
 
-This plugin allows us to check the AWS CDK code with ESLint.
+This plugin allows you to check your AWS CDK code with ESLint.  
+For example, it can check for the following:
 
-- Finds syntax errors.
-- Finds the violation for AWS CDK Best Practices.
+- Syntax errors
+- Violations of AWS CDK best practices
 
-ESLint editor integrations are useful to check your code in real-time.
+Integrating ESLint with your editor is also convenient for checking code in real-time.
+
+[VSCode ESLint Extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
 ## 🚥 Versioning policy
 

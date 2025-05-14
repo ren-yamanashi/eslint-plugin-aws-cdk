@@ -54,7 +54,7 @@ import tsEslint from "typescript-eslint";
 
 export default [
   ...tsEslint.configs.recommended,
-  // ✅ Add plugins
+  // ✅ プラグインを追加
   cdkPlugin.configs.recommended,
   {
     files: ["lib/**/*.ts", "bin/*.ts"],
@@ -72,7 +72,7 @@ const tsEslint = require("typescript-eslint");
 
 module.exports = [
   ...tsEslint.configs.recommended,
-  // ✅ Add plugins
+  // ✅ プラグインを追加
   cdkPlugin.configs.recommended,
   {
     files: ["lib/**/*.ts", "bin/*.ts"],
@@ -101,11 +101,11 @@ export default [
         project: "./tsconfig.json",
       },
     },
-    // ✅ Add plugins
+    // ✅ プラグインを追加
     plugins: {
       cdk: cdkPlugin,
     },
-    // ✅ Add rules (use custom rules)
+    // ✅ ルールを追加 (ルールをカスタマイズする場合)
     rules: {
       "cdk/no-construct-in-interface": "error",
       "cdk/no-construct-stack-suffix": "error",
