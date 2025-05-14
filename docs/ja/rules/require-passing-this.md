@@ -17,7 +17,7 @@ titleTemplate: ":title"
   で自動修正できます。
 </div>
 
-このルールは `Construct` に `this` を渡すことを強制します。  
+このルールは `Construct` のコンストラクタに `this` を渡すことを強制します。  
 
 AWS CDK リソースを作成するとき、`Construct` に `this` を渡すことは正しいリソース階層を維持するために重要です。  
 

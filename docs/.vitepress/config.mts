@@ -87,7 +87,7 @@ export default defineConfig({
           },
           {
             text: "Rules",
-            collapsed: true,
+            collapsed: false,
             link: "/rules/",
             items: [
               {
@@ -180,7 +180,7 @@ export default defineConfig({
           },
           {
             text: "Rules",
-            collapsed: true,
+            collapsed: false,
             link: "/ja/rules/",
             items: [
               {

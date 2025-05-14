@@ -10,7 +10,7 @@ titleTemplate: ":title"
   を使用した場合、このルールが有効になります。
 </div>
 
-このルールは、Construct ID および Stack ID に "Construct" または "Stack" 文字列を含めることを禁止するものです。
+このルールは、Construct ID および Stack ID に "Construct" または "Stack" 文字列を含めることを禁止します。
 
 Construct ID に "Construct" という文字列が含まれていると、CDK の世界で止めるべき問題が CloudFormation テンプレートおよび AWS の世界に漏れてしまうため、好ましくありません。(Stack ID についても同様です)
 
