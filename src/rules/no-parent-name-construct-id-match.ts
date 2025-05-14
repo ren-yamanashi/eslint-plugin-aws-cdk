@@ -15,7 +15,7 @@ type Options = [
   }
 ];
 
-type Context = TSESLint.RuleContext<"noParentNameConstructIdMatch", Options>;
+type Context = TSESLint.RuleContext<"invalidConstructId", Options>;
 
 type ValidateStatementArgs<T extends TSESTree.Statement> = {
   statement: T;
@@ -48,7 +48,7 @@ export const noParentNameConstructIdMatch = ESLintUtils.RuleCreator.withoutDocs(
           "Enforce that construct IDs does not match the parent construct name.",
       },
       messages: {
-        noParentNameConstructIdMatch:
+        invalidConstructId:
           "Construct ID '{{ constructId }}' should not match parent construct name '{{ parentConstructName }}'. Use a more specific identifier.",
       },
       schema: [
@@ -364,7 +364,7 @@ const validateConstructId = ({
   ) {
     context.report({
       node: secondArg,
-      messageId: "noParentNameConstructIdMatch",
+      messageId: "invalidConstructId",
       data: {
         constructId: secondArg.value,
         parentConstructName: parentClassName,
@@ -375,7 +375,7 @@ const validateConstructId = ({
   if (formattedParentClassName === formattedConstructId) {
     context.report({
       node: secondArg,
-      messageId: "noParentNameConstructIdMatch",
+      messageId: "invalidConstructId",
       data: {
         constructId: secondArg.value,
         parentConstructName: parentClassName,

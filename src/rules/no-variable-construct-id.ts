@@ -8,7 +8,7 @@ import {
 import { getConstructorPropertyNames } from "../utils/parseType";
 import { isConstructType } from "../utils/typeCheck";
 
-type Context = TSESLint.RuleContext<"noVariableConstructId", []>;
+type Context = TSESLint.RuleContext<"invalidConstructId", []>;
 
 /**
  * Enforce using literal strings for Construct ID.
@@ -22,7 +22,7 @@ export const noVariableConstructId = ESLintUtils.RuleCreator.withoutDocs({
       description: `Enforce using literal strings for Construct ID.`,
     },
     messages: {
-      noVariableConstructId: "Shouldn't use a parameter as a Construct ID.",
+      invalidConstructId: "Shouldn't use a parameter as a Construct ID.",
     },
     schema: [],
   },
@@ -74,7 +74,7 @@ const validateConstructId = (
 
   context.report({
     node: secondArg,
-    messageId: "noVariableConstructId",
+    messageId: "invalidConstructId",
   });
 };
 

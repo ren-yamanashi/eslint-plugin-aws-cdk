@@ -15,7 +15,7 @@ export const noConstructInInterface = ESLintUtils.RuleCreator.withoutDocs({
       description: "Disallow CDK Construct types in interface properties",
     },
     messages: {
-      noConstructInInterfaceProps:
+      invalidInterfaceProperty:
         "Interface property '{{ propertyName }}' should not use CDK Construct type '{{ typeName }}'. Consider using an interface or type alias instead.",
     },
     schema: [],
@@ -39,7 +39,7 @@ export const noConstructInInterface = ESLintUtils.RuleCreator.withoutDocs({
 
           context.report({
             node: property,
-            messageId: "noConstructInInterfaceProps",
+            messageId: "invalidInterfaceProperty",
             data: {
               propertyName: property.key.name,
               typeName: type.symbol.name,

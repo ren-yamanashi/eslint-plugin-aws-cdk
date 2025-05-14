@@ -16,7 +16,7 @@ export const noMutablePropertyOfPropsInterface =
       },
       fixable: "code",
       messages: {
-        noMutablePropertyOfPropsInterface:
+        invalidPropertyOfPropsInterface:
           "Property '{{ propertyName }}' of Construct Props should be readonly.",
       },
       schema: [],
@@ -44,7 +44,7 @@ export const noMutablePropertyOfPropsInterface =
 
             context.report({
               node: property,
-              messageId: "noMutablePropertyOfPropsInterface",
+              messageId: "invalidPropertyOfPropsInterface",
               data: {
                 propertyName: property.key.name,
               },

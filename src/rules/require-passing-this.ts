@@ -13,7 +13,7 @@ type Options = [
   }
 ];
 
-type Context = TSESLint.RuleContext<"requirePassingThis", Options>;
+type Context = TSESLint.RuleContext<"missingPassingThis", Options>;
 
 /**
  * Enforces that `this` is passed to the constructor
@@ -28,7 +28,7 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
       description: "Require passing `this` in a constructor.",
     },
     messages: {
-      requirePassingThis: "Require passing `this` in a constructor.",
+      missingPassingThis: "Require passing `this` in a constructor.",
     },
     schema: [
       {
@@ -73,7 +73,7 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
         if (!options.allowNonThisAndDisallowScope) {
           context.report({
             node: argument,
-            messageId: "requirePassingThis",
+            messageId: "missingPassingThis",
             fix: (fixer) => {
               return fixer.replaceText(argument, "this");
             },
@@ -88,7 +88,7 @@ export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
         ) {
           context.report({
             node: argument,
-            messageId: "requirePassingThis",
+            messageId: "missingPassingThis",
             fix: (fixer) => {
               return fixer.replaceText(argument, "this");
             },

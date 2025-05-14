@@ -22,7 +22,7 @@ type Options = [
   }
 ];
 
-type Context = TSESLint.RuleContext<"noConstructStackSuffix", Options>;
+type Context = TSESLint.RuleContext<"invalidConstructId", Options>;
 
 /**
  * Enforces that Construct IDs do not end with 'Construct' or 'Stack' suffix
@@ -38,7 +38,7 @@ export const noConstructStackSuffix = ESLintUtils.RuleCreator.withoutDocs({
         "Effort to avoid using 'Construct' and 'Stack' suffix in construct id.",
     },
     messages: {
-      noConstructStackSuffix:
+      invalidConstructId:
         "{{ classType }} ID '{{ id }}' should not include {{ suffix }} suffix.",
     },
     schema: [
@@ -111,7 +111,7 @@ const validateConstructId = (
   ) {
     context.report({
       node: secondArg,
-      messageId: "noConstructStackSuffix",
+      messageId: "invalidConstructId",
       data: {
         classType: "Construct",
         id: secondArg.value,
@@ -124,7 +124,7 @@ const validateConstructId = (
   ) {
     context.report({
       node: secondArg,
-      messageId: "noConstructStackSuffix",
+      messageId: "invalidConstructId",
       data: {
         classType: "Stack",
         id: secondArg.value,

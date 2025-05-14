@@ -16,7 +16,7 @@ const QUOTE_TYPE = {
 
 type QuoteType = (typeof QUOTE_TYPE)[keyof typeof QUOTE_TYPE];
 
-type Context = TSESLint.RuleContext<"pascalCaseConstructId", []>;
+type Context = TSESLint.RuleContext<"invalidConstructId", []>;
 
 /**
 /**
@@ -32,7 +32,7 @@ export const pascalCaseConstructId = ESLintUtils.RuleCreator.withoutDocs({
       description: "Enforce PascalCase for Construct ID.",
     },
     messages: {
-      pascalCaseConstructId: "Construct ID must be PascalCase.",
+      invalidConstructId: "Construct ID must be PascalCase.",
     },
     schema: [],
     fixable: "code",
@@ -91,7 +91,7 @@ const validateConstructId = (
 
   context.report({
     node: secondArg,
-    messageId: "pascalCaseConstructId",
+    messageId: "invalidConstructId",
     fix: (fixer) => {
       const pascalCaseValue = toPascalCase(secondArg.value);
       return fixer.replaceText(secondArg, `${quote}${pascalCaseValue}${quote}`);

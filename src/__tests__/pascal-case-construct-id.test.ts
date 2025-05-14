@@ -102,7 +102,7 @@ ruleTester.run("pascal-case-construct-id", pascalCaseConstructId, {
         }
       }
       const test = new TestClass("test", "invalid_id");`,
-      errors: [{ messageId: "pascalCaseConstructId" }],
+      errors: [{ messageId: "invalidConstructId" }],
       output: `
       class Construct {}
       class TestClass extends Construct {
@@ -122,7 +122,7 @@ ruleTester.run("pascal-case-construct-id", pascalCaseConstructId, {
         }
       }
       const test = new TestClass('test', 'invalidId');`,
-      errors: [{ messageId: "pascalCaseConstructId" }],
+      errors: [{ messageId: "invalidConstructId" }],
       output: `
       class Construct {}
       class TestClass extends Construct {

@@ -17,7 +17,7 @@ export const noMutablePublicPropertyOfConstruct =
       },
       fixable: "code",
       messages: {
-        noMutablePublicPropertyOfConstruct:
+        invalidPublicPropertyOfConstruct:
           "Public property '{{ propertyName }}' should be readonly. Consider adding the 'readonly' modifier.",
       },
       schema: [],
@@ -51,7 +51,7 @@ export const noMutablePublicPropertyOfConstruct =
 
             context.report({
               node: member,
-              messageId: "noMutablePublicPropertyOfConstruct",
+              messageId: "invalidPublicPropertyOfConstruct",
               data: {
                 propertyName: member.key.name,
               },

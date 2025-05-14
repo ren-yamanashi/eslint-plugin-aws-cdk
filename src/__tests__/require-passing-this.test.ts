@@ -102,7 +102,7 @@ ruleTester.run("require-passing-this", requirePassingThis, {
         }
       }
       `,
-      errors: [{ messageId: "requirePassingThis" }],
+      errors: [{ messageId: "missingPassingThis" }],
       output: `
       class Construct {}
       class SampleConstruct extends Construct {
@@ -135,7 +135,7 @@ ruleTester.run("require-passing-this", requirePassingThis, {
       }
       `,
       options: [{ allowNonThisAndDisallowScope: true }],
-      errors: [{ messageId: "requirePassingThis" }],
+      errors: [{ messageId: "missingPassingThis" }],
       output: `
       class Construct {}
       class SampleConstruct extends Construct {
@@ -168,7 +168,7 @@ ruleTester.run("require-passing-this", requirePassingThis, {
         }
       }
       `,
-      errors: [{ messageId: "requirePassingThis" }],
+      errors: [{ messageId: "missingPassingThis" }],
       output: `
       class Construct {}
       class SampleConstruct extends Construct {
