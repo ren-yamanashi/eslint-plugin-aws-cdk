@@ -1,25 +1,21 @@
 ---
-title: eslint-cdk-plugin - no-mutable-props-interface
+title: eslint-cdk-plugin - no-construct-in-public-property-of-construct
 titleTemplate: ":title"
 ---
 
-# no-mutable-props-interface
+# no-construct-in-public-property-of-construct
 
 <div class="info-item">
   ✅ Using
   <a href="/rules/#recommended-rules">recommended</a>
   in an ESLint configuration enables this rule.
 </div>
-<div class="info-item">
-  🔧 Some problems reported by this rule are automatically fixable by the
-  <a href="https://eslint.org/docs/latest/use/command-line-interface#--fix">
-    --fix ESLint command line option
-  </a>
-</div>
 
-This rule disallow making public properties of constructs or stack `Props` (interfaces) mutable.
+This rule disallows specifying Construct types (e.g. `Bucket`) for `public` properties of a CDK Construct.
 
-It is not a good to specify mutable public properties in props, as this can lead to unintended side effects.
+Using Construct types for `public` properties of a Construct is discouraged because it can lead to tight coupling between Constructs and expose mutable state externally.
+
+Instead, it is recommended to specify an interface for read-only resources (e.g. `IBucket`).
 
 ---
 
@@ -31,40 +27,43 @@ export default [
   {
     // ... some configs
     rules: {
-      "cdk/no-mutable-props-interface": "error",
+      "cdk/no-construct-in-public-property-of-construct": "error",
     },
   },
 ];
 ```
 
-#### ✅ Correct Example
+#### ✅ Correct Examples
 
 ```ts
-import { IBucket } from "aws-cdk-lib/aws-s3";
+import { Construct } from "constructs";
+import { IBucket, Bucket } from "aws-cdk-lib/aws-s3";
 
-interface MyConstructProps {
-  // ✅ Can use readonly
-  readonly bucket: IBucket;
-}
-```
+class MyConstruct extends Construct {
+  // ✅ Read-only interfaces (e.g. `IBucket`) can be used
+  public readonly bucket: IBucket;
 
-```ts
-import { IBucket } from "aws-cdk-lib/aws-s3";
-
-// ✅ This rule does not apply to interfaces that are not Props
-interface MyInterface {
-  bucket: IBucket;
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+    this.bucket = new Bucket(this, "MyBucket");
+  }
 }
 ```
 
 #### ❌ Incorrect Example
 
 ```ts
-import { IBucket } from "aws-cdk-lib/aws-s3";
+import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
 
-interface MyConstructProps {
-  // ❌ Shouldn't use mutable
-  bucket: IBucket;
+class MyConstruct extends Construct {
+  // ❌ Construct types (e.g. `Bucket`) should not be used for properties
+  public readonly bucket: Bucket;
+
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+    this.bucket = new Bucket(this, "MyBucket");
+  }
 }
 ```
 

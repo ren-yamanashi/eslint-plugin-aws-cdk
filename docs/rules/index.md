@@ -188,7 +188,7 @@ Currently we support the following rules:
   </li>
   <li class="rule-item">
     <div class="rule-info">
-      <a href="/rules/no-public-class-fields" class="rule-name">no-public-class-fields</a>
+      <a href="/rules/no-construct-in-public-property-of-construct" class="rule-name">no-construct-in-public-property-of-construct</a>
       <span class="rule-description">Disallow specifying the <code>Class</code> type in the public variable of the Construct or Stack</span>
     </div>
     <div class="rule-status">
@@ -208,7 +208,7 @@ Currently we support the following rules:
   </li>
   <li class="rule-item">
     <div class="rule-info">
-      <a href="/rules/no-mutable-props-interface" class="rule-name">no-mutable-props-interface</a>
+      <a href="/rules/no-mutable-property-of-props-interface" class="rule-name">no-mutable-property-of-props-interface</a>
       <span class="rule-description">Enforces specifying <code>readonly</code> in the properties of the Props(interface)</span>
     </div>
     <div class="rule-status">

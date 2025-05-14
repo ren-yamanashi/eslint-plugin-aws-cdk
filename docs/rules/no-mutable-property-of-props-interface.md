@@ -1,20 +1,26 @@
 ---
-title: eslint-cdk-plugin - no-public-class-fields
+title: eslint-cdk-plugin - no-mutable-property-of-props-interface
 titleTemplate: ":title"
 ---
 
-# no-public-class-fields
+# no-mutable-property-of-props-interface
 
 <div class="info-item">
   ✅ Using
   <a href="/rules/#recommended-rules">recommended</a>
   in an ESLint configuration enables this rule.
 </div>
+<div class="info-item">
+  🔧 Some problems reported by this rule are automatically fixable by the
+  <a href="https://eslint.org/docs/latest/use/command-line-interface#--fix">
+    --fix ESLint command line option
+  </a>
+</div>
 
-This rule disallows using class types for public class fields.  
-(This rule applies only to classes that extends from `Construct` or `Stack`.)
+This rule disallows mutable properties in `Props` interfaces for CDK Constructs or Stacks.
+(It prohibits defining properties in an interface whose name ends with "Props" without the `readonly` modifier.)
 
-When class types are used in public fields, it creates tight coupling and exposes mutable state, so not good.
+Specifying mutable properties in `Props` interfaces is not recommended as it can lead to unintended side effects.
 
 ---
 
@@ -26,43 +32,40 @@ export default [
   {
     // ... some configs
     rules: {
-      "cdk/no-public-class-fields": "error",
+      "cdk/no-mutable-property-of-props-interface": "error",
     },
   },
 ];
 ```
 
-#### ✅ Correct Examples
+#### ✅ Correct Example
 
 ```ts
-import { Construct } from "constructs";
-import { IBucket, Bucket } from "aws-cdk-lib/aws-s3";
+import { IBucket } from "aws-cdk-lib/aws-s3";
 
-class MyConstruct extends Construct {
-  // ✅ Can use interface public field
-  public readonly bucket: IBucket;
-
-  constructor(scope: Construct, id: string) {
-    super(scope, id);
-    this.bucket = new Bucket(this, "MyBucket");
-  }
+interface MyConstructProps {
+  // ✅ readonly properties are allowed
+  readonly bucket: IBucket;
 }
 ```
 
-#### ❌ Incorrect Examples
+```ts
+import { IBucket } from "aws-cdk-lib/aws-s3";
+
+// ✅ This rule does not apply to interfaces not ending with "Props"
+interface MyInterface {
+  bucket: IBucket;
+}
+```
+
+#### ❌ Incorrect Example
 
 ```ts
-import { Construct } from "constructs";
-import { Bucket } from "aws-cdk-lib/aws-s3";
+import { IBucket } from "aws-cdk-lib/aws-s3";
 
-class MyConstruct extends Construct {
-  // ❌ Shouldn't use class type public field
-  public readonly bucket: Bucket;
-
-  constructor(scope: Construct, id: string) {
-    super(scope, id);
-    this.bucket = new Bucket(this, "MyBucket");
-  }
+interface MyConstructProps {
+  // ❌ Properties in "Props" interfaces should be readonly
+  bucket: IBucket;
 }
 ```
 
