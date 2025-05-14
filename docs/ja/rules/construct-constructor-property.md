@@ -11,11 +11,13 @@ titleTemplate: ":title"
   を使用すると、このルールが有効になります。
 </div>
 
-このルールは、`Construct`を継承するクラスのコンストラクタが`scope, id`または`scope, id, props`というプロパティ名を持つことを強制します。
+このルールは、CDK Construct の `constructor` が `scope, id` または `scope, id, props` というプロパティ名を持つことを強制します。
 
-すべての Construct コンストラクタは、コードベース全体で一貫性を維持するために統一されたプロパティ命名パターンを持つべきです。
+すべての Construct の constructor は、コードベース全体で一貫性を維持するために統一されたプロパティ命名パターンを持つべきです。
 
-※最初の 3 つのパラメータがパターンに従っていれば、それ以降の追加パラメータは許可されます
+※最初の 3 つのプロパティがパターンに従っていれば、それ以降の追加プロパティは許可されます
+
+(このルールは `Construct` から派生したクラスにのみ適用されます)
 
 ---
 
@@ -38,7 +40,7 @@ export default [
 ```ts
 import { Construct } from "constructs";
 
-// ✅ "scope, id"のプロパティ名を持つコンストラクタ
+// ✅ "scope, id" プロパティ名を持つ constructor
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
@@ -53,7 +55,7 @@ export interface MyConstructProps {
   bucketName: string;
 }
 
-// ✅ "scope, id, props"のプロパティ名を持つコンストラクタ
+// ✅ "scope, id, props" プロパティ名を持つ constructor
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string, props: MyConstructProps) {
     super(scope, id);
@@ -68,7 +70,7 @@ export interface MyConstructProps {
   bucketName?: string;
 }
 
-// ✅ "scope, id, props?"のプロパティ名を持つコンストラクタ（オプションのprops）
+// ✅ "scope, id, props" プロパティ名を持つ constructor (props プロパティがオプショナル)
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string, props?: MyConstructProps) {
     super(scope, id);
@@ -83,7 +85,7 @@ export interface MyConstructProps {
   bucketName: string;
 }
 
-// ✅ "scope, id, props"の後に追加パラメータを持つコンストラクタ
+// ✅ "scope, id, props" の後に追加プロパティを持つ constructor
 export class MyConstruct extends Construct {
   constructor(
     scope: Construct,
@@ -101,7 +103,7 @@ export class MyConstruct extends Construct {
 ```ts
 import { Construct } from "constructs";
 
-// ❌ 最初のパラメータが"scope"という名前ではない
+// ❌ 最初のプロパティ名が "scope" でない
 export class MyConstruct extends Construct {
   constructor(myScope: Construct, id: string) {
     super(myScope, id);
@@ -112,7 +114,7 @@ export class MyConstruct extends Construct {
 ```ts
 import { Construct } from "constructs";
 
-// ❌ 2番目のパラメータが"id"という名前ではない
+// ❌ 2番目のプロパティ名が "id" でない
 export class MyConstruct extends Construct {
   constructor(scope: Construct, myId: string) {
     super(scope, myId);
@@ -127,7 +129,7 @@ export interface MyConstructProps {
   bucketName: string;
 }
 
-// ❌ 3番目のパラメータが"props"という名前ではない
+// ❌ 3番目のプロパティ名が "props" でない
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string, myProps: MyConstructProps) {
     super(scope, id);

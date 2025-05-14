@@ -10,16 +10,17 @@ titleTemplate: ":title"
   を使用した場合、このルールが有効になります。
 </div>
 
-このルールは、コンストラクト ID およびスタック ID で `Construct` または `Stack` サフィックスの使用を禁止するものです。  
-(このルールは `Construct` または `Stack` を継承したクラスにのみ適用されます)
+このルールは、Construct ID および Stack ID に "Construct" または "Stack" 文字列を含めることを禁止します。
 
-コンストラクト ID に `Construct` が含まれていると、CDK の世界で止めるべき問題が CloudFormation テンプレートおよび AWS の世界に漏れてしまうため、好ましくありません。(スタック ID についても同様です)
+Construct ID に "Construct" という文字列が含まれていると、CDK の世界で止めるべき問題が CloudFormation テンプレートおよび AWS の世界に漏れてしまうため、好ましくありません。(Stack ID についても同様です)
+
+(このルールは `Construct` または `Stack` から派生したクラスにのみ適用されます)
 
 ## オプション
 
 このルールには以下のプロパティを持つオプションがあります：
 
-- `disallowedSuffixes` (デフォルト: `["Construct", "Stack"]`) - 禁止するサフィックスの配列。"Construct"、"Stack"、または両方を含めることができます。
+- `disallowedSuffixes` (デフォルト: `["Construct", "Stack"]`) - 禁止する suffix の配列。"Construct"、"Stack"、または両方を含めることができます。
 
 ---
 
@@ -31,16 +32,16 @@ export default [
   {
     // ... some configs
     rules: {
-      // デフォルト: "Construct" と "Stack" の両方のサフィックスを禁止
+      // デフォルト: "Construct" と "Stack" の両方の suffix を禁止
       "cdk/no-construct-stack-suffix": "error",
 
-      // "Construct" サフィックスのみを禁止
+      // "Construct" suffix のみを禁止
       "cdk/no-construct-stack-suffix": [
         "error",
         { disallowedSuffixes: ["Construct"] },
       ],
 
-      // "Stack" サフィックスのみを禁止
+      // "Stack" suffix のみを禁止
       "cdk/no-construct-stack-suffix": [
         "error",
         { disallowedSuffixes: ["Stack"] },
@@ -60,7 +61,7 @@ export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // ✅ "Construct" サフィックスが追加されていない場合は許可されます
+    // ✅ "Construct" suffix が追加されていない場合は許可されます
     const bucket = new Bucket(this, "MyBucket");
   }
 }
@@ -76,7 +77,7 @@ export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // ❌ "Construct" サフィックスを使用すべきではありません
+    // ❌ "Construct" suffix を使用すべきではありません
     const bucket = new Bucket(this, "BucketConstruct");
   }
 }

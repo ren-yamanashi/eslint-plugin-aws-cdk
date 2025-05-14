@@ -10,10 +10,11 @@ titleTemplate: ":title"
   を使用した場合、このルールが有効になります。
 </div>
 
-このルールでは、親クラス名をコンストラクト ID として使用することを禁止します。  
-(このルールは `Construct` を継承するクラスにのみ適用されます)
+このルールでは、Construct ID に 親クラスの名前を指定することを禁止します。  
 
-コンストラクト ID に親クラス名と一致する(または含む)文字列を指定すると、CloudFormation リソースの階層が不明瞭になるため、推奨されません。
+Construct ID に、親クラス名と一致する(または含む)文字列を指定すると、CloudFormation リソースの階層が不明瞭になるため、推奨されません。
+
+(このルールは `Construct` または `Stack` から派生したクラスにのみ適用されます)
 
 ## オプション
 
@@ -22,7 +23,7 @@ titleTemplate: ":title"
 ### `disallowContainingParentName` (デフォルト: `false`)
 
 `true` の場合、親クラス名を含むコンストラクト ID を使用することを禁止します。  
-`false` の場合、親クラス名を含むコンストラクト ID を使用することを許可しますが、親クラス名と一致するコンストラクト ID を使用することを禁止します。
+`false` の場合、親クラス名を含むコンストラクト ID の使用は許可されますが、親クラス名と完全に一致するコンストラクト ID の使用は禁止します。
 
 ※`recommended` ルールセットでは `false` が指定されています
 
@@ -62,7 +63,7 @@ export class MyConstruct extends Construct {
     // ✅ 親コンストラクトと異なる名前は使用できます
     const bucket = new Bucket(this, "MyBucket");
 
-    // ✅ disallowContainingParentName が false の場合、親クラス名を含むコンストラクト ID を使用できます
+    // ✅ disallowContainingParentName が false (デフォルト設定) の場合、親クラス名を含むコンストラクト ID を使用できます
     const bucket = new Bucket(this, "MyConstructBucket");
   }
 }

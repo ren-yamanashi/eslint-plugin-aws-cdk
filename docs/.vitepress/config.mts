@@ -87,64 +87,64 @@ export default defineConfig({
           },
           {
             text: "Rules",
-            collapsed: true,
+            collapsed: false,
             link: "/rules/",
             items: [
               {
-                text: "pascal-case-construct-id",
-                link: "/rules/pascal-case-construct-id",
-              },
-              {
-                text: "require-passing-this",
-                link: "/rules/require-passing-this",
-              },
-              {
-                text: "no-variable-construct-id",
-                link: "/rules/no-variable-construct-id",
-              },
-              {
-                text: "no-parent-name-construct-id-match",
-                link: "/rules/no-parent-name-construct-id-match",
-              },
-              {
-                text: "no-construct-stack-suffix",
-                link: "/rules/no-construct-stack-suffix",
+                text: "construct-constructor-property",
+                link: "/rules/construct-constructor-property",
               },
               {
                 text: "no-construct-in-interface",
                 link: "/rules/no-construct-in-interface",
               },
               {
-                text: "no-public-class-fields",
-                link: "/rules/no-public-class-fields",
+                text: "no-construct-in-public-property-of-construct",
+                link: "/rules/no-construct-in-public-property-of-construct",
               },
               {
-                text: "no-mutable-public-property-of-construct",
-                link: "/rules/no-mutable-public-property-of-construct",
+                text: "no-construct-stack-suffix",
+                link: "/rules/no-construct-stack-suffix",
+              },
+              {
+                text: "no-import-private",
+                link: "/rules/no-import-private",
               },
               {
                 text: "no-mutable-property-of-props-interface",
                 link: "/rules/no-mutable-property-of-props-interface",
               },
               {
-                text: "construct-constructor-property",
-                link: "/rules/construct-constructor-property",
+                text: "no-mutable-public-property-of-construct",
+                link: "/rules/no-mutable-public-property-of-construct",
               },
               {
-                text: "require-jsdoc",
-                link: "/rules/require-jsdoc",
+                text: "no-parent-name-construct-id-match",
+                link: "/rules/no-parent-name-construct-id-match",
               },
               {
-                text: "require-props-default-doc",
-                link: "/rules/require-props-default-doc",
+                text: "no-variable-construct-id",
+                link: "/rules/no-variable-construct-id",
+              },
+              {
+                text: "pascal-case-construct-id",
+                link: "/rules/pascal-case-construct-id",
               },
               {
                 text: "props-name-convention",
                 link: "/rules/props-name-convention",
               },
               {
-                text: "no-import-private",
-                link: "/rules/no-import-private",
+                text: "require-jsdoc",
+                link: "/rules/require-jsdoc",
+              },
+              {
+                text: "require-passing-this",
+                link: "/rules/require-passing-this",
+              },
+              {
+                text: "require-props-default-doc",
+                link: "/rules/require-props-default-doc",
               },
             ],
           },
@@ -180,64 +180,64 @@ export default defineConfig({
           },
           {
             text: "Rules",
-            collapsed: true,
+            collapsed: false,
             link: "/ja/rules/",
             items: [
               {
-                text: "pascal-case-construct-id",
-                link: "/ja/rules/pascal-case-construct-id",
-              },
-              {
-                text: "require-passing-this",
-                link: "/ja/rules/require-passing-this",
-              },
-              {
-                text: "no-variable-construct-id",
-                link: "/ja/rules/no-variable-construct-id",
-              },
-              {
-                text: "no-parent-name-construct-id-match",
-                link: "/ja/rules/no-parent-name-construct-id-match",
-              },
-              {
-                text: "no-construct-stack-suffix",
-                link: "/ja/rules/no-construct-stack-suffix",
+                text: "construct-constructor-property",
+                link: "/ja/rules/construct-constructor-property",
               },
               {
                 text: "no-construct-in-interface",
                 link: "/ja/rules/no-construct-in-interface",
               },
               {
-                text: "no-public-class-fields",
-                link: "/ja/rules/no-public-class-fields",
+                text: "no-construct-in-public-property-of-construct",
+                link: "/ja/rules/no-construct-in-public-property-of-construct",
               },
               {
-                text: "no-mutable-public-property-of-construct",
-                link: "/ja/rules/no-mutable-public-property-of-construct",
+                text: "no-construct-stack-suffix",
+                link: "/ja/rules/no-construct-stack-suffix",
+              },
+              {
+                text: "no-import-private",
+                link: "/ja/rules/no-import-private",
               },
               {
                 text: "no-mutable-property-of-props-interface",
                 link: "/ja/rules/no-mutable-property-of-props-interface",
               },
               {
-                text: "construct-constructor-property",
-                link: "/ja/rules/construct-constructor-property",
+                text: "no-mutable-public-property-of-construct",
+                link: "/ja/rules/no-mutable-public-property-of-construct",
               },
               {
-                text: "require-jsdoc",
-                link: "/ja/rules/require-jsdoc",
+                text: "no-parent-name-construct-id-match",
+                link: "/ja/rules/no-parent-name-construct-id-match",
               },
               {
-                text: "require-props-default-doc",
-                link: "/ja/rules/require-props-default-doc",
+                text: "no-variable-construct-id",
+                link: "/ja/rules/no-variable-construct-id",
+              },
+              {
+                text: "pascal-case-construct-id",
+                link: "/ja/rules/pascal-case-construct-id",
               },
               {
                 text: "props-name-convention",
                 link: "/ja/rules/props-name-convention",
               },
               {
-                text: "no-import-private",
-                link: "/ja/rules/no-import-private",
+                text: "require-jsdoc",
+                link: "/ja/rules/require-jsdoc",
+              },
+              {
+                text: "require-passing-this",
+                link: "/ja/rules/require-passing-this",
+              },
+              {
+                text: "require-props-default-doc",
+                link: "/ja/rules/require-props-default-doc",
               },
             ],
           },

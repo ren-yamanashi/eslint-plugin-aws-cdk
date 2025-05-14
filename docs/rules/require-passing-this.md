@@ -17,24 +17,30 @@ titleTemplate: ":title"
   </a>
 </div>
 
-This rule enforces passing `this` in a `Construct`.  
-(This rule applies only to classes that extends `Construct`.)
+This rule enforces passing `this` as the scope when creating new Construct instances within a Construct.
 
-When creating AWS CDK resources, passing `this` to the `Construct` is crucial for maintaining the correct resource hierarchy.  
-Using other values like `scope` can lead to:
+When creating AWS CDK resources, passing `this` as the scope to child Constructs is crucial for maintaining the correct resource hierarchy.  
+Passing other values as the scope (especially the `scope` variable received by the parent's constructor) can lead to:
 
 - Incorrect resource hierarchy in the generated CloudFormation template
 - Unexpected resource naming
 
+(This rule applies only to classes that extend `Construct`.)
+
 ## Options
 
-This rule has an options with the following properties:
+This rule has an option with the following properties:
 
-### `allowNonThisAndDisallowScope` (default: `false`)
+### `allowNonThisAndDisallowScope`
 
-When `true`, allows non-`this` values for the first argument of a Construct constructor. (but the `scope` variable is disallowed). This is useful when you want to create a construct as a child of another construct.
+Determines whether to allow constructs other than `this` as the scope (first argument) when instantiating a new Construct.
 
-Note: The `recommended` rule set has `true` specified.
+- `false`: Only `this` is allowed as the scope (first argument) when instantiating a new Construct.
+- `true`: Allows passing Construct instances other than `this` as the scope (first argument).
+  - However, directly passing the `scope` variable received by the parent's constructor is still disallowed.
+  - This setting is useful for creating nested construct hierarchies.
+
+Note: The `recommended` rule set specifies this option as `true`.
 
 ---
 
@@ -46,10 +52,12 @@ export default [
   {
     // ... some configs
     rules: {
-      // Default: require `this` for all Construct instantiations
+      // allowNonThisAndDisallowScope: false: 
+      // Only `this` is allowed as scope.
       "cdk/require-passing-this": "error",
 
-      // Allow non-`this` values (but the `scope` variable is disallowed)
+      // allowNonThisAndDisallowScope: true:
+      // Allows non-`this` as scope (but disallows parent's `scope` variable).
       "cdk/require-passing-this": [
         "error",
         { allowNonThisAndDisallowScope: true },
@@ -69,12 +77,13 @@ export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // ✅ Can use this
+    // ✅ Using `this` as scope is always allowed.
     new Bucket(this, "SampleBucket");
 
-    // ✅ With allowNonThisAndDisallowScope is true, can use non-this values (but the scope variable is disallowed)
+    // The following example is valid when `allowNonThisAndDisallowScope` is `true` (as in the recommended set).
     const sample = new SampleConstruct(this, "Sample");
-    new OtherConstruct(sample, "Child"); // Valid when allowNonThisAndDisallowScope is true
+    // ✅ `sample` (an instance of a Construct) is allowed as scope.
+    new OtherConstruct(sample, "Child");
   }
 }
 ```
@@ -89,8 +98,9 @@ export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // ❌ Shouldn't use scope
-    new Bucket(scope, "SampleBucket"); // Invalid even when allowNonThisAndDisallowScope is true
+    // ❌ Shouldn't use the parent's `scope` variable, 
+    //    this is invalid even when allowNonThisAndDisallowScope is true.
+    new Bucket(scope, "SampleBucket");
   }
 }
 ```

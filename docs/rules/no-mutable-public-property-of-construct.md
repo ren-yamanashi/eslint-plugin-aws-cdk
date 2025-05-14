@@ -24,6 +24,8 @@ Making these `public` properties `readonly` helps prevent unintended modificatio
 
 Therefore, it is recommended to specify the `readonly` modifier for `public` properties.
 
+(This rule applies only to classes that extends from `Construct` or `Stack`.)
+
 ---
 
 #### 🔧 How to use

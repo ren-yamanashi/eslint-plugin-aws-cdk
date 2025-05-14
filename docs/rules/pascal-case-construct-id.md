@@ -18,7 +18,10 @@ titleTemplate: ":title"
   </a>
 </div>
 
-This rule enforces PascalCase for construct IDs.  
+This rule enforces writing Construct IDs in PascalCase.
+
+Enforcing a consistent naming convention helps developers manage logical IDs more easily, and as a result, helps reduce the risk of unintentional logical ID collisions.
+
 (This rule applies only to classes that extends from `Construct` or `Stack`.)
 
 ---

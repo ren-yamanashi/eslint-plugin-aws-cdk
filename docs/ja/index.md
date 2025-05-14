@@ -5,7 +5,7 @@ titleTemplate: ":title"
 hero:
   name: "eslint-cdk-plugin"
   text: "ESLint plugin for AWS CDK"
-  tagline: AWS CDK のベストプラクティスを強制する ESLint プラグイン
+  tagline: AWS CDK のセオリー・ベストプラクティスを強制する ESLint Plugin
   image: /img/logo.png
   actions:
     - theme: brand
@@ -21,12 +21,12 @@ features:
     link: /ja/getting-started/
     linkText: Getting Started
   - title: Extensive Rules
-    details: AWS CDK 開発のための幅広いESLintルールを提供します。
+    details: AWS CDK 開発のための幅広い ESLint ルールを提供します。
     link: /ja/rules/
     linkText: ルールを見る
     icon: 📚
   - title: Purpose driven
-    details: AWS CDK のベストプラクティスに基づくルールを提供し、可読性・保守性が高く、再利用可能なコードを書く手助けをします。
+    details: AWS CDK のセオリー・ベストプラクティスに基づくルールを提供し、可読性・保守性が高く、再利用可能なコードを書く手助けをします。
     icon: 🎯
   - title: Type Safety
     details: TypeScript の型システムを利用したルールを提供し、より安全な CDK コードを書く手助けをします。

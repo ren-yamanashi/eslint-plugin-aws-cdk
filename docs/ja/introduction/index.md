@@ -1,13 +1,16 @@
 # Introduction
 
-[AWS CDK](https://aws.amazon.com/cdk/) 用の ESLint プラグインです。
+これは [AWS Cloud Development Kit (AWS CDK)](https://aws.amazon.com/cdk/) 用の ESLint プラグインです。
 
-このプラグインを使うことで、AWS CDK のコードを ESLint でチェックすることができます。
+このプラグインを使用すると、ESLint で AWS CDK のコードをチェックできます。  
+例えば、以下の点がチェック可能です。
 
-- 構文エラーを検出します。
-- AWS CDK のベストプラクティス違反の発見。
+- 構文エラー
+- AWS CDK のベストプラクティス違反
 
-ESLint エディタとの統合は、リアルタイムにコードをチェックするのに便利です。
+また、ESLint をエディタと統合することで、リアルタイムにコードをチェックできて便利です。
+
+[VSCode ESLint 拡張機能](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
 ## 🚥 Versioning policy
 
@@ -19,4 +22,4 @@ ESLint エディタとの統合は、リアルタイムにコードをチェッ�
 
 ## 🔒 License
 
-ライセンスの権利と制限（MIT）については、[LICENSE](https://github.com/ren-yamanashi/eslint-cdk-plugin/blob/main/LICENSE)ファイルを参照してください。
+ライセンスの権利と制限 (MIT) については、[LICENSE](https://github.com/ren-yamanashi/eslint-cdk-plugin/blob/main/LICENSE)ファイルを参照してください。

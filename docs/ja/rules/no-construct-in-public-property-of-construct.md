@@ -16,6 +16,8 @@ Construct の `public` プロパティに Construct 型を使用すると、Cons
 
 代わりに、読み取り専用リソースのための interface (例: `IBucket`) を指定することが推奨されます
 
+(このルールは `Construct` または `Stack` から派生したクラスにのみ適用されます)
+
 ---
 
 #### 🔧 使用方法

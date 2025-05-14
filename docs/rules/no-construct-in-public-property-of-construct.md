@@ -17,6 +17,8 @@ Using Construct types for `public` properties of a Construct is discouraged beca
 
 Instead, it is recommended to specify an interface for read-only resources (e.g. `IBucket`).
 
+(This rule applies only to classes that extends from `Construct` or `Stack`.)
+
 ---
 
 #### 🔧 How to use
