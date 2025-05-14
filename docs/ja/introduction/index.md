@@ -19,4 +19,4 @@ ESLint エディタとの統合は、リアルタイムにコードをチェッ�
 
 ## 🔒 License
 
-ライセンスの権利と制限（MIT）については、[LICENSE](https://github.com/ren-yamanashi/eslint-cdk-plugin/blob/main/LICENSE)ファイルを参照してください。
+ライセンスの権利と制限 (MIT) については、[LICENSE](https://github.com/ren-yamanashi/eslint-cdk-plugin/blob/main/LICENSE)ファイルを参照してください。

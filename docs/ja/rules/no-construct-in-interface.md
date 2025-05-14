@@ -40,7 +40,7 @@ export default [
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
-  // ✅ 読み取り専用のインターフェース (`IBucket` など) は使用できます
+  // ✅ 読み取り専用の interface (`IBucket` など) は使用できます
   readonly bucket: IBucket;
 }
 ```
