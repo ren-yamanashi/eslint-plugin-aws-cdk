@@ -14,6 +14,8 @@ titleTemplate: ":title"
 
 Construct ID に "Construct" という文字列が含まれていると、CDK の世界で止めるべき問題が CloudFormation テンプレートおよび AWS の世界に漏れてしまうため、好ましくありません。(Stack ID についても同様です)
 
+(このルールは `Construct` または `Stack` から派生したクラスにのみ適用されます)
+
 ## オプション
 
 このルールには以下のプロパティを持つオプションがあります：

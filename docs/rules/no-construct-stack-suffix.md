@@ -15,6 +15,8 @@ This rule disallows including the strings "Construct" or "Stack" in Construct ID
 
 Including "Construct" in a Construct ID (and similarly for "Stack" in a Stack ID) is discouraged because it can cause issues that should ideally be contained within the CDK environment to leak into the CloudFormation template and the broader AWS environment.
 
+(This rule applies only to classes that extends from `Construct` or `Stack`.)
+
 ## Options
 
 This rule has an options object with the following properties:
