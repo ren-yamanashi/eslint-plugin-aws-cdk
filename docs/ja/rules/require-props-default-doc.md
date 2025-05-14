@@ -11,8 +11,10 @@ titleTemplate: ":title"
   ルールには含まれていません。
 </div>
 
-Props インターフェイスのオプショナルのプロパティには `@default` JSDoc ドキュメントを必須とします（例：`MyConstructProps`、`StackProps`）  
-クラスのプロパティや Props ではないインターフェースには適用されません。
+このルールは、Construct の Props (interface) で定義されるオプショナルなプロパティに対して、そのデフォルトの挙動を示す `@default` JSDoc タグを含むドキュメントコメントを必須とします。  
+対象となる Props interface の名前は、一般的に `XxxxProps`（例: `MyConstructProps`, `MyStackProps`）のような形式です。
+
+※Class のプロパティや、Construct の Props として意図されていない一般的なインターフェース内のプロパティには、このルールは適用されません。
 
 ---
 
@@ -36,7 +38,7 @@ export default [
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
-  // ✅ `@default` コメントが記載されている
+  // ✅ オプショナルなプロパティに `@default` タグを含むJSDocコメントが記載されている
   /**
    * @default - S3バケットを紐づけない
    */
@@ -55,7 +57,7 @@ interface Config {
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
-  // ❌ `@default`コメントを記載する必要があります
+  // ❌ オプショナルなプロパティにJSDocコメント自体がない
   readonly bucket?: IBucket;
 }
 ```
@@ -64,7 +66,7 @@ interface MyConstructProps {
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
-  // ❌ `@default`コメントを記載する必要があります
+  // ❌ JSDocコメントはあるが、`@default` タグが含まれていない
   /** デフォルト値の説明がないJSDocコメント */
   readonly bucket?: IBucket;
 }
