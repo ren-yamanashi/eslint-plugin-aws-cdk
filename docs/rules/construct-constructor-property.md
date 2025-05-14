@@ -17,6 +17,8 @@ All Construct constructors should follow a consistent parameter naming pattern t
 
 Note: Additional parameters are allowed after the first three, as long as the initial parameters follow the prescribed pattern.
 
+(This rule applies only to classes that extends from `Construct`.)
+
 ---
 
 #### 🔧 How to use
