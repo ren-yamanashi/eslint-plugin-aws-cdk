@@ -5,6 +5,7 @@ titleTemplate: ":title"
 
 <script setup>
 import { useData } from 'vitepress'
+import RuleItem from '../components/RuleItem.vue'
 const { theme } = useData()
 </script>
 
@@ -15,39 +16,6 @@ const { theme } = useData()
   margin: 0;
 }
 
-.rule-item {
-  margin: 8px 0;
-  padding: 16px;
-  background-color: var(--vp-c-bg-soft);
-  border-radius: 8px;
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-}
-
-.rule-info {
-  flex-grow: 1;
-}
-
-.rule-name {
-  color: var(--vp-c-brand);
-  font-weight: 600;
-  text-decoration: none;
-  display: block;
-  margin-bottom: 4px;
-}
-
-.rule-description {
-  color: var(--vp-c-text-2);
-  font-size: 0.9em;
-}
-
-.rule-status {
-  display: flex;
-  gap: 8px;
-  padding-top: 4px;
-}
-
 .status-icon {
   width: 20px;
   height: 20px;
@@ -55,18 +23,6 @@ const { theme } = useData()
   align-items: center;
   justify-content: center;
   margin-right: 8px;
-}
-
-.status-icon.recommended {
-  color: var(--vp-c-green);
-}
-
-.status-icon.fixable {
-  color: var(--vp-c-yellow);
-}
-
-.status-icon.deprecated {
-  color: var(--vp-c-red);
 }
 
 .legend {
@@ -111,167 +67,127 @@ const { theme } = useData()
     <div class="legend-icon">
       <span class="status-icon recommended">✅</span>
     </div>
-    <span class="legend-text">Using the <a href="/rules/#recommended-rules">recommended</a> settings will enables this rule</span>
+    <span class="legend-text">Rules enabled when using the <a href="/rules/#recommended-rules">recommended</a> configuration.</span>
   </div>
   <div class="legend-item">
     <div class="legend-icon">
       <span class="status-icon fixable">🔧</span>
     </div>
-    <span class="legend-text">Problems reported by this rule can be fixed automatically with the
-    <a href="https://eslint.org/docs/latest/use/command-line-interface#--fix">--fix command line</a>
-    option</span>
+    <span class="legend-text">
+      Rules that can be automatically fixed using the
+      <a href="https://eslint.org/docs/latest/use/command-line-interface#--fix">--fix</a>
+      option.
+    </span>
   </div>
 </div>
 
-Currently we support the following rules:
+We currently support the following rules:
 
 <ul class="rule-list">
-  <li class="rule-item">
-    <div class="rule-info">
-      <a href="/rules/pascal-case-construct-id" class="rule-name">pascal-case-construct-id</a>
-      <span class="rule-description">Enforce PascalCase for Construct IDs</span>
-    </div>
-    <div class="rule-status">
-      <span class="status-icon recommended">✅</span>
-      <span class="status-icon fixable">🔧</span>
-    </div>
-  </li>
-  <li class="rule-item">
-    <div class="rule-info">
-      <a href="/rules/require-passing-this" class="rule-name">require-passing-this</a>
-      <span class="rule-description">Require passing <code>this</code> in Construct constructors</span>
-    </div>
-    <div class="rule-status">
-      <span class="status-icon recommended">✅</span>
-      <span class="status-icon fixable">🔧</span>
-    </div>
-  </li>
-  <li class="rule-item">
-    <div class="rule-info">
-      <a href="/rules/no-variable-construct-id" class="rule-name">no-variable-construct-id</a>
-      <span class="rule-description">Disallow variables in Construct IDs</span>
-    </div>
-    <div class="rule-status">
-      <span class="status-icon recommended">✅</span>
-      <span class="status-icon fixable"/>
-    </div>
-  </li>
-  <li class="rule-item">
-    <div class="rule-info">
-      <a href="/rules/no-parent-name-construct-id-match" class="rule-name">no-parent-name-construct-id-match</a>
-      <span class="rule-description">Disallow matching parent name in Construct IDs</span>
-    </div>
-    <div class="rule-status">
-      <span class="status-icon recommended">✅</span>
-      <span class="status-icon fixable"/>
-    </div>
-  </li>
-  <li class="rule-item">
-    <div class="rule-info">
-      <a href="/rules/no-construct-stack-suffix" class="rule-name">no-construct-stack-suffix</a>
-      <span class="rule-description">Disallow Construct and Stack names not to use the "Construct" or "Stack" suffix</span>
-    </div>
-    <div class="rule-status">
-      <span class="status-icon recommended">✅</span>
-      <span class="status-icon fixable"/>
-    </div>
-  </li>
-  <li class="rule-item">
-    <div class="rule-info">
-      <a href="/rules/no-class-in-interface" class="rule-name">no-class-in-interface</a>
-      <span class="rule-description">Disallow <code>Class</code> type in interface properties</span>
-    </div>
-    <div class="rule-status">
-      <span class="status-icon recommended">✅</span>
-      <span class="status-icon fixable"/>
-    </div>
-  </li>
-  <li class="rule-item">
-    <div class="rule-info">
-      <a href="/rules/no-construct-in-public-property-of-construct" class="rule-name">no-construct-in-public-property-of-construct</a>
-      <span class="rule-description">Disallow specifying the <code>Class</code> type in the public variable of the Construct or Stack</span>
-    </div>
-    <div class="rule-status">
-      <span class="status-icon recommended">✅</span>
-      <span class="status-icon fixable"/>
-    </div>
-  </li>
-  <li class="rule-item">
-    <div class="rule-info">
-      <a href="/rules/no-mutable-public-property-of-construct" class="rule-name">no-mutable-public-property-of-construct</a>
-      <span class="rule-description">Enforces specifying <code>readonly</code> in the public variables of the Construct or Stack</span>
-    </div>
-    <div class="rule-status">
-      <span class="status-icon recommended">✅</span>
-      <span class="status-icon fixable">🔧</span>
-    </div>
-  </li>
-  <li class="rule-item">
-    <div class="rule-info">
-      <a href="/rules/no-mutable-property-of-props-interface" class="rule-name">no-mutable-property-of-props-interface</a>
-      <span class="rule-description">Enforces specifying <code>readonly</code> in the properties of the Props(interface)</span>
-    </div>
-    <div class="rule-status">
-      <span class="status-icon recommended">✅</span>
-      <span class="status-icon fixable">🔧</span>
-    </div>
-  </li>
-  <li class="rule-item">
-    <div class="rule-info">
-      <a href="/rules/construct-constructor-property" class="rule-name">construct-constructor-property</a>
-      <span class="rule-description">Enforces that constructors of classes extending Construct have the property names 'scope, id' or 'scope, id, props'</span>
-    </div>
-    <div class="rule-status">
-      <span class="status-icon recommended">✅</span>
-      <span class="status-icon fixable"/>
-    </div>
-  </li>
-  <li class="rule-item">
-    <div class="rule-info">
-      <a href="/rules/require-jsdoc" class="rule-name">require-jsdoc</a>
-      <span class="rule-description">Require JSDoc comments for interface properties and Construct's public properties</span>
-    </div>
-    <div class="rule-status">
-      <span class="status-icon recommended"/>
-      <span class="status-icon fixable"/>
-    </div>
-  </li>
-  <li class="rule-item">
-    <div class="rule-info">
-      <a href="/rules/require-props-default-doc" class="rule-name">require-props-default-doc</a>
-      <span class="rule-description">Require <code>@default</code> JSDoc for optional properties of Props(interface)</span>
-    </div>
-    <div class="rule-status">
-      <span class="status-icon recommended"/>
-      <span class="status-icon fixable"/>
-    </div>
-  </li>
-  <li class="rule-item">
-    <div class="rule-info">
-      <a href="/rules/props-name-convention" class="rule-name">props-name-convention</a>
-      <span class="rule-description">Enforce Props(interface) name to follow <code>${ConstructName}Props</code> format</span>
-    </div>
-    <div class="rule-status">
-      <span class="status-icon recommended"/>
-      <span class="status-icon fixable"/>
-    </div>
-  </li>
-  <li class="rule-item">
-    <div class="rule-info">
-      <a href="/rules/no-import-private" class="rule-name">no-import-private</a>
-      <span class="rule-description">Disallow importing private modules</span>
-    </div>
-    <div class="rule-status">
-      <span class="status-icon recommended"/>
-      <span class="status-icon fixable"/>
-    </div>
-  </li>
+  <RuleItem
+    name="construct-constructor-property"
+    description="Enforces that constructors of CDK Constructs have parameter names 'scope, id' or 'scope, id, props'."
+    link="/rules/construct-constructor-property"
+    :isRecommended="true"
+    :isFixable="false"
+  />
+  <RuleItem
+    name="no-construct-in-interface"
+    description="Disallows specifying CDK Construct types (e.g., Bucket) for interface properties."
+    link="/rules/no-construct-in-interface"
+    :isRecommended="true"
+    :isFixable="false"
+  />
+  <RuleItem
+    name="no-construct-in-public-property-of-construct"
+    description="Disallows specifying Construct types (e.g., Bucket) for public properties of CDK Constructs."
+    link="/rules/no-construct-in-public-property-of-construct"
+    :isRecommended="true"
+    :isFixable="false"
+  />
+  <RuleItem
+    name="no-construct-stack-suffix"
+    description="Disallows 'Construct' or 'Stack' strings in Construct and Stack IDs."
+    link="/rules/no-construct-stack-suffix"
+    :isRecommended="true"
+    :isFixable="false"
+  />
+  <RuleItem
+    name="no-import-private"
+    description="Disallows importing modules from private directories at different hierarchy levels."
+    link="/rules/no-import-private"
+    :isRecommended="false"
+    :isFixable="false"
+  />
+  <RuleItem
+    name="no-mutable-property-of-props-interface"
+    description="Enforces that properties of Props(interface) are specified with readonly."
+    link="/rules/no-mutable-property-of-props-interface"
+    :isRecommended="true"
+    :isFixable="true"
+  />
+  <RuleItem
+    name="no-mutable-public-property-of-construct"
+    description="Enforces that public properties of Constructs are specified with readonly."
+    link="/rules/no-mutable-public-property-of-construct"
+    :isRecommended="true"
+    :isFixable="true"
+  />
+  <RuleItem
+    name="no-parent-name-construct-id-match"
+    description="Disallows specifying the parent class name in Construct IDs."
+    link="/rules/no-parent-name-construct-id-match"
+    :isRecommended="true"
+    :isFixable="false"
+  />
+  <RuleItem
+    name="no-variable-construct-id"
+    description="Disallows using variables for Construct IDs."
+    link="/rules/no-variable-construct-id"
+    :isRecommended="true"
+    :isFixable="false"
+  />
+  <RuleItem
+    name="pascal-case-construct-id"
+    description="Enforces PascalCase for Construct IDs."
+    link="/rules/pascal-case-construct-id"
+    :isRecommended="true"
+    :isFixable="true"
+  />
+  <RuleItem
+    name="props-name-convention"
+    description="Enforces that Props(interface) names follow the ${ConstructName}Props format."
+    link="/rules/props-name-convention"
+    :isRecommended="false"
+    :isFixable="false"
+  />
+  <RuleItem
+    name="require-jsdoc"
+    description="Requires JSDoc comments for interface properties and public properties of Constructs."
+    link="/rules/require-jsdoc"
+    :isRecommended="false"
+    :isFixable="false"
+  />
+  <RuleItem
+    name="require-passing-this"
+    description="Enforces passing 'this' to the constructor of Constructs."
+    link="/rules/require-passing-this"
+    :isRecommended="true"
+    :isFixable="true"
+  />
+  <RuleItem
+    name="require-props-default-doc"
+    description="Requires '@default' JSDoc for optional properties of Props(interface)."
+    link="/rules/require-props-default-doc"
+    :isRecommended="false"
+    :isFixable="false"
+  />
 </ul>
 
 ## Recommended Rules
 
-Recommended rules for code correctness that you can drop in without additional configuration.  
-when use recommended rules, configure as follows.
+The `recommended` rules are suggested for maintaining correct code.  
+To use these rules, configure as follows:
 
 ```js
 // eslint.config.mjs
@@ -291,8 +207,8 @@ export default [
 
 ## Strict Rules
 
-Strict Rules provides all available rules to improve code quality and consistency.  
-When using strict rules, configure as follows.
+The `strict` rules provide all available rules.
+To use these rules, configure as follows:
 
 ```js
 // eslint.config.mjs

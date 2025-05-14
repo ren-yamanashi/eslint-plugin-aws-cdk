@@ -29,7 +29,7 @@ pnpm install -D eslint-cdk-plugin
 
 `eslint.config.mjs` を以下のように記述します。
 
-<div style="margin-top:16px; margin-bottom:16px; background-color: #595959; padding: 16px;border-radius: 4px;">
+<div class="info-item">
   🚨 このプラグインは FlatConfig のみをサポートしています。
   <br />
   ❓  <a href="https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file-formats">
@@ -37,7 +37,7 @@ pnpm install -D eslint-cdk-plugin
   </a>
 </div>
 
-<div style="margin-top:16px; margin-bottom:16px; background-color: #595959; padding: 16px;border-radius: 4px;">
+<div class="info-item">
   🚨 このプラグインは typescript の型情報を使う為
   <a href="https://typescript-eslint.io/getting-started">
     typescript-eslint
