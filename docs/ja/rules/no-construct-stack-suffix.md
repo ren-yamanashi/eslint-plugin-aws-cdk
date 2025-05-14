@@ -20,7 +20,10 @@ Construct ID に "Construct" という文字列が含まれていると、CDK �
 
 このルールには以下のプロパティを持つオプションがあります：
 
-- `disallowedSuffixes` (デフォルト: `["Construct", "Stack"]`) - 禁止する suffix の配列。"Construct"、"Stack"、または両方を含めることができます。
+- `disallowedSuffixes` - 禁止する suffix の配列。"Construct"、"Stack"、または両方を含めることができます。
+
+※1. デフォルトでは `["Construct", "Stack"]` が指定されています  
+※2. `recommended` ルールセットでは `["Construct", "Stack"]` が指定されています
 
 ---
 

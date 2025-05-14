@@ -21,7 +21,10 @@ Including "Construct" in a Construct ID (and similarly for "Stack" in a Stack ID
 
 This rule has an options object with the following properties:
 
-- `disallowedSuffixes` (default: `["Construct", "Stack"]`) - An array of suffixes to disallow. Can include "Construct", "Stack", or both.
+- `disallowedSuffixes` - An array of suffixes to disallow. Can include "Construct", "Stack", or both.
+
+Note 1: By default `["Construct", "Stack"]` is specified.  
+Note 2: The `recommended` rule set specifies `["Construct", "Stack"]`.
 
 ---
 
