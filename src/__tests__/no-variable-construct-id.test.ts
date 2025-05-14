@@ -164,7 +164,7 @@ ruleTester.run("no-variable-construct-id", noVariableConstructId, {
         }
       }
       `,
-      errors: [{ messageId: "noVariableConstructId" }],
+      errors: [{ messageId: "invalidConstructId" }],
     },
     {
       code: `
@@ -181,7 +181,7 @@ ruleTester.run("no-variable-construct-id", noVariableConstructId, {
         }
       }
       `,
-      errors: [{ messageId: "noVariableConstructId" }],
+      errors: [{ messageId: "invalidConstructId" }],
     },
     // WHEN: id is template literal, with expressions
     {
@@ -199,7 +199,7 @@ ruleTester.run("no-variable-construct-id", noVariableConstructId, {
         "  }",
         "}",
       ].join("\n"),
-      errors: [{ messageId: "noVariableConstructId" }],
+      errors: [{ messageId: "invalidConstructId" }],
     },
     // WHEN: using the function
     {
@@ -217,7 +217,7 @@ ruleTester.run("no-variable-construct-id", noVariableConstructId, {
         }
       }
       `,
-      errors: [{ messageId: "noVariableConstructId" }],
+      errors: [{ messageId: "invalidConstructId" }],
     },
     {
       code: `
@@ -235,7 +235,7 @@ ruleTester.run("no-variable-construct-id", noVariableConstructId, {
         }
       }
       `,
-      errors: [{ messageId: "noVariableConstructId" }],
+      errors: [{ messageId: "invalidConstructId" }],
     },
   ],
 });

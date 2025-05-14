@@ -102,7 +102,7 @@ ruleTester.run("no-construct-stack-suffix", noConstructStackSuffix, {
         }
       }
       new SampleConstruct({ name: "sample" }, "SampleConstruct");`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
+      errors: [{ messageId: "invalidConstructId" }],
     },
     // WHEN: stack id has "Stack" suffix, and extends Stack
     {
@@ -114,7 +114,7 @@ ruleTester.run("no-construct-stack-suffix", noConstructStackSuffix, {
         }
       }
       new SampleStack({ name: "sample" }, "SampleStack");`,
-      errors: [{ messageId: "noConstructStackSuffix" }],
+      errors: [{ messageId: "invalidConstructId" }],
     },
     // WHEN: disallowedSuffixes includes only "Construct", only construct id with "Construct" suffix is disallowed
     {
@@ -127,7 +127,7 @@ ruleTester.run("no-construct-stack-suffix", noConstructStackSuffix, {
       }
       new SampleConstruct({ name: "sample" }, "SampleConstruct");`,
       options: [{ disallowedSuffixes: ["Construct"] }],
-      errors: [{ messageId: "noConstructStackSuffix" }],
+      errors: [{ messageId: "invalidConstructId" }],
     },
     // WHEN: disallowedSuffixes includes only "Stack", only stack id with "Stack" suffix is disallowed
     {
@@ -140,7 +140,7 @@ ruleTester.run("no-construct-stack-suffix", noConstructStackSuffix, {
       }
       new SampleStack({ name: "sample" }, "SampleStack");`,
       options: [{ disallowedSuffixes: ["Stack"] }],
-      errors: [{ messageId: "noConstructStackSuffix" }],
+      errors: [{ messageId: "invalidConstructId" }],
     },
   ],
 });

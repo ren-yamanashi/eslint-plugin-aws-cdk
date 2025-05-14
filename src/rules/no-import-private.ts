@@ -16,7 +16,7 @@ export const noImportPrivate: Rule.RuleModule = {
         "Cannot import modules from private dir at different levels of the hierarchy.",
     },
     messages: {
-      noImportPrivate:
+      invalidImportPath:
         "Cannot import modules from private dir at different levels of the hierarchy.",
     },
     schema: [],
@@ -43,7 +43,7 @@ export const noImportPrivate: Rule.RuleModule = {
             (segment, index) => segment !== importDirSegments[index]
           )
         ) {
-          context.report({ node, messageId: "noImportPrivate" });
+          context.report({ node, messageId: "invalidImportPath" });
         }
       },
     };

@@ -36,7 +36,7 @@ ruleTester.run("no-import-private", noImportPrivate, {
     {
       code: 'import { sample } from "../sampleB/private/c.ts";',
       filename: "src/sampleA/a.ts",
-      errors: [{ messageId: "noImportPrivate" }],
+      errors: [{ messageId: "invalidImportPath" }],
     },
   ],
 });

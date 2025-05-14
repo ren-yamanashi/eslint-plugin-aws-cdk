@@ -61,8 +61,8 @@ ruleTester.run(
         }
       `,
         errors: [
-          { messageId: "noMutablePropertyOfPropsInterface" },
-          { messageId: "noMutablePropertyOfPropsInterface" },
+          { messageId: "invalidPropertyOfPropsInterface" },
+          { messageId: "invalidPropertyOfPropsInterface" },
         ],
       },
       // WHEN: Some properties do not have readonly
@@ -79,7 +79,7 @@ ruleTester.run(
           readonly age: number;
         }
       `,
-        errors: [{ messageId: "noMutablePropertyOfPropsInterface" }],
+        errors: [{ messageId: "invalidPropertyOfPropsInterface" }],
       },
       // WHEN: Optional properties do not have readonly
       {
@@ -96,8 +96,8 @@ ruleTester.run(
         }
       `,
         errors: [
-          { messageId: "noMutablePropertyOfPropsInterface" },
-          { messageId: "noMutablePropertyOfPropsInterface" },
+          { messageId: "invalidPropertyOfPropsInterface" },
+          { messageId: "invalidPropertyOfPropsInterface" },
         ],
       },
     ],

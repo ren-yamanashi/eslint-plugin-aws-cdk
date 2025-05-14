@@ -100,7 +100,7 @@ ruleTester.run(
             public test: DependencyClass;
           }
         `,
-        errors: [{ messageId: "noConstructInPublicPropertyOfConstruct" }],
+        errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
       },
       // WHEN: implicitly public field uses Construct type
       {
@@ -111,7 +111,7 @@ ruleTester.run(
             test: DependencyClass;
           }
         `,
-        errors: [{ messageId: "noConstructInPublicPropertyOfConstruct" }],
+        errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
       },
       // WHEN: readonly public field uses class type
       {
@@ -122,7 +122,7 @@ ruleTester.run(
             public readonly test: DependencyClass;
           }
         `,
-        errors: [{ messageId: "noConstructInPublicPropertyOfConstruct" }],
+        errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
       },
       // WHEN: constructor parameter property uses Construct type
       {
@@ -133,7 +133,7 @@ ruleTester.run(
             constructor(public test: DependencyClass) {}
           }
         `,
-        errors: [{ messageId: "noConstructInPublicPropertyOfConstruct" }],
+        errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
       },
     ],
   }

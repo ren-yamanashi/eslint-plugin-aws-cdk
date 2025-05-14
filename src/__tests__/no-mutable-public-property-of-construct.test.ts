@@ -79,7 +79,7 @@ ruleTester.run(
             public test: DependencyClass;
           }
         `,
-        errors: [{ messageId: "noMutablePublicPropertyOfConstruct" }],
+        errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
         output: `
           class DependencyClass {}
           class SampleConstruct extends Construct {}
@@ -97,7 +97,7 @@ ruleTester.run(
             public test: DependencyClass;
           }
         `,
-        errors: [{ messageId: "noMutablePublicPropertyOfConstruct" }],
+        errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
         output: `
           class Construct {}
           class DependencyClass {}
@@ -115,7 +115,7 @@ ruleTester.run(
             public test: DependencyClass;
           }
         `,
-        errors: [{ messageId: "noMutablePublicPropertyOfConstruct" }],
+        errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
         output: `
           class Stack {}
           class DependencyClass {}
@@ -133,7 +133,7 @@ ruleTester.run(
             test: DependencyClass;
           }
         `,
-        errors: [{ messageId: "noMutablePublicPropertyOfConstruct" }],
+        errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
         output: `
           class Construct {}
           class DependencyClass {}

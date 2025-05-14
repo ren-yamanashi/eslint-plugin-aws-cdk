@@ -9,7 +9,7 @@ import {
 import { isConstructOrStackType } from "../utils/typeCheck";
 
 type Context = TSESLint.RuleContext<
-  "noConstructInPublicPropertyOfConstruct",
+  "invalidPublicPropertyOfConstruct",
   []
 >;
 
@@ -27,7 +27,7 @@ export const noConstructInPublicPropertyOfConstruct =
         description: "Disallow Construct types in public property of Construct",
       },
       messages: {
-        noConstructInPublicPropertyOfConstruct:
+        invalidPublicPropertyOfConstruct:
           "Public property '{{ propertyName }}' of Construct should not use Construct type '{{ typeName }}'. Consider using an interface or type alias instead.",
       },
       schema: [],
@@ -96,7 +96,7 @@ const validatePublicPropertyOfConstruct = (
 
     context.report({
       node: property,
-      messageId: "noConstructInPublicPropertyOfConstruct",
+      messageId: "invalidPublicPropertyOfConstruct",
       data: {
         propertyName: property.key.name,
         typeName: type.symbol.name,
@@ -135,7 +135,7 @@ const validateConstructorParameterProperty = (
 
     context.report({
       node: param,
-      messageId: "noConstructInPublicPropertyOfConstruct",
+      messageId: "invalidPublicPropertyOfConstruct",
       data: {
         propertyName: param.parameter.name,
         typeName: type.symbol.name,

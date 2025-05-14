@@ -116,7 +116,7 @@ ruleTester.run(
           new SampleClass(scope, "TestClass");
         }
       }`,
-        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+        errors: [{ messageId: "invalidConstructId" }],
       },
 
       // WHEN: child class inside constructor (expression statement)
@@ -135,7 +135,7 @@ ruleTester.run(
           new SampleClass(scope, "SampleTestClass");
         }
       }`,
-        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+        errors: [{ messageId: "invalidConstructId" }],
         options: [{ disallowContainingParentName: true }],
       },
 
@@ -154,7 +154,7 @@ ruleTester.run(
           const test = new SampleClass(scope, "TestClass");
         }
       }`,
-        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+        errors: [{ messageId: "invalidConstructId" }],
       },
       // WHEN: child statement inside if statement inside constructor (expression statement)
       {
@@ -171,7 +171,7 @@ ruleTester.run(
           if (true) new SampleClass(scope, "TestClass");
         }
       }`,
-        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+        errors: [{ messageId: "invalidConstructId" }],
       },
       // WHEN: child statement inside if statement inside constructor (block statement)
       {
@@ -190,7 +190,7 @@ ruleTester.run(
           }
         }
       }`,
-        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+        errors: [{ messageId: "invalidConstructId" }],
       },
       // WHEN: child statement inside if statement inside inside constructor (block statement / nested)
       {
@@ -211,7 +211,7 @@ ruleTester.run(
           }
         }
       }`,
-        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+        errors: [{ messageId: "invalidConstructId" }],
       },
       // WHEN: child statement inside switch statement inside inside constructor (expression statement)
       {
@@ -232,7 +232,7 @@ ruleTester.run(
           }
         }
       }`,
-        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+        errors: [{ messageId: "invalidConstructId" }],
       },
       // WHEN: child statement inside switch statement inside inside constructor (block statement)
       {
@@ -254,7 +254,7 @@ ruleTester.run(
           }
         }
       }`,
-        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+        errors: [{ messageId: "invalidConstructId" }],
       },
       // WHEN: child statement inside switch statement inside inside constructor (block statement / nested)
       {
@@ -279,7 +279,7 @@ ruleTester.run(
           }
         }
       }`,
-        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+        errors: [{ messageId: "invalidConstructId" }],
       },
       // WHEN: in method
       {
@@ -298,7 +298,7 @@ ruleTester.run(
           new SampleClass(scope, "TestClass");
         }
       }`,
-        errors: [{ messageId: "noParentNameConstructIdMatch" }],
+        errors: [{ messageId: "invalidConstructId" }],
       },
     ],
   }

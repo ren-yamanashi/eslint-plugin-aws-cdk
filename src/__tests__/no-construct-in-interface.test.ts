@@ -60,7 +60,7 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
         test: TestClass;
       }
       `,
-      errors: [{ messageId: "noConstructInInterfaceProps" }],
+      errors: [{ messageId: "invalidInterfaceProperty" }],
     },
   ],
 });
