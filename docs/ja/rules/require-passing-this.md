@@ -18,23 +18,30 @@ titleTemplate: ":title"
 </div>
 
 このルールは `Construct` に `this` を渡すことを強制します。  
-(このルールは `Construct` を継承するクラスにのみ適用されます)
 
 AWS CDK リソースを作成するとき、`Construct` に `this` を渡すことは正しいリソース階層を維持するために重要です。  
-`scope` のような他の値を使用すると、次のような問題が発生する可能性があります
+
+Construct のコンストラクタの第一引数へ `this` 以外の値 (特に、親コンストラクタから受け取った `scope` 変数など) を渡してしまうと、次のような問題が発生する可能性があります
 
 - 生成される CloudFormation テンプレートのリソース階層が正しくない
 - 予期しないリソースの命名
+
+(このルールは `Construct` から派生したクラスにのみ適用されます)
 
 ## オプション
 
 このルールには以下のプロパティを持つオプションがあります：
 
-### `allowNonThisAndDisallowScope` (デフォルト: `false`)
+### `allowNonThisAndDisallowScope`
 
-`true` の場合、Construct コンストラクタの第一引数に `this` 以外の値を指定できるようになります (ただし、`scope` 変数の使用は禁止されます)。 これは、あるコンストラクトを別のコンストラクトの子として作成したい場合に便利です。
+Construct のコンストラクタの第一引数 (スコープ) として、`this` 以外の値を許可するかどうかを決定します。
 
-※`recommended` ルールセットでは `true` が指定されています
+- `false`: 新しい Construct をインスタンス化する際、第一引数 (スコープ) として `this` のみが許可されます
+- `true`: `this` 以外の Construct インスタンスを第一引数 (スコープ) として渡すことを許可します
+  - ただし、親コンストラクタが受け取った `scope` 変数を直接使用することは引き続き禁止されます
+  - この設定は、ネストされた Construct 階層を作成する場合に便利です。
+
+※ `recommended` ルールセットでは、このオプションは `true` に設定されています。
 
 ---
 
@@ -46,10 +53,12 @@ export default [
   {
     // ... some configs
     rules: {
-      // デフォルト: すべての Construct インスタンス化で this を要求
+      // allowNonThisAndDisallowScope: false: 
+      // スコープとして `this` のみ許可
       "cdk/require-passing-this": "error",
 
-      // this 以外の値を許可 (scope 変数は禁止)
+      // allowNonThisAndDisallowScope: true:
+      // スコープとして `this` 以外を許可 (ただし、親の `scope` 変数の直接使用は禁止)
       "cdk/require-passing-this": [
         "error",
         { allowNonThisAndDisallowScope: true },
@@ -69,12 +78,13 @@ export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // ✅ this を使用できます
+    // ✅ `this` は常に使用できます
     new Bucket(this, "SampleBucket");
 
-    // ✅ allowNonThisAndDisallowScope が true の場合、this 以外の変数を使用できます(ただし、scope 変数は禁止)
+    // 以下の例は `allowNonThisAndDisallowScope` が `true` (推奨設定) の場合に有効
     const sample = new SampleConstruct(this, "Sample");
-    new OtherConstruct(sample, "Child"); // allowNonThisAndDisallowScope が true の場合は有効
+    // ✅ `sample` (Construct のインスタンス) をスコープとして渡すことが許可される
+    new OtherConstruct(sample, "Child"); 
   }
 }
 ```
@@ -90,7 +100,8 @@ export class MyConstruct extends Construct {
     super(scope, id);
 
     // ❌ scope を使用すべきではありません
-    new Bucket(scope, "SampleBucket"); // allowNonThisAndDisallowScope が true の場合でも無効
+    // allowNonThisAndDisallowScope が true の場合でも無効
+    new Bucket(scope, "SampleBucket");
   }
 }
 ```
