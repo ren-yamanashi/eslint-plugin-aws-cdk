@@ -20,12 +20,13 @@ It is not recommended to specify a string that matches (or includes) the parent 
 
 This rule has an option with the following properties:
 
-### `disallowContainingParentName` (default: `false`)
+### `disallowContainingParentName`
 
 When `true`, disallows using construct IDs that contain the parent class name.
 When `false`, using construct IDs that contain the parent class name is allowed, but using construct IDs that **exactly match** the parent class name is disallowed.
 
-Note: The `recommended` rule set specifies `false`.
+Note 1: By default `false` is specified.  
+Note 2: The `recommended` rule set specifies `false`.
 
 ---
 

@@ -40,7 +40,8 @@ Determines whether to allow constructs other than `this` as the scope (first arg
   - However, directly passing the `scope` variable received by the parent's constructor is still disallowed.
   - This setting is useful for creating nested construct hierarchies.
 
-Note: The `recommended` rule set specifies this option as `true`.
+Note 1: By default `false` is specified.  
+Note 2: The `recommended` rule set specifies `true`.
 
 ---
 

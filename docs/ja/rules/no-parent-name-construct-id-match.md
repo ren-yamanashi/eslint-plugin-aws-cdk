@@ -20,12 +20,13 @@ Construct ID に、親クラス名と一致する(または含む)文字列を�
 
 このルールには以下のプロパティを持つオプションがあります：
 
-### `disallowContainingParentName` (デフォルト: `false`)
+### `disallowContainingParentName`
 
 `true` の場合、親クラス名を含むコンストラクト ID を使用することを禁止します。  
 `false` の場合、親クラス名を含むコンストラクト ID の使用は許可されますが、親クラス名と完全に一致するコンストラクト ID の使用は禁止します。
 
-※`recommended` ルールセットでは `false` が指定されています
+※1. デフォルトでは `false` が指定されています
+※2. `recommended` ルールセットでは `false` が指定されています
 
 ---
 
