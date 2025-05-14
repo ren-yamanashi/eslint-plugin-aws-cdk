@@ -16,6 +16,8 @@ Where `${ConstructName}` is the name of the Construct class.
 
 Following a consistent naming pattern clarifies the relationship between Construct and its Props(interface), improving code maintainability and ease of understanding.
 
+(This rule applies only to classes that extends from `Construct`.)
+
 ---
 
 #### 🔧 How to use
@@ -50,26 +52,13 @@ class MyConstruct extends Construct {
 }
 ```
 
-```ts
-import { IBucket } from "aws-cdk-lib/aws-s3";
-
-// ✅ This rule does not apply to interfaces that are not Construct classes
-interface Props {
-  readonly bucket?: string;
-}
-
-class NotConstruct {
-  constructor(props: Props) {}
-}
-```
-
 #### ❌ Incorrect Examples
 
 ```ts
 import { Construct } from "constructs";
 import { IBucket } from "aws-cdk-lib/aws-s3";
 
-// ❌ Props interface name must follow ${ConstructName}Props format
+// ❌ Props(interface) name must follow the ${ConstructName}Props format
 interface Props {
   readonly bucket?: string;
 }
