@@ -10,15 +10,16 @@ titleTemplate: ":title"
   を使用した場合、このルールが有効になります。
 </div>
 
-このルールは、コンストラクト ID に変数を使用しないことを強制するものです。  
-(このルールは `Construct` から継承したクラスにのみ適用されます)
+このルールは、Construct ID に変数を使用しないことを強制するものです。  
 
-コンストラクト ID（論理 ID）に変数を使用することは、以下の問題を引き起こす可能性があるため適切ではありません  
+Construct ID に変数を使用することは、以下の問題を引き起こす可能性があるため適切ではありません  
 (for, while, forEach, map などのループ処理は対象外です)
 
 - 不要な重複
 - パラメータ変更時のリソース再作成
-- ID の一意性を重視するあまり、不要な文字列を混在させてしまう。
+- ID の一意性を重視するあまり、不要な文字列を混在させてしまう
+
+(このルールは `Construct` から派生したクラスにのみ適用されます)
 
 ---
 
@@ -53,7 +54,7 @@ class MyConstruct extends Construct {
     // ✅ 文字列リテラルは使用できます
     new Bucket(this, "Bucket");
 
-    // ✅ ループ変数は使用できます
+    // ✅ ループ変数内では Construct ID に変数を使用できます
     for (const [key, value] of Object.entries(props.environments)) {
       new Bucket(this, `${key}Bucket`);
     }
@@ -75,16 +76,10 @@ class MyConstruct extends Construct {
   constructor(scope: Construct, id: string, props: MyConstructProps) {
     super(scope, id);
 
-    // ❌ コンストラクトIDとしてパラメータを使用すべきではありません
+    // ❌ Construct ID に constructor の `id` プロパティを直接指定できません
     new Bucket(this, id);
 
-    // ❌ パラメータをテンプレート文字列に組み合わせるべきではありません
-    new Bucket(this, `${id}Bucket`);
-
-    // ❌ パラメータを任意の式に組み合わせるべきではありません
-    new Bucket(this, id + "Bucket");
-
-    // ❌ プロパティを直接使用しても問題です
+    // ❌ Construct ID に変数を使用できません (テンプレート文字列を使用)
     new Bucket(this, `${props.stage}Bucket`);
   }
 }
