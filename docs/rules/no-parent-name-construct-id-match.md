@@ -11,21 +11,21 @@ titleTemplate: ":title"
   in an ESLint configuration enables this rule.
 </div>
 
-This rule disallows using the parent class name as the construct IDs.  
-(This rule applies only to classes that extends `Construct`.)
+This rule disallows using the parent class name as the Construct ID.
 
-It is not good to specify a string that matches (or includes) the parent class name for construct ID, as it makes the CloudFormation resource hierarchy unclear.
+It is not recommended to specify a string that matches (or includes) the parent class name for the Construct ID, as it can make the CloudFormation resource hierarchy unclear.
+(This rule applies only to classes derived from `Construct` or `Stack`.)
 
 ## Options
 
-This rule has an options with the following properties:
+This rule has an option with the following properties:
 
 ### `disallowContainingParentName` (default: `false`)
 
-When `true`, disallows construct IDs that contain the parent class name.  
-When `false`, allows construct IDs that contain the parent class name, but disallows construct IDs that match the parent class name.
+When `true`, disallows using construct IDs that contain the parent class name.
+When `false`, using construct IDs that contain the parent class name is allowed, but using construct IDs that **exactly match** the parent class name is disallowed.
 
-Note: The `recommended` rule set has `false` specified.
+Note: The `recommended` rule set specifies `false`.
 
 ---
 
@@ -37,7 +37,7 @@ export default [
   {
     // ... some configs
     rules: {
-      // Default: allow construct IDs that contain the parent class name (But disallow construct IDs that match the parent class name)
+      // Default: Allows construct IDs that contain the parent class name (but disallows construct IDs that exactly match the parent class name)
       "cdk/no-parent-name-construct-id-match": "error",
 
       // Disallow construct IDs that contain the parent class name
@@ -60,10 +60,10 @@ export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // ✅ Can use a different name
+    // ✅ Can use a different name from the parent construct
     const bucket = new Bucket(this, "MyBucket");
 
-    // ✅ With disallowContainingParentName is false, can use a construct ID that contains the parent class name
+    // ✅ When disallowContainingParentName is false (default setting), construct IDs containing the parent class name can be used
     const bucket = new Bucket(this, "MyConstructBucket");
   }
 }
@@ -79,10 +79,10 @@ export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // ❌ Construct ID should not match the parent class
+    // ❌ Construct ID should not exactly match the parent class name
     const bucket = new Bucket(this, "MyConstruct");
 
-    // ❌ With disallowContainingParentName is true, Construct ID should not include the parent class name
+    // ❌ When disallowContainingParentName is true, Construct ID should not include the parent class name
     const bucket = new Bucket(this, "MyConstructBucket");
   }
 }
