@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 3.0.0 (2025-05-15)
+
+### New features/Updates to existing features
+
+- "no-public-class-fields" rule to "no-construct-in-public-property-of-construct" ([#152](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/152)) ([6ec5f67](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/6ec5f67026e8f37924c815bf69ae21918bdb5e0f))
+- rename "no-mutable-props-interface" rule to "no-mutable-property-of-props-interface" ([#151](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/151)) ([559b3f1](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/559b3f1fccc81be0fa17ea834a6ad8e329c37f77))
+- rename "no-mutable-public-field" rule to "no-mutable-public-property-of-construct" ([#150](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/150)) ([132c713](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/132c713f8e65f906807f81829e179ab8c45442bc))
+- "no-class-in-interface" rule to "no-construct-in-interface" ([#149](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/149)) ([d33a94e](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/d33a94ebb76b268dfe2bfe5189b0d88e58788961))
+- be more specific in code line for suggestion ([#147](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/147)) ([077b2ca](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/077b2ca4927a597fa2269360895bc43474d47502))
+- generate llms.txt and llms-full.txt ([#144](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/144)) ([d7fa40d](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/d7fa40d222d1be9bc70333bfad72601634c746f2))
+
+### Documentation changes
+
+- make documentation more thorough and detailed ([#148](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/148)) ([8ee04fd](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/8ee04fdf9ba823423353b456cdb05488fb7e1752))
+- modify document style ([#145](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/145)) ([64cb9b8](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/64cb9b8f31e2bd5df8f3d261f697d2d8fe113428))
+- update rule options ([#153](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/153)) ([b1bd0b3](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/b1bd0b37740065bc86b181edfa624df8a27e4981))
+- update VERSIONING_POLICY ([#156](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/156)) ([869a2ce](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/869a2ce5b50fce2371fbe1d5729a2af63fe637fb))
+
+### Other changes
+
+- update dependencies ([#157](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/157)) ([a51dea5](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/a51dea5548f3b8e7c08ceec96cdbbbfbdbd8d0c1))
+- update eslint.config.js ([#155](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/155)) ([c294a4a](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/c294a4a99a2aba0c1ad598715746481397470682))
+- update messageId of rules ([#154](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/154)) ([0b89d11](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/0b89d110253dc34bdfca8800701cd8f0236b9053))
+
 ## 2.2.0 (2025-03-18)
 
 ### New features/Updates to existing features
