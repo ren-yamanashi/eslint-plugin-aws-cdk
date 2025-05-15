@@ -4,8 +4,8 @@ import tsEslint from "typescript-eslint";
 
 export default tsEslint.config(
   eslint.configs.recommended,
-  ...tsEslint.configs.strict,
-  ...tsEslint.configs.stylistic,
+  ...tsEslint.configs.strictTypeChecked,
+  ...tsEslint.configs.stylisticTypeChecked,
   {
     files: ["src/*.{mts,ts}", "src/**/*.{mts,ts}"],
     languageOptions: {
@@ -19,10 +19,6 @@ export default tsEslint.config(
     plugins: {
       import: importPlugin,
     },
-    extends: [
-      ...tsEslint.configs.strictTypeChecked,
-      ...tsEslint.configs.stylisticTypeChecked,
-    ],
     rules: {
       /**
        *
