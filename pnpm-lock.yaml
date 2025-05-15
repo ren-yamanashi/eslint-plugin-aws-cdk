@@ -19,7 +19,7 @@ importers:
         specifier: ^9.26.0
         version: 9.26.0
       '@types/node':
-        specifier: ^22.15.18
+        specifier: ^22.15.0
         version: 22.15.18
       '@typescript-eslint/rule-tester':
         specifier: ^8.32.1
