@@ -19,10 +19,13 @@ eslint-cdk-plugin follows semantic versioning. To clarify when a minor or major 
 
 ### Major Release (likely to break your lint build)
 
-- `recommended` config is updated and may result in new linting errors
-- A new rule is added (enabled by default)
-- Removing deprecated rules or functionality
-- Changes that require a new minimum version of Node.js or ESLint
+A Major Release indicates that there are breaking changes. Users may need to update their configurations or code to use the new version. Examples of breaking changes include:
+
+- The `recommended` config is updated, potentially resulting in new linting errors.
+- A new rule is added and enabled by default in a shared config like `recommended`.
+- Existing rules or functionality are removed (e.g., after a deprecation period).
+- The public API of the plugin changes in an incompatible way.
+- Changes that require a new minimum version of Node.js or ESLint.
 
 ### Version Pinning Recommendations
 
