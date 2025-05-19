@@ -6,12 +6,10 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
+import { SYMBOL_FLAGS } from "../constants/tsInternalFlags";
 import { isConstructOrStackType } from "../utils/typeCheck";
 
-type Context = TSESLint.RuleContext<
-  "invalidPublicPropertyOfConstruct",
-  []
->;
+type Context = TSESLint.RuleContext<"invalidPublicPropertyOfConstruct", []>;
 
 /**
  * Disallow Construct types in public property of Construct
@@ -94,6 +92,12 @@ const validatePublicPropertyOfConstruct = (
     const type = parserServices.getTypeAtLocation(property);
     if (!isConstructOrStackType(type)) continue;
 
+    // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
+    //       Therefore, the type information structures do not match.
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+    const isClass = type.symbol.flags === SYMBOL_FLAGS.CLASS;
+    if (!isClass) continue;
+
     context.report({
       node: property,
       messageId: "invalidPublicPropertyOfConstruct",
@@ -132,6 +136,12 @@ const validateConstructorParameterProperty = (
 
     const type = parserServices.getTypeAtLocation(param);
     if (!isConstructOrStackType(type)) continue;
+
+    // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
+    //       Therefore, the type information structures do not match.
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+    const isClass = type.symbol.flags === SYMBOL_FLAGS.CLASS;
+    if (!isClass) continue;
 
     context.report({
       node: param,
