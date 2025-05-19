@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.1](https://github.com/ren-yamanashi/eslint-cdk-plugin/compare/v3.0.0...v3.0.1) (2025-05-19)
+
+
+### Bug fixes
+
+* "no-construct-in-public-property-of-construct" and "no-class-in-interface" ([#159](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/159)) ([fdd525f](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/fdd525fe4013bcafabea3eeaccde2e52eddd9976))
+
 ## 3.0.0 (2025-05-15)
 
 ### New features/Updates to existing features
