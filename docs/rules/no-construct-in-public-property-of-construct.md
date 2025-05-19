@@ -3,13 +3,13 @@ title: eslint-cdk-plugin - no-construct-in-public-property-of-construct
 titleTemplate: ":title"
 ---
 
+<script setup>
+import RecommendedItem from '../components/RecommendedItem.vue'
+</script>
+
 # no-construct-in-public-property-of-construct
 
-<div class="info-item">
-  ✅ Using
-  <a href="/rules/#recommended-rules">recommended</a>
-  in an ESLint configuration enables this rule.
-</div>
+<RecommendedItem />
 
 This rule disallows specifying Construct types (e.g. `Bucket`) for `public` properties of a CDK Construct.
 

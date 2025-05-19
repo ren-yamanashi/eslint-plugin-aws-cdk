@@ -3,12 +3,13 @@ title: eslint-cdk-plugin - no-construct-stack-suffix
 titleTemplate: ":title"
 ---
 
+<script setup>
+import RecommendedItem from '../../components/RecommendedItem.vue'
+</script>
+
 # no-construct-stack-suffix
 
-<div class="info-item">
-  ✅ <a href="/ja/rules/#recommended-rules">recommended</a>
-  を使用した場合、このルールが有効になります。
-</div>
+<RecommendedItem japanese />
 
 このルールは、Construct ID および Stack ID に "Construct" または "Stack" 文字列を含めることを禁止します。
 

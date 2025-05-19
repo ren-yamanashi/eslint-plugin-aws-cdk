@@ -4,13 +4,13 @@ titleTemplate: ":title"
 next: false
 ---
 
+<script setup>
+import NotRecommendedItem from '../../components/NotRecommendedItem.vue'
+</script>
+
 # no-import-private
 
-<div class="info-item">
-  ℹ️ このルールは
-  <a href="/ja/rules/#recommended-rules">recommended</a>
-  ルールには含まれていません。
-</div>
+<NotRecommendedItem japanese />
 
 このルールは、異なる階層レベルの `private` ディレクトリからのモジュールの import を禁止します。
 

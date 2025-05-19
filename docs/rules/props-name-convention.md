@@ -3,13 +3,13 @@ title: eslint-cdk-plugin - props-name-convention
 titleTemplate: ":title"
 ---
 
+<script setup>
+import NotRecommendedItem from '../components/NotRecommendedItem.vue'
+</script>
+
 # props-name-convention
 
-<div class="info-item">
-  ℹ️ This rule is not included in the
-  <a href="/rules/#recommended-rules">recommended</a>
-  rules.
-</div>
+<NotRecommendedItem />
 
 Forces the Props(interface) name of the Construct class to follow the form `${ConstructName}Props`.  
 Where `${ConstructName}` is the name of the Construct class.

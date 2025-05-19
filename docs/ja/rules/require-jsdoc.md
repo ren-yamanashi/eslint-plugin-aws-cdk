@@ -3,13 +3,13 @@ title: eslint-cdk-plugin - require-jsdoc
 titleTemplate: ":title"
 ---
 
+<script setup>
+import NotRecommendedItem from '../../components/NotRecommendedItem.vue'
+</script>
+
 # require-jsdoc
 
-<div class="info-item">
-  ℹ️ このルールは
-  <a href="/ja/rules/#recommended-rules">recommended</a>
-  ルールには含まれていません。
-</div>
+<NotRecommendedItem japanese />
 
 このルールは、`interface` のプロパティと Construct の public プロパティに JSDoc の記載を必須とします。
 

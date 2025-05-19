@@ -3,13 +3,13 @@ title: eslint-cdk-plugin - no-parent-name-construct-id-match
 titleTemplate: ":title"
 ---
 
+<script setup>
+import RecommendedItem from '../components/RecommendedItem.vue'
+</script>
+
 # no-parent-name-construct-id-match
 
-<div class="info-item">
-  ✅ Using
-  <a href="/rules/#recommended-rules">recommended</a>
-  in an ESLint configuration enables this rule.
-</div>
+<RecommendedItem />
 
 This rule disallows using the parent class name as the Construct ID.
 

@@ -3,13 +3,13 @@ title: eslint-cdk-plugin - no-variable-construct-id
 titleTemplate: ":title"
 ---
 
+<script setup>
+import RecommendedItem from '../components/RecommendedItem.vue'
+</script>
+
 # no-variable-construct-id
 
-<div class="info-item">
-  ✅ Using
-  <a href="/rules/#recommended-rules">recommended</a>
-  in an ESLint configuration enables this rule.
-</div>
+<RecommendedItem />
 
 This rule enforces that variables are not used in Construct IDs.
 

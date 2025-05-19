@@ -3,14 +3,15 @@ title: eslint-cdk-plugin - no-variable-construct-id
 titleTemplate: ":title"
 ---
 
+<script setup>
+import RecommendedItem from '../../components/RecommendedItem.vue'
+</script>
+
 # no-variable-construct-id
 
-<div class="info-item">
-    ✅ <a href="/ja/rules/#recommended-rules">recommended</a>
-  を使用した場合、このルールが有効になります。
-</div>
+<RecommendedItem japanese />
 
-このルールは、Construct ID に変数を使用しないことを強制するものです。  
+このルールは、Construct ID に変数を使用しないことを強制するものです。
 
 Construct ID に変数を使用することは、以下の問題を引き起こす可能性があるため適切ではありません  
 (for, while, forEach, map などのループ処理は対象外です)

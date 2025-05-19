@@ -3,23 +3,19 @@ title: eslint-cdk-plugin - require-passing-this
 titleTemplate: ":title"
 ---
 
+<script setup>
+import RecommendedItem from '../../components/RecommendedItem.vue'
+import FixableItem from '../../components/FixableItem.vue'
+</script>
+
 # require-passing-this
 
-<div class="info-item">
-    ✅ <a href="/ja/rules/#recommended-rules">recommended</a>
-  を使用した場合、このルールが有効になります。
-</div>
-<div class="info-item">
-  🔧 このルールによってエラーになるコードは
-  <a href="https://eslint.org/docs/latest/use/command-line-interface#--fix">
-    ESLint の --fix コマンド
-  </a>
-  で自動修正できます。
-</div>
+<RecommendedItem japanese />
+<FixableItem japanese />
 
-このルールは `Construct` のコンストラクタに `this` を渡すことを強制します。  
+このルールは `Construct` のコンストラクタに `this` を渡すことを強制します。
 
-AWS CDK リソースを作成するとき、`Construct` に `this` を渡すことは正しいリソース階層を維持するために重要です。  
+AWS CDK リソースを作成するとき、`Construct` に `this` を渡すことは正しいリソース階層を維持するために重要です。
 
 Construct のコンストラクタの第一引数へ `this` 以外の値 (特に、親コンストラクタから受け取った `scope` 変数など) を渡してしまうと、次のような問題が発生する可能性があります
 
@@ -54,7 +50,7 @@ export default [
   {
     // ... some configs
     rules: {
-      // allowNonThisAndDisallowScope: false: 
+      // allowNonThisAndDisallowScope: false:
       // スコープとして `this` のみ許可
       "cdk/require-passing-this": "error",
 
@@ -85,7 +81,7 @@ export class MyConstruct extends Construct {
     // 以下の例は `allowNonThisAndDisallowScope` が `true` (推奨設定) の場合に有効
     const sample = new SampleConstruct(this, "Sample");
     // ✅ `sample` (Construct のインスタンス) をスコープとして渡すことが許可される
-    new OtherConstruct(sample, "Child"); 
+    new OtherConstruct(sample, "Child");
   }
 }
 ```

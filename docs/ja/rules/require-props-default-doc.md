@@ -3,13 +3,13 @@ title: eslint-cdk-plugin - require-props-default-doc
 titleTemplate: ":title"
 ---
 
+<script setup>
+import NotRecommendedItem from '../../components/NotRecommendedItem.vue'
+</script>
+
 # require-props-default-doc
 
-<div class="info-item">
-  ℹ️ このルールは
-  <a href="/ja/rules/#recommended-rules">recommended</a>
-  ルールには含まれていません。
-</div>
+<NotRecommendedItem japanese />
 
 このルールは、Construct の Props (interface) で定義されるオプショナルなプロパティに対して、そのデフォルトの挙動を示す `@default` JSDoc タグを含むドキュメントコメントを必須とします。  
 対象となる Props interface の名前は、一般的に `XxxxProps`（例: `MyConstructProps`, `MyStackProps`）のような形式です。

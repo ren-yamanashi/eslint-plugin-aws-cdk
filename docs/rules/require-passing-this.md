@@ -3,19 +3,15 @@ title: eslint-cdk-plugin - require-passing-this
 titleTemplate: ":title"
 ---
 
+<script setup>
+import RecommendedItem from '../components/RecommendedItem.vue'
+import FixableItem from '../components/FixableItem.vue'
+</script>
+
 # require-passing-this
 
-<div class="info-item">
-  ✅ Using
-  <a href="/rules/#recommended-rules">recommended</a>
-  in an ESLint configuration enables this rule.
-</div>
-<div class="info-item">
-  🔧 Some problems reported by this rule are automatically fixable by the
-  <a href="https://eslint.org/docs/latest/use/command-line-interface#--fix">
-    --fix ESLint command line option
-  </a>
-</div>
+<RecommendedItem />
+<FixableItem />
 
 This rule enforces passing `this` as the scope when creating new Construct instances within a Construct.
 
@@ -53,7 +49,7 @@ export default [
   {
     // ... some configs
     rules: {
-      // allowNonThisAndDisallowScope: false: 
+      // allowNonThisAndDisallowScope: false:
       // Only `this` is allowed as scope.
       "cdk/require-passing-this": "error",
 
@@ -99,7 +95,7 @@ export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // ❌ Shouldn't use the parent's `scope` variable, 
+    // ❌ Shouldn't use the parent's `scope` variable,
     //    this is invalid even when allowNonThisAndDisallowScope is true.
     new Bucket(scope, "SampleBucket");
   }

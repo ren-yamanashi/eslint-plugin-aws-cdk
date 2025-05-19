@@ -3,13 +3,14 @@ title: eslint-cdk-plugin - construct-constructor-property
 titleTemplate: ":title"
 ---
 
+<script setup>
+import RecommendedItem from '../../components/RecommendedItem.vue'
+import Playground from '../../components/Playground.vue'
+</script>
+
 # construct-constructor-property
 
-<div class="info-item">
-  ✅ ESLint設定で
-  <a href="/ja/rules/#recommended-rules">recommended</a>
-  を使用すると、このルールが有効になります。
-</div>
+<RecommendedItem japanese />
 
 このルールは、CDK Construct の `constructor` が `scope, id` または `scope, id, props` というプロパティ名を持つことを強制します。
 
@@ -136,3 +137,5 @@ export class MyConstruct extends Construct {
   }
 }
 ```
+
+<Playground link="https://eslint-online-playground.netlify.app/#eNqVVM1uEzEQfhVrTzRKNijcwgWJFokDpWq4sRVyvJOtE6+9sr1tV1GO3HgEeDmehLG99i75QaKV2sTzzcznb8bfPrOGKbnhVb41SmbLbF9IQoqMqbrhAvTnxnIlTZEtiY+4mKW6AuuOiuxmtXi9WBTZNAYFX7vI1z70psgeUqxWZSsgJt7CCxY5Ct6DUaJ1PQNs3coSaYxwxmrOfHerW0jHWil7zRHosoxmfcYB/x4KmU3d2Ryviukts7P0SelZo1UD2na5NSgArxulLdmT9xFCDmSjVe1V6Y9QkLeFdL/w4uFcWtAbyoB86lLiHRY2QTcNtFRSdGTdsh3YW1rDkriryAoLIcNCzufk98/vQ1ulyTO3j+46DAlOCS+LjESyRGIJk/ozQY0Z9yaoLsjSjK7hiYwu/srXXQ4I1yKyuorzNi32C1AXv0K6KOuI868f5APXxpKGauSEOhBuiFTWUywj/yJL8BUgi/Iy3l00gb88cv0PrNMDp3EkxLf/VKLuVida1N3HpIb75qe5PJnvkVB9pZAexAqtlIBcqAoBIS3KiKsJRuD+5OkhDlvIyt2daCsu4wYG6AzPZ40P+EXs0dbc+HAE264BwzRv7Czk9VvbS1XChrbC4ltFKnmO6x/SeyIm1zinukbtoPSPKbG5iOil2KB1oFRoApPJfIKFBxcQVFYtraA3lmQrxI3YgMZnHWmEgz4vxk/zMKLVFphdgX7iDIc4Mgb3Ey3uPljEkgS5ctwnmpdcu1VKcGcYw38c0ANKhjNqKNsh7SObdAoHy4ne5tOKrISna2icMJJxfKd/+efpWFwFQS2YsSMOuAuAM8twFvcuAOdbz+NioQtB+mx8i97ZzyDGtjgGpBU//AFJWjME" />

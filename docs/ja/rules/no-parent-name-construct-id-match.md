@@ -3,14 +3,15 @@ title: eslint-cdk-plugin - no-parent-name-construct-id-match
 titleTemplate: ":title"
 ---
 
+<script setup>
+import RecommendedItem from '../../components/RecommendedItem.vue'
+</script>
+
 # no-parent-name-construct-id-match
 
-<div class="info-item">
-    ✅ <a href="/ja/rules/#recommended-rules">recommended</a>
-  を使用した場合、このルールが有効になります。
-</div>
+<RecommendedItem japanese />
 
-このルールでは、Construct ID に 親クラスの名前を指定することを禁止します。  
+このルールでは、Construct ID に 親クラスの名前を指定することを禁止します。
 
 Construct ID に、親クラス名と一致する(または含む)文字列を指定すると、CloudFormation リソースの階層が不明瞭になるため、推奨されません。
 

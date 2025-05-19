@@ -3,13 +3,13 @@ title: eslint-cdk-plugin - require-jsdoc
 titleTemplate: ":title"
 ---
 
+<script setup>
+import NotRecommendedItem from '../components/NotRecommendedItem.vue'
+</script>
+
 # require-jsdoc
 
-<div class="info-item">
-  ℹ️ This rule is not included in the
-  <a href="/rules/#recommended-rules">recommended</a>
-  rules.
-</div>
+<NotRecommendedItem />
 
 This rule requires JSDoc comments for interface properties and, public properties in Construct classes.
 

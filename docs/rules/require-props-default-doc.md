@@ -3,13 +3,13 @@ title: eslint-cdk-plugin - require-props-default-doc
 titleTemplate: ":title"
 ---
 
+<script setup>
+import NotRecommendedItem from '../components/NotRecommendedItem.vue'
+</script>
+
 # require-props-default-doc
 
-<div class="info-item">
-  ℹ️ This rule is not included in the
-  <a href="/rules/#recommended-rules">recommended</a>
-  rules.
-</div>
+<NotRecommendedItem />
 
 This rule requires a documentation comment including a `@default` JSDoc tag for optional properties defined in a Construct's Props interface, to indicate their default behavior.  
 The names of such Props interfaces typically follow a format like `XxxxProps` (e.g., `MyConstructProps`, `MyStackProps`).

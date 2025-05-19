@@ -3,19 +3,15 @@ title: eslint-cdk-plugin - pascal-case-construct-id
 titleTemplate: ":title"
 ---
 
+<script setup>
+import RecommendedItem from '../../components/RecommendedItem.vue'
+import FixableItem from '../../components/FixableItem.vue'
+</script>
+
 # pascal-case-construct-id
 
-<div class="info-item">
-    ✅ <a href="/ja/rules/#recommended-rules">recommended</a>
-  を使用した場合、このルールが有効になります。
-</div>
-<div class="info-item">
-  🔧 このルールによってエラーになるコードは
-  <a href="https://eslint.org/docs/latest/use/command-line-interface#--fix">
-    ESLint の --fix コマンド
-  </a>
-  で自動修正できます。
-</div>
+<RecommendedItem japanese />
+<FixableItem japanese />
 
 このルールは、Construct ID を PascalCase で記述することを強制します
 

@@ -4,13 +4,13 @@ titleTemplate: ":title"
 next: false
 ---
 
+<script setup>
+import NotRecommendedItem from '../components/NotRecommendedItem.vue'
+</script>
+
 # no-import-private
 
-<div class="info-item">
-  ℹ️ This rule is not included in the
-  <a href="/rules/#recommended-rules">recommended</a>
-  rules.
-</div>
+<NotRecommendedItem />
 
 This rule disallows importing modules from `private` directories at different hierarchical levels.
 

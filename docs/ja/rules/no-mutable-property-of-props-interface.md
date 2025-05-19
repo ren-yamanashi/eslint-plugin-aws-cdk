@@ -3,19 +3,15 @@ title: eslint-cdk-plugin - no-mutable-property-of-props-interface
 titleTemplate: ":title"
 ---
 
+<script setup>
+import RecommendedItem from '../../components/RecommendedItem.vue'
+import FixableItem from '../../components/FixableItem.vue'
+</script>
+
 # no-mutable-property-of-props-interface
 
-<div class="info-item">
-    ✅ <a href="/ja/rules/#recommended-rules">recommended</a>
-  を使用した場合、このルールが有効になります。
-</div>
-<div class="info-item">
-  🔧 このルールによってエラーになるコードは
-  <a href="https://eslint.org/docs/latest/use/command-line-interface#--fix">
-    ESLint の --fix コマンド
-  </a>
-  で自動修正できます。
-</div>
+<RecommendedItem japanese />
+<FixableItem japanese />
 
 このルールは、CDK Construct または Stack の、`Props` (interface) の `public` プロパティを変更可能にすることを禁止します。  
 (`readonly` 修飾子がない Props プロパティの定義を禁止します)
