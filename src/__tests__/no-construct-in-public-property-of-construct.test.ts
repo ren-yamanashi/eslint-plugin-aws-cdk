@@ -89,6 +89,16 @@ ruleTester.run(
           }
         `,
       },
+      // WHEN: public field uses interface that extends Construct
+      {
+        code: `
+          class IConstruct {}
+          interface ITestClass extends IConstruct {}
+          class TestClass extends Construct {
+            public test: ITestClass;
+          }
+        `,
+      },
     ],
     invalid: [
       // WHEN: public field uses Construct type
