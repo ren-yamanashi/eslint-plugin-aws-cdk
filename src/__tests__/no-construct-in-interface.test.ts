@@ -50,6 +50,16 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       }
       `,
     },
+    // WHEN: property type is interface that extends Construct
+    {
+      code: `
+      interface IConstruct {}
+      interface SampleInterface extends IConstruct {}
+      interface TestInterface {
+        test: SampleInterface;
+      }
+      `,
+    },
   ],
   invalid: [
     {
