@@ -6,6 +6,7 @@ titleTemplate: ":title"
 <script setup>
 import RecommendedItem from '../../components/RecommendedItem.vue'
 import FixableItem from '../../components/FixableItem.vue'
+import Playground from '../../components/Playground.vue'
 </script>
 
 # no-mutable-public-property-of-construct
@@ -61,3 +62,5 @@ export class MyConstruct extends Construct {
   public bucket: IBucket;
 }
 ```
+
+<Playground link="https://eslint-online-playground.netlify.app/#eNqdVDty2zAQvQqGpcYkM0qnNJnELlLkM3YZugCBlQIJBDD42NZoVKbLEZLL5SRZgARJyVITFSJn39vdx4ddHArvmFZrsam2TqtiVRwaRUhTMN0ZIcF+NV5o5ZpiRRISMU/tBnwMNcXdw/LNctkUNxmUoo3I9wF62xSPI9ZpHiTkxC/wgkXOwHtwWobYs6e1QXGUMeM5bwVL3b0NMIat1v5WIDFmOcuGjCP+HxtV3MRYrXTZBU9bCaUJrRSsNFYbsH5f6nWJRmDxwHzlHTohOqOtJwfyMcfJkayt7pI9QwidedeokfrpQ2A7mBHpsysZ35VoSx3fHRqCCY2Cl5TCJHWOfN5PPdAVUNzNuibj65r8/f2T9LKJBcq1knsy6BfgCLVAqJT6GXhMOGe2SdkqS0QR6Mv/6fjzK1eftXc/dJCctDC2nKm40ByPBJwUylfjAE6mo2XfZNgIlX3sqclKk4C5797dJTiT/d6AY1YYX/Z5p55zWNMgPc4oCqwqPO0+fRDiKgs4/h1+PfA0RKOaq4xhN9a4Mi4N/2JRL7DwNP2Sqk2gGxgWalwntIhaBxbHOcvoA0Nexl/nIWL1Fph/APskGJwsRPzl1b7vV2NFeruqDjytuLCKdhM9Lsr0xNF4RMvwjAxlO5R9dj1Eh/tVyzud0pqCw9MtmGiMYjgVp/fG62OJFST14OY3wcS7QrgwDBd573tivU06rha6As5W9wpjfgvMCYODx+L4DyVC00M=" />

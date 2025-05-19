@@ -5,6 +5,7 @@ titleTemplate: ":title"
 
 <script setup>
 import RecommendedItem from '../components/RecommendedItem.vue'
+import Playground from '../components/Playground.vue'
 </script>
 
 # no-construct-stack-suffix
@@ -86,3 +87,5 @@ export class MyConstruct extends Construct {
   }
 }
 ```
+
+<Playground link="https://eslint-online-playground.netlify.app/#eNrFVTty2zAQvQqGTWyPRGWcTmkyiV06yVhFitAFDawkWCDAwce2RqMyXY6QXC4nyeJDEpLFzKSyC9vaffvR7nuLXWENVXLJV+WDUbKYF7tKElIVVDUtF6C/tJYraapiToLH+2ytV2C9qSquF5dvLy+rYtI5Bb/3nu/J9a4q7npfo5gT0AV+hmdMcuS8BaOE8zUj7N5Jhm1kOGM1p6G61Q56s1bKXnEE+iijaYrY4+99JYuJt82kmuK3xQyO2qmxNd1MjVsu+XNpDX533rRKW7IjnzoQ2ZOlVk0YSDLhLN5Xsod+dHQDGa5+MlPKNlOcw8z/b3ACOX7hq56EB1wl4TkgqaiNITfboRUcF0hmsubCRvrGlD7DXbYwHxATwtmc+InJ1Xm3QONaSFDvPw9VvWM2I39+/SDf1iCJXQMC/WiwyT5fVRBuiFSW1IwBw3DrDZiv4dYCK2MiCU9pLmd2zc0EU9xso6EqDuv9/kkWa+UEk28scQZGC49mjh8z5P8UCNvIkwdD1nUC+JxIJuQSMgmM4NKWvW4G5uAmvwq34rJbb4SGDbfBkZPBmuvg7sB224Khmrd2GuMOGcFgWTthUVrYSlkiZWN4asSUGlC1DXIENxOY0XUzikiMWKLSTdDsxcXsAhMPohW1XLl6BekO9FeAkLbWBjSqsGsjGlJc538Zhx6tHoDaBehHTpGumY79T3eRbqOi5ySOq2zA1iXjWtbNAPf6zv9qvCF5NaTAFTe1EOqJKCm2R2yORMjAKHS2Gb8T8bQNcH95QGs1HKhk3hGWygJbhNA04az6Xd91CPIj/0fbiYmv0HKqfKLdYfIojTskK6qjRTAS5ug98dyOt7l7BEJYVTB4vILWU1JSDkcPzUtB+AyitmDyp2PAjQBOyPAk7kMEzh5CH6OJRpwHt/wkIn9EckB/XPZ/AcSVevM=" />
