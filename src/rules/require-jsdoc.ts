@@ -4,15 +4,16 @@ import {
   ESLintUtils,
 } from "@typescript-eslint/utils";
 
+import { createRule } from "../utils/createRule";
 import { isConstructType } from "../utils/typeCheck";
 
 /**
  * Require JSDoc comments for interface properties and public properties in Construct classes
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
- * @see {@link https://eslint-cdk-plugin.dev/rules/require-jsdoc} - Documentation
  */
-export const requireJSDoc = ESLintUtils.RuleCreator.withoutDocs({
+export const requireJSDoc = createRule({
+  name: "require-jsdoc",
   meta: {
     type: "problem",
     docs: {

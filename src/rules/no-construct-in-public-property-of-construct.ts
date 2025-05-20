@@ -7,6 +7,7 @@ import {
 } from "@typescript-eslint/utils";
 
 import { SYMBOL_FLAGS } from "../constants/tsInternalFlags";
+import { createRule } from "../utils/createRule";
 import { isConstructOrStackType } from "../utils/typeCheck";
 
 type Context = TSESLint.RuleContext<"invalidPublicPropertyOfConstruct", []>;
@@ -15,54 +16,53 @@ type Context = TSESLint.RuleContext<"invalidPublicPropertyOfConstruct", []>;
  * Disallow Construct types in public property of Construct
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
- * @see {@link https://eslint-cdk-plugin.dev/rules/no-construct-in-public-property-of-construct} - Documentation
  */
-export const noConstructInPublicPropertyOfConstruct =
-  ESLintUtils.RuleCreator.withoutDocs({
-    meta: {
-      type: "problem",
-      docs: {
-        description: "Disallow Construct types in public property of Construct",
-      },
-      messages: {
-        invalidPublicPropertyOfConstruct:
-          "Public property '{{ propertyName }}' of Construct should not use Construct type '{{ typeName }}'. Consider using an interface or type alias instead.",
-      },
-      schema: [],
+export const noConstructInPublicPropertyOfConstruct = createRule({
+  name: "no-construct-in-public-property-of-construct",
+  meta: {
+    type: "problem",
+    docs: {
+      description: "Disallow Construct types in public property of Construct",
     },
-    defaultOptions: [],
-    create(context) {
-      const parserServices = ESLintUtils.getParserServices(context);
-      return {
-        ClassDeclaration(node) {
-          const type = parserServices.getTypeAtLocation(node);
-          if (!isConstructOrStackType(type)) return;
-
-          // NOTE: Check class members
-          validatePublicPropertyOfConstruct(node, context, parserServices);
-
-          // NOTE: Check constructor parameter properties
-          const constructor = node.body.body.find(
-            (member): member is TSESTree.MethodDefinition =>
-              member.type === AST_NODE_TYPES.MethodDefinition &&
-              member.kind === "constructor"
-          );
-          if (
-            !constructor ||
-            constructor.value.type !== AST_NODE_TYPES.FunctionExpression
-          ) {
-            return;
-          }
-
-          validateConstructorParameterProperty(
-            constructor,
-            context,
-            parserServices
-          );
-        },
-      };
+    messages: {
+      invalidPublicPropertyOfConstruct:
+        "Public property '{{ propertyName }}' of Construct should not use Construct type '{{ typeName }}'. Consider using an interface or type alias instead.",
     },
-  });
+    schema: [],
+  },
+  defaultOptions: [],
+  create(context) {
+    const parserServices = ESLintUtils.getParserServices(context);
+    return {
+      ClassDeclaration(node) {
+        const type = parserServices.getTypeAtLocation(node);
+        if (!isConstructOrStackType(type)) return;
+
+        // NOTE: Check class members
+        validatePublicPropertyOfConstruct(node, context, parserServices);
+
+        // NOTE: Check constructor parameter properties
+        const constructor = node.body.body.find(
+          (member): member is TSESTree.MethodDefinition =>
+            member.type === AST_NODE_TYPES.MethodDefinition &&
+            member.kind === "constructor"
+        );
+        if (
+          !constructor ||
+          constructor.value.type !== AST_NODE_TYPES.FunctionExpression
+        ) {
+          return;
+        }
+
+        validateConstructorParameterProperty(
+          constructor,
+          context,
+          parserServices
+        );
+      },
+    };
+  },
+});
 
 /**
  * check the public property of Construct

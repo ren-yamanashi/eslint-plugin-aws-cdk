@@ -1,15 +1,16 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
 import { SYMBOL_FLAGS } from "../constants/tsInternalFlags";
+import { createRule } from "../utils/createRule";
 import { isConstructOrStackType } from "../utils/typeCheck";
 
 /**
  * Enforces the use of interface types instead of CDK Construct types in interface properties
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
- * @see {@link https://eslint-cdk-plugin.dev/rules/no-class-in-interface} - Documentation
  */
-export const noConstructInInterface = ESLintUtils.RuleCreator.withoutDocs({
+export const noConstructInInterface = createRule({
+  name: "no-construct-in-interface",
   meta: {
     type: "problem",
     docs: {

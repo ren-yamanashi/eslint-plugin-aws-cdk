@@ -6,6 +6,7 @@ import {
 } from "@typescript-eslint/utils";
 
 import { toPascalCase } from "../utils/convertString";
+import { createRule } from "../utils/createRule";
 import { getConstructorPropertyNames } from "../utils/parseType";
 import { isConstructOrStackType } from "../utils/typeCheck";
 
@@ -28,9 +29,9 @@ type Context = TSESLint.RuleContext<"invalidConstructId", Options>;
  * Enforces that Construct IDs do not end with 'Construct' or 'Stack' suffix
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
- * @see {@link https://eslint-cdk-plugin.dev/rules/no-construct-stack-suffix} - Documentation
  */
-export const noConstructStackSuffix = ESLintUtils.RuleCreator.withoutDocs({
+export const noConstructStackSuffix = createRule({
+  name: "no-construct-stack-suffix",
   meta: {
     type: "problem",
     docs: {

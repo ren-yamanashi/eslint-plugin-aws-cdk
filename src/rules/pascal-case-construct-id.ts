@@ -6,6 +6,7 @@ import {
 } from "@typescript-eslint/utils";
 
 import { toPascalCase } from "../utils/convertString";
+import { createRule } from "../utils/createRule";
 import { getConstructorPropertyNames } from "../utils/parseType";
 import { isConstructOrStackType } from "../utils/typeCheck";
 
@@ -23,9 +24,9 @@ type Context = TSESLint.RuleContext<"invalidConstructId", []>;
  * Enforce PascalCase for Construct ID.
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
- * @see {@link https://eslint-cdk-plugin.dev/rules/pascal-case-construct-id} - Documentation
  */
-export const pascalCaseConstructId = ESLintUtils.RuleCreator.withoutDocs({
+export const pascalCaseConstructId = createRule({
+  name: "pascal-case-construct-id",
   meta: {
     type: "problem",
     docs: {

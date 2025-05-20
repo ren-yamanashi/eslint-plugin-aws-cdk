@@ -4,15 +4,16 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
+import { createRule } from "../utils/createRule";
 import { isConstructType } from "../utils/typeCheck";
 
 /**
  * Enforces a naming convention for props interfaces in Construct classes
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
- * @see {@link https://eslint-cdk-plugin.dev/rules/props-name-convention} - Documentation
  */
-export const propsNameConvention = ESLintUtils.RuleCreator.withoutDocs({
+export const propsNameConvention = createRule({
+  name: "props-name-convention",
   meta: {
     type: "problem",
     docs: {
