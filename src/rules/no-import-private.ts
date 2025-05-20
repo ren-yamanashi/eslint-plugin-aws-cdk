@@ -6,12 +6,12 @@ import { Rule } from "eslint";
  * Disallow importing modules from private directories at different levels of the hierarchy.
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
- * @see {@link https://eslint-cdk-plugin.dev/rules/no-import-private} - Documentation
  */
 export const noImportPrivate: Rule.RuleModule = {
   meta: {
     type: "problem",
     docs: {
+      url: "https://eslint-cdk-plugin.dev/rules/no-import-private",
       description:
         "Cannot import modules from private dir at different levels of the hierarchy.",
     },

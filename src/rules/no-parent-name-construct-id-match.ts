@@ -7,6 +7,7 @@ import {
 } from "@typescript-eslint/utils";
 
 import { toPascalCase } from "../utils/convertString";
+import { createRule } from "../utils/createRule";
 import { isConstructOrStackType, isConstructType } from "../utils/typeCheck";
 
 type Options = [
@@ -37,78 +38,76 @@ type ValidateExpressionArgs<T extends TSESTree.Expression> = {
  * Enforce that construct IDs does not match the parent construct name.
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
- * @see {@link https://eslint-cdk-plugin.dev/rules/no-parent-name-construct-id-match} - Documentation
  */
-export const noParentNameConstructIdMatch = ESLintUtils.RuleCreator.withoutDocs(
-  {
-    meta: {
-      type: "problem",
-      docs: {
-        description:
-          "Enforce that construct IDs does not match the parent construct name.",
-      },
-      messages: {
-        invalidConstructId:
-          "Construct ID '{{ constructId }}' should not match parent construct name '{{ parentConstructName }}'. Use a more specific identifier.",
-      },
-      schema: [
-        {
-          type: "object",
-          properties: {
-            disallowContainingParentName: {
-              type: "boolean",
-              default: false,
-            },
-          },
-          additionalProperties: false,
-        },
-      ],
+export const noParentNameConstructIdMatch = createRule({
+  name: "no-parent-name-construct-id-match",
+  meta: {
+    type: "problem",
+    docs: {
+      description:
+        "Enforce that construct IDs does not match the parent construct name.",
     },
-    defaultOptions: [
+    messages: {
+      invalidConstructId:
+        "Construct ID '{{ constructId }}' should not match parent construct name '{{ parentConstructName }}'. Use a more specific identifier.",
+    },
+    schema: [
       {
-        disallowContainingParentName: false,
+        type: "object",
+        properties: {
+          disallowContainingParentName: {
+            type: "boolean",
+            default: false,
+          },
+        },
+        additionalProperties: false,
       },
     ],
-
-    create(context: Context) {
-      const option = context.options[0] || {
-        disallowContainingParentName: false,
-      };
-      const parserServices = ESLintUtils.getParserServices(context);
-      return {
-        ClassBody(node) {
-          const type = parserServices.getTypeAtLocation(node);
-
-          if (!isConstructOrStackType(type)) return;
-
-          const parent = node.parent;
-          if (parent?.type !== AST_NODE_TYPES.ClassDeclaration) return;
-
-          const parentClassName = parent.id?.name;
-          if (!parentClassName) return;
-
-          for (const body of node.body) {
-            // NOTE: Ignore if neither method nor constructor.
-            if (
-              body.type !== AST_NODE_TYPES.MethodDefinition ||
-              !["method", "constructor"].includes(body.kind) ||
-              body.value.type !== AST_NODE_TYPES.FunctionExpression
-            ) {
-              continue;
-            }
-            validateConstructorBody({
-              expression: body.value,
-              parentClassName,
-              context,
-              parserServices,
-              option,
-            });
-          }
-        },
-      };
+  },
+  defaultOptions: [
+    {
+      disallowContainingParentName: false,
     },
-  }
-);
+  ],
+
+  create(context: Context) {
+    const option = context.options[0] || {
+      disallowContainingParentName: false,
+    };
+    const parserServices = ESLintUtils.getParserServices(context);
+    return {
+      ClassBody(node) {
+        const type = parserServices.getTypeAtLocation(node);
+
+        if (!isConstructOrStackType(type)) return;
+
+        const parent = node.parent;
+        if (parent?.type !== AST_NODE_TYPES.ClassDeclaration) return;
+
+        const parentClassName = parent.id?.name;
+        if (!parentClassName) return;
+
+        for (const body of node.body) {
+          // NOTE: Ignore if neither method nor constructor.
+          if (
+            body.type !== AST_NODE_TYPES.MethodDefinition ||
+            !["method", "constructor"].includes(body.kind) ||
+            body.value.type !== AST_NODE_TYPES.FunctionExpression
+          ) {
+            continue;
+          }
+          validateConstructorBody({
+            expression: body.value,
+            parentClassName,
+            context,
+            parserServices,
+            option,
+          });
+        }
+      },
+    };
+  },
+});
 
 /**
  * Validate the constructor body for the parent class

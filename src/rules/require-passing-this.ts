@@ -4,6 +4,7 @@ import {
   TSESLint,
 } from "@typescript-eslint/utils";
 
+import { createRule } from "../utils/createRule";
 import { getConstructorPropertyNames } from "../utils/parseType";
 import { isConstructType } from "../utils/typeCheck";
 
@@ -19,9 +20,9 @@ type Context = TSESLint.RuleContext<"missingPassingThis", Options>;
  * Enforces that `this` is passed to the constructor
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
- * @see {@link https://eslint-cdk-plugin.dev/rules/require-passing-this} - Documentation
  */
-export const requirePassingThis = ESLintUtils.RuleCreator.withoutDocs({
+export const requirePassingThis = createRule({
+  name: "require-passing-this",
   meta: {
     type: "problem",
     docs: {

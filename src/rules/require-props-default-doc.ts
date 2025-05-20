@@ -1,16 +1,14 @@
-import {
-  AST_NODE_TYPES,
-  AST_TOKEN_TYPES,
-  ESLintUtils,
-} from "@typescript-eslint/utils";
+import { AST_NODE_TYPES, AST_TOKEN_TYPES } from "@typescript-eslint/utils";
+
+import { createRule } from "../utils/createRule";
 
 /**
  * Requires @default JSDoc documentation for optional properties in interfaces ending with 'Props'
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
- * @see {@link https://eslint-cdk-plugin.dev/rules/require-props-default-doc} - Documentation
  */
-export const requirePropsDefaultDoc = ESLintUtils.RuleCreator.withoutDocs({
+export const requirePropsDefaultDoc = createRule({
+  name: "require-props-default-doc",
   meta: {
     type: "problem",
     docs: {

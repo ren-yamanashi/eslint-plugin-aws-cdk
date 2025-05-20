@@ -5,6 +5,7 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
+import { createRule } from "../utils/createRule";
 import { getConstructorPropertyNames } from "../utils/parseType";
 import { isConstructType } from "../utils/typeCheck";
 
@@ -15,7 +16,8 @@ type Context = TSESLint.RuleContext<"invalidConstructId", []>;
  * @param context - The rule context provided by ESLint
  * @returns An object containing the AST visitor functions
  */
-export const noVariableConstructId = ESLintUtils.RuleCreator.withoutDocs({
+export const noVariableConstructId = createRule({
+  name: "no-variable-construct-id",
   meta: {
     type: "problem",
     docs: {
