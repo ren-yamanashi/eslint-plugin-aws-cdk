@@ -4,23 +4,14 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [3.0.3](https://github.com/ren-yamanashi/eslint-cdk-plugin/compare/v3.0.0...v3.0.3) (2025-05-20)
 
-
-### Bug fixes
-
-* "no-construct-in-public-property-of-construct" and "no-class-in-interface" ([#159](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/159)) ([fdd525f](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/fdd525fe4013bcafabea3eeaccde2e52eddd9976))
-
-
 ### Other changes
 
-* add link to each rule ([#163](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/163)) ([dbd5580](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/dbd558019f9410e25c1e530b89205685bd38bcc7))
-* release v3.0.1 ([#160](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/160)) ([3edcefd](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/3edcefd56052a64858383475fc52bc38e26d8130))
-* release v3.0.2 ([#161](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/161)) ([81f905c](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/81f905c739f4762fdc5e8f538779806e9124e3a6))
-
+- add link to each rule ([#163](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/163)) ([dbd5580](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/dbd558019f9410e25c1e530b89205685bd38bcc7))
 
 ### Documentation changes
 
-* add eslint-online-playground link ([#164](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/164)) ([06b60d7](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/06b60d78ff56ad51096725c7933837fc300f1d1c))
-* add plugin playground ([#162](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/162)) ([819fdd4](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/819fdd40ea78ee75273eea1b0a6224d0b04a05ab))
+- add eslint-online-playground link ([#164](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/164)) ([06b60d7](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/06b60d78ff56ad51096725c7933837fc300f1d1c))
+- add plugin playground ([#162](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/162)) ([819fdd4](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/819fdd40ea78ee75273eea1b0a6224d0b04a05ab))
 
 ### [3.0.2](https://github.com/ren-yamanashi/eslint-cdk-plugin/compare/v3.0.0...v3.0.2) (2025-05-19)
 

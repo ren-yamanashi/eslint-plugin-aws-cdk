@@ -47,8 +47,7 @@
     "@typescript-eslint/utils": "^8.32.1"
   },
   "volta": {
-    "node": "22.15.0",
-    "pnpm": "10.10.0"
+    "node": "22.15.0"
   },
   "files": [
     "dist",
