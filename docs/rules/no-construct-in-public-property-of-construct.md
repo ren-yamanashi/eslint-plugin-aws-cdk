@@ -36,7 +36,7 @@ export default [
 ];
 ```
 
-#### ✅ Correct Examples
+#### ✅ Correct Example
 
 ```ts
 import { Construct } from "constructs";

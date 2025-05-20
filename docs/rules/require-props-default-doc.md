@@ -33,7 +33,7 @@ export default [
 ];
 ```
 
-#### ✅ Correct Examples
+#### ✅ Correct Example
 
 ```ts
 import { IBucket } from "aws-cdk-lib/aws-s3";
@@ -52,7 +52,7 @@ interface Config {
 }
 ```
 
-#### ❌ Incorrect Examples
+#### ❌ Incorrect Example
 
 ```ts
 import { IBucket } from "aws-cdk-lib/aws-s3";

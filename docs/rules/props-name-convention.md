@@ -35,7 +35,7 @@ export default [
 ];
 ```
 
-#### ✅ Correct Examples
+#### ✅ Correct Example
 
 ```ts
 import { Construct } from "constructs";
@@ -53,7 +53,7 @@ class MyConstruct extends Construct {
 }
 ```
 
-#### ❌ Incorrect Examples
+#### ❌ Incorrect Example
 
 ```ts
 import { Construct } from "constructs";

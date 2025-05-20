@@ -5,7 +5,7 @@ titleTemplate: ":title"
 
 <script setup>
 import RecommendedItem from '../../components/RecommendedItem.vue'
-import Playground from '../components/Playground.vue'
+import Playground from '../../components/Playground.vue'
 </script>
 
 # no-parent-name-construct-id-match
@@ -27,7 +27,7 @@ Construct ID に、親クラス名と一致する(または含む)文字列を�
 `true` の場合、親クラス名を含むコンストラクト ID を使用することを禁止します。  
 `false` の場合、親クラス名を含むコンストラクト ID の使用は許可されますが、親クラス名と完全に一致するコンストラクト ID の使用は禁止します。
 
-※1. デフォルトでは `false` が指定されています
+※1. デフォルトでは `false` が指定されています  
 ※2. `recommended` ルールセットでは `false` が指定されています
 
 ---

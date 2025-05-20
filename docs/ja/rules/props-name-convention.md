@@ -5,7 +5,7 @@ titleTemplate: ":title"
 
 <script setup>
 import NotRecommendedItem from '../../components/NotRecommendedItem.vue'
-import Playground from '../components/Playground.vue'
+import Playground from '../../components/Playground.vue'
 </script>
 
 # props-name-convention
