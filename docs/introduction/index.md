@@ -1,3 +1,8 @@
+---
+title: eslint-cdk-plugin - Introduction
+titleTemplate: ":title"
+---
+
 # Introduction
 
 This is an ESLint plugin for the [AWS Cloud Development Kit (AWS CDK)](https://aws.amazon.com/cdk/).

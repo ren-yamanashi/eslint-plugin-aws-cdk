@@ -4,13 +4,21 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  text: {
+    type: String,
+    default: "View on Playground",
+  },
+  noMargin: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 
 <template>
-  <div class="playground-link">
+  <div :class="{ 'mt-4': !props.noMargin }">
     <a :href="props.link" target="_blank" rel="noopener">
-      <strong>View on Playground</strong>
+      <strong>{{ props.text }}</strong>
       <svg
         class="_icon"
         xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +55,7 @@ const props = defineProps({
 </template>
 
 <style scoped>
-.playground-link {
+.mt-4 {
   margin-top: 4em;
 }
 

@@ -1,7 +1,6 @@
 ---
 title: eslint-cdk-plugin - no-import-private
 titleTemplate: ":title"
-next: false
 ---
 
 <script setup>
