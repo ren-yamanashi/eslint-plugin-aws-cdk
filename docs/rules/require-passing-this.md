@@ -3,19 +3,16 @@ title: eslint-cdk-plugin - require-passing-this
 titleTemplate: ":title"
 ---
 
+<script setup>
+import RecommendedItem from '../components/RecommendedItem.vue'
+import FixableItem from '../components/FixableItem.vue'
+import Playground from '../components/Playground.vue'
+</script>
+
 # require-passing-this
 
-<div class="info-item">
-  ✅ Using
-  <a href="/rules/#recommended-rules">recommended</a>
-  in an ESLint configuration enables this rule.
-</div>
-<div class="info-item">
-  🔧 Some problems reported by this rule are automatically fixable by the
-  <a href="https://eslint.org/docs/latest/use/command-line-interface#--fix">
-    --fix ESLint command line option
-  </a>
-</div>
+<RecommendedItem />
+<FixableItem />
 
 This rule enforces passing `this` as the scope when creating new Construct instances within a Construct.
 
@@ -53,7 +50,7 @@ export default [
   {
     // ... some configs
     rules: {
-      // allowNonThisAndDisallowScope: false: 
+      // allowNonThisAndDisallowScope: false:
       // Only `this` is allowed as scope.
       "cdk/require-passing-this": "error",
 
@@ -99,9 +96,11 @@ export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // ❌ Shouldn't use the parent's `scope` variable, 
+    // ❌ Shouldn't use the parent's `scope` variable,
     //    this is invalid even when allowNonThisAndDisallowScope is true.
     new Bucket(scope, "SampleBucket");
   }
 }
 ```
+
+<Playground link="https://eslint-online-playground.netlify.app/#eNqNVc1uGjEQfpXRXhIiWKr0RlWpbZJjkyqkp26kdXYHcPDaW9sLQYhjb32E9uX6JB3b+xcCUTgAmvnmf+bzNrImU3LG5/GjUTKaRNtEAiRRpoqSC9Q3peVKmiSagNc4nWV6jtaJkuhqev7u/DyJho1S8Aen+VGr3ifRfasrVF4JbAyv8Ymc7Clv0ShRuZgB9lDJnNLo4YzVPPPRra6wFWul7CUnoLMyOqstdvS9S2Q0dLKxxp8V1zgqmTFczkd2wU1sDZXNi1JpC1u4oGrJcWZhBzOtCt+LWkRt+JDIFvqlypbYw7G1GWX5ckQtGLv/hoonfCLxyVtkgsLC100XgjqAMje9oL7JbUClT2k8JU46xBB4PgHXBDkfNDMxVYk11OkHPqpTjMfw788v+O6qhdSVmwIz4JHADTCxZhv3I9Qa8zgYSVzXtZ06iyGVNmVFKTAIk+i5/7+/YbpQlcjliYXKINgFQsk0SntiIPWxUlgxzdmDaAZGhvRx7l0aXK6Y4DngCiWsF/TlM7pW8o4Qn2V+yY2XTJvE3exfplt34FC+tAp+ExJJoe8ow5lyDl1f8MmjnduQhs8gfS2F1IFTl0QKp9RQLn3VGuluChop5mDQDihDP0swIcJHn2xvA/YaHFKth5YGIxdAUgBjmcwQ1AxYtw2DMEQ/vXawFLXfE+/FxbhYcJG7EHQNaASXNm5vvzsB2uBvoppTRfVaB6jf7NIr+ldgzZVXN2C7KdFkmpd2FOyen0COM1YJS/RAA4ljur1gXidi4l4H/aa02RxF1CcwI7YynnfOzsZn5LgjHsHkvGJzrLmsZTJwW2pQE5M0aQRBbdfoX9qRRqtHzOwU9YpndJ89LvKLXbPqbWClCYR2xQVaFudcS1Z0cMdR/V9NPNiPRvvw2i5OYMaEwUkPfiPFpjn3wwvSQone8uVBYgw03iEdy6LWqiPjWrx9S3ptdd6oGU0Q0lne05bQWpYsW9Kk9h4jt1SB2JsXxJslUY6rSyzdLsiM494r9XITnQfBLJr+u9PhjgAO7P9B3KcAHD/6PI46OqLsPR5HEP1nqA9ouC3a/QeLZJv6" />

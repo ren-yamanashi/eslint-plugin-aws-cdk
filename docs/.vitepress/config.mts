@@ -148,6 +148,11 @@ export default defineConfig({
               },
             ],
           },
+          {
+            text: "Playground",
+            collapsed: true,
+            link: "/playground/",
+          },
         ],
         socialLinks: [
           {
@@ -240,6 +245,11 @@ export default defineConfig({
                 link: "/ja/rules/require-props-default-doc",
               },
             ],
+          },
+          {
+            text: "Playground",
+            collapsed: true,
+            link: "/ja/playground/",
           },
         ],
         socialLinks: [

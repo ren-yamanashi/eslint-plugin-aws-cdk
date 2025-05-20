@@ -3,12 +3,14 @@ title: eslint-cdk-plugin - no-construct-in-interface
 titleTemplate: ":title"
 ---
 
+<script setup>
+import RecommendedItem from '../../components/RecommendedItem.vue'
+import Playground from '../../components/Playground.vue'
+</script>
+
 # no-construct-in-interface
 
-<div class="info-item">
-  ✅ <a href="/ja/rules/#recommended-rules">recommended</a>
-  を使用した場合、このルールが有効になります。
-</div>
+<RecommendedItem japanese />
 
 このルールは、`interface` のプロパティに CDK Construct 型 (例: `Bucket`) を指定することを禁止します。
 
@@ -55,3 +57,5 @@ interface MyConstructProps {
   readonly bucket: Bucket;
 }
 ```
+
+<Playground link="https://eslint-online-playground.netlify.app/#eNp1VE2P2jAQ/SujnFoESUVv9FK1u4ce2q7YY7PSGmeSGhw7sh26COXYW39C++f6S3Zs5wPYBSFAfu/NjF/ecEyc5VqVokq3VqtklRxzBZAnXNeNkGi+N05oZfNkBQHxmGOmQueP8uT2fvluucyT+QBKsfHIjx56nycPI1bropU4CL/hExW5ANdotWx9z0jbtKqgMU541hnBQ3dnWhyPjdbuRhDRq6zhvaKjzy5XydyfZUov6LZUoeVuIRS9HZqScUydpbuLutHGwRG+fGr5Dt0c4jd0UBpdU2H2yy54sVvQLTP/29L9PuQqV/gUpGNB+Hr4PHS6M7qx0b4sg/9/f8MaWbHQSh4mgYU3mFYpPPa9H98CZwo2CK3FwmsNiYJmz6QoIms1jBqGiPX//YGxNbhDM5UeK9ufupUFKO2GBlBqAw0NisYJtGf9hDrrODbsyFW0kq6QjhmaXCSb7mRbCTV4F6nBviYAwbqe7extgAdymJsb0bhF1J37XGDJWukoZjRomtLji/J+EJsapATXqAosQg7Gaa4y+niXlHob8jubZTMqPAVYMlW1rMJ+J8aNAGiYsWgokcMY8aDXDfhLHSFGb5G7ezR7wfEs0/41bOc6pnsF0a60RsfSQhjF6onusz59U+ofyDJ6Rg3jOxr7YsO9w3FbhrUMsjwpcH+DjTdGcR+Fs9V/+Vh8Bckc2tNlnnhXCK+E4VXex0jMtmGOq4WugCfreoUx/h1c1O8d7JLuGdZeuC0=" />

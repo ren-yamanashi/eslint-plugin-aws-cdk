@@ -4,9 +4,7 @@ titleTemplate: ":title"
 ---
 
 <script setup>
-import { useData } from 'vitepress'
 import RuleItem from '../../components/RuleItem.vue'
-const { theme } = useData()
 </script>
 
 <style>
