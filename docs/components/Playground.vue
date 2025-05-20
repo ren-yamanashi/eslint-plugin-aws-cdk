@@ -8,15 +8,11 @@ const props = defineProps({
     type: String,
     default: "View on Playground",
   },
-  noMargin: {
-    type: Boolean,
-    default: false,
-  },
 });
 </script>
 
 <template>
-  <div :class="{ 'mt-4': !props.noMargin }">
+  <div class="mt-4">
     <a :href="props.link" target="_blank" rel="noopener">
       <strong>{{ props.text }}</strong>
       <svg
