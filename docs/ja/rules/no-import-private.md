@@ -22,14 +22,14 @@ import NotRecommendedItem from '../../components/NotRecommendedItem.vue'
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/no-import-private": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ 正しい例

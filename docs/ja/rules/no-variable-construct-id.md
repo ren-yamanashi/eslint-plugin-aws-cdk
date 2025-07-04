@@ -29,14 +29,14 @@ Construct ID に変数を使用することは、以下の問題を引き起こ�
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/no-variable-construct-id": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ 正しい例

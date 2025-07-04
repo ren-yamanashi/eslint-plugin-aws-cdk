@@ -29,14 +29,14 @@ Construct は多くの場合、状態を持つ AWS リソースを表します�
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/no-mutable-public-property-of-construct": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ 正しい例

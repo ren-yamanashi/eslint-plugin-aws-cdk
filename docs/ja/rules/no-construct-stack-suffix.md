@@ -33,7 +33,7 @@ Construct ID に "Construct" という文字列が含まれていると、CDK �
 
 ```ts
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
@@ -53,7 +53,7 @@ export default [
       ],
     },
   },
-];
+]);
 ```
 
 #### ✅ 正しい例

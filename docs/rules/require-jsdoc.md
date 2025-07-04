@@ -22,14 +22,14 @@ Adding JSDoc comments to properties makes the code more maintainable and easier 
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/require-jsdoc": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ Correct Example

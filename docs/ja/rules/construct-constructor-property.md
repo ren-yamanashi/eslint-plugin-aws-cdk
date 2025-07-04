@@ -26,14 +26,14 @@ import Playground from '../../components/Playground.vue'
 
 ```ts
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/construct-constructor-property": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ 正しい例

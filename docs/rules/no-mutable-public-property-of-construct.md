@@ -29,14 +29,14 @@ Therefore, it is recommended to specify the `readonly` modifier for `public` pro
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/no-mutable-public-property-of-construct": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ Correct Example

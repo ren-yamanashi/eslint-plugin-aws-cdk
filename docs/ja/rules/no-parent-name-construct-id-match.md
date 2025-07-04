@@ -36,7 +36,7 @@ Construct ID に、親クラス名と一致する(または含む)文字列を�
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
@@ -50,7 +50,7 @@ export default [
       ],
     },
   },
-];
+]);
 ```
 
 #### ✅ 正しい例

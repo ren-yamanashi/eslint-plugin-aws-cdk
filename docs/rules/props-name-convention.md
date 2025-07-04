@@ -25,14 +25,14 @@ Following a consistent naming pattern clarifies the relationship between Constru
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/props-name-convention": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ Correct Example

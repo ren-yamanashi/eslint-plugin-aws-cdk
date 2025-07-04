@@ -46,7 +46,7 @@ Note 2: The `recommended` rule set specifies `true`.
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
@@ -62,7 +62,7 @@ export default [
       ],
     },
   },
-];
+]);
 ```
 
 #### ✅ Correct Example

@@ -26,14 +26,14 @@ Instead, it is recommended to specify an interface for read-only resources (e.g.
 
 ```ts
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/no-construct-in-interface": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ Correct Example

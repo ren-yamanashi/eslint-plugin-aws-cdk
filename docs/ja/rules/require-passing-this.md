@@ -47,7 +47,7 @@ Construct のコンストラクタの第一引数 (スコープ) として、`th
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
@@ -63,7 +63,7 @@ export default [
       ],
     },
   },
-];
+]);
 ```
 
 #### ✅ 正しい例

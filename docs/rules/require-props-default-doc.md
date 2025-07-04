@@ -23,14 +23,14 @@ Note: This rule does not apply to regular class properties or properties within 
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/require-props-default-doc": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ Correct Example

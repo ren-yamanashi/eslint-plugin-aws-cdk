@@ -33,7 +33,7 @@ Note 2: The `recommended` rule set specifies `["Construct", "Stack"]`.
 
 ```ts
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
@@ -53,7 +53,7 @@ export default [
       ],
     },
   },
-];
+]);
 ```
 
 #### ✅ Correct Example

@@ -26,14 +26,14 @@ Construct の `public` プロパティに Construct 型を使用すると、Cons
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/no-construct-in-public-property-of-construct": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ 正しい例

@@ -26,14 +26,14 @@ Note: Additional parameters are allowed after the first three, as long as the in
 
 ```ts
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/construct-constructor-property": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ Correct Example

@@ -22,14 +22,14 @@ import Playground from '../../components/Playground.vue'
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/require-jsdoc": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ 正しい例

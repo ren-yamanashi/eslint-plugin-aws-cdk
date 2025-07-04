@@ -26,14 +26,14 @@ Enforcing a consistent naming convention helps developers manage logical IDs mor
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/pascal-case-construct-id": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ Correct Example

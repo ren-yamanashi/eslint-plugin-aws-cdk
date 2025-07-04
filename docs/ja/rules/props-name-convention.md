@@ -25,14 +25,14 @@ Construct クラスの Props(interface) 名が `${ConstructName}Props` の形式
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/props-name-convention": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ 正しい例

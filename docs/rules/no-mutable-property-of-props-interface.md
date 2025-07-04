@@ -25,14 +25,14 @@ Specifying mutable properties in `Props` interfaces is not recommended as it can
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/no-mutable-property-of-props-interface": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ Correct Example

@@ -26,14 +26,14 @@ interface のプロパティに Construct 型を使用すると、interface と 
 
 ```ts
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/no-construct-in-interface": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ 正しい例

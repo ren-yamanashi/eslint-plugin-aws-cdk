@@ -29,14 +29,14 @@ Using variables for Construct IDs is not appropriate because it may cause the fo
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/no-variable-construct-id": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ Correct Example
