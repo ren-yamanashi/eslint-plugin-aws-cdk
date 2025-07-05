@@ -12,13 +12,20 @@ import Playground from '../components/Playground.vue'
 
 <RecommendedItem />
 
-This rule enforces that constructors of CDK Construct classes have specific parameter names: `scope, id` or `scope, id, props`.
+This rule enforces that CDK Construct `constructor` follows standard property patterns.
 
-All Construct constructors should follow a consistent parameter naming pattern to maintain uniformity and predictability across the codebase.
+All Construct constructors should follow a consistent property pattern to maintain uniformity across the codebase.
 
 Note: Additional parameters are allowed after the first three, as long as the initial parameters follow the prescribed pattern.
 
 (This rule applies only to classes that extends from `Construct`.)
+
+#### Enforced Property Patterns
+
+- Naming: `scope, id` or `scope, id, props`
+- Types:
+  - `scope`: Construct type
+  - `id`: string type
 
 ---
 

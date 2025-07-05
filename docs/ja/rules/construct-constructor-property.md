@@ -12,13 +12,20 @@ import Playground from '../../components/Playground.vue'
 
 <RecommendedItem japanese />
 
-このルールは、CDK Construct の `constructor` が `scope, id` または `scope, id, props` というプロパティ名を持つことを強制します。
+このルールは、CDK Construct の `constructor` が標準的なプロパティパターンを持つことを強制します。
 
-すべての Construct の constructor は、コードベース全体で一貫性を維持するために統一されたプロパティ命名パターンを持つべきです。
+すべての Construct の constructor は、コードベース全体で一貫性を維持するために統一されたプロパティパターンを持つべきです。
 
 ※最初の 3 つのプロパティがパターンに従っていれば、それ以降の追加プロパティは許可されます
 
 (このルールは `Construct` から派生したクラスにのみ適用されます)
+
+#### 強制されるプロパティパターン
+
+- 命名: `scope, id` または `scope, id, props`
+- 型:
+  - `scope`: Construct 型
+  - `id`: string 型
 
 ---
 
@@ -134,6 +141,28 @@ export interface MyConstructProps {
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string, myProps: MyConstructProps) {
     super(scope, id);
+  }
+}
+```
+
+```ts
+import { Construct } from "constructs";
+
+// ❌ 最初のプロパティが "Construct" 型でない
+export class MyConstruct extends Construct {
+  constructor(scope: unknown, id: string) {
+    super(scope, id);
+  }
+}
+```
+
+```ts
+import { Construct } from "constructs";
+
+// ❌ 2番目のプロパティが "string" 型でない
+export class MyConstruct extends Construct {
+  constructor(scope: Construct, id: number) {
+    super(scope, id.toString());
   }
 }
 ```
