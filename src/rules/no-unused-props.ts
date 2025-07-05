@@ -83,6 +83,39 @@ export const noUnusedProps = createRule({
 });
 
 /**
+ * Reports unused properties to ESLint
+ */
+const reportUnusedProperties = (
+  tracker: PropsUsageTracker,
+  propsParam: TSESTree.Parameter,
+  context: Context
+): void => {
+  for (const propName of tracker.getUnusedProperties()) {
+    context.report({
+      node: propsParam,
+      messageId: "unusedProp",
+      data: {
+        propName,
+      },
+    });
+  }
+};
+
+/**
+ * Creates and initializes a PropsUsageTracker
+ */
+const createTracker = (
+  propsType: Type,
+  typeChecker: TypeChecker
+): PropsUsageTracker | null => {
+  const propProperties = getPropsProperties(propsType, typeChecker);
+  
+  if (!propProperties.length) return null;
+  
+  return new PropsUsageTracker(propProperties);
+};
+
+/**
  * Analyzes props usage in the constructor
  */
 const analyzePropsUsage = (
@@ -102,11 +135,9 @@ const analyzePropsUsage = (
   if (propsParam.type === AST_NODE_TYPES.Identifier) {
     // Standard props parameter: props: MyConstructProps
     const propsType = parserServices.getTypeAtLocation(propsParam);
-    const propProperties = getPropsProperties(propsType, typeChecker);
+    const tracker = createTracker(propsType, typeChecker);
     
-    if (!propProperties.length) return;
-    
-    const tracker = new PropsUsageTracker(propProperties);
+    if (!tracker) return;
     
     // Check if constructor has a body
     if (!constructor.value.body) return;
@@ -115,25 +146,15 @@ const analyzePropsUsage = (
     analyzeConstructorBody(constructor.value.body, propsParam.name, tracker);
     
     // Report unused properties
-    for (const propName of tracker.getUnusedProperties()) {
-      context.report({
-        node: propsParam,
-        messageId: "unusedProp",
-        data: {
-          propName,
-        },
-      });
-    }
+    reportUnusedProperties(tracker, propsParam, context);
   } else if (propsParam.type === AST_NODE_TYPES.ObjectPattern) {
     // Inline destructuring: { bucketName, enableVersioning }: MyConstructProps
     if (!propsParam.typeAnnotation?.typeAnnotation) return;
     
     const propsType = parserServices.getTypeAtLocation(propsParam.typeAnnotation.typeAnnotation);
-    const propProperties = getPropsProperties(propsType, typeChecker);
+    const tracker = createTracker(propsType, typeChecker);
     
-    if (!propProperties.length) return;
-    
-    const tracker = new PropsUsageTracker(propProperties);
+    if (!tracker) return;
     
     // Extract destructured property names
     const destructuredProps = propsParam.properties.reduce<string[]>((acc, prop) => {
@@ -150,15 +171,7 @@ const analyzePropsUsage = (
     }
     
     // Report unused properties
-    for (const propName of tracker.getUnusedProperties()) {
-      context.report({
-        node: propsParam,
-        messageId: "unusedProp",
-        data: {
-          propName,
-        },
-      });
-    }
+    reportUnusedProperties(tracker, propsParam, context);
   }
 };
 
@@ -281,14 +294,14 @@ const analyzeConstructorBody = (
 };
 
 /**
- * Handles member expressions like props.propertyName or this.props.propertyName
+ * Handles member expressions like props.propertyName, props?.propertyName, this.props.propertyName, or this.props?.propertyName
  */
 const handleMemberExpression = (
   node: TSESTree.MemberExpression,
   propsParamName: string,
   tracker: PropsUsageTracker
 ): void => {
-  // Check for props.propertyName pattern
+  // Check for props.propertyName or props?.propertyName pattern
   if (
     node.object.type === AST_NODE_TYPES.Identifier &&
     node.object.name === propsParamName &&
@@ -298,7 +311,7 @@ const handleMemberExpression = (
     return;
   }
 
-  // Check for this.props.propertyName pattern
+  // Check for this.props.propertyName or this.props?.propertyName pattern
   if (node.object.type !== AST_NODE_TYPES.MemberExpression) return;
   if (node.object.object.type !== AST_NODE_TYPES.ThisExpression) return;
   if (node.object.property.type !== AST_NODE_TYPES.Identifier) return;

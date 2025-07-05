@@ -225,6 +225,26 @@ ruleTester.run("no-unused-props", typedRule, {
       }
       `,
     },
+    // WHEN: Properties are used via optional chaining
+    {
+      code: `
+      class Construct {}
+      interface MyConstructProps {
+        bucketName?: string;
+        enableVersioning?: boolean;
+      }
+      
+      export class MyConstruct extends Construct {
+        constructor(scope: Construct, id: string, props: MyConstructProps) {
+          super(scope, id);
+          new Bucket(this, "MyBucket", {
+            bucketName: props?.bucketName || "default",
+            versioned: props?.enableVersioning || false
+          });
+        }
+      }
+      `,
+    },
   ],
   invalid: [
     // WHEN: Some properties are unused
