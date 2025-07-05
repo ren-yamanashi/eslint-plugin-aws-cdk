@@ -138,6 +138,13 @@ import RuleItem from '../../components/RuleItem.vue'
     :isFixable="false"
   />
   <RuleItem
+    name="no-unused-props"
+    description="CDK Construct のpropsインターフェースで定義されたすべてのプロパティがコンストラクタ内で使用されることを強制します"
+    link="/ja/rules/no-unused-props"
+    :isRecommended="true"
+    :isFixable="false"
+  />
+  <RuleItem
     name="no-variable-construct-id"
     description="Construct ID に変数を使用しないように強制します"
     link="/ja/rules/no-variable-construct-id"
