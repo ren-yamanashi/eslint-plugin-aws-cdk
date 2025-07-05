@@ -20,23 +20,18 @@ ruleTester.run(
       // WHEN: readonly field type is primitive
       {
         code: `
-          class TestClass {
+          class Construct {}
+          class TestClass extends Construct {
             public readonly test: string;
-          }
-        `,
-      },
-      {
-        code: `
-          class TestClass {
-            readonly test: string;
           }
         `,
       },
       // WHEN: field is private
       {
         code: `
-          class DependencyClass {}
-          class TestClass {
+          class Construct {}
+          class DependencyClass extends Construct {}
+          class TestClass extends Construct {
             private test: DependencyClass;
           }
         `,
@@ -44,8 +39,9 @@ ruleTester.run(
       // WHEN: field is protected
       {
         code: `
-          class DependencyClass {}
-          class TestClass {
+          class Construct {}
+          class DependencyClass extends Construct {}
+          class TestClass extends Construct {
             protected test: DependencyClass;
           }
         `,
@@ -53,8 +49,9 @@ ruleTester.run(
       // WHEN: constructor parameter property is mutable
       {
         code: `
-          class DependencyClass {}
-          class TestClass {
+          class Construct {}
+          class DependencyClass extends Construct {}
+          class TestClass extends Construct {
             constructor(test: DependencyClass) {}
           }
         `,
@@ -68,12 +65,22 @@ ruleTester.run(
           }
         `,
       },
+      {
+        code: `
+          class Construct {}
+          class DependencyClass extends Construct {}
+          class SampleConstruct {
+            public test: DependencyClass;
+          }
+        `,
+      },
     ],
     invalid: [
       // WHEN: public field is mutable, nested superClass is Construct
       {
         code: `
-          class DependencyClass {}
+          class Construct {}
+          class DependencyClass extends Construct {}
           class SampleConstruct extends Construct {}
           class TestClass extends SampleConstruct {
             public test: DependencyClass;
@@ -81,7 +88,8 @@ ruleTester.run(
         `,
         errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
         output: `
-          class DependencyClass {}
+          class Construct {}
+          class DependencyClass extends Construct {}
           class SampleConstruct extends Construct {}
           class TestClass extends SampleConstruct {
             public readonly test: DependencyClass;
@@ -92,7 +100,7 @@ ruleTester.run(
       {
         code: `
           class Construct {}
-          class DependencyClass {}
+          class DependencyClass extends Construct {}
           class TestClass extends Construct {
             public test: DependencyClass;
           }
@@ -100,7 +108,7 @@ ruleTester.run(
         errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
         output: `
           class Construct {}
-          class DependencyClass {}
+          class DependencyClass extends Construct {}
           class TestClass extends Construct {
             public readonly test: DependencyClass;
           }
@@ -110,7 +118,8 @@ ruleTester.run(
       {
         code: `
           class Stack {}
-          class DependencyClass {}
+          class Construct {}
+          class DependencyClass extends Construct {}
           class TestClass extends Stack {
             public test: DependencyClass;
           }
@@ -118,7 +127,8 @@ ruleTester.run(
         errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
         output: `
           class Stack {}
-          class DependencyClass {}
+          class Construct {}
+          class DependencyClass extends Construct {}
           class TestClass extends Stack {
             public readonly test: DependencyClass;
           }
@@ -128,17 +138,15 @@ ruleTester.run(
       {
         code: `
           class Construct {}
-          class DependencyClass {}
           class TestClass extends Construct {
-            test: DependencyClass;
+            test: string;
           }
         `,
         errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
         output: `
           class Construct {}
-          class DependencyClass {}
           class TestClass extends Construct {
-            readonly test: DependencyClass;
+            readonly test: string;
           }
         `,
       },

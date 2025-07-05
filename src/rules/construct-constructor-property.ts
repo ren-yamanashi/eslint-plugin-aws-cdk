@@ -1,6 +1,7 @@
 import {
   AST_NODE_TYPES,
   ESLintUtils,
+  ParserServicesWithTypeInformation,
   TSESLint,
   TSESTree,
 } from "@typescript-eslint/utils";
@@ -47,7 +48,7 @@ export const constructConstructorProperty = createRule({
         // NOTE: Skip if there's no constructor
         if (!constructor) return;
 
-        validateConstructorProperty(constructor, context);
+        validateConstructorProperty(constructor, context, parserServices);
       },
     };
   },
@@ -58,7 +59,8 @@ export const constructConstructorProperty = createRule({
  */
 const validateConstructorProperty = (
   constructor: TSESTree.MethodDefinition,
-  context: Context
+  context: Context,
+  parserServices: ParserServicesWithTypeInformation
 ): void => {
   const params = constructor.value.params;
 
@@ -74,8 +76,9 @@ const validateConstructorProperty = (
   // NOTE: Check if the first parameter is named "scope"
   const firstParam = params[0];
   if (
-    firstParam.type === AST_NODE_TYPES.Identifier &&
-    firstParam.name !== "scope"
+    firstParam.type !== AST_NODE_TYPES.Identifier ||
+    firstParam.name !== "scope" ||
+    !isConstructType(parserServices.getTypeAtLocation(firstParam))
   ) {
     context.report({
       node: firstParam,
@@ -87,8 +90,10 @@ const validateConstructorProperty = (
   // NOTE: Check if the second parameter is named "id"
   const secondParam = params[1];
   if (
-    secondParam.type === AST_NODE_TYPES.Identifier &&
-    secondParam.name !== "id"
+    secondParam.type !== AST_NODE_TYPES.Identifier ||
+    secondParam.name !== "id" ||
+    secondParam.typeAnnotation?.typeAnnotation.type !==
+      AST_NODE_TYPES.TSStringKeyword
   ) {
     context.report({
       node: secondParam,
@@ -103,7 +108,7 @@ const validateConstructorProperty = (
   // NOTE: Check if the third parameter is named "props"
   const thirdParam = params[2];
   if (
-    thirdParam.type === AST_NODE_TYPES.Identifier &&
+    thirdParam.type !== AST_NODE_TYPES.Identifier ||
     thirdParam.name !== "props"
   ) {
     context.report({

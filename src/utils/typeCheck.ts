@@ -48,7 +48,7 @@ const isTargetSuperClassType = (
   if (!type.symbol) return false;
 
   // NOTE: Check if the current type ends in target super class
-  if (targetSuperClasses.some((suffix) => type.symbol.name.endsWith(suffix))) {
+  if (targetSuperClasses.some((suffix) => type.symbol.name === suffix)) {
     return true;
   }
 

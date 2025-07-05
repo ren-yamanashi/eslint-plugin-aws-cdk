@@ -62,16 +62,6 @@ ruleTester.run("construct-constructor-property", typedRule, {
       }
       `,
     },
-    // WHEN: class does not extend Construct
-    {
-      code: `
-      interface MyClassProps {}
-      
-      export class MyClass {
-        constructor(scope: any, id: string, props: MyClassProps, resourceName: string) { }
-      }
-      `,
-    },
     // WHEN: constructor has more than 3 parameters but first three are "scope, id, props"
     {
       code: `
@@ -82,6 +72,14 @@ ruleTester.run("construct-constructor-property", typedRule, {
         constructor(scope: Construct, id: string, props: MyConstructProps, resourceName: string) { 
           super(scope, id);
         }
+      }
+      `,
+    },
+    // WHEN: class does not extend Construct
+    {
+      code: `
+      export class MyConstruct {
+        constructor(invalidProperty: any) {}
       }
       `,
     },
@@ -148,6 +146,32 @@ ruleTester.run("construct-constructor-property", typedRule, {
       
       export class MyConstruct extends Construct {
         constructor(scope: Construct, id: string, myProps: MyConstructProps, resourceName: string) { 
+          super(scope, id);
+        }
+      }
+      `,
+      errors: [{ messageId: "invalidConstructorProperty" }],
+    },
+    // WHEN: constructor has 2 parameters but scope type is not "Construct"
+    {
+      code: `
+      class Construct {}
+      
+      export class MyConstruct extends Construct {
+        constructor(scope: any, id: string) { 
+          super(scope, id);
+        }
+      }
+      `,
+      errors: [{ messageId: "invalidConstructorProperty" }],
+    },
+    // WHEN: constructor has 2 parameters but id type is not "string"
+    {
+      code: `
+      class Construct {}
+      
+      export class MyConstruct extends Construct {
+        constructor(scope: Construct, id: any) { 
           super(scope, id);
         }
       }

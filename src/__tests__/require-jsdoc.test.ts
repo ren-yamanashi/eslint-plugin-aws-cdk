@@ -54,7 +54,7 @@ ruleTester.run("require-jsdoc", requireJSDoc, {
     {
       // WHEN: non-Construct class
       code: `
-        class NormalClass {
+        class SampleConstruct {
           public prop1: string;
           private prop2: number;
         }

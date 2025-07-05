@@ -84,18 +84,17 @@ ruleTester.run(
         code: `
           class Construct {}
           class DependencyClass extends Construct {}
-          class TestClass {
+          class SampleConstruct {
             public test: DependencyClass;
           }
         `,
       },
-      // WHEN: public field uses interface that extends Construct
       {
         code: `
-          class IConstruct {}
-          interface ITestClass extends IConstruct {}
+          class Construct {}
+          class SampleConstruct {}
           class TestClass extends Construct {
-            public test: ITestClass;
+            public test: SampleConstruct;
           }
         `,
       },

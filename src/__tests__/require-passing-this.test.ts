@@ -35,7 +35,7 @@ ruleTester.run("require-passing-this", requirePassingThis, {
     {
       code: `
       class Construct {}
-      class SampleClass {
+      class SampleConstruct {
         constructor(scope: Construct, id: string) {
           super(scope, id);
         }
