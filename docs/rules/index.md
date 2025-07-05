@@ -139,6 +139,13 @@ We currently support the following rules:
     :isFixable="false"
   />
   <RuleItem
+    name="no-unused-props"
+    description="Enforces that all properties defined in CDK Construct props interfaces are used within the constructor."
+    link="/rules/no-unused-props"
+    :isRecommended="true"
+    :isFixable="false"
+  />
+  <RuleItem
     name="no-variable-construct-id"
     description="Disallows using variables for Construct IDs."
     link="/rules/no-variable-construct-id"
