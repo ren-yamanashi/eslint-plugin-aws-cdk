@@ -29,14 +29,14 @@ Using variables for Construct IDs is not appropriate because it may cause the fo
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/no-variable-construct-id": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ Correct Example
@@ -87,4 +87,4 @@ class MyConstruct extends Construct {
 }
 ```
 
-<Playground link="https://eslint-online-playground.netlify.app/#eNp1Vc1u2zAMfhXCGLCkSJyhu2XDMGzdYYetRTvsUheIIjOpGlsyRDltEOS42x5he7k9ySj5N02dQxKLHynyI/l5HzmSRq/UOn4go6N5tE80QBJJkxcqQ3tZOGU0JdEcgsXbnLBrdP4oib7cnL85P0+iSWPM1NJbbmvT2yS6a225ScsMG8fv+MRBnhmvkUxW+jsr2LLUKafRw5GzSobbnS2xPbbGuAvFQO9FVtYeB/4+JDqa+LOZNtOtsEosM5xy2RyqlG6q0tgRl67ywlgHe/jcmOAAK2vywEd9xFS8S3QL/VTKDfZw4pGmMt1MmYaZ/09MAOMTjU/BQ2mHdiUkwrdde82VNQVV/FoUqdHZDlBvlTU6R+1oDtcojU3f+9r1egLV7wcO3PMgJ9Y4r21s4rLba2UmiPpXApOPOqVereH+tk5jRzwZBQdsERNQaRN/AoVPen5SxriZEyoLrGN4x3FgwRtmM/j35xfchDiQKSZEZARSaFgilIRphdP4WNM7cveKJsxu9ZhEJ8F+1l09CgMrY3v1fb0geFQcSkNmTAHNJFAVyYNHoXy43eDuDswKLpcPKF3MPbAKaRRK5qeuM+O23BfyXbzac6BDdbbwOXtYaEuT+t/f8OMe+6y/JliodBHoRet2viBtnK+JCpRqpbiwVFnOi3vuk3YcoF/lAHvPW8BXd6yNwviG+iZgSkcqRU+AJ4pb2uUwwOuoJN9Mh3mRCcephubSeCAXZqbiMszsMUPMz4HXFSnjXYlbcer2k9frKivX3MZ65ypoWLsiGPor6uhLMDdgtyuQpFWFm1Z+x/uZ4kqUGY+ATyWOWRgq9zoRipl4k3PvU0yDwLTZDCLqAVmxnPK+sDCenc3OOHCnjJnQ65KJqMW2lVqAQlhCy1LXpFEd1H6N/dSPLdb42b1Bu1WSt7gnlv7TyP51JZtzqOiKc3Qi5vHSIu/gXkS7X27QHVPGPSqE3HDaz14dnuFKhhu9D25JlOL2AgtPjJa8TsfvlNO2+Ah+mKj/luhwA4AXhuFF3McKOHsIeQwGGjD2ZH4A0X9h9AHtiB/+A19hjTQ=" />
+<Playground link="https://eslint-online-playground.netlify.app/#eNqFVc1u00AQfpWRhURS5QeVW0AIQTlwgFYt4lJXirM7Trdxdlc767ZRlCM3HgFejidhdv0TO23gEsc733w7882Pt4knYXSulpM7MjqZJdtUA6SJMGurCnTn1iujKU1mEC3B5jO3RB+O0uTT1emr09M0GTXGQi2C5bo2vU6Tm9a2NrIssHH8io9McmC8RDJFGe6sYItSSw6jgyPvlIi3e1die+yM8WeKgcGLnKg9dvy7S3UyCmdTbcb3mVPZosAxp81UpfBjJSeeOHW1tsZ52MLHxgQ7yJ1ZRz3qI5biTapb6IdSrLCDyx5oLORqzDJMw39iARifanyMHkp7dHkmEL5s2msunLFU6eswk0YXG0B9r5zRa9SeZnCJwjj5NuSulyOonu+YuONBPlvirLaxidNurxVFRtS9Elh81JI6ucb72zyNG3BnWCZsESNQsuEfgQ1Bz56kMWz6hEqLNUdwHEYVgmE6hT+/fsBV5IFCsSBZQSAyDQuEklBWOI0PtbwDf6toxOpWr2nyhOx7XdUeDeTGdfL7fEbwoJhKQ2GMhaYTqGIK4EFMH65XuLkBk8P54g6Fn3ANnEIaxJT5bV+ZYZvuM/HOX2yZaFedzUPMARbL0oT++yd8u8Wu6i8J5krOo7zo/CYkpI0POZFFoXLFiUnlOC6ueQjaM0E3yyPqHZaAr96rNojtG/MbgSk9KYlBgCAUl3QfwxFdByWFYnpc2yLzHGosLg2PxMLKVFrGnu0rxPrseFyRCp6VSbuc9vNZWZqBe1+9Tu8OBlNirjRylOy+H88aXLF2HTz1af3GIgmnrB9Xhi6YB/yiKJfcSD3aOPg2GvpDz7FkZRGfbUyD65BsL0uacFXNmhtLoozbazLhzfQfTN1/OW9rHkfeuycn0xN22y/eetTZ2Ab+HFsFDwvzZviGK2AzseLqHHwYgjDVkm22eXRLE4n3Z2gDkxY8LP0vxlM1A0NoFep+A/a4I4BnhP4H7oixs6OPILrbvgto+3P3F1yPfcg=" />

@@ -26,14 +26,14 @@ Enforcing a consistent naming convention helps developers manage logical IDs mor
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/pascal-case-construct-id": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ Correct Example
@@ -60,4 +60,4 @@ const bucket = new Bucket(this, "my_bucket");
 const bucket = new Bucket(this, "my-bucket");
 ```
 
-<Playground link="https://eslint-online-playground.netlify.app/#eNqNVMtu2zAQ/BWCl7aGJRXuzb0UTXJsG8THMghoau3QokiBjzxg6NhbP6H9uX5Jl9TDjhMh8cE2OLOj3eGs9tQ7YfRGbvOdM5ou6Z5pQhgVpm6kAvuj8dJox+iSJCRintst+HjE6MVq8XGxYHQ+gEquI/Kzhz4xej1itSmDgqHwOzygyAl4Bc6oEJ/Z0dZBl9jGEc95K0V6urcBxmNrjD+XSIxVzoq+osXvlmk6j2dFw53gKhPcQYZjo1QQPpNl7h2OLuvGWE/25GsQFXjSko01Ncrxe5eJsspwtiL+dzjVZ6aZLgry788vcsY1CQ7IZZI/Q3WmNdz3Ou/9rXRzlPn22B0w+mGs/vubrG5NUKV+55OG4DVMS9RvkXCaV3ATh5zQuFm/LlLBmq+TUxMi2UEE3QWnpPb5mKWDnWjcpQpbqQc3O2oytElAMrNne3eR4IHsHxtwwsrGZ11d7zw8JHoJGx6Ux7jhXec53mNX3jficguY5Bp0CWXKw9jNJKOP+QbT71KOZ7NihsKHICuut4Fvod+NcTMIabh1YDGZQxvdQV834M/rELFmB8KvwN5JAU+yHT/Dll51KV+Szq68Bs/zUlqNqRnpMfPpNy0A09foGF5Rw0WFXZ8sejS4W5phO1M1oyXcnUMTfdFCwskb4PmtRAXFPbjjnT7wJggvZOFF3peOWOxSH5NCE+DR/k4wxpfBiX7vYEvb/56yujU=" />
+<Playground link="https://eslint-online-playground.netlify.app/#eNqNU8ty0zAU/RWNNpRMbDNhVzYMKUugQ5dVpyPLN6lqWfLoQdvJZMmOT4Cf40u4kh3bCTVl44fOuUe6R/fsqHfC6I3c5vfOaHpOd0wTwqgwTSsV2C+tl0Y7Rs9JQiLmud2Cj0uMfrxavVmtGF0eQCXLiFz30FtGbwasMVVQcCj8DI8ocgJ+BWdUiHt2tDLoCo8x4TlvpUi7extgWLbG+AuJxFjlrOgr9vjcM02Xca1ouRNcZYI7yLBtlArCZ7LKvcPWZdMa68mOfAiiBk/2ZGNNg3L8wWWiqjPsrYjfDrt6xzTTRUF+//xO1lyT4IBcJvk1qjOt4aHXOfN30i1R5tNTt8Do66H61w9ydWeCqvQrnzQEb2BeovkfCad5DbexyRmN2/JlkRpKXianZkSyUQTdBaek9vkwS6OdHXKw8n33W9zjSOHmg+UVbKSGdSofje/Jneq0wLtjWf/UghNWtj7rgCkZr+5Sha3Ux7LpStsE9NcJj4mPZ+FBpfdwprPrOE1HXbrcAsakAV1BlYYtz3GQXuD0KdpguFyKyWJRLLBszAnGAukRHA7+nFpHj/N9k26g5aLmWzjJcTSmy8QhfKmM0Qq+XUAblbSQcBLwv92MCop7cNPIjrwZwjNG/4M3A07SN8MYopzaGAnJIMw/3f8BUOyq9Q==" />

@@ -26,14 +26,14 @@ Note: Additional parameters are allowed after the first three, as long as the in
 
 ```ts
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/construct-constructor-property": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ Correct Example
@@ -138,4 +138,4 @@ export class MyConstruct extends Construct {
 }
 ```
 
-<Playground link="https://eslint-online-playground.netlify.app/#eNqVVM1uEzEQfhVrTzRKNijcwgWJFokDpWq4sRVyvJOtE6+9sr1tV1GO3HgEeDmehLG99i75QaKV2sTzzcznb8bfPrOGKbnhVb41SmbLbF9IQoqMqbrhAvTnxnIlTZEtiY+4mKW6AuuOiuxmtXi9WBTZNAYFX7vI1z70psgeUqxWZSsgJt7CCxY5Ct6DUaJ1PQNs3coSaYxwxmrOfHerW0jHWil7zRHosoxmfcYB/x4KmU3d2Ryviukts7P0SelZo1UD2na5NSgArxulLdmT9xFCDmSjVe1V6Y9QkLeFdL/w4uFcWtAbyoB86lLiHRY2QTcNtFRSdGTdsh3YW1rDkriryAoLIcNCzufk98/vQ1ulyTO3j+46DAlOCS+LjESyRGIJk/ozQY0Z9yaoLsjSjK7hiYwu/srXXQ4I1yKyuorzNi32C1AXv0K6KOuI868f5APXxpKGauSEOhBuiFTWUywj/yJL8BUgi/Iy3l00gb88cv0PrNMDp3EkxLf/VKLuVida1N3HpIb75qe5PJnvkVB9pZAexAqtlIBcqAoBIS3KiKsJRuD+5OkhDlvIyt2daCsu4wYG6AzPZ40P+EXs0dbc+HAE264BwzRv7Czk9VvbS1XChrbC4ltFKnmO6x/SeyIm1zinukbtoPSPKbG5iOil2KB1oFRoApPJfIKFBxcQVFYtraA3lmQrxI3YgMZnHWmEgz4vxk/zMKLVFphdgX7iDIc4Mgb3Ey3uPljEkgS5ctwnmpdcu1VKcGcYw38c0ANKhjNqKNsh7SObdAoHy4ne5tOKrISna2icMJJxfKd/+efpWFwFQS2YsSMOuAuAM8twFvcuAOdbz+NioQtB+mx8i97ZzyDGtjgGpBU//AFJWjME" />
+<Playground link="https://eslint-online-playground.netlify.app/#eNqVVM1u2zAMfhVBp7ZInCG7ZZcB6wbssK5YdquKwZEZV40sGZK81ghy3G2PsL3cnmSUZMvOX4chQGyLH8mPHyluqbNcq7Uos0erFV3QLVOEMMp1VQsJ5nPthFaW0QUJFm9zuSnB+SNG3y/nr+ZzRie9UYqVt9x1pteM3idbpYtGQu94A88Y5MD4BayWjc8ZYatGFUhjhLPOCB6yO9NAOjZau2uBQO9lDe88dvi/Y4pO/NkMS0X3hrtpetNmWhtdg3Ft5iwKIKpaG0e25F0PITuyNroKqnRHKMgbpvwPngNcKAdmnXMgn9rkeIuBbdTNQF5oJVuyavgG3E1ewYL4UlSJgZAhU7MZ+fPrx5BWG/Ik3IMvhyPBCREFo6QnSxSGsCk/l7m149wE1QVV2FEZgcio8IsQdzEgfIqe1WXfb9tgvgj19kuki7KOOP/+ST4IYx2pc4OcUAciLFHaBYpFz5/RBF8CsijO432hCfz1QZgXsF4P7MaBEN/+U4mqXR5pUbUfkxr+K3RzcdTfA6G6SNE9ihVTaQmZ1CUColsvI44mWInzk6WLOExhtPTj9zZ+zh7j+KVJLWAtFCAtdB+GtQPHqGMHZ/fDurYGy42o3TQaxmBebG5lUwq1H3aK59M6GLqr0OmPXPJGhmfidHHni92r0mYGh6CqsDFQhJuaZXj//oHplF7jZsJO4I65uppdoduwZLpeozERPxUtwv1yuPc9wh7UOd/kJRysQS9NXCn97gqOjBbw/RpqH0txgfdwbz8e6+kjyNyBHW+8AXcGcELqF3BnjPmTDRG6xXwCMd5qY0Ca0N1fU+okYg==" />

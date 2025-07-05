@@ -48,36 +48,42 @@ Write `eslint.config.mjs` as follows:
 
 ```js
 // eslint.config.mjs
+import eslint from "@eslint/js";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
 import cdkPlugin from "eslint-cdk-plugin";
-import tsEslint from "typescript-eslint";
 
-export default [
-  ...tsEslint.configs.recommended,
-  // ✅ Add plugins
-  cdkPlugin.configs.recommended,
+export default defineConfig([
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     files: ["lib/**/*.ts", "bin/*.ts"],
+    // ✅ Add plugins
+    extends: [cdkPlugin.configs.recommended],
     // ... some configs
   },
-];
+]);
 ```
 
 ### When using CJS
 
 ```js
 // eslint.config.cjs
+const eslint = require("@eslint/js");
+const { defineConfig } = require("eslint/config");
+const tseslint = require("typescript-eslint");
 const cdkPlugin = require("eslint-cdk-plugin");
-const tsEslint = require("typescript-eslint");
 
-module.exports = [
-  ...tsEslint.configs.recommended,
-  // ✅ Add plugins
-  cdkPlugin.configs.recommended,
+module.exports = defineConfig([
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     files: ["lib/**/*.ts", "bin/*.ts"],
+    // ✅ Add plugins
+    extends: [cdkPlugin.configs.recommended],
     // ... some configs
   },
-];
+]);
 ```
 
 ## Customize rules
@@ -87,11 +93,14 @@ If you want to customize the rules, write `eslint.config.mjs` as follows:
 
 ```js
 // eslint.config.mjs
-import tsEslint from "typescript-eslint";
+import eslint from "@eslint/js";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
 import cdkPlugin from "eslint-cdk-plugin";
 
-export default [
-  ...tsEslint.configs.recommended,
+export default defineConfig([
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     files: ["lib/**/*.ts", "bin/*.ts"],
     languageOptions: {
@@ -111,5 +120,5 @@ export default [
       "cdk/no-parent-name-construct-id-match": "error",
     },
   },
-];
+]);
 ```

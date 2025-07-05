@@ -25,14 +25,14 @@ Specifying mutable properties in `Props` interfaces is not recommended as it can
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/no-mutable-property-of-props-interface": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ Correct Example
@@ -66,4 +66,4 @@ interface MyConstructProps {
 }
 ```
 
-<Playground link="https://eslint-online-playground.netlify.app/#eNp1VDty2zAQvQqGpcakMkqnNJnELlwk8djpQhcQsKIggQAGACVrNCrT5QjJ5XISLwB+9KMKEYN9+/Cwuw+HzDum1VJUxdpplc2zQ6kIKTOmayMk2B/GC61cmc1JjISYp7YCH7bK7OFl9mE2K7O7LijFIkR+taGPZfbax2rNGwld4nd4Q5KL4DM4LZtwZoItGsVRxgnOeStYPN3bBvptq7W/FwgMWc6yNuOI/8dSZXdhb6p0XjeeLiTkxmoD1u9zvYxrlwvlwS4pg8I7LISojbaeHMjjl4ZtwJMjWVpdIzvduZzxTY5XnYa1w0t+KlWp4C2m9ETk2/4rFg91Mv8Uzkg1nE7J/7+/iQXKtZJ70koR4Ai1QKiUegc8IHvIlkrBk455Jygemdj+/SGBvyURCkXG88psEOOIW+lGcrKAnjfkCzVCjmUrVav150o4YrE/hGtkUtoTagwK8/r0hLAPigtVkZ3wq0HGzdo89utYlsW1AmwbOIk5RT+kQ2ewBU+yqfC2bV8SNLbGxEBsS4v27iGGO7DfG3DMCuPzlHfeQw5L2kiPc4zKigJHIqW3QlxhAS1S42WBx0Hr1YwiWv8s0VYuGmQymU6QeHCIpKpqaAWt6XrLEWKodWBx5DsZaaPN6+LXeRixeg3Mv4DdCgZnpgm/zv7PyT5zkspV1OBpwYVVtB7gwUzDF+fjFUuGPTKUbVD2xRMSKpzs2Pk+ppUZh+09mFAYxXBez9+W67YEBkk9uNPXYsCNAG4Mw03c5wScrqOOUaKR4MlTMILA8qYH4IK/reAxO74DsoLenw==" />
+<Playground link="https://eslint-online-playground.netlify.app/#eNqFVMFy0zAQ/RWNT9CpbSbc0gsD5dAD0AFuVQ+KtE7UyJJGkptmMjly4xPg5/gSVpJjO20Cl8TWvn379HbXuyJ4bnQjl9WDN7qYFzuqCaEFN62VCtwXG6TRnhZzkiIxFphbQohHtPj4bfZmNqPF5SGo5CJG7vrQW1rcD7HWiE7BIfEzPCHJs+BX8EZ1sWaGLTotUMYE54OTPFUProPh2BkTriUCY5Z3vM/Y4++e6uIyntXalG0X2EJBaZ2x4MK2NE169qXUAVzDOFTBoxGytcYFsiM37zu+hkD2pHGmRXa28SUX6xKvWsdnj5e8oppqeEopAxH5tP2A5qFOHm5jjexhXZM/v34QB0wYrbaklyLBE+aAMKXMBkREDpBHpqTIOuYHQalkZvv9k0T+nkRqFJnq0WIU44lfmU4JsoCBN+ZLfYYcbaO61/p9JT1x2B8iDDJpEwizFoUFM60Qz0ELqZdkI8NqlHHSm5vhOdmyeKkA2wZeYU41DOnYmRw5NOVdfq0fsBqmDt0T0EgN2AZMH1vYgzPrNCH4Y9qwteC5kzaUOTAF4xDcqm6Jfh/RpuGwKXA8GKiFdSr9D5pe3cW7H93SVw5w/1p0EkSa4qrCmfwPpl/PBrfWp/27uKgvMG1cQNw3hMfgIPwUW4bHxbl/fYUdsIyv2RKefSCiMXnZDlud0mgh4PEabGTSHKfx+Mvx0s3IoFgAP/0WjLgzgBNG/wN3JjjZ4zMIdCdvb7rGCEgGxfnc/wVfdM8z" />

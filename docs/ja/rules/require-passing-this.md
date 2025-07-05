@@ -47,7 +47,7 @@ Construct のコンストラクタの第一引数 (スコープ) として、`th
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
@@ -63,7 +63,7 @@ export default [
       ],
     },
   },
-];
+]);
 ```
 
 #### ✅ 正しい例
@@ -104,4 +104,4 @@ export class MyConstruct extends Construct {
 }
 ```
 
-<Playground link="https://eslint-online-playground.netlify.app/#eNqNVc1uGjEQfpXRXhIiWKr0RlWpbZJjkyqkp26kdXYHcPDaW9sLQYhjb32E9uX6JB3b+xcCUTgAmvnmf+bzNrImU3LG5/GjUTKaRNtEAiRRpoqSC9Q3peVKmiSagNc4nWV6jtaJkuhqev7u/DyJho1S8Aen+VGr3ifRfasrVF4JbAyv8Ymc7Clv0ShRuZgB9lDJnNLo4YzVPPPRra6wFWul7CUnoLMyOqstdvS9S2Q0dLKxxp8V1zgqmTFczkd2wU1sDZXNi1JpC1u4oGrJcWZhBzOtCt+LWkRt+JDIFvqlypbYw7G1GWX5ckQtGLv/hoonfCLxyVtkgsLC100XgjqAMje9oL7JbUClT2k8JU46xBB4PgHXBDkfNDMxVYk11OkHPqpTjMfw788v+O6qhdSVmwIz4JHADTCxZhv3I9Qa8zgYSVzXtZ06iyGVNmVFKTAIk+i5/7+/YbpQlcjliYXKINgFQsk0SntiIPWxUlgxzdmDaAZGhvRx7l0aXK6Y4DngCiWsF/TlM7pW8o4Qn2V+yY2XTJvE3exfplt34FC+tAp+ExJJoe8ow5lyDl1f8MmjnduQhs8gfS2F1IFTl0QKp9RQLn3VGuluChop5mDQDihDP0swIcJHn2xvA/YaHFKth5YGIxdAUgBjmcwQ1AxYtw2DMEQ/vXawFLXfE+/FxbhYcJG7EHQNaASXNm5vvzsB2uBvoppTRfVaB6jf7NIr+ldgzZVXN2C7KdFkmpd2FOyen0COM1YJS/RAA4ljur1gXidi4l4H/aa02RxF1CcwI7YynnfOzsZn5LgjHsHkvGJzrLmsZTJwW2pQE5M0aQRBbdfoX9qRRqtHzOwU9YpndJ89LvKLXbPqbWClCYR2xQVaFudcS1Z0cMdR/V9NPNiPRvvw2i5OYMaEwUkPfiPFpjn3wwvSQone8uVBYgw03iEdy6LWqiPjWrx9S3ptdd6oGU0Q0lne05bQWpYsW9Kk9h4jt1SB2JsXxJslUY6rSyzdLsiM494r9XITnQfBLJr+u9PhjgAO7P9B3KcAHD/6PI46OqLsPR5HEP1nqA9ouC3a/QeLZJv6" />
+<Playground link="https://eslint-online-playground.netlify.app/#eNqNVc1y0zAQfpUdX0g6+WHKLQwzQMuRliHlVHfGqr1J1CiSkeSkmUyO3HgEeDmehF35N2layMGOtd/ufvurXeRdavRMzkcPzuhoEu1iDRBHqVnlUqG9zr002sXRBIKEZV7YOXo+iqNP0/PX5+dxNKiFSt6z5LYSvYmju0a2MlmhsFa8wkcyciT8is6ogn2WsPtCZ0Sjg3PeyjR497bA5tga4y8lAVnL2bTS2NNzH+towGdji98LaXGYC+ekng/9QrqRdxS2XOXGetjBBUVLhlMPe5hZswq5qI4oDW9j3UA/FukSOzixccM0Ww4pBWP+7yh4wscaH4NGqsgtfN62LigDqDPXcRqS3Dg0tkflyXHSIgYgswlwEvS8X9fEFTlWUJb3g1cWjMfw59cP+MbRQsLhJiAcBCRIB0JtxJZfymwwG5VKGjdVbD3WGFBoU7HKFZaHcXRo//dPmC5MoTL9ykPhEPwCIRcWtX/lIAm+ElgLK8W9qgtGivRj80xD6rVQMgNco4bNgh6B0ZXRN4T4oLNL6cLJtCbOtX9Kt8rAKb7UCqETYk2ub4jhzLBBzgs+BjSbLWkEBslLFBIGJ0wigR4lVOoQtUWamxWVFDNw6PvEMNQSXOnhXSDb6YCjBJdUq6IlpRI70OTAeaFTBDMD0XZDvyxiqF5TWPLazUmwwj4uFlJl7IKmAZ2S2o+a2W9HoJTUPf2+/Bw/HPV+hjOpkXiQejsBFbi02lXw7tCs3+boUitzPywFXTDN0BdVzCmnB2bDbOVBcDhXxEUUKrwbTr1bLvlBlG7UKU9ow9GIhv8fmGrCZrQMXVhrZ2fjM1Jr91o1xCRsiJ+yVsMtbTkCV3bDJLzUaROYCeVw0oFfa7Wth/l0+RsoLa9seXLtlUu6RfIORWtNu2qr493/0At7tlGqQy0P+XkXmi4X6VLM8eiq4V4o13Z9PwS1OMpwfYk5J0+nEo/uoKcNxBaU8Oi6t0qLewZwordewD0j7Gz+ZxDdO6QLqBdTtP8L/eKMjg==" />

@@ -189,18 +189,21 @@ To use these rules, configure as follows:
 
 ```js
 // eslint.config.mjs
+import eslint from "@eslint/js";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
 import cdkPlugin from "eslint-cdk-plugin";
-import tsEslint from "typescript-eslint";
 
-export default [
-  ...tsEslint.configs.recommended,
-  // ✅ Add plugins
-  cdkPlugin.configs.recommended,
+export default defineConfig([
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     files: ["lib/**/*.ts", "bin/*.ts"],
+    // ✅ Add plugins
+    extends: [cdkPlugin.configs.recommended],
     // ... some configs
   },
-];
+]);
 ```
 
 ## Strict Rules
@@ -210,16 +213,19 @@ To use these rules, configure as follows:
 
 ```js
 // eslint.config.mjs
+import eslint from "@eslint/js";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
 import cdkPlugin from "eslint-cdk-plugin";
-import tsEslint from "typescript-eslint";
 
-export default [
-  ...tsEslint.configs.recommended,
-  // ✅ Add plugins
-  cdkPlugin.configs.strict,
+export default defineConfig([
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     files: ["lib/**/*.ts", "bin/*.ts"],
+    // ✅ Add plugins
+    extends: [cdkPlugin.configs.strict],
     // ... some configs
   },
-];
+]);
 ```

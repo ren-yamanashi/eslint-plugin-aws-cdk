@@ -25,14 +25,14 @@ Following a consistent naming pattern clarifies the relationship between Constru
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/props-name-convention": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ Correct Example
@@ -71,4 +71,4 @@ class MyConstruct extends Construct {
 }
 ```
 
-<Playground link="https://eslint-online-playground.netlify.app/#eNqtVL1u2zAQfhVC6BAHtlykmzq0aJOhQ9MgGasAoamTSpsiCZJyYhgeu/UR2pfrk/RISjLhny6tB9vgfXf87rvjt82cZUrWvMmXVsmsyLalJKTMmGo1F2C+aMeVtGVWkBDxMUdNA84fldnNw9Xrq6symw5BwRc+8rUPvSmzxzHWqqoTMCTewgsWOQjeg1Wi83dG2KKTFdJIcNYZzsLtznQwHhul3DVHoM+yhvUZO/zelTKb+rO5NkrbmaQtzLDrNUh/Ue4s9s1brYwjW/IR28XKzJEdqY1qgxj9EerwtpQj9NOHjq0gAdJnO2PVaoYizP1/i+1jQinnc/L753dy5++/4NKBqSmDCfFUSK2EUM+WuG/+v2mpI6omT6+2I5VbhO1C8hNeP6STz5sREYJxRAZopaTYkEVg964YeCITlAJeAnsmqLVpBYLjAFnZRIBQbmxemQvcFQ3FHjElvCqIn4hspiSoWxyxmgybYzsNfQ2fOEE+/thfoATkQjUXocQkDC6Qjcr9+nFGubazrpcvqHdSsl7TVLi/qhXbOSHWA221gP8v2D+qhLsNVmBz+fiS9/uM23gnuobLYUUjNGypDoF0pZ29CeEB7DYaLDNcu1nM69e5l6WCmnbC4WNHKnmODymm90RsbgB9pEWRoAqvcWRzFtGLUKP3oDLoIpeX80ssvLcRQWXT0QZ6Zxp9iRBNjQWDvjDQiAd93hA/zsOIUUtg7gHMmjOcV+Is/jN45H30mIJEufIWHM0rbvwujnDvOOmvQVdLb0M7qVannSiaFxij9oYXy+CcH1F5HLWmbIXdH9i1H1TMHjw2pJVZBetr0F5fyTgc+PjxdH0FQR3Y1Jn3uDOAEzt1Evc+AufLwONsoTPBxFzPIFKfTgHjS9n9AUw6X/k=" />
+<Playground link="https://eslint-online-playground.netlify.app/#eNqtVM1y0zAQfhWNh0PSSRwm3NwDDJQDB0qHHuvOVJHXRo0saSS5bSaTIzceAV6OJ2Elyz9Jk3KAS360366+/Xb1bRNnmZIlr9J7q2SSJdtcEpInTNWaCzBftONK2jzJSIj4mKOmAueP8uTj9fL1cpknsy4o+MpHbmLoTZ7c9rFaFY2ALvESnrDIQfArWCUaf2cLWzWyQBojnHWGs3C7Mw30x0Ypd8ER6LOsYTFjh5+7XCYzf7bQRmk7l7SGOXb9ANJflDqLffNaK+PIlnzAdrEyc2RHSqPqIEY8Qh3Oc9lDP71v2BpGQPpo56xYz1GEhf9tsX1MyOViQX7//E6u/P0TLh2YkjKYEk+FlEoI9WiJ++Z/m5o6okpy92rbU7lE2C4k3+H1XTr5vOkRIdiOyAAtlBQbsgrs3mYdT2SCUsBTYM8EtXZcgeA4QBZ2JEAo1zevzAR3RUM2IGaEFxnxE5HVjAR1s2espt3m2EZDrOETp8jHH/sLlIBUqGoSSkzD4ALZVrlfP04oVzfWRfmCekcli5qOhXtRrbadI2Jd01oL+P+C/aNKuNtgBTaX9i952Oc20u3nu/bv4v5gkQsoufSdYfqwzRHcVh0nOLtf1m00WGa4dvM2MAbje7gSTcXlftnwTnQIxDcStUYutBHhu+c0ufHN7nVpUwNoUjVOAIrw1NMUX/JfMFHjEq0NhUeTOjtbnGHa4FJxqBjsiR+r1sENehaCY93gnMX6uM+01gTGqMHOvD21n7fTcxykpmxNKzgwY69vm905aEjLkwIeLkB7QpJxOHDp50PxFQR1YMe+O+BOAI7M6wXcieDIGU8gxiY7BvRrvvsDwi9QjQ==" />

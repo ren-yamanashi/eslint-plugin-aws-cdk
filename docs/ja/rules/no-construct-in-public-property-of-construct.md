@@ -26,14 +26,14 @@ Construct の `public` プロパティに Construct 型を使用すると、Cons
 
 ```js
 // eslint.config.mjs
-export default [
+export default defineConfig([
   {
     // ... some configs
     rules: {
       "cdk/no-construct-in-public-property-of-construct": "error",
     },
   },
-];
+]);
 ```
 
 #### ✅ 正しい例
@@ -70,4 +70,4 @@ class MyConstruct extends Construct {
 }
 ```
 
-<Playground link="https://eslint-online-playground.netlify.app/#eNqNVM1O20AQfpWRT4Bip6K3VJWqFg490FZwrFHZrMdmwd619geIUI699RHal+uTdHbXazuQSD1Aov2+b2byzc9zZg1XshZNcWeUzFbZcykByoyrrhct6q+9FUqaMltBQDxmmW7Q+qcyO786fXN6WmaLBLZi7ZHvA/S2zK5HrFOVazEJv+ATBXkBXqJRrfM5I23tZEVlzHjGasFDdqsdjs9aKXsmiOhVRvNBsaX/21JmC/+2lCqnX0sRHLe5kHnv1q3gea9Vj9puclVPeGEN2SG6XmkLz/ApvcMWaq264NHwRPa8K+VI/fzR8Xu0C4ifk4A9mpxX9zl5tPTfDblDwlLiU5DylhkDF5spF1mEsjKz7KELyyX8/f0TLpFVuZLtBoS0qGvG0cARFk0BN0MRN8fAmYQ1gjNYeW38zaBJG6TrwFulqkM9McOfX7O8dtNPwcfY5la5tgKpbEoBtdIwGCrQ7Mv4I6UcM1ID6W/0U+kjmsoeV1P+BYhqBb73sjlOo2gcZYlUjx+HSAD2Vpgi5oD3IPFxSHTkgQX14WITH8psRzLU9X8aGqo4V2hacr8Yt2gaGmr1t9Y1Qqb+R2oYgT4A87mx5jzAiRwM51r0No+63VmpsGautbRoVExR0LRG+VCIKTTSDnc0PViFTRirOcgYXK1p703Y4JOT5QkFnla4ZbJxrMHhKow3gXrMtEFNO5nKiA+DLuGvdYRodYfcXqF+EJxaPtvq0JnhPl3G/V5BtKvo0LKiElqybqL7bZ8+qT/XZBn1qGf8nsp+ceO8w/FepMMUZGVW4cMZ9t4Yyf0M7xy/123xEVpm0czP2cQ7QNgzDHt5HyJxeRfqOBjoADg7OQcY8ys2J6Qhz7b/ABiHEUM=" />
+<Playground link="https://eslint-online-playground.netlify.app/#eNqNVM1u00AQfpWRT0kV2yjcUiEhKAcOBVSOdUWd9djdxtm19oc2inLkxiPAy/EkzO76NyTAIXGy3/fNzM58nn1kNJOi5FXyqKWIVtE+EwBZxOS24TWqj43hUugsWoFHHGZyVaFxR1n07vPyxXKZRYsOrPnaIbct9DKL7npsKwtbYyf8gM8U5Ai8QS1r63IG2tqKgsoY8bRRnPnsRlnsj5WU5ooT0am0Yq3iQN+HTEQLd5YKGdNtKYJlJuYibuy65ixulGxQmV0sywFPjKZ28G0jlYE9vO3O4QClklvfo/aI2nOZiZ76/o1lGzQLCM9BkD/pmBWbmHqUut+aukPCTOCzl7I61xqud0MuahGKQo+y+ymkKfz68Q1uMC9iKeodcGFQlTlDDTNMqgTu2yLu58ByAWsEq7Fw2nBnUKT10rXnrbqqfT0hw8/vo7xm1wzB+9j6Qdq6ACFNlwJKqaBtKEd9KuOXLmWfkQZIn76fUs3IlQ2uhvwL4MUK3OxFNe+sqC1lCVSHz30kAPPAdRJywCsQ+NQmmjlgQXO43oWDLJpI2rr+T0OmCr5CXVP3k/4tGkwTkG74r8Pf9PHILQWWXCBdlOSDVVpyiDoWGD0N6+fCFG9MHIAxmcz2qbYVF9Ow3oSNB6YGpFpyW/tnX9Ps1l13ckudKKQFsSVrYuFfsySh1+UfnHZoJa0V7RfExUV6QbJhQ7RuJ7Av/FS0QHdv9t38kibQ5GyTV3i0wVxjwjbo1o6XZVGBX6+wcZEEcw6drLY/u+ki1LlBPV5WA+8M4USj/8I7A472xRnGeAWNCZ1Do8Nvh6gB1w==" />
