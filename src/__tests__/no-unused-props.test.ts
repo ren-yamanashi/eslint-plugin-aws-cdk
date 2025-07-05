@@ -184,6 +184,47 @@ ruleTester.run("no-unused-props", typedRule, {
       }
       `,
     },
+    // WHEN: Properties are used via destructuring with aliases
+    {
+      code: `
+      class Construct {}
+      interface MyConstructProps {
+        bucketName: string;
+        enableVersioning: boolean;
+      }
+      
+      export class MyConstruct extends Construct {
+        constructor(scope: Construct, id: string, props: MyConstructProps) {
+          super(scope, id);
+          const { bucketName: bn, enableVersioning: ev } = props;
+          new Bucket(this, "MyBucket", {
+            bucketName: bn,
+            versioned: ev
+          });
+        }
+      }
+      `,
+    },
+    // WHEN: Inline destructuring in constructor parameters (all properties used)
+    {
+      code: `
+      class Construct {}
+      interface MyConstructProps {
+        bucketName: string;
+        enableVersioning: boolean;
+      }
+      
+      export class MyConstruct extends Construct {
+        constructor(scope: Construct, id: string, { bucketName, enableVersioning }: MyConstructProps) {
+          super(scope, id);
+          new Bucket(this, "MyBucket", {
+            bucketName,
+            versioned: enableVersioning
+          });
+        }
+      }
+      `,
+    },
   ],
   invalid: [
     // WHEN: Some properties are unused
@@ -320,6 +361,51 @@ ruleTester.run("no-unused-props", typedRule, {
           new Bucket(this, "MyBucket", {
             bucketName: this.props.bucketName,
             versioned: this.props.enableVersioning
+          });
+        }
+      }
+      `,
+      errors: [{ messageId: "unusedProp" }],
+    },
+    // WHEN: Alias destructuring with some properties unused
+    {
+      code: `
+      class Construct {}
+      interface MyConstructProps {
+        bucketName: string;
+        enableVersioning: boolean;
+        unusedProp: string;
+      }
+      
+      export class MyConstruct extends Construct {
+        constructor(scope: Construct, id: string, props: MyConstructProps) {
+          super(scope, id);
+          const { bucketName: bn, enableVersioning: ev } = props;
+          new Bucket(this, "MyBucket", {
+            bucketName: bn,
+            versioned: ev
+          });
+        }
+      }
+      `,
+      errors: [{ messageId: "unusedProp" }],
+    },
+    // WHEN: Inline destructuring with some properties unused
+    {
+      code: `
+      class Construct {}
+      interface MyConstructProps {
+        bucketName: string;
+        enableVersioning: boolean;
+        unusedProp: string;
+      }
+      
+      export class MyConstruct extends Construct {
+        constructor(scope: Construct, id: string, { bucketName, enableVersioning }: MyConstructProps) {
+          super(scope, id);
+          new Bucket(this, "MyBucket", {
+            bucketName,
+            versioned: enableVersioning
           });
         }
       }

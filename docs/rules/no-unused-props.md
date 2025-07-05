@@ -116,6 +116,28 @@ export class MyConstruct extends Construct {
 
 ```ts
 import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+
+interface MyConstructProps {
+  readonly bucketName: string;
+  readonly enableVersioning: boolean;
+}
+
+export class MyConstruct extends Construct {
+  constructor(scope: Construct, id: string, { bucketName, enableVersioning }: MyConstructProps) {
+    super(scope, id);
+    
+    // ✅ Inline destructuring is supported
+    new Bucket(this, "MyBucket", {
+      bucketName,
+      versioned: enableVersioning
+    });
+  }
+}
+```
+
+```ts
+import { Construct } from "constructs";
 
 export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {

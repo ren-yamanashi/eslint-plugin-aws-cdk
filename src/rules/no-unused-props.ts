@@ -97,33 +97,70 @@ const analyzePropsUsage = (
   if (params.length < 3) return;
 
   const propsParam = params[2];
-  if (propsParam.type !== AST_NODE_TYPES.Identifier) return;
-
-  const propsType = parserServices.getTypeAtLocation(propsParam);
-  const propProperties = getPropsProperties(propsType, typeChecker);
-
-  if (!propProperties.length) return;
-
-  // Initialize usage tracking
-  const tracker = new PropsUsageTracker(propProperties);
-
-  if (!tracker.hasProperties()) return;
-
-  // Check if constructor has a body
-  if (!constructor.value.body) return;
-
-  // Analyze constructor body for props usage
-  analyzeConstructorBody(constructor.value.body, propsParam.name, tracker);
-
-  // Report unused properties
-  for (const propName of tracker.getUnusedProperties()) {
-    context.report({
-      node: propsParam,
-      messageId: "unusedProp",
-      data: {
-        propName,
-      },
-    });
+  
+  // Handle both identifier and object pattern (inline destructuring)
+  if (propsParam.type === AST_NODE_TYPES.Identifier) {
+    // Standard props parameter: props: MyConstructProps
+    const propsType = parserServices.getTypeAtLocation(propsParam);
+    const propProperties = getPropsProperties(propsType, typeChecker);
+    
+    if (!propProperties.length) return;
+    
+    const tracker = new PropsUsageTracker(propProperties);
+    
+    if (!tracker.hasProperties()) return;
+    
+    // Check if constructor has a body
+    if (!constructor.value.body) return;
+    
+    // Analyze constructor body for props usage
+    analyzeConstructorBody(constructor.value.body, propsParam.name, tracker);
+    
+    // Report unused properties
+    for (const propName of tracker.getUnusedProperties()) {
+      context.report({
+        node: propsParam,
+        messageId: "unusedProp",
+        data: {
+          propName,
+        },
+      });
+    }
+  } else if (propsParam.type === AST_NODE_TYPES.ObjectPattern) {
+    // Inline destructuring: { bucketName, enableVersioning }: MyConstructProps
+    if (!propsParam.typeAnnotation?.typeAnnotation) return;
+    
+    const propsType = parserServices.getTypeAtLocation(propsParam.typeAnnotation.typeAnnotation);
+    const propProperties = getPropsProperties(propsType, typeChecker);
+    
+    if (!propProperties.length) return;
+    
+    const tracker = new PropsUsageTracker(propProperties);
+    
+    // Extract destructured property names
+    const destructuredProps = propsParam.properties.reduce<string[]>((acc, prop) => {
+      if (prop.type === AST_NODE_TYPES.Property && 
+          prop.key.type === AST_NODE_TYPES.Identifier) {
+        return [...acc, prop.key.name];
+      }
+      return acc;
+    }, []);
+    
+    // Mark destructured properties as used
+    for (const propName of destructuredProps) {
+      tracker.markAsUsed(propName);
+    }
+    
+    // Report unused properties
+    for (const propName of tracker.getUnusedProperties()) {
+      context.report({
+        node: propsParam,
+        messageId: "unusedProp",
+        data: {
+          propName,
+        },
+      });
+    }
   }
 };
 
