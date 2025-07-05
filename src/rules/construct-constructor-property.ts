@@ -9,7 +9,12 @@ import {
 import { createRule } from "../utils/createRule";
 import { isConstructType } from "../utils/typeCheck";
 
-type Context = TSESLint.RuleContext<"invalidConstructorProperty", []>;
+type Context = TSESLint.RuleContext<
+  | "invalidConstructorProperty"
+  | "invalidConstructorType"
+  | "invalidConstructorIdType",
+  []
+>;
 
 /**
  * Enforces that constructors of classes extending Construct have the property names 'scope, id' or 'scope, id, props'
@@ -27,6 +32,10 @@ export const constructConstructorProperty = createRule({
     messages: {
       invalidConstructorProperty:
         "Constructor of a class extending Construct must have the property names 'scope, id' or 'scope, id, props'",
+      invalidConstructorType:
+        "Constructor of a class extending Construct must have the type 'Construct' for the first parameter",
+      invalidConstructorIdType:
+        "Constructor of a class extending Construct must have the type 'string' for the second parameter",
     },
     schema: [],
   },
@@ -77,33 +86,44 @@ const validateConstructorProperty = (
   const firstParam = params[0];
   if (
     firstParam.type !== AST_NODE_TYPES.Identifier ||
-    firstParam.name !== "scope" ||
-    !isConstructType(parserServices.getTypeAtLocation(firstParam))
+    firstParam.name !== "scope"
   ) {
     context.report({
       node: firstParam,
       messageId: "invalidConstructorProperty",
     });
-    return;
+  } else if (!isConstructType(parserServices.getTypeAtLocation(firstParam))) {
+    context.report({
+      node: firstParam,
+      messageId: "invalidConstructorType",
+    });
   }
 
   // NOTE: Check if the second parameter is named "id"
   const secondParam = params[1];
   if (
     secondParam.type !== AST_NODE_TYPES.Identifier ||
-    secondParam.name !== "id" ||
-    secondParam.typeAnnotation?.typeAnnotation.type !==
-      AST_NODE_TYPES.TSStringKeyword
+    secondParam.name !== "id"
   ) {
     context.report({
       node: secondParam,
       messageId: "invalidConstructorProperty",
     });
     return;
+  } else if (
+    secondParam.typeAnnotation?.typeAnnotation.type !==
+    AST_NODE_TYPES.TSStringKeyword
+  ) {
+    context.report({
+      node: secondParam,
+      messageId: "invalidConstructorIdType",
+    });
+    return;
   }
 
-  // NOTE: If there's no third parameter, return
-  if (params.length < 3) return;
+  if (params.length < 3)
+    // NOTE: If there's no third parameter, return
+    return;
 
   // NOTE: Check if the third parameter is named "props"
   const thirdParam = params[2];

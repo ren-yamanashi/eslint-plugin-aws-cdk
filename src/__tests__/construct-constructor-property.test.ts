@@ -4,7 +4,9 @@ import { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import { constructConstructorProperty } from "../rules/construct-constructor-property";
 
 const typedRule = constructConstructorProperty as ESLintUtils.RuleModule<
-  "invalidConstructorProperty",
+  | "invalidConstructorProperty"
+  | "invalidConstructorType"
+  | "invalidConstructorIdType",
   [],
   {
     ClassDeclaration(node: TSESTree.ClassDeclaration): void;
@@ -163,7 +165,7 @@ ruleTester.run("construct-constructor-property", typedRule, {
         }
       }
       `,
-      errors: [{ messageId: "invalidConstructorProperty" }],
+      errors: [{ messageId: "invalidConstructorType" }],
     },
     // WHEN: constructor has 2 parameters but id type is not "string"
     {
@@ -176,7 +178,7 @@ ruleTester.run("construct-constructor-property", typedRule, {
         }
       }
       `,
-      errors: [{ messageId: "invalidConstructorProperty" }],
+      errors: [{ messageId: "invalidConstructorIdType" }],
     },
   ],
 });
