@@ -7,9 +7,9 @@ import {
 } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils/createRule";
-import { getPropertyNames } from "../utils/getPropertyNames";
+import { getConstructor } from "../utils/getConstructor";
 import {
-  PropsUsageTracker,
+  IPropsUsageTracker,
   propsUsageTrackerFactory,
 } from "../utils/propsUsageTracker";
 import { isConstructType } from "../utils/typeCheck";
@@ -43,11 +43,7 @@ export const noUnusedProps = createRule({
         const type = parserServices.getTypeAtLocation(node);
         if (!isConstructType(type)) return;
 
-        const constructor = node.body.body.find(
-          (member): member is TSESTree.MethodDefinition =>
-            member.type === AST_NODE_TYPES.MethodDefinition &&
-            member.kind === "constructor"
-        );
+        const constructor = getConstructor(node);
         if (!constructor) return;
 
         analyzePropsUsage(constructor, context, parserServices);
@@ -55,25 +51,6 @@ export const noUnusedProps = createRule({
     };
   },
 });
-
-/**
- * Reports unused properties to ESLint
- */
-const reportUnusedProperties = (
-  tracker: PropsUsageTracker,
-  propsParam: TSESTree.Parameter,
-  context: Context
-): void => {
-  for (const propName of tracker.getUnusedProperties()) {
-    context.report({
-      node: propsParam,
-      messageId: "unusedProp",
-      data: {
-        propName,
-      },
-    });
-  }
-};
 
 /**
  * Analyzes props usage in the constructor
@@ -103,19 +80,14 @@ const analyzePropsUsage = (
     }
     case AST_NODE_TYPES.ObjectPattern: {
       // NOTE: Inline destructuring (e.g. { bucketName, enableVersioning }: MyConstructProps)
-      if (!propsParam.typeAnnotation?.typeAnnotation) return;
+      const typeAnnotation = propsParam.typeAnnotation?.typeAnnotation;
+      if (!typeAnnotation) return;
 
-      const propsType = parserServices.getTypeAtLocation(
-        propsParam.typeAnnotation.typeAnnotation
-      );
+      const propsType = parserServices.getTypeAtLocation(typeAnnotation);
       const tracker = propsUsageTrackerFactory(propsType);
       if (!tracker) return;
 
-      // NOTE: Mark destructured properties as used
-      for (const propName of getPropertyNames(propsParam.properties)) {
-        tracker.markAsUsed(propName);
-      }
-
+      tracker.markAsUsedForObjectPattern(propsParam);
       reportUnusedProperties(tracker, propsParam, context);
       return;
     }
@@ -130,7 +102,7 @@ const analyzePropsUsage = (
 const analyzeConstructorBody = (
   body: TSESTree.BlockStatement,
   propsParamName: string,
-  tracker: PropsUsageTracker
+  tracker: IPropsUsageTracker
 ): void => {
   const visited = new Set<TSESTree.Node>();
 
@@ -161,18 +133,32 @@ const analyzeConstructorBody = (
 };
 
 /**
+ * Reports unused properties to ESLint
+ */
+const reportUnusedProperties = (
+  tracker: IPropsUsageTracker,
+  propsParam: TSESTree.Parameter,
+  context: Context
+): void => {
+  for (const propName of tracker.getUnusedProperties()) {
+    context.report({
+      node: propsParam,
+      messageId: "unusedProp",
+      data: {
+        propName,
+      },
+    });
+  }
+};
+
+/**
  * Safely gets child nodes from a TSESTree.Node
  */
 const getChildNodes = (node: TSESTree.Node): TSESTree.Node[] => {
-  const skipKeys = new Set(["parent", "range", "loc"]);
-
   return Object.entries(node).reduce<TSESTree.Node[]>((acc, [key, value]) => {
-    if (skipKeys.has(key)) return acc;
+    if (["parent", "range", "loc"].includes(key)) return acc; // Keys to skip to avoid circular references and unnecessary properties
     if (isESTreeNode(value)) return [...acc, value];
-    if (Array.isArray(value)) {
-      const validNodes = value.filter(isESTreeNode);
-      return [...acc, ...validNodes];
-    }
+    if (Array.isArray(value)) return [...acc, ...value.filter(isESTreeNode)];
     return acc;
   }, []);
 };
