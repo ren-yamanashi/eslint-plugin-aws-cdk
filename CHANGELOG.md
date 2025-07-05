@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/ren-yamanashi/eslint-cdk-plugin/compare/v3.0.0...v3.1.0) (2025-07-05)
+
+### Documentation changes
+
+- update sample code in 'eslint.config.js' ([#167](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/167)) ([3fd3360](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/3fd3360a58eed8a3bb1bcbd2360a6d409c3a308e))
+
+### New features/Updates to existing features
+
+- make type checking more strict ([#168](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/168)) ([3511e5a](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/3511e5a39f585adb3be165fa1bbad6ed0b55d9c1))
+
+### Other changes
+
+- npm publish with CI ([#170](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/170)) ([85c92fd](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/85c92fd125737176e1c7673a8f2a662dbc7528ec))
+- update dependencies ([#169](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/169)) ([9c3997d](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/9c3997d16bded977646ad275e02a238dbe365240))
+
 ### [3.0.3](https://github.com/ren-yamanashi/eslint-cdk-plugin/compare/v3.0.0...v3.0.3) (2025-05-20)
 
 ### Other changes
