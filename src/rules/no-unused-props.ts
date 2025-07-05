@@ -108,8 +108,6 @@ const analyzePropsUsage = (
     
     const tracker = new PropsUsageTracker(propProperties);
     
-    if (!tracker.hasProperties()) return;
-    
     // Check if constructor has a body
     if (!constructor.value.body) return;
     
