@@ -39,7 +39,7 @@ ruleTester.run(
       {
         code: `
         interface UserProps {
-          readonly name: string;
+          readonly name?: string;
           readonly age?: number;
         }
       `,
@@ -85,13 +85,13 @@ ruleTester.run(
       {
         code: `
         interface ConfigProps {
-          name: string;
+          name?: string;
           age?: number;
         }
       `,
         output: `
         interface ConfigProps {
-          readonly name: string;
+          readonly name?: string;
           readonly age?: number;
         }
       `,

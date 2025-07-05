@@ -30,7 +30,7 @@ ruleTester.run("require-jsdoc", requireJSDoc, {
     {
       // WHEN: Construct class with JSDoc comments
       code: `
-        import { Construct } from 'constructs';
+        class Construct {}
         class TestConstruct extends Construct {
           /**
            * Description for prop1
@@ -44,7 +44,7 @@ ruleTester.run("require-jsdoc", requireJSDoc, {
     {
       // WHEN: property is not public
       code: `
-        import { Construct } from 'constructs';
+        class Construct {}
         class TestConstruct extends Construct {
           private prop3: string;
           protected prop4: number;
@@ -54,7 +54,7 @@ ruleTester.run("require-jsdoc", requireJSDoc, {
     {
       // WHEN: non-Construct class
       code: `
-        class NormalClass {
+        class SampleConstruct {
           public prop1: string;
           private prop2: number;
         }
@@ -79,7 +79,7 @@ ruleTester.run("require-jsdoc", requireJSDoc, {
     {
       // WHEN: Construct class without JSDoc comments
       code: `
-        import { Construct } from 'constructs';
+        class Construct {}
         class TestConstruct extends Construct {
           public prop1: string;
         }

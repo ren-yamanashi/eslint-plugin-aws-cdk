@@ -37,7 +37,7 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
     {
       code: `
       interface TestInterface {
-        test: TestClass;
+        test: undefined;
       }
       `,
     },
@@ -53,10 +53,19 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
     // WHEN: property type is interface that extends Construct
     {
       code: `
-      interface IConstruct {}
-      interface SampleInterface extends IConstruct {}
+      interface Construct {}
+      interface SampleInterface extends Construct {}
       interface TestInterface {
         test: SampleInterface;
+      }
+      `,
+    },
+    // WHEN: property type is class but not extends Construct
+    {
+      code: `
+      class SampleConstruct {}
+      interface TestInterface {
+        test: SampleConstruct;
       }
       `,
     },
@@ -66,6 +75,16 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       code: `
       class Construct {}
       class TestClass extends Construct {}
+      interface TestInterface {
+        test: TestClass;
+      }
+      `,
+      errors: [{ messageId: "invalidInterfaceProperty" }],
+    },
+    {
+      code: `
+      class Stack {}
+      class TestClass extends Stack {}
       interface TestInterface {
         test: TestClass;
       }

@@ -146,6 +146,23 @@ ruleTester.run("no-variable-construct-id", noVariableConstructId, {
       }
       `,
     },
+    // WHEN: Class does not extend Construct
+    {
+      code: `
+      class Construct {}
+      class TargetConstruct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class SampleConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          new TargetConstruct(this, id);
+        }
+      }
+      `,
+    },
   ],
   invalid: [
     // WHEN: id is variable
@@ -234,6 +251,20 @@ ruleTester.run("no-variable-construct-id", noVariableConstructId, {
           new TargetConstruct(this, getId());
         }
       }
+      `,
+      errors: [{ messageId: "invalidConstructId" }],
+    },
+    // WHEN: Instantiated outside of class constructor
+    {
+      code: `
+      class Construct {}
+      class TargetConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      const id = "OutsideId";
+      const instance = new TargetConstruct(new Construct(), id);
       `,
       errors: [{ messageId: "invalidConstructId" }],
     },

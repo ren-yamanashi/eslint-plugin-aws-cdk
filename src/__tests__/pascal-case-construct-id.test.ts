@@ -74,10 +74,10 @@ ruleTester.run("pascal-case-construct-id", pascalCaseConstructId, {
     // WHEN: not extends Construct
     {
       code: `
-      class TestClass {
+      class SampleConstruct {
         constructor(public id: string) {}
       }
-      const test = new TestClass('test', 'ValidId');`,
+      const test = new SampleConstruct('test', 'ValidId');`,
     },
     // WHEN: property name is not `id`
     {

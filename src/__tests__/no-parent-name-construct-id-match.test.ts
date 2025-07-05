@@ -92,7 +92,7 @@ ruleTester.run(
           super(scope, id);
         }
       }
-      class TestClass {
+      class SampleConstruct {
         constructor(scope: Construct, id: string) {
           super(scope, id);
           new SampleClass(scope, "TestConstruct");
