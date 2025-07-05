@@ -18,9 +18,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  test-and-build:
+  integration:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    name: Integration
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -80,7 +81,7 @@ jobs:
           path: ./docs/.vitepress/dist
   deploy:
     if: github.ref == 'refs/heads/main'
-    needs: test-and-build
+    needs: integration
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -93,7 +94,7 @@ jobs:
 
   publish:
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: test-and-build
+    needs: integration
     name: Publish to npm
     runs-on: ubuntu-latest
     timeout-minutes: 10
