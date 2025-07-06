@@ -118,7 +118,7 @@ import RuleItem from '../../components/RuleItem.vue'
   />
   <RuleItem
     name="no-mutable-property-of-props-interface"
-    description="Props(interface) のプロパティに readonly を指定することを強制します"
+    description="Props (interface) のプロパティに readonly を指定することを強制します"
     link="/ja/rules/no-mutable-property-of-props-interface"
     :isRecommended="true"
     :isFixable="true"
@@ -139,7 +139,7 @@ import RuleItem from '../../components/RuleItem.vue'
   />
   <RuleItem
     name="no-unused-props"
-    description="CDK Construct のpropsインターフェースで定義されたすべてのプロパティがコンストラクタ内で使用されることを強制します"
+    description="Construct の Props (interface) に定義されたすべてのプロパティがコンストラクタ内で使用されることを強制します"
     link="/ja/rules/no-unused-props"
     :isRecommended="false"
     :isFixable="false"
@@ -160,7 +160,7 @@ import RuleItem from '../../components/RuleItem.vue'
   />
   <RuleItem
     name="props-name-convention"
-    description="Props(interface) 名が ${ConstructName}Props の形式に従うことを強制します"
+    description="Props (interface) 名が ${ConstructName}Props の形式に従うことを強制します"
     link="/ja/rules/props-name-convention"
     :isRecommended="false"
     :isFixable="false"
@@ -181,7 +181,7 @@ import RuleItem from '../../components/RuleItem.vue'
   />
   <RuleItem
     name="require-props-default-doc"
-    description="Props(interface) のオプショナルなプロパティに '@default' JSDoc を書くことを強制します"
+    description="Props (interface) のオプショナルなプロパティに '@default' JSDoc を書くことを強制します"
     link="/ja/rules/require-props-default-doc"
     :isRecommended="false"
     :isFixable="false"
