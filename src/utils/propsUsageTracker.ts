@@ -29,11 +29,11 @@ export const propsUsageTrackerFactory = (
   const getPropsPropertyNames = (propsType: Type): string[] => {
     const typeProperties = propsType.getProperties();
     if (typeProperties.length) {
-      return typeProperties.reduce<string[]>((acc, prop) => {
-        const name = prop.getName();
-        if (!isInternalProperty(name)) return [...acc, name];
-        return acc;
-      }, []);
+      return typeProperties.reduce<string[]>(
+        (acc, prop) =>
+          !isInternalProperty(prop.name) ? [...acc, prop.name] : acc,
+        []
+      );
     }
 
     const symbol = propsType.getSymbol();
@@ -41,8 +41,7 @@ export const propsUsageTrackerFactory = (
 
     return Array.from(symbol.members.keys()).reduce<string[]>((acc, key) => {
       const name = String(key);
-      if (!isInternalProperty(name)) return [...acc, name];
-      return acc;
+      return !isInternalProperty(name) ? [...acc, name] : acc;
     }, []);
   };
 
@@ -100,17 +99,17 @@ export const propsUsageTrackerFactory = (
       return;
     }
 
-    // Check for this.props.propertyName or this.props?.propertyName pattern
+    // NOTE: Check for this.props.propertyName or this.props?.propertyName pattern
     if (
-      node.object.type !== AST_NODE_TYPES.MemberExpression ||
-      node.object.object.type !== AST_NODE_TYPES.ThisExpression ||
-      node.object.property.type !== AST_NODE_TYPES.Identifier ||
-      node.object.property.name !== "props" ||
-      node.property.type !== AST_NODE_TYPES.Identifier
+      node.object.type === AST_NODE_TYPES.MemberExpression &&
+      node.object.object.type === AST_NODE_TYPES.ThisExpression &&
+      node.object.property.type === AST_NODE_TYPES.Identifier &&
+      node.object.property.name === "props" &&
+      node.property.type === AST_NODE_TYPES.Identifier
     ) {
+      markAsUsed(node.property.name);
       return;
     }
-    markAsUsed(node.property.name);
   };
 
   /**
@@ -131,6 +130,7 @@ export const propsUsageTrackerFactory = (
     ) {
       return;
     }
+
     const propertyNames = getPropertyNames(node.id.properties);
     for (const name of propertyNames) {
       markAsUsed(name);
