@@ -119,7 +119,7 @@ We currently support the following rules:
   />
   <RuleItem
     name="no-mutable-property-of-props-interface"
-    description="Enforces that properties of Props(interface) are specified with readonly."
+    description="Enforces that properties of Props (interface) are specified with readonly."
     link="/rules/no-mutable-property-of-props-interface"
     :isRecommended="true"
     :isFixable="true"
@@ -140,7 +140,7 @@ We currently support the following rules:
   />
   <RuleItem
     name="no-unused-props"
-    description="Enforces that all properties defined in CDK Construct props interfaces are used within the constructor."
+    description="Enforces that all properties defined in Construct Props (interface) are used within the constructor."
     link="/rules/no-unused-props"
     :isRecommended="false"
     :isFixable="false"
@@ -161,7 +161,7 @@ We currently support the following rules:
   />
   <RuleItem
     name="props-name-convention"
-    description="Enforces that Props(interface) names follow the ${ConstructName}Props format."
+    description="Enforces that Props (interface) names follow the ${ConstructName}Props format."
     link="/rules/props-name-convention"
     :isRecommended="false"
     :isFixable="false"
@@ -182,7 +182,7 @@ We currently support the following rules:
   />
   <RuleItem
     name="require-props-default-doc"
-    description="Requires '@default' JSDoc for optional properties of Props(interface)."
+    description="Requires '@default' JSDoc for optional properties of Props (interface)."
     link="/rules/require-props-default-doc"
     :isRecommended="false"
     :isFixable="false"
