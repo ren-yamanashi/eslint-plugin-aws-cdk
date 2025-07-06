@@ -27,6 +27,13 @@ ruleTester.run("no-unused-props", typedRule, {
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         bucketName: string;
         enableVersioning: boolean;
@@ -47,6 +54,13 @@ ruleTester.run("no-unused-props", typedRule, {
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         bucketName: string;
         enableVersioning: boolean;
@@ -68,6 +82,13 @@ ruleTester.run("no-unused-props", typedRule, {
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         bucketName: string;
         enableVersioning: boolean;
@@ -92,6 +113,13 @@ ruleTester.run("no-unused-props", typedRule, {
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         bucketName: string;
         enableVersioning: boolean;
@@ -118,6 +146,13 @@ ruleTester.run("no-unused-props", typedRule, {
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         bucketName: string;
         enableVersioning?: boolean;
@@ -138,7 +173,12 @@ ruleTester.run("no-unused-props", typedRule, {
     {
       code: `
       class Construct {}
-      
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+
       export class MyConstruct extends Construct {
         constructor(scope: Construct, id: string) {
           super(scope, id);
@@ -166,6 +206,13 @@ ruleTester.run("no-unused-props", typedRule, {
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         config: {
           bucketName: string;
@@ -188,6 +235,13 @@ ruleTester.run("no-unused-props", typedRule, {
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         bucketName: string;
         enableVersioning: boolean;
@@ -209,6 +263,13 @@ ruleTester.run("no-unused-props", typedRule, {
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         bucketName: string;
         enableVersioning: boolean;
@@ -229,6 +290,13 @@ ruleTester.run("no-unused-props", typedRule, {
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         bucketName?: string;
         enableVersioning?: boolean;
@@ -251,6 +319,13 @@ ruleTester.run("no-unused-props", typedRule, {
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         bucketName: string;
         enableVersioning: boolean;
@@ -273,6 +348,13 @@ ruleTester.run("no-unused-props", typedRule, {
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         bucketName: string;
         enableVersioning: boolean;
@@ -288,15 +370,19 @@ ruleTester.run("no-unused-props", typedRule, {
         }
       }
       `,
-      errors: [
-        { messageId: "unusedProp" },
-        { messageId: "unusedProp" }
-      ],
+      errors: [{ messageId: "unusedProp" }, { messageId: "unusedProp" }],
     },
     // WHEN: Props parameter is not referenced at all
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         bucketName: string;
         enableVersioning: boolean;
@@ -309,15 +395,19 @@ ruleTester.run("no-unused-props", typedRule, {
         }
       }
       `,
-      errors: [
-        { messageId: "unusedProp" },
-        { messageId: "unusedProp" }
-      ],
+      errors: [{ messageId: "unusedProp" }, { messageId: "unusedProp" }],
     },
     // WHEN: Only some properties are used via destructuring
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         bucketName: string;
         enableVersioning: boolean;
@@ -341,6 +431,13 @@ ruleTester.run("no-unused-props", typedRule, {
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         bucketName: string;
         enableVersioning: boolean;
@@ -358,13 +455,20 @@ ruleTester.run("no-unused-props", typedRule, {
       errors: [
         { messageId: "unusedProp" },
         { messageId: "unusedProp" },
-        { messageId: "unusedProp" }
+        { messageId: "unusedProp" },
       ],
     },
     // WHEN: Props is assigned to private variable but some properties are unused
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         bucketName: string;
         enableVersioning: boolean;
@@ -391,6 +495,13 @@ ruleTester.run("no-unused-props", typedRule, {
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         bucketName: string;
         enableVersioning: boolean;
@@ -414,6 +525,13 @@ ruleTester.run("no-unused-props", typedRule, {
     {
       code: `
       class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
       interface MyConstructProps {
         bucketName: string;
         enableVersioning: boolean;
