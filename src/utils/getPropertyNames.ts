@@ -18,15 +18,14 @@ import { SYNTAX_KIND } from "../constants/tsInternalFlags";
 export const getPropertyNames = (
   properties: (TSESTree.Property | TSESTree.RestElement)[]
 ): string[] => {
-  return properties.reduce<string[]>((acc, prop) => {
-    if (
+  return properties.reduce<string[]>(
+    (acc, prop) =>
       prop.type === AST_NODE_TYPES.Property &&
       prop.key.type === AST_NODE_TYPES.Identifier
-    ) {
-      return [...acc, prop.key.name];
-    }
-    return acc;
-  }, []);
+        ? [...acc, prop.key.name]
+        : acc,
+    []
+  );
 };
 
 /**
