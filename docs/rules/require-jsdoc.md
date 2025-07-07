@@ -12,9 +12,9 @@ import Playground from '../components/Playground.vue'
 
 <NotRecommendedItem />
 
-This rule requires JSDoc comments for interface properties and, public properties in Construct classes.
+This rule requires JSDoc comments for Construct's Props interface properties and Construct public properties.
 
-Adding JSDoc comments to properties makes the code more maintainable and easier to understand by providing clear documentation of what each property represents.
+Adding JSDoc comments to properties clarifies what each property represents, improving code maintainability and understandability.
 
 ---
 
@@ -53,7 +53,7 @@ class MyConstruct extends Construct {
   /** The S3 bucket created by this construct */
   public readonly bucket: IBucket;
 
-  // ✅ When the property is not public, this rule is not applied
+  // ✅ This rule does not apply to non-public properties
   private readonly bucketName: string;
 }
 ```

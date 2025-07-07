@@ -31,13 +31,16 @@ export const requireJSDoc = createRule({
     const parserServices = ESLintUtils.getParserServices(context);
     return {
       TSPropertySignature(node) {
-        if (
-          node.key.type !== AST_NODE_TYPES.Identifier ||
-          node.parent?.type !== AST_NODE_TYPES.TSInterfaceBody
-        ) {
-          return;
-        }
+        if (node.key.type !== AST_NODE_TYPES.Identifier) return;
 
+        // NOTE: Check if the parent is an interface
+        const parent = node.parent.parent;
+        if (parent.type !== AST_NODE_TYPES.TSInterfaceDeclaration) return;
+
+        // NOTE: Check if the interface name ends with 'Props'
+        if (!parent.id.name.endsWith("Props")) return;
+
+        // NOTE: Get JSDoc comments
         const sourceCode = context.sourceCode;
         const comments = sourceCode.getCommentsBefore(node);
         const hasJSDoc = comments.some(

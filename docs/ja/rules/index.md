@@ -167,7 +167,7 @@ import RuleItem from '../../components/RuleItem.vue'
   />
   <RuleItem
     name="require-jsdoc"
-    description="interface のプロパティと Construct の public プロパティに JSDoc の記載を必須とします"
+    description="Props(interface) のプロパティと Construct の public プロパティに JSDoc の記載を必須とします"
     link="/ja/rules/require-jsdoc"
     :isRecommended="false"
     :isFixable="false"
