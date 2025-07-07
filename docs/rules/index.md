@@ -161,7 +161,7 @@ We currently support the following rules:
   />
   <RuleItem
     name="require-jsdoc"
-    description="Requires JSDoc comments for interface properties and public properties of Constructs."
+    description="Requires JSDoc comments for properties of Props(interface) and public properties of Constructs."
     link="/rules/require-jsdoc"
     :isRecommended="false"
     :isFixable="false"
