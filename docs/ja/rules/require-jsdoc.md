@@ -12,7 +12,7 @@ import Playground from '../../components/Playground.vue'
 
 <NotRecommendedItem japanese />
 
-このルールは、Construct の Props (interface) のプロパティと、 Construct の public プロパティに JSDoc の記載を必須とします。
+このルールは、Construct の Props(interface) のプロパティと、 Construct の public プロパティに JSDoc の記載を必須とします。
 
 プロパティに JSDoc コメントを追加することで、各プロパティが何を表しているのかが明確になり、コードの保守性と理解のしやすさが向上します。
 
