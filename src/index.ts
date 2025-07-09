@@ -1,4 +1,5 @@
 import tsParser from "@typescript-eslint/parser";
+import { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 
 import { name, version } from "../package.json";
 
@@ -40,7 +41,13 @@ const cdkPlugin = {
   rules,
 };
 
-const createFlatConfig = (rules: Record<string, unknown>) => {
+const createFlatConfig = (
+  rules: FlatConfig.Rules
+): {
+  languageOptions: FlatConfig.LanguageOptions;
+  plugins: FlatConfig.Plugins;
+  rules: FlatConfig.Rules;
+} => {
   return {
     languageOptions: {
       parser: tsParser,
@@ -100,7 +107,10 @@ export { configs, rules };
 
 export interface EslintCdkPlugin {
   rules: typeof rules;
-  configs: typeof configs;
+  configs: Readonly<{
+    recommended: FlatConfig.Config;
+    strict: FlatConfig.Config;
+  }>;
 }
 
 const eslintCdkPlugin: EslintCdkPlugin = {
