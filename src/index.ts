@@ -107,7 +107,10 @@ export { configs, rules };
 
 export interface EslintCdkPlugin {
   rules: typeof rules;
-  configs: Readonly<Record<string, FlatConfig.Config>>;
+  configs: Readonly<{
+    recommended: FlatConfig.Config;
+    strict: FlatConfig.Config;
+  }>;
 }
 
 const eslintCdkPlugin: EslintCdkPlugin = {
