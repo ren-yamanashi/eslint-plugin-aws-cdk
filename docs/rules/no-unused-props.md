@@ -13,9 +13,9 @@ import NextRecommendedItem from '../components/NextRecommendedItem.vue'
 <NotRecommendedItem />
 <NextRecommendedItem version="v4.0.0" />
 
-This rule enforces that all properties defined in CDK Construct props interfaces are actually used within the constructor.
+This rule enforces that all properties defined in CDK Construct props interface are actually used within the constructor.
 
-When developing CDK Constructs, it's common to define props interfaces with multiple properties, but developers may forget to use some of these properties in the constructor implementation. This leads to dead code.
+When developing CDK Constructs, it's common to define props interface with multiple properties, but developers may forget to use some of these properties in the constructor implementation. This leads to dead code.
 
 (This rule applies only to classes that extend `Construct`.)
 
