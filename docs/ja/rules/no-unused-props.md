@@ -6,6 +6,7 @@ titleTemplate: ":title"
 <script setup>
 import NotRecommendedItem from '../../components/NotRecommendedItem.vue'
 import NextRecommendedItem from '../../components/NextRecommendedItem.vue'
+import Playground from '../../components/Playground.vue'
 </script>
 
 # no-unused-props
