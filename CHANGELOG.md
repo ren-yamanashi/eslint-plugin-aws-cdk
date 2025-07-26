@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/ren-yamanashi/eslint-cdk-plugin/compare/v3.0.0...v3.2.0) (2025-07-26)
+
+### Bug fixes
+
+- Type errors occur when adding [@ts-check](https://github.com/ts-check) comments in eslint.config.js ([#176](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/176)) ([a235bf8](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/a235bf80930adad0a6403fc1e3830c0e14b4414a))
+
+### New features/Updates to existing features
+
+- add no-unused-props rule for CDK construct props validation ([#173](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/173)) ([c6b3602](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/c6b36027bf34fd33d2cfa0c30aa39390497debb0))
+- update require-jsdoc rule ([#174](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/174)) ([19accd8](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/19accd85c34120b6602d7837edef0a9396870cb2))
+- update require-props-default-doc rule ([#175](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/175)) ([84cb10e](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/84cb10eed418d25f77ae79398596d4a722bacdf3))
+
 ## [3.1.0](https://github.com/ren-yamanashi/eslint-cdk-plugin/compare/v3.0.0...v3.1.0) (2025-07-05)
 
 ### Documentation changes
