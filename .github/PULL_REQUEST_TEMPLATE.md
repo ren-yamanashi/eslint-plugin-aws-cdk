@@ -14,10 +14,6 @@ Closes #<issue number here>.
 
 <!--Have you added any unit tests?-->
 
-### Checklist
-
-- [ ] My code adheres to the [CONTRIBUTING GUIDE](https://github.com/ren-yamanashi/eslint-cdk-plugin/blob/main/CONGRIBUTING.md)
-
 ---
 
 _By submitting this pull request, I confirm that my contribution is made under the terms of the MIT license_
