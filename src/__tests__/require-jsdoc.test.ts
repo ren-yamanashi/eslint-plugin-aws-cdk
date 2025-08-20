@@ -77,17 +77,22 @@ ruleTester.run("require-jsdoc", requireJSDoc, {
       ],
     },
     {
-      // WHEN: Construct class without JSDoc comments
+      // WHEN: public property in Construct class without JSDoc comments
       code: `
         class Construct {}
         class TestConstruct extends Construct {
           public prop1: string;
+          prop2: string;
         }
       `,
       errors: [
         {
           messageId: "missingJSDoc",
           data: { propertyName: "prop1" },
+        },
+        {
+          messageId: "missingJSDoc",
+          data: { propertyName: "prop2" },
         },
       ],
     },
