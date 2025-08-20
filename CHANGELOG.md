@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.0](https://github.com/ren-yamanashi/eslint-cdk-plugin/compare/v3.0.0...v3.3.0) (2025-08-20)
+
+### New features/Updates to existing features
+
+- add "CfnOutput" to ignoredClasses in type checks for Construct and Stack ([#180](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/180)) ([17e8b11](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/17e8b1182962ead42900ee60e7b06536bdb440bb))
+
+### Other changes
+
+- remove checklist section from pull request template ([#181](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/181)) ([6d618c5](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/6d618c50b143bbd11838b7a6b4f48fa2d4232a15))
+
+### Bug fixes
+
+- apply `require-jsdoc` rules even to public property with no accessibility specified ([#182](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/182)) ([bea913b](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/bea913b46b02d664ddbf979ca75815c3e423332c))
+
+### Documentation changes
+
+- update contributing guidelines ([#183](https://github.com/ren-yamanashi/eslint-cdk-plugin/issues/183)) ([4b5ad18](https://github.com/ren-yamanashi/eslint-cdk-plugin/commit/4b5ad1831d4863ddce402d0bb6f9b8c13ffdefc6))
+
 ## [3.2.0](https://github.com/ren-yamanashi/eslint-cdk-plugin/compare/v3.0.0...v3.2.0) (2025-07-26)
 
 ### Bug fixes
