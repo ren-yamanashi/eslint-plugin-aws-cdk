@@ -10,7 +10,7 @@ type SuperClassType = "Construct" | "Stack";
  */
 export const isConstructOrStackType = (
   type: Type,
-  ignoredClasses: readonly string[] = ["App", "Stage"] as const
+  ignoredClasses: readonly string[] = ["App", "Stage", "CfnOutput"] as const
 ): boolean => {
   if (ignoredClasses.includes(type.symbol?.name ?? "")) return false;
   return isTargetSuperClassType(
@@ -28,7 +28,12 @@ export const isConstructOrStackType = (
  */
 export const isConstructType = (
   type: Type,
-  ignoredClasses: readonly string[] = ["App", "Stage", "Stack"] as const
+  ignoredClasses: readonly string[] = [
+    "App",
+    "Stage",
+    "CfnOutput",
+    "Stack",
+  ] as const
 ): boolean => {
   if (ignoredClasses.includes(type.symbol?.name ?? "")) return false;
   return isTargetSuperClassType(type, ["Construct"], isConstructType);
