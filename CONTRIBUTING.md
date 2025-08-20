@@ -19,7 +19,7 @@ When you create a bug issue, include as following content:
 - Expected behavior
 - Actual behavior
 - Code samples if applicable
-- Version information (Node.js, ESLint)
+- Version information (Node.js, ESLint, eslint-cdk-plugin)
 
 ### Create Feature Request Issue
 
@@ -59,8 +59,8 @@ pnpm lint
 
 #### Creating a New Rule
 
-1. Create a new file in `src`(file name should same rule name)
-2. Create corresponding test file in `src/__tests__`
+1. Create a new file in `src/rules/`(file name should same rule name)
+2. Create corresponding test file in `src/__tests__/`
 3. Add rule to `src/index.ts`
 4. Add documentation in `docs`
 
@@ -70,8 +70,10 @@ Example rule structure:
 
 ```typescript
 import { ESLintUtils } from "@typescript-eslint/utils";
+import { createRule } from "../utils/createRule";
 
-export const newRule = ESLintUtils.RuleCreator.withoutDocs({
+export const newRule = createRule({
+  name: "sample-new-rule",
   meta: {
     type: "problem",
     docs: {
@@ -88,12 +90,6 @@ export const newRule = ESLintUtils.RuleCreator.withoutDocs({
   },
 });
 ```
-
-## Merge Process
-
-1. Changes are merged to `main`
-2. Maintainers will review and merge
-3. Publish to npm according to Milestone
 
 ## Questions?
 
