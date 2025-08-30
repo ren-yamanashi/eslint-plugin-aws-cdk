@@ -14,6 +14,27 @@
 
 Please refer to the [website](https://eslint-plugin-aws-cdk.dev/).
 
+## 📦 Package Name Migration Notice
+
+> **Important**: This package was previously published as `eslint-cdk-plugin`. Starting from v4.0.0, it has been renamed to `eslint-plugin-aws-cdk` to follow ESLint's official naming convention.
+
+### For existing users of `eslint-cdk-plugin`:
+
+1. Update your package.json:
+
+   ```diff
+   - "eslint-cdk-plugin": "^3.x.x"
+   + "eslint-plugin-aws-cdk": "^4.0.0"
+   ```
+
+2. Update your ESLint configuration:
+   ```diff
+   - import cdkPlugin from "eslint-cdk-plugin";
+   + import cdkPlugin from "eslint-plugin-aws-cdk";
+   ```
+
+The old package name will continue to receive updates until for a while , after which it will be deprecated.
+
 ## 📦 Installation
 
 ```bash
