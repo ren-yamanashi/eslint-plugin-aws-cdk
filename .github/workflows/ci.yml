@@ -1,4 +1,4 @@
-name: eslint-cdk-plugin CI
+name: eslint-plugin-aws-cdk CI
 on:
   push:
     branches: [main, release]
@@ -68,7 +68,7 @@ jobs:
         run: pnpm run docs:build
       - name: Configure custom domain
         run: |
-          echo "eslint-cdk-plugin.dev" > docs/.vitepress/dist/CNAME
+          echo "eslint-plugin-aws-cdk.dev" > docs/.vitepress/dist/CNAME
           cp -r docs/public/* docs/.vitepress/dist/
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v3
