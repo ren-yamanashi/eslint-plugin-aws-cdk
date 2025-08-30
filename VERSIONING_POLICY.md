@@ -1,6 +1,6 @@
 ## Semantic Versioning Policy
 
-eslint-cdk-plugin follows semantic versioning. To clarify when a minor or major version bump occurs, we've defined the following semantic versioning policy:
+eslint-plugin-aws-cdk follows semantic versioning. To clarify when a minor or major version bump occurs, we've defined the following semantic versioning policy:
 
 ### Patch Release (intended to not break your lint build)
 
@@ -31,7 +31,7 @@ A Major Release indicates that there are breaking changes. Users may need to upd
 
 We recommend using one of the following approaches in your `package.json`:
 
-- Use tilde (`~`) to allow only patch releases: `"eslint-cdk-plugin": "~1.1.0"`
-- Use caret (`^`) if you're comfortable with minor updates: `"eslint-cdk-plugin": "^1.1.0"`
+- Use tilde (`~`) to allow only patch releases: `"eslint-plugin-aws-cdk": "~1.1.0"`
+- Use caret (`^`) if you're comfortable with minor updates: `"eslint-plugin-aws-cdk": "^1.1.0"`
 
 Note that minor updates may report more linting errors than the previous release, so using tilde is recommended for more stable builds.
