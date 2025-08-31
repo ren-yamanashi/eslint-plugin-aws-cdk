@@ -292,7 +292,7 @@ export default defineConfig({
           ],
           "/ja/blog/": [
             {
-              text: "npm package 名を eslint-plugin-aws-cdk に変更しました",
+              text: "npm パッケージ名を eslint-plugin-aws-cdk に変更しました",
               collapsed: true,
               link: "/2025-08-31.renamed-npm-package",
             },
