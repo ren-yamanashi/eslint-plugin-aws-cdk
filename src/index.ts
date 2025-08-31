@@ -75,8 +75,7 @@ const recommended = createFlatConfig({
     "error",
     { disallowContainingParentName: false },
   ],
-  // TODO: Enable this rule at v4.0.0
-  // "cdk/no-unused-props": "error",
+  "cdk/no-unused-props": "error",
   "cdk/no-variable-construct-id": "error",
   "cdk/pascal-case-construct-id": "error",
   "cdk/require-passing-this": ["error", { allowNonThisAndDisallowScope: true }],
