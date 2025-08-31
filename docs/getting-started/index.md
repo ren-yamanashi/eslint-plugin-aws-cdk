@@ -30,14 +30,6 @@ pnpm install -D eslint-plugin-aws-cdk
 Write `eslint.config.mjs` as follows:
 
 <div class="info-item">
-  🚨 This plugin only supports FlatConfig.
-  <br />
-  ❓ <a href="https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file-formats">
-    What's FlatConfig?
-  </a>
-</div>
-
-<div class="info-item">
   🚨 This plugin uses typescript type information and must be used in conjunction with
   <a href="https://typescript-eslint.io/getting-started">
     typescript-eslint
