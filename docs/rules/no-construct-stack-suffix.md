@@ -18,15 +18,6 @@ Including "Construct" in a Construct ID (and similarly for "Stack" in a Stack ID
 
 (This rule applies only to classes that extends from `Construct` or `Stack`.)
 
-## Options
-
-This rule has an options object with the following properties:
-
-- `disallowedSuffixes` - An array of suffixes to disallow. Can include "Construct", "Stack", or both.
-
-Note 1: By default `["Construct", "Stack"]` is specified.  
-Note 2: The `recommended` rule set specifies `["Construct", "Stack"]`.
-
 ---
 
 #### 🔧 How to use
@@ -37,20 +28,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      // Default: disallow both "Construct" and "Stack" suffixes
       "cdk/no-construct-stack-suffix": "error",
-
-      // Disallow only "Construct" suffix
-      "cdk/no-construct-stack-suffix": [
-        "error",
-        { disallowedSuffixes: ["Construct"] },
-      ],
-
-      // Disallow only "Stack" suffix
-      "cdk/no-construct-stack-suffix": [
-        "error",
-        { disallowedSuffixes: ["Stack"] },
-      ],
     },
   },
 ]);
@@ -86,8 +64,59 @@ export class MyConstruct extends Construct {
     // ❌ Should not use the "Construct" suffix
     const bucket = new Bucket(this, "BucketConstruct");
 
-    // ❌ Shouldn't use the suffix "Stack"
+    // ❌ Should not use the suffix "Stack"
     new Stack(this, "MyStack");
+  }
+}
+```
+
+## Options
+
+```ts
+type Options = {
+  disallowedSuffixes: Array<"Construct" | "Stack">;
+};
+
+const defaultOptions: Options = {
+  disallowedSuffixes: ["Construct", "Stack"],
+};
+```
+
+### disallowedSuffixes
+
+An array of suffixes to disallow. Can include "Construct", "Stack", or both.
+
+With: `{ disallowedSuffixes: ["Construct"] }`
+
+#### ✅ Correct Example
+
+```ts
+import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+
+export class MyConstruct extends Construct {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+
+    // ✅ Allowed if the "Construct" suffix are not appended
+    new Stack(this, "MyStack");
+  }
+}
+```
+
+#### ❌ Incorrect Example
+
+```ts
+import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+import { Stack } from "aws-cdk-lib";
+
+export class MyConstruct extends Construct {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+
+    // ❌ Should not use the "Construct" suffix
+    const bucket = new Bucket(this, "BucketConstruct");
   }
 }
 ```
