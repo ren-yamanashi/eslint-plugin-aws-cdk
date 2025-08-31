@@ -10,20 +10,22 @@ import { toPascalCase } from "../utils/convertString";
 import { createRule } from "../utils/createRule";
 import { isConstructOrStackType, isConstructType } from "../utils/typeCheck";
 
-type Options = [
-  {
-    disallowContainingParentName?: boolean;
-  }
-];
+type Option = {
+  disallowContainingParentName?: boolean;
+};
 
-type Context = TSESLint.RuleContext<"invalidConstructId", Options>;
+const defaultOption: Option = {
+  disallowContainingParentName: false,
+};
+
+type Context = TSESLint.RuleContext<"invalidConstructId", Option[]>;
 
 type ValidateStatementArgs<T extends TSESTree.Statement> = {
   statement: T;
   parentClassName: string;
   context: Context;
   parserServices: ParserServicesWithTypeInformation;
-  option: Options[0];
+  option: Option;
 };
 
 type ValidateExpressionArgs<T extends TSESTree.Expression> = {
@@ -31,7 +33,7 @@ type ValidateExpressionArgs<T extends TSESTree.Expression> = {
   parentClassName: string;
   context: Context;
   parserServices: ParserServicesWithTypeInformation;
-  option: Options[0];
+  option: Option;
 };
 
 /**
@@ -64,16 +66,10 @@ export const noParentNameConstructIdMatch = createRule({
       },
     ],
   },
-  defaultOptions: [
-    {
-      disallowContainingParentName: false,
-    },
-  ],
+  defaultOptions: [defaultOption],
 
   create(context: Context) {
-    const option = context.options[0] || {
-      disallowContainingParentName: false,
-    };
+    const option = context.options[0] || defaultOption;
     const parserServices = ESLintUtils.getParserServices(context);
     return {
       ClassBody(node) {
