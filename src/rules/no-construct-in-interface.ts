@@ -1,5 +1,11 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
-import { ClassDeclaration, Node, Type, isIdentifier } from "typescript";
+import {
+  ClassDeclaration,
+  HeritageClause,
+  Identifier,
+  Node,
+  Type,
+} from "typescript";
 
 import { SYMBOL_FLAGS, SYNTAX_KIND } from "../constants/tsInternalFlags";
 import { createRule } from "../utils/createRule";
@@ -72,8 +78,6 @@ const shouldReportError = (type: Type): boolean => {
   if (!type.symbol?.name) return false;
 
   const className = type.symbol.name;
-
-  // Skip specific class names
   if (className === "Resource" || className === "Construct") return false;
 
   const implementedInterfaces = getImplementedInterfaceNames(type);
@@ -86,62 +90,53 @@ const shouldReportError = (type: Type): boolean => {
   return implementedInterfaces.some((interfaceName) => {
     // Pattern 1: Class name with I prefix (e.g., Bucket -> IBucket)
     if (interfaceName === `I${className}`) return true;
-
-    // Pattern 2: Remove Base suffix and add I prefix (e.g., BaseService -> IService)
-    if (className.endsWith("Base")) {
-      const nameWithoutBase = className.slice(0, -4); // Remove "Base"
-      if (interfaceName === `I${nameWithoutBase}`) return true;
-    }
-
     return false;
   });
 };
 
 const getImplementedInterfaceNames = (type: Type): string[] => {
-  const interfaces: string[] = [];
-
-  // Get the symbol from the type
   const symbol = type.getSymbol ? type.getSymbol() : type.symbol;
-  if (!symbol) {
-    return interfaces;
-  }
+  if (!symbol) return [];
 
-  // Get declarations from the symbol
   const declarations = symbol.getDeclarations
     ? symbol.getDeclarations()
     : symbol.declarations;
-  if (!declarations || declarations.length === 0) {
-    return interfaces;
-  }
+  if (!declarations?.length) return [];
 
-  // Find the class declaration and check heritage clauses
-  for (const declaration of declarations) {
-    // Check if this is a class declaration with heritage clauses
-    if (isClassDeclaration(declaration) && declaration.heritageClauses) {
-      // Look for implements clauses
-      for (const heritageClause of declaration.heritageClauses) {
-        // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
-        //       Therefore, the type information structures do not match.
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-        if (heritageClause.token === SYNTAX_KIND.IMPLEMENTS_KEYWORD) {
-          // Get the name of each implemented interface
-          for (const typeNode of heritageClause.types) {
-            if (typeNode.expression && isIdentifier(typeNode.expression)) {
-              const interfaceName = typeNode.expression.text;
-              interfaces.push(interfaceName);
-            }
-          }
-        }
-      }
-    }
-  }
+  return declarations.reduce<string[]>((acc, declaration) => {
+    if (!isClass(declaration) || !declaration.heritageClauses) return acc;
 
-  return interfaces;
+    return declaration.heritageClauses.reduce<string[]>((hcAcc, hc) => {
+      if (!checkHeritageClauseIsImplements(hc)) return hcAcc;
+
+      return hc.types.reduce<string[]>(
+        (typeAcc, typeNode) =>
+          typeNode.expression && isIdentifier(typeNode.expression)
+            ? [...typeAcc, typeNode.expression.text]
+            : typeAcc,
+        []
+      );
+    }, []);
+  }, []);
 };
 
-const isClassDeclaration = (node: Node): node is ClassDeclaration => {
+const isClass = (node: Node): node is ClassDeclaration => {
   // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
   //       Therefore, the type information structures do not match.
   // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return node.kind === SYNTAX_KIND.CLASS_DECLARATION;
+};
+
+const isIdentifier = (node: Node): node is Identifier => {
+  // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
+  //       Therefore, the type information structures do not match.
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+  return node.kind === SYNTAX_KIND.IDENTIFIER;
+};
+
+const checkHeritageClauseIsImplements = (node: HeritageClause): boolean => {
+  // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
+  //       Therefore, the type information structures do not match.
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+  return node.token === SYNTAX_KIND.IMPLEMENTS_KEYWORD;
 };
