@@ -12,13 +12,10 @@ import Playground from '../components/Playground.vue'
 
 <RecommendedItem />
 
-This rule disallows specifying CDK Construct types (e.g. `Bucket`) for properties in an `interface`.
+This rule enforces specifying interfaces for read-only resources (e.g., `IBucket`) for properties in an `interface`.
 
-Using Construct types in interface properties creates tight coupling between the interface and the Construct.
-Furthermore, since Constructs are mutable by nature, specifying a Construct type for an interface property can lead to unexpected behavior.
-Therefore, such code is not recommended.
-
-Instead, it is recommended to specify an interface for read-only resources (e.g. `IBucket`).
+When AWS resource Constructs (e.g. `Bucket`) implements interfaces for read-only resources (e.g., `IBucket`), it is recommended to specify the read-only resource interface (e.g. `IBucket`) for interface properties.
+This helps prevent unintended resource modifications.
 
 ---
 
@@ -53,9 +50,9 @@ interface MyConstructProps {
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 interface MyConstructProps {
-  // ❌ Construct types (e.g. `Bucket`) should not be used for properties
+  // ❌ When a read-only resource interface exists, Construct types (e.g. `Bucket`) should not be used
   readonly bucket: Bucket;
 }
 ```
 
-<Playground link="https://eslint-online-playground.netlify.app/#eNqFU0tu2zAQvcpAq8SwpMLdOZuiTRddtA3SZRQgMjlyGdOkQFJpDMPL7nqE9nI9SYekRUlpnACGZet95kO+feYs06oR6+LeapUts32lAKqM6W0rJJqvrRNa2SpbQkA85mqzRudfVdnHb4s3i0WVzXtQipVHbo7Q2yq7TdhW805iL/yCj2TyBLxGq2Xna0baqlOc2hjxrDOCherOdJheG63dpSCiV1nDjooDfR8qlc39u1LpnKYlh465XCj6ODRNzbBwlmYX21YbB3v49L5jG3RziE84QGP0lozrHzZnfJPTlKX/bWm+i0pVCh+DNBnC592HvtKV0a2N6ytL+Pv7J1xjzXOt5G4QWDjDYl3A3bH23TmwWsEKobPIvdaQKGgeail4ZC37VkMT0f/PL0ilwe3awTo52++6kxyUdn0BaLSBlhpF4wTaST2hJhVTwQNtFa2kEYp0h4YtRqRf3Lv4t7ynq0TStGmOjVBI/ZJ8WPORHF3HAmentmE8ZkTr8giMyXRQV7JbCzW1DQfYBmB6eNRL3cnwTD2d3fhVTKa0hUGKxxYVRx4uWVHQ/XmFc0xPQ6GyIR6zWTkj2ZAPigPRPZgaf84t0v29vj2/oBNoa7ap1/gkv34xMQt96IKsyjg+XGLrnRTzBz0J9v/b9A6ydmjHUR14JwjPLPoF3glwlLUTjJTlMMZACAvy9/PwD5O8qME=" />
+<Playground link="https://eslint-online-playground.netlify.app/#eNqFU8tuGjEU/RVrVgliZiq6I5uqTRddtI3SRReZSDH2hTgYe+RHCkIsu+sntD/XL+m1zXgYComEGJh7zr3nPs62cJZpNReL6slqVUyLbaMIaQqmV62QYL62Tmhlm2JKYiTEHDULcOFVU3z8NnkzmTTFuAtKMQuRu33obVPc59hKcy+hI36BNSY5Ct6C1dKHmgk284qjjAOcdUawWN0ZD/m10dpdCwQGljVsz9jh965RxTi8q5UusVvM4JkrhcKPAzOnDCpnsXexarVxZEs+vfdsCW5M0pPsyNzoFSamP2zJ+LLELuvw22J/V41qFKwjNScknzcfuko3Rrc2ja+uyd/fP8ktUF5qJTc9wZILqBYVedjXfrgkjCoyA+It8MA1SIqcZyoFT6hpJzWKSPn//CLfH0ERGhmpjMGxeoOyeoGwFtbZMckyidu0vYyswj5qLzlR2p0UI9RATlazw5GDlVivygfWjzhFuqm+S3/rJ7wzpOY1cJgLBSgQ6f0O9uCU9ZDg7DBt7IcZ0boyBQ7BuMUb6RdCDdPG7bYxMNwsaqFexmfWdHEXRjHo0lYG0DsrUBx4vMCqwuN6BbO31hwdZ6N3RqN6hLTePOgVhIdgFn4qW4KHo7+/vMINtJQt6QKOzB0Gk4zSOTLSmoLD8zW0IZNiAo5c//80QwZJHdhDH/e4M4ATg34BdyZ4YMQziGz02EYPiAMK97n7B08MsxA=" />
