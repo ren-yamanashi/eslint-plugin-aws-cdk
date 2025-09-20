@@ -4,6 +4,7 @@ import {
   HeritageClause,
   Identifier,
   Node,
+  PropertyAccessExpression,
   Type,
 } from "typescript";
 
@@ -35,7 +36,6 @@ export const noConstructInInterface = createRule({
     return {
       TSInterfaceDeclaration(node) {
         for (const property of node.body.body) {
-          // NOTE: check property signature
           if (
             property.type !== AST_NODE_TYPES.TSPropertySignature ||
             property.key.type !== AST_NODE_TYPES.Identifier
@@ -44,17 +44,13 @@ export const noConstructInInterface = createRule({
           }
           const type = parserServices.getTypeAtLocation(property);
 
-          // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
-          //       Therefore, the type information structures do not match.
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-          const isClass = type.symbol?.flags === SYMBOL_FLAGS.CLASS;
-          if (!isClass) continue;
-
-          // Check if it inherits from Resource
-          if (!isResourceType(type)) continue;
-
-          // Check if it implements an interface that matches the class name
-          if (!shouldReportError(type)) continue;
+          if (
+            !isClassType(type) ||
+            !isResourceType(type) ||
+            !shouldReportError(type)
+          ) {
+            continue;
+          }
 
           context.report({
             node: property,
@@ -71,7 +67,7 @@ export const noConstructInInterface = createRule({
 });
 
 /**
- * Check if we should report an error for this type
+ * Check if we should report an error for this type\
  * Error should be reported if the class implements an interface that matches the class name pattern
  */
 const shouldReportError = (type: Type): boolean => {
@@ -81,15 +77,21 @@ const shouldReportError = (type: Type): boolean => {
   if (className === "Resource" || className === "Construct") return false;
 
   const implementedInterfaces = getImplementedInterfaceNames(type);
-  console.log(
-    "🚀 ~ shouldReportError ~ implementedInterfaces:",
-    implementedInterfaces
-  );
 
   // Check if any implemented interface matches the class name pattern
   return implementedInterfaces.some((interfaceName) => {
-    // Pattern 1: Class name with I prefix (e.g., Bucket -> IBucket)
-    if (interfaceName === `I${className}`) return true;
+    // Extract the simple interface name (remove namespace if present)
+    const simpleInterfaceName = interfaceName.includes(".")
+      ? interfaceName.split(".").pop() ?? interfaceName
+      : interfaceName;
+
+    // Pattern 1: Class name with I prefix (e.g., Bucket -> IBucket, FargateService -> IFargateService)
+    if (simpleInterfaceName === `I${className}`) return true;
+
+    // Pattern 2: Class name without `Base` suffix / prefix with the `I` prefix (e.g., BucketBase -> IBucket, BaseService -> IService)
+    const classNameWithoutBase = className.replace(/^Base|Base$/g, "");
+    if (simpleInterfaceName === `I${classNameWithoutBase}`) return true;
+
     return false;
   });
 };
@@ -119,8 +121,18 @@ const getImplementedInterfaceNames = (type: Type): string[] => {
         if (!checkHeritageClauseIsImplements(hc)) return;
 
         hc.types.forEach((typeNode) => {
-          if (typeNode.expression && isIdentifier(typeNode.expression)) {
-            interfaces.add(typeNode.expression.text);
+          if (typeNode.expression) {
+            if (isIdentifier(typeNode.expression)) {
+              // Simple interface name (e.g., IFargateService)
+              interfaces.add(typeNode.expression.text);
+            } else if (isPropertyAccessExpression(typeNode.expression)) {
+              // Namespace qualified interface name (e.g., ecs.IFargateService)
+              const namespace = typeNode.expression.expression;
+              const interfaceName = typeNode.expression.name;
+              if (isIdentifier(namespace) && isIdentifier(interfaceName)) {
+                interfaces.add(`${namespace.text}.${interfaceName.text}`);
+              }
+            }
           }
         });
       });
@@ -155,6 +167,15 @@ const isIdentifier = (node: Node): node is Identifier => {
   //       Therefore, the type information structures do not match.
   // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return node.kind === SYNTAX_KIND.IDENTIFIER;
+};
+
+const isPropertyAccessExpression = (
+  node: Node
+): node is PropertyAccessExpression => {
+  // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
+  //       Therefore, the type information structures do not match.
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+  return node.kind === SYNTAX_KIND.PROPERTY_ACCESS_EXPRESSION;
 };
 
 const checkHeritageClauseIsImplements = (node: HeritageClause): boolean => {
