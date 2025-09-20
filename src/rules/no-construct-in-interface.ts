@@ -95,32 +95,55 @@ const shouldReportError = (type: Type): boolean => {
 };
 
 const getImplementedInterfaceNames = (type: Type): string[] => {
-  const symbol = type.getSymbol ? type.getSymbol() : type.symbol;
-  if (!symbol) return [];
+  const interfaces = new Set<string>();
+  const processedTypes = new Set<string>();
 
-  const declarations = symbol.getDeclarations
-    ? symbol.getDeclarations()
-    : symbol.declarations;
-  if (!declarations?.length) return [];
+  const collectInterfaces = (currentType: Type): void => {
+    const symbol = currentType.getSymbol?.() ?? currentType.symbol;
+    if (!symbol?.name) return;
 
-  return declarations.reduce<string[]>((acc, declaration) => {
-    if (!isClass(declaration) || !declaration.heritageClauses) return acc;
+    if (processedTypes.has(symbol.name)) return;
+    processedTypes.add(symbol.name);
 
-    return declaration.heritageClauses.reduce<string[]>((hcAcc, hc) => {
-      if (!checkHeritageClauseIsImplements(hc)) return hcAcc;
+    const declarations = symbol.getDeclarations
+      ? symbol.getDeclarations()
+      : symbol.declarations;
+    if (!declarations?.length) return;
 
-      return hc.types.reduce<string[]>(
-        (typeAcc, typeNode) =>
-          typeNode.expression && isIdentifier(typeNode.expression)
-            ? [...typeAcc, typeNode.expression.text]
-            : typeAcc,
-        []
-      );
-    }, []);
-  }, []);
+    declarations.forEach((declaration) => {
+      if (!isClassDeclaration(declaration) || !declaration.heritageClauses) {
+        return;
+      }
+
+      declaration.heritageClauses.forEach((hc) => {
+        if (!checkHeritageClauseIsImplements(hc)) return;
+
+        hc.types.forEach((typeNode) => {
+          if (typeNode.expression && isIdentifier(typeNode.expression)) {
+            interfaces.add(typeNode.expression.text);
+          }
+        });
+      });
+    });
+
+    const baseTypes = currentType.getBaseTypes?.() ?? [];
+    baseTypes.forEach((baseType) => {
+      if (isClassType(baseType)) collectInterfaces(baseType);
+    });
+  };
+
+  collectInterfaces(type);
+  return Array.from(interfaces);
 };
 
-const isClass = (node: Node): node is ClassDeclaration => {
+const isClassType = (type: Type): boolean => {
+  // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
+  //       Therefore, the type information structures do not match.
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+  return type.symbol?.flags === SYMBOL_FLAGS.CLASS;
+};
+
+const isClassDeclaration = (node: Node): node is ClassDeclaration => {
   // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
   //       Therefore, the type information structures do not match.
   // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison

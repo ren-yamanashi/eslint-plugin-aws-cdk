@@ -93,18 +93,23 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
     // },
     {
       code: `
+      class Resource {}
       interface IBucket {
         bucketName: string;
       }
-      class Resource {}
-      export class Bucket extends Resource implements IBucket {
+      export abstract class BucketBase extends Resource implements IBucket {
+        abstract readonly bucketName: string;
+        constructor() {
+          super();
+        }
+      }
+      export class Bucket extends BucketBase {
         readonly bucketName: string;
         constructor() {
           super();
           this.bucketName = "test-bucket";
         }
       }
-      
       interface MyConstructProps {
         bucket: Bucket;
       }
