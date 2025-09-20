@@ -148,23 +148,20 @@ const getImplementedInterfaceNames = (type: Type): string[] => {
   return Array.from(interfaces);
 };
 
+// NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
+//       Therefore, the type information structures do not match.
+
 const isClassType = (type: Type): boolean => {
-  // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
-  //       Therefore, the type information structures do not match.
   // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return type.symbol?.flags === SYMBOL_FLAGS.CLASS;
 };
 
 const isClassDeclaration = (node: Node): node is ClassDeclaration => {
-  // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
-  //       Therefore, the type information structures do not match.
   // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return node.kind === SYNTAX_KIND.CLASS_DECLARATION;
 };
 
 const isIdentifier = (node: Node): node is Identifier => {
-  // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
-  //       Therefore, the type information structures do not match.
   // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return node.kind === SYNTAX_KIND.IDENTIFIER;
 };
@@ -172,15 +169,11 @@ const isIdentifier = (node: Node): node is Identifier => {
 const isPropertyAccessExpression = (
   node: Node
 ): node is PropertyAccessExpression => {
-  // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
-  //       Therefore, the type information structures do not match.
   // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return node.kind === SYNTAX_KIND.PROPERTY_ACCESS_EXPRESSION;
 };
 
 const checkHeritageClauseIsImplements = (node: HeritageClause): boolean => {
-  // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
-  //       Therefore, the type information structures do not match.
   // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return node.token === SYNTAX_KIND.IMPLEMENTS_KEYWORD;
 };
