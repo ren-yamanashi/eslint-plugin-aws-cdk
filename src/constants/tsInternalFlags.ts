@@ -3,6 +3,7 @@
  */
 export const SYMBOL_FLAGS = {
   CLASS: 32,
+  Interface: 64,
 } as const;
 
 /**
@@ -11,4 +12,7 @@ export const SYMBOL_FLAGS = {
 export const SYNTAX_KIND = {
   CLASS_DECLARATION: 263,
   CONSTRUCTOR: 176,
+  IMPLEMENTS_KEYWORD: 119,
+  IDENTIFIER: 80,
+  PROPERTY_ACCESS_EXPRESSION: 211,
 } as const;
