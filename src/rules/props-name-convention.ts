@@ -2,7 +2,7 @@ import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils/createRule";
 import { getConstructor } from "../utils/getConstructor";
-import { isConstructType } from "../utils/typeCheck";
+import { isConstructType } from "../utils/typecheck/cdk";
 
 /**
  * Enforces a naming convention for props interfaces in Construct classes

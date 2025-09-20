@@ -5,7 +5,7 @@ import {
 } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils/createRule";
-import { isConstructType } from "../utils/typeCheck";
+import { isConstructType } from "../utils/typecheck/cdk";
 
 /**
  * Require JSDoc comments for interface properties and public properties in Construct classes

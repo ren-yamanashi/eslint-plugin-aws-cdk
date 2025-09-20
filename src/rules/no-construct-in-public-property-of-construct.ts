@@ -6,10 +6,11 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import { SYMBOL_FLAGS } from "../constants/tsInternalFlags";
 import { createRule } from "../utils/createRule";
 import { getConstructor } from "../utils/getConstructor";
-import { isConstructOrStackType } from "../utils/typeCheck";
+import { isResourceWithReadonlyInterface } from "../utils/is-resource-with-readonly-interface";
+import { isConstructOrStackType } from "../utils/typecheck/cdk";
+import { isClassType } from "../utils/typecheck/ts-type";
 
 type Context = TSESLint.RuleContext<"invalidPublicPropertyOfConstruct", []>;
 
@@ -87,13 +88,7 @@ const validatePublicPropertyOfConstruct = (
     if (!property.typeAnnotation) continue;
 
     const type = parserServices.getTypeAtLocation(property);
-    if (!isConstructOrStackType(type)) continue;
-
-    // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
-    //       Therefore, the type information structures do not match.
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    const isClass = type.symbol.flags === SYMBOL_FLAGS.CLASS;
-    if (!isClass) continue;
+    if (!isClassType(type) || !isResourceWithReadonlyInterface(type)) continue;
 
     context.report({
       node: property,
@@ -132,13 +127,7 @@ const validateConstructorParameterProperty = (
     if (!param.parameter.typeAnnotation) continue;
 
     const type = parserServices.getTypeAtLocation(param);
-    if (!isConstructOrStackType(type)) continue;
-
-    // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
-    //       Therefore, the type information structures do not match.
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    const isClass = type.symbol.flags === SYMBOL_FLAGS.CLASS;
-    if (!isClass) continue;
+    if (!isClassType(type) || !isResourceWithReadonlyInterface(type)) continue;
 
     context.report({
       node: param,
