@@ -17,7 +17,7 @@ ruleTester.run(
   noConstructInPublicPropertyOfConstruct,
   {
     valid: [
-      // WHEN: field type is primitive
+      // WHEN: field type is not class
       {
         code: `
           class Construct {}
@@ -26,7 +26,6 @@ ruleTester.run(
           }
         `,
       },
-      // WHEN: field type is interface
       {
         code: `
           class Construct {}
@@ -38,7 +37,6 @@ ruleTester.run(
           }
         `,
       },
-      // WHEN: field type is type alias
       {
         code: `
           class Construct {}
@@ -54,9 +52,51 @@ ruleTester.run(
       {
         code: `
           class Construct {}
-          class DependencyClass extends Construct {}
+          class Resource {}
+          interface IBucket {
+            bucketName: string;
+          }
+          export abstract class BucketBase extends Resource implements IBucket {
+            abstract readonly bucketName: string;
+            constructor() {
+              super();
+            }
+          }
+          export class Bucket extends BucketBase {
+            readonly bucketName: string;
+            constructor() {
+              super();
+              this.bucketName = "test-bucket";
+            }
+          }
           class TestClass extends Construct {
-            private test: DependencyClass;
+            private test: Bucket;
+          }
+        `,
+      },
+      // WHEN: field is protected
+      {
+        code: `
+          class Construct {}
+          class Resource {}
+          interface IBucket {
+            bucketName: string;
+          }
+          export abstract class BucketBase extends Resource implements IBucket {
+            abstract readonly bucketName: string;
+            constructor() {
+              super();
+            }
+          }
+          export class Bucket extends BucketBase {
+            readonly bucketName: string;
+            constructor() {
+              super();
+              this.bucketName = "test-bucket";
+            }
+          }
+          class TestClass extends Construct {
+            protected test: Bucket;
           }
         `,
       },
@@ -69,81 +109,170 @@ ruleTester.run(
           }
         `,
       },
-      // WHEN: field is protected
+      // WHEN: class not extends construct
       {
         code: `
-          class Construct {}
-          class DependencyClass extends Construct {}
-          class TestClass extends Construct {
-            protected test: DependencyClass;
+          class Resource {}
+          interface IBucket {
+            bucketName: string;
           }
-        `,
-      },
-      // WHEN: super class is not a construct
-      {
-        code: `
-          class Construct {}
-          class DependencyClass extends Construct {}
-          class SampleConstruct {
-            public test: DependencyClass;
+          export abstract class BucketBase extends Resource implements IBucket {
+            abstract readonly bucketName: string;
+            constructor() {
+              super();
+            }
           }
-        `,
-      },
-      {
-        code: `
-          class Construct {}
-          class SampleConstruct {}
-          class TestClass extends Construct {
-            public test: SampleConstruct;
+          export class Bucket extends BucketBase {
+            readonly bucketName: string;
+            constructor() {
+              super();
+              this.bucketName = "test-bucket";
+            }
+          }
+          class TestClass {
+            public test: Bucket;
           }
         `,
       },
     ],
     invalid: [
-      // // WHEN: public field uses Construct type
-      // {
-      //   code: `
-      //     class Construct {}
-      //     class DependencyClass extends Construct {}
-      //     class TestClass extends Construct {
-      //       public test: DependencyClass;
-      //     }
-      //   `,
-      //   errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
-      // },
-      // // WHEN: implicitly public field uses Construct type
-      // {
-      //   code: `
-      //     class Construct {}
-      //     class DependencyClass extends Construct {}
-      //     class TestClass extends Construct {
-      //       test: DependencyClass;
-      //     }
-      //   `,
-      //   errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
-      // },
-      // // WHEN: readonly public field uses class type
-      // {
-      //   code: `
-      //     class Construct {}
-      //     class DependencyClass extends Construct {}
-      //     class TestClass extends Construct {
-      //       public readonly test: DependencyClass;
-      //     }
-      //   `,
-      //   errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
-      // },
-      // // WHEN: constructor parameter property uses Construct type
-      // {
-      //   code: `
-      //     class Construct {}
-      //     class DependencyClass extends Construct {}
-      //     class TestClass extends Construct {
-      //       constructor(public test: DependencyClass) {}
-      //     }
-      //   `,
-      //   errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
-      // },
+      // WHEN: public field type is class that extends Resource
+      //       (Bucket class extends Resource and indirectly implements IBucket interface)
+      {
+        code: `
+          class Construct {}
+          class Resource {}
+          interface IBucket {
+            bucketName: string;
+          }
+          export abstract class BucketBase extends Resource implements IBucket {
+            abstract readonly bucketName: string;
+            constructor() {
+              super();
+            }
+          }
+          export class Bucket extends BucketBase {
+            readonly bucketName: string;
+            constructor() {
+              super();
+              this.bucketName = "test-bucket";
+            }
+          }
+          class TestClass extends Construct {
+            public test: Bucket;
+          }
+        `,
+        errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
+      },
+      // WHEN: public field type is class that extends Resource
+      //       (BucketBase class extends Resource and implements IBucket interface)
+      {
+        code: `
+          class Construct {}
+          class Resource {}
+          interface IBucket {
+            bucketName: string;
+          }
+          export abstract class BucketBase extends Resource implements IBucket {
+            abstract readonly bucketName: string;
+            constructor() {
+              super();
+            }
+          }
+          class TestClass extends Construct {
+            public test: BucketBase;
+          }
+      `,
+        errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
+      },
+      // WHEN: public field type is class that extends Resource
+      //       (FargateService class extends Resource and implements IFargateService interface)
+      {
+        code: `
+          class Construct {}
+          class Resource {}
+          interface IService {
+            serviceArn: string;
+          }
+          interface IFargateService extends IService {}
+          export abstract class BaseService extends Resource implements IService {
+            abstract readonly serviceArn: string;
+            constructor() {
+              super();
+            }
+          }
+          export class FargateService extends BaseService implements IFargateService {
+            readonly serviceArn: string;
+            constructor() {
+              super();
+            }
+          }
+          class TestClass extends Construct {
+            public test: FargateService;
+          }
+        `,
+        errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
+      },
+      // WHEN: property type is class that extends Resource
+      //       (FargateService class extends Resource and implements ecs.IFargateService interface)
+      {
+        code: `
+          class Construct {}
+          class Resource {}
+          interface IService {
+            serviceArn: string;
+          }
+          declare module ecs {
+            export interface IFargateService extends IService {}
+          }
+          export abstract class BaseService extends Resource implements IService {
+            abstract readonly serviceArn: string;
+            constructor() {
+              super();
+            }
+          }
+          export class FargateService extends BaseService implements ecs.IFargateService {
+            readonly serviceArn: string;
+            constructor() {
+              super();
+            }
+          }
+          class TestClass extends Construct {
+            public test: FargateService;
+          }
+        `,
+        errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
+      },
+      // WHEN: constructor public property type is class that extends Resource
+      //       (BucketBase class extends Resource and implements IBucket interface)
+      {
+        code: `
+          class Construct {}
+          class Resource {}
+          interface IBucket {
+            bucketName: string;
+          }
+          export abstract class BucketBase extends Resource implements IBucket {
+            abstract readonly bucketName: string;
+            constructor() {
+              super();
+            }
+          }
+          export class Bucket extends BucketBase {
+            readonly bucketName: string;
+            constructor() {
+              super();
+              this.bucketName = "test-bucket";
+            }
+          }
+          class TestClass extends Construct {
+            constructor(public test: Bucket) {
+              super();
+            }
+          }
+        `,
+        errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
+      },
     ],
   }
 );
