@@ -134,6 +134,30 @@ ruleTester.run(
           }
         `,
       },
+      // WHEN: when implements only IResource interface
+      {
+        code: `
+          class Construct {}
+          interface IResource {
+            resourceId: string;
+          }
+          class Resource {
+            resourceId: string;
+            constructor() {
+              this.resourceId = "resource-id";
+            }
+          }
+          export class MetricFilter extends Resource {
+            readonly metricName: string;
+            constructor() {
+              super();
+            }
+          }
+          class TestClass extends Construct {
+            public test: MetricFilter;
+          }
+        `,
+      },
     ],
     invalid: [
       // WHEN: public field type is class that extends Resource
@@ -239,6 +263,34 @@ ruleTester.run(
           }
           class TestClass extends Construct {
             public test: FargateService;
+          }
+        `,
+        errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
+      },
+      // WHEN: property type is class that extends a base class implementing a matching interface
+      //       (S3OriginAccessControl extends OriginAccessControlBase which implements IOriginAccessControl)
+      {
+        code: `
+          class Construct {}
+          class Resource {}
+          interface IOriginAccessControl {
+            originAccessControlId: string;
+          }
+          export abstract class OriginAccessControlBase extends Resource implements IOriginAccessControl {
+            abstract readonly originAccessControlId: string;
+            constructor() {
+              super();
+            }
+          }
+          export class S3OriginAccessControl extends OriginAccessControlBase {
+            readonly originAccessControlId: string;
+            constructor() {
+              super();
+              this.originAccessControlId = "test-id";
+            }
+          }
+          class TestClass extends Construct {
+            public test: S3OriginAccessControl;
           }
         `,
         errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],

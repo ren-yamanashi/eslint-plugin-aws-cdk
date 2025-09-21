@@ -209,5 +209,32 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       `,
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
+    // WHEN: property type is class that extends a base class implementing a matching interface
+    //       (S3OriginAccessControl extends OriginAccessControlBase which implements IOriginAccessControl)
+    {
+      code: `
+      class Resource {}
+      interface IOriginAccessControl {
+        originAccessControlId: string;
+      }
+      export abstract class OriginAccessControlBase extends Resource implements IOriginAccessControl {
+        abstract readonly originAccessControlId: string;
+        constructor() {
+          super();
+        }
+      }
+      export class S3OriginAccessControl extends OriginAccessControlBase {
+        readonly originAccessControlId: string;
+        constructor() {
+          super();
+          this.originAccessControlId = "test-id";
+        }
+      }
+      interface MyConstructProps {
+        originAccessControl: S3OriginAccessControl;
+      }
+      `,
+      errors: [{ messageId: "invalidInterfaceProperty" }],
+    },
   ],
 });
