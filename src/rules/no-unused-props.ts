@@ -12,7 +12,7 @@ import {
   IPropsUsageTracker,
   propsUsageTrackerFactory,
 } from "../utils/propsUsageTracker";
-import { isConstructType } from "../utils/typeCheck";
+import { isConstructType } from "../utils/typecheck/cdk";
 
 type Context = TSESLint.RuleContext<"unusedProp", []>;
 

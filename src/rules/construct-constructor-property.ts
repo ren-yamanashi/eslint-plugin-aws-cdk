@@ -8,7 +8,7 @@ import {
 
 import { createRule } from "../utils/createRule";
 import { getConstructor } from "../utils/getConstructor";
-import { isConstructType } from "../utils/typeCheck";
+import { isConstructType } from "../utils/typecheck/cdk";
 
 type Context = TSESLint.RuleContext<
   | "invalidConstructorProperty"
