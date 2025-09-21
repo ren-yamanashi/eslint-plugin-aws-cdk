@@ -236,5 +236,26 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       `,
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
+    // WHEN: property type is class with BaseV{number} pattern
+    //       (TableBaseV2 class extends Resource and implements ITableV2)
+    {
+      code: `
+      class Resource {}
+      interface ITableV2 {
+        tableName: string;
+      }
+      export class TableBaseV2 extends Resource implements ITableV2 {
+        readonly tableName: string;
+        constructor() {
+          super();
+          this.tableName = "test-table";
+        }
+      }
+      interface MyConstructProps {
+        table: TableBaseV2;
+      }
+      `,
+      errors: [{ messageId: "invalidInterfaceProperty" }],
+    },
   ],
 });

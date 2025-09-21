@@ -295,6 +295,27 @@ ruleTester.run(
         `,
         errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
       },
+      // WHEN: property type is class with BaseV{number} pattern
+      //       (TableBaseV2 class extends Resource and implements ITableV2)
+      {
+        code: `
+          class Resource {}
+          interface ITableV2 {
+            tableName: string;
+          }
+          export class TableBaseV2 extends Resource implements ITableV2 {
+            readonly tableName: string;
+            constructor() {
+              super();
+              this.tableName = "test-table";
+            }
+          }
+          class TestClass extends Construct {
+            public test: TableBaseV2;
+          }
+        `,
+        errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
+      },
       // WHEN: constructor public property type is class that extends Resource
       //       (BucketBase class extends Resource and implements IBucket interface)
       {

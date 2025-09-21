@@ -26,6 +26,7 @@ import { isClassType } from "./typecheck/ts-type";
  * class Bucket extends Resource implements IBucket { ... }
  * class BucketBase extends Resource implements IBucket { ... }
  * class BaseService extends Resource implements IService { ... }
+ * class TableBaseV2 extends Resource implements ITableV2 { ... }
  * class S3OriginAccessControl extends OriginAccessControlBase { ... } // where OriginAccessControlBase implements IOriginAccessControl
  *
  * // Returns false for:
@@ -84,6 +85,7 @@ const hasMatchingInterfaceInHierarchy = (type: Type): boolean => {
  * Patterns:
  * 1. Class name with I prefix (e.g., Bucket -> IBucket)
  * 2. Class name without Base suffix/prefix with I prefix (e.g., BucketBase -> IBucket, BaseService -> IService)
+ * 3. Class name with BaseV{number} suffix with I prefix (e.g., TableBaseV2 -> ITableV2)
  *
  * @param interfaceName - The name of the interface to check
  * @param classname - The name of the class to compare against
@@ -102,10 +104,18 @@ const checkInterfaceMatchClassName = (
 
   // Pattern 2: Class name without Base suffix/prefix with I prefix
   const classNameWithoutBase = classname.replace(/^Base|Base$/g, "");
+  if (
+    classNameWithoutBase &&
+    simpleInterfaceName === `I${classNameWithoutBase}`
+  ) {
+    return true;
+  }
 
-  return (
-    classNameWithoutBase && simpleInterfaceName === `I${classNameWithoutBase}`
-  );
+  // Pattern 3: Class name with BaseV{number} suffix with I prefix (e.g., TableBaseV2 -> ITableV2)
+  const baseVMatch = /^(.+)BaseV(\d+)$/.exec(classname);
+  if (!baseVMatch) return false;
+  const [, baseName, version] = baseVMatch;
+  return simpleInterfaceName === `I${baseName}V${version}`;
 };
 
 /**
