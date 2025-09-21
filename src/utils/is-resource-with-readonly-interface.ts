@@ -14,7 +14,7 @@ import { isClassType } from "./typecheck/ts-type";
  *
  * This function validates that:
  * 1. The type extends from Resource (AWS CDK resource)
- * 2. The type implements an interface following CDK's read-only interface naming convention
+ * 2. The type or any of its base classes implements an interface following CDK's read-only interface naming convention
  *    - Pattern 1: Class name with I prefix (e.g., Bucket -> IBucket)
  *    - Pattern 2: Class name without Base suffix/prefix with I prefix (e.g., BucketBase -> IBucket, BaseService -> IService)
  *
@@ -26,6 +26,8 @@ import { isClassType } from "./typecheck/ts-type";
  * class Bucket extends Resource implements IBucket { ... }
  * class BucketBase extends Resource implements IBucket { ... }
  * class BaseService extends Resource implements IService { ... }
+ * class TableBaseV2 extends Resource implements ITableV2 { ... }
+ * class S3OriginAccessControl extends OriginAccessControlBase { ... } // where OriginAccessControlBase implements IOriginAccessControl
  *
  * // Returns false for:
  * class CustomResource extends Resource { ... } // No matching interface
@@ -33,90 +35,131 @@ import { isClassType } from "./typecheck/ts-type";
  */
 export const isResourceWithReadonlyInterface = (type: Type): boolean => {
   if (!isResourceType(type) || !type.symbol?.name) return false;
-
-  const className = type.symbol.name;
-  if (className === "Resource" || className === "Construct") return false;
-
-  const implementedInterfaces = getImplementedInterfaceNames(type);
-
-  // Check if any implemented interface matches the class name pattern
-  return implementedInterfaces.some((interfaceName) => {
-    // Extract the simple interface name (remove namespace if present)
-    const simpleInterfaceName = interfaceName.includes(".")
-      ? interfaceName.split(".").pop() ?? interfaceName
-      : interfaceName;
-
-    // Pattern 1: Class name with I prefix (e.g., Bucket -> IBucket, FargateService -> IFargateService)
-    if (simpleInterfaceName === `I${className}`) return true;
-
-    // Pattern 2: Class name without `Base` suffix / prefix with the `I` prefix (e.g., BucketBase -> IBucket, BaseService -> IService)
-    const classNameWithoutBase = className.replace(/^Base|Base$/g, "");
-    if (simpleInterfaceName === `I${classNameWithoutBase}`) return true;
-
-    return false;
-  });
+  if (isIgnoreClass(type.symbol.name)) return false;
+  return hasMatchingInterfaceInHierarchy(type);
 };
 
 /**
- * Retrieves all interface names implemented by a type, including those inherited from base classes
- *
- * This function recursively collects interfaces from:
- * - Direct implements clauses on the class
- * - Implements clauses on all base classes in the inheritance chain
- * - Both simple interface names (e.g., IBucket) and namespace-qualified names (e.g., ecs.IFargateService)
- *
- * @param type - The TypeScript type to analyze
- * @returns Array of interface names (may include namespace prefixes)
+ * Checks if a type or any of its base classes implements an interface matching its class name
+ * @param type - The TypeScript type to check
+ * @returns true if any class in the hierarchy implements a matching interface
  * @private
  */
-const getImplementedInterfaceNames = (type: Type): string[] => {
-  const interfaces = new Set<string>();
+const hasMatchingInterfaceInHierarchy = (type: Type): boolean => {
   const processedTypes = new Set<string>();
 
-  const collectInterfaces = (currentType: Type): void => {
+  const checkTypeAndBases = (currentType: Type): boolean => {
     const symbol = currentType.getSymbol?.() ?? currentType.symbol;
-    if (!symbol?.name) return;
+    if (!symbol?.name) return false;
 
-    if (processedTypes.has(symbol.name)) return;
+    // Skip if already processed
+    if (processedTypes.has(symbol.name)) return false;
     processedTypes.add(symbol.name);
 
-    const declarations = symbol.getDeclarations
-      ? symbol.getDeclarations()
-      : symbol.declarations;
-    if (!declarations?.length) return;
+    const currentClassName = symbol.name;
+    if (isIgnoreClass(currentClassName)) return false;
 
-    declarations.forEach((declaration) => {
-      if (!isClassDeclaration(declaration) || !declaration.heritageClauses) {
-        return;
-      }
+    const directInterfaces = getDirectImplementedInterfaceNames(currentType);
 
-      declaration.heritageClauses.forEach((hc) => {
-        if (!checkHeritageClauseIsImplements(hc)) return;
-
-        hc.types.forEach((typeNode) => {
-          if (typeNode.expression) {
-            if (isIdentifier(typeNode.expression)) {
-              // Simple interface name (e.g., IFargateService)
-              interfaces.add(typeNode.expression.text);
-            } else if (isPropertyAccessExpression(typeNode.expression)) {
-              // Namespace qualified interface name (e.g., ecs.IFargateService)
-              const namespace = typeNode.expression.expression;
-              const interfaceName = typeNode.expression.name;
-              if (isIdentifier(namespace) && isIdentifier(interfaceName)) {
-                interfaces.add(`${namespace.text}.${interfaceName.text}`);
-              }
-            }
-          }
-        });
-      });
-    });
+    // NOTE: Check if any interface matches this class name
+    if (
+      directInterfaces.some((interfaceName) =>
+        checkInterfaceMatchClassName(interfaceName, currentClassName)
+      )
+    ) {
+      return true;
+    }
 
     const baseTypes = currentType.getBaseTypes?.() ?? [];
-    baseTypes.forEach((baseType) => {
-      if (isClassType(baseType)) collectInterfaces(baseType);
-    });
+    return baseTypes.some(
+      (baseType) => isClassType(baseType) && checkTypeAndBases(baseType)
+    );
   };
 
-  collectInterfaces(type);
-  return Array.from(interfaces);
+  return checkTypeAndBases(type);
+};
+
+/**
+ * Checks if the provided interface name matches the class name according to specific patterns
+ *
+ * Patterns:
+ * 1. Class name with I prefix (e.g., Bucket -> IBucket)
+ * 2. Class name without Base suffix/prefix with I prefix (e.g., BucketBase -> IBucket, BaseService -> IService)
+ * 3. Class name with BaseV{number} suffix with I prefix (e.g., TableBaseV2 -> ITableV2)
+ *
+ * @param interfaceName - The name of the interface to check
+ * @param classname - The name of the class to compare against
+ * @returns boolean - true if the interface name matches the class name patterns, false otherwise
+ */
+const checkInterfaceMatchClassName = (
+  interfaceName: string,
+  classname: string
+) => {
+  const simpleInterfaceName = interfaceName.includes(".")
+    ? interfaceName.split(".").pop() ?? interfaceName
+    : interfaceName;
+
+  // Pattern 1: Class name with I prefix
+  if (simpleInterfaceName === `I${classname}`) return true;
+
+  // Pattern 2: Class name without Base suffix/prefix with I prefix
+  const classNameWithoutBase = classname.replace(/^Base|Base$/g, "");
+  if (
+    classNameWithoutBase &&
+    simpleInterfaceName === `I${classNameWithoutBase}`
+  ) {
+    return true;
+  }
+
+  // Pattern 3: Class name with BaseV{number} suffix with I prefix (e.g., TableBaseV2 -> ITableV2)
+  const baseVMatch = /^(.+)BaseV(\d+)$/.exec(classname);
+  if (!baseVMatch) return false;
+  const [, baseName, version] = baseVMatch;
+  return simpleInterfaceName === `I${baseName}V${version}`;
+};
+
+/**
+ * Retrieves interface names directly implemented by a type (not including inherited interfaces)
+ * @param type - The TypeScript type to analyze
+ * @returns Array of interface names directly implemented by this type
+ * @private
+ */
+const getDirectImplementedInterfaceNames = (type: Type): string[] => {
+  const symbol = type.getSymbol?.() ?? type.symbol;
+  if (!symbol?.name) return [];
+
+  const declarations = symbol.getDeclarations
+    ? symbol.getDeclarations()
+    : symbol.declarations;
+  if (!declarations?.length) return [];
+
+  return declarations.reduce<string[]>((acc, decl) => {
+    if (!isClassDeclaration(decl)) return acc;
+
+    const heritageClauses = decl.heritageClauses;
+    if (!heritageClauses) return acc;
+
+    return heritageClauses.reduce<string[]>((hcAcc, hc) => {
+      if (!checkHeritageClauseIsImplements(hc)) return hcAcc;
+
+      return hc.types.reduce<string[]>((typeAcc, type) => {
+        const expression = type.expression;
+        if (!expression) return typeAcc;
+        if (isIdentifier(expression)) return [...typeAcc, expression.text];
+        if (!isPropertyAccessExpression(expression)) return typeAcc;
+
+        const namespace = expression.expression;
+        const interfaceName = expression.name;
+        if (isIdentifier(namespace) && isIdentifier(interfaceName)) {
+          return [...typeAcc, `${namespace.text}.${interfaceName.text}`];
+        }
+
+        return typeAcc;
+      }, []);
+    }, []);
+  }, []);
+};
+
+const isIgnoreClass = (className: string): boolean => {
+  return className === "Resource" || className === "Construct";
 };
