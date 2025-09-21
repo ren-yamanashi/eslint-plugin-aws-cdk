@@ -299,6 +299,7 @@ ruleTester.run(
       //       (TableBaseV2 class extends Resource and implements ITableV2)
       {
         code: `
+          class Construct {}
           class Resource {}
           interface ITableV2 {
             tableName: string;
