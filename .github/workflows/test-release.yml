@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: 'Dry run (will not actually publish)'
+        description: "Dry run (will not actually publish)"
         required: false
-        default: 'true'
+        default: true
         type: boolean
 
 jobs:
