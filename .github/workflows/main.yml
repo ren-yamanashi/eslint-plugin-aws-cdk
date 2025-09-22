@@ -78,7 +78,9 @@ jobs:
           path: ./docs/.vitepress/dist
 
   deploy:
-    if: github.ref == 'refs/heads/main'
+    if: |
+      github.ref == 'refs/heads/main' &&
+      github.event_name == 'push'
     needs: integration
     environment:
       name: github-pages
@@ -111,6 +113,13 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Setup Node.js with latest npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.15.0
+          # This will install the latest npm version
+          check-latest: true
+
       - name: Get package info
         id: package
         run: |
@@ -129,13 +138,6 @@ jobs:
           fi
         env:
           VERSION: ${{ steps.package.outputs.version }}
-
-      - name: Install latest npm
-        if: steps.tag-check.outputs.exists == 'false'
-        run: |
-          echo "Current npm version: $(npm -v)"
-          npm install -g npm@latest
-          echo "Updated npm version: $(npm -v)"
 
       - name: Download package artifacts
         if: steps.tag-check.outputs.exists == 'false'
