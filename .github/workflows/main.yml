@@ -119,6 +119,7 @@ jobs:
           node-version: 22.15.0
           # This will install the latest npm version
           check-latest: true
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Get package info
         id: package
