@@ -1,15 +1,103 @@
-name: Release
-
+name: main
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
     types:
+      - opened
+      - synchronize
+      - reopened
       - closed
 
+permissions:
+  contents: read
+
 jobs:
+  integration:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.15.0
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 10.10.0
+          run_install: false
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      - name: Install dependencies
+        run: pnpm i
+      - name: Run Tests
+        run: pnpm run test
+      - name: Type Check
+        run: pnpm run check
+      - name: Lint
+        run: pnpm run lint
+      - name: Build package
+        run: pnpm run build
+      - name: Upload package artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: |
+            dist/
+            src/
+            !src/__tests__/
+            package.json
+            README.md
+            LICENSE
+          retention-days: 1
+      - name: Build docs
+        run: pnpm run docs:build
+      - name: Configure custom domain
+        run: |
+          echo "eslint-cdk-plugin.dev" > docs/.vitepress/dist/CNAME
+          cp -r docs/public/* docs/.vitepress/dist/
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs/.vitepress/dist
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: integration
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
   release:
+    needs: integration
     if: |
+      github.event_name == 'pull_request' &&
+      github.event.action == 'closed' &&
       github.event.pull_request.merged == true &&
       contains(github.event.pull_request.labels.*.name, 'Type: Release')
     runs-on: ubuntu-latest
@@ -42,13 +130,6 @@ jobs:
         env:
           VERSION: ${{ steps.package.outputs.version }}
 
-      - name: Setup Node.js
-        if: steps.tag-check.outputs.exists == 'false'
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
-        with:
-          node-version: 22.15.0
-          registry-url: "https://registry.npmjs.org"
-
       - name: Install latest npm
         if: steps.tag-check.outputs.exists == 'false'
         run: |
@@ -56,15 +137,12 @@ jobs:
           npm install -g npm@latest
           echo "Updated npm version: $(npm -v)"
 
-      - name: Install pnpm
+      - name: Download package artifacts
         if: steps.tag-check.outputs.exists == 'false'
-        run: |
-          npm install -g pnpm@10.10.0
-          echo "pnpm version: $(pnpm -v)"
-
-      - name: Install dependencies
-        if: steps.tag-check.outputs.exists == 'false'
-        run: pnpm i
+        uses: actions/download-artifact@v4
+        with:
+          name: packages
+          path: .
 
       - name: Publish to npm with provenance
         if: steps.tag-check.outputs.exists == 'false'
