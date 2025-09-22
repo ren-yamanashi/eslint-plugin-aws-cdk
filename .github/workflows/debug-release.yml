@@ -1,0 +1,39 @@
+name: Debug Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  debug-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22.15.0
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Debug Environment
+        run: |
+          echo "=== NPM Configuration ==="
+          npm config list
+          echo ""
+          echo "=== Environment Variables ==="
+          env | grep -E "(NPM|NODE|GITHUB)" | sort
+          echo ""
+          echo "=== OIDC Token Check ==="
+          if [[ -n "${ACTIONS_ID_TOKEN_REQUEST_URL}" ]]; then
+            echo "OIDC endpoint is available"
+            echo "URL: ${ACTIONS_ID_TOKEN_REQUEST_URL}"
+          else
+            echo "OIDC endpoint is not available"
+          fi
+          echo ""
+          echo "=== Package Info ==="
+          cat package.json | jq '.name, .version'
