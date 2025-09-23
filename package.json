@@ -28,11 +28,13 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.26.0",
+    "@secretlint/secretlint-rule-preset-recommend": "^11.2.4",
     "@types/node": "^22.15.0",
     "@typescript-eslint/rule-tester": "^8.32.1",
     "eslint": "9.22.0",
     "eslint-plugin-import": "^2.31.0",
     "pkgroll": "^2.12.2",
+    "secretlint": "^11.2.4",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.32.1",
     "vitest": "^3.1.3"
