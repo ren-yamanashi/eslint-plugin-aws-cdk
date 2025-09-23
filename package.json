@@ -31,7 +31,7 @@
     "@secretlint/secretlint-rule-preset-recommend": "^11.2.4",
     "@types/node": "^22.15.0",
     "@typescript-eslint/rule-tester": "^8.32.1",
-    "eslint": "9.22.0",
+    "eslint": "9.36.0",
     "eslint-plugin-import": "^2.32.0",
     "pkgroll": "^2.12.2",
     "secretlint": "^11.2.4",
