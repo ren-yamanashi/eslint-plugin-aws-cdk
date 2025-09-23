@@ -296,5 +296,136 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       `,
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
+    // WHEN: property type is Array generic type wrapping class that extends Resource
+    {
+      code: `
+      class Resource {}
+      interface IBucket {
+        bucketName: string;
+      }
+      export abstract class BucketBase extends Resource implements IBucket {
+        abstract readonly bucketName: string;
+        constructor() {
+          super();
+        }
+      }
+      export class Bucket extends BucketBase {
+        readonly bucketName: string;
+        constructor() {
+          super();
+          this.bucketName = "test-bucket";
+        }
+      }
+      interface MyConstructProps {
+        buckets: Array<Bucket>;
+      }
+      `,
+      errors: [{ messageId: "invalidInterfaceProperty" }],
+    },
+    {
+      code: `
+      class Resource {}
+      interface IBucket {
+        bucketName: string;
+      }
+      export abstract class BucketBase extends Resource implements IBucket {
+        abstract readonly bucketName: string;
+        constructor() {
+          super();
+        }
+      }
+      export class Bucket extends BucketBase {
+        readonly bucketName: string;
+        constructor() {
+          super();
+          this.bucketName = "test-bucket";
+        }
+      }
+      interface MyConstructProps {
+        bucket: Readonly<Bucket>;
+      }
+      `,
+      errors: [{ messageId: "invalidInterfaceProperty" }],
+    },
+    {
+      code: `
+      class Resource {}
+      interface IBucket {
+        bucketName: string;
+      }
+      export abstract class BucketBase extends Resource implements IBucket {
+        abstract readonly bucketName: string;
+        constructor() {
+          super();
+        }
+      }
+      export class Bucket extends BucketBase {
+        readonly bucketName: string;
+        constructor() {
+          super();
+          this.bucketName = "test-bucket";
+        }
+      }
+      interface MyConstructProps {
+        bucket: Partial<Bucket>;
+      }
+      `,
+      errors: [{ messageId: "invalidInterfaceProperty" }],
+    },
+    // WHEN: property type is custom generic type wrapping class that extends Resource
+    {
+      code: `
+      class Resource {}
+      interface IBucket {
+        bucketName: string;
+      }
+      export abstract class BucketBase extends Resource implements IBucket {
+        abstract readonly bucketName: string;
+        constructor() {
+          super();
+        }
+      }
+      export class Bucket extends BucketBase {
+        readonly bucketName: string;
+        constructor() {
+          super();
+          this.bucketName = "test-bucket";
+        }
+      }
+      type MyWrapper<T> = T;
+      interface MyConstructProps {
+        bucket: MyWrapper<Bucket>;
+      }
+      `,
+      errors: [{ messageId: "invalidInterfaceProperty" }],
+    },
+    {
+      code: `
+      class Resource {}
+      interface IBucket {
+        bucketName: string;
+      }
+      export abstract class BucketBase extends Resource implements IBucket {
+        abstract readonly bucketName: string;
+        constructor() {
+          super();
+        }
+      }
+      export class Bucket extends BucketBase {
+        readonly bucketName: string;
+        constructor() {
+          super();
+          this.bucketName = "test-bucket";
+        }
+      }
+      interface Wrapper<T> {
+        value: T;
+      }
+      interface MyConstructProps {
+        bucket: Wrapper<Bucket>;
+      }
+      `,
+      errors: [{ messageId: "invalidInterfaceProperty" }],
+    },
   ],
 });

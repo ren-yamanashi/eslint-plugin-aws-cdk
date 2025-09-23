@@ -2,6 +2,7 @@ import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils/createRule";
 import { getArrayElementType } from "../utils/getArrayElementType";
+import { getGenericTypeArgument } from "../utils/getGenericTypeArgument";
 import { isResourceWithReadonlyInterface } from "../utils/is-resource-with-readonly-interface";
 import { isClassType } from "../utils/typecheck/ts-type";
 
@@ -64,6 +65,31 @@ export const noConstructInInterface = createRule({
               data: {
                 propertyName: property.key.name,
                 typeName: `${elementType.symbol.name}[]`,
+              },
+            });
+            continue;
+          }
+
+          // NOTE: Check if it's a generic type wrapping a class type
+          const genericArgument = getGenericTypeArgument(type);
+          if (
+            genericArgument &&
+            isClassType(genericArgument) &&
+            isResourceWithReadonlyInterface(genericArgument)
+          ) {
+            const wrapperName = (() => {
+              if (type.aliasSymbol) return type.aliasSymbol.name; // For type aliases like Readonly<T>, Partial<T>
+              if (type.symbol?.name) return type.symbol.name; // For other generic types like Array<T>
+              return undefined;
+            })();
+            context.report({
+              node: property,
+              messageId: "invalidInterfaceProperty",
+              data: {
+                propertyName: property.key.name,
+                typeName: wrapperName
+                  ? `${wrapperName}<${genericArgument.symbol.name}>`
+                  : genericArgument.symbol.name,
               },
             });
           }
