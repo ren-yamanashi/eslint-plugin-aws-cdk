@@ -174,8 +174,9 @@ const checkAndReportConstructType = (
   ) {
     // NOTE: Determine the wrapper type name
     const wrapperName = (() => {
-      if ("aliasSymbol" in type && type.aliasSymbol)
+      if ("aliasSymbol" in type && type.aliasSymbol) {
         return type.aliasSymbol.name; // For type aliases like Readonly<T>, Partial<T>
+      }
       if (type.symbol?.name) return type.symbol.name; // For other generic types like Array<T>
       return undefined;
     })();
