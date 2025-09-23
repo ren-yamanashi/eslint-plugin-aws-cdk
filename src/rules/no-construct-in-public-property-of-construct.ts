@@ -5,10 +5,12 @@ import {
   TSESLint,
   TSESTree,
 } from "@typescript-eslint/utils";
+import { Type } from "typescript";
 
 import { createRule } from "../utils/createRule";
 import { getArrayElementType } from "../utils/getArrayElementType";
 import { getConstructor } from "../utils/getConstructor";
+import { getGenericTypeArgument } from "../utils/getGenericTypeArgument";
 import { isResourceWithReadonlyInterface } from "../utils/is-resource-with-readonly-interface";
 import { isConstructOrStackType } from "../utils/typecheck/cdk";
 import { isClassType } from "../utils/typecheck/ts-type";
@@ -89,32 +91,7 @@ const validatePublicPropertyOfConstruct = (
     if (!property.typeAnnotation) continue;
 
     const type = parserServices.getTypeAtLocation(property);
-    
-    // NOTE: Check if it's a direct class type
-    if (isClassType(type) && isResourceWithReadonlyInterface(type)) {
-      context.report({
-        node: property,
-        messageId: "invalidPublicPropertyOfConstruct",
-        data: {
-          propertyName: property.key.name,
-          typeName: type.symbol.name,
-        },
-      });
-      continue;
-    }
-    
-    // NOTE: Check if it's an array of class types
-    const elementType = getArrayElementType(type);
-    if (elementType && isClassType(elementType) && isResourceWithReadonlyInterface(elementType)) {
-      context.report({
-        node: property,
-        messageId: "invalidPublicPropertyOfConstruct",
-        data: {
-          propertyName: property.key.name,
-          typeName: `${elementType.symbol.name}[]`,
-        },
-      });
-    }
+    checkAndReportConstructType(type, property, property.key.name, context);
   }
 };
 
@@ -144,31 +121,74 @@ const validateConstructorParameterProperty = (
     if (!param.parameter.typeAnnotation) continue;
 
     const type = parserServices.getTypeAtLocation(param);
-    
-    // NOTE: Check if it's a direct class type
-    if (isClassType(type) && isResourceWithReadonlyInterface(type)) {
-      context.report({
-        node: param,
-        messageId: "invalidPublicPropertyOfConstruct",
-        data: {
-          propertyName: param.parameter.name,
-          typeName: type.symbol.name,
-        },
-      });
-      continue;
-    }
-    
-    // NOTE: Check if it's an array of class types
-    const elementType = getArrayElementType(type);
-    if (elementType && isClassType(elementType) && isResourceWithReadonlyInterface(elementType)) {
-      context.report({
-        node: param,
-        messageId: "invalidPublicPropertyOfConstruct",
-        data: {
-          propertyName: param.parameter.name,
-          typeName: `${elementType.symbol.name}[]`,
-        },
-      });
-    }
+    checkAndReportConstructType(type, param, param.parameter.name, context);
+  }
+};
+
+/**
+ * Common validation logic for checking if a type is a Construct type
+ */
+const checkAndReportConstructType = (
+  type: Type,
+  node: TSESTree.Node,
+  propertyName: string,
+  context: Context
+): void => {
+  // NOTE: Check if it's a direct class type
+  if (isClassType(type) && isResourceWithReadonlyInterface(type)) {
+    context.report({
+      node,
+      messageId: "invalidPublicPropertyOfConstruct",
+      data: {
+        propertyName,
+        typeName: type.symbol.name,
+      },
+    });
+    return;
+  }
+
+  // NOTE: Check if it's an array of class types
+  const elementType = getArrayElementType(type);
+  if (
+    elementType &&
+    isClassType(elementType) &&
+    isResourceWithReadonlyInterface(elementType)
+  ) {
+    context.report({
+      node,
+      messageId: "invalidPublicPropertyOfConstruct",
+      data: {
+        propertyName,
+        typeName: `${elementType.symbol.name}[]`,
+      },
+    });
+    return;
+  }
+
+  // NOTE: Check if it's a generic type wrapping a class type
+  const genericArgument = getGenericTypeArgument(type);
+  if (
+    genericArgument &&
+    isClassType(genericArgument) &&
+    isResourceWithReadonlyInterface(genericArgument)
+  ) {
+    // NOTE: Determine the wrapper type name
+    const wrapperName = (() => {
+      if ("aliasSymbol" in type && type.aliasSymbol)
+        return type.aliasSymbol.name; // For type aliases like Readonly<T>, Partial<T>
+      if (type.symbol?.name) return type.symbol.name; // For other generic types like Array<T>
+      return undefined;
+    })();
+
+    context.report({
+      node,
+      messageId: "invalidPublicPropertyOfConstruct",
+      data: {
+        propertyName,
+        typeName: wrapperName
+          ? `${wrapperName}<${genericArgument.symbol.name}>`
+          : genericArgument.symbol.name,
+      },
+    });
   }
 };
