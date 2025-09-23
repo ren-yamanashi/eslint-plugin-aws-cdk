@@ -172,7 +172,6 @@ const checkAndReportConstructType = (
     isClassType(genericArgument) &&
     isResourceWithReadonlyInterface(genericArgument)
   ) {
-    // NOTE: Determine the wrapper type name
     const wrapperName = (() => {
       if ("aliasSymbol" in type && type.aliasSymbol) {
         return type.aliasSymbol.name; // For type aliases like Readonly<T>, Partial<T>
