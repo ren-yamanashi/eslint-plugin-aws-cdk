@@ -1,6 +1,7 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils/createRule";
+import { getArrayElementType } from "../utils/getArrayElementType";
 import { isResourceWithReadonlyInterface } from "../utils/is-resource-with-readonly-interface";
 import { isClassType } from "../utils/typecheck/ts-type";
 
@@ -36,18 +37,36 @@ export const noConstructInInterface = createRule({
           }
 
           const type = parserServices.getTypeAtLocation(property);
-          if (!isClassType(type) || !isResourceWithReadonlyInterface(type)) {
+
+          // NOTE: Check if it's a direct class type
+          if (isClassType(type) && isResourceWithReadonlyInterface(type)) {
+            context.report({
+              node: property,
+              messageId: "invalidInterfaceProperty",
+              data: {
+                propertyName: property.key.name,
+                typeName: type.symbol.name,
+              },
+            });
             continue;
           }
 
-          context.report({
-            node: property,
-            messageId: "invalidInterfaceProperty",
-            data: {
-              propertyName: property.key.name,
-              typeName: type.symbol.name,
-            },
-          });
+          // NOTE: Check if it's an array of class types
+          const elementType = getArrayElementType(type);
+          if (
+            elementType &&
+            isClassType(elementType) &&
+            isResourceWithReadonlyInterface(elementType)
+          ) {
+            context.report({
+              node: property,
+              messageId: "invalidInterfaceProperty",
+              data: {
+                propertyName: property.key.name,
+                typeName: `${elementType.symbol.name}[]`,
+              },
+            });
+          }
         }
       },
     };
