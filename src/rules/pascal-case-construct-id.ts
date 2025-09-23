@@ -8,7 +8,7 @@ import {
 import { toPascalCase } from "../utils/convertString";
 import { createRule } from "../utils/createRule";
 import { getConstructorPropertyNames } from "../utils/getPropertyNames";
-import { isConstructOrStackType } from "../utils/typeCheck";
+import { isConstructOrStackType } from "../utils/typecheck/cdk";
 
 const QUOTE_TYPE = {
   SINGLE: "'",

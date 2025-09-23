@@ -1,8 +1,10 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
-import { SYMBOL_FLAGS } from "../constants/tsInternalFlags";
 import { createRule } from "../utils/createRule";
-import { isConstructOrStackType } from "../utils/typeCheck";
+import { getArrayElementType } from "../utils/getArrayElementType";
+import { getGenericTypeArgument } from "../utils/getGenericTypeArgument";
+import { isResourceWithReadonlyInterface } from "../utils/is-resource-with-readonly-interface";
+import { isClassType } from "../utils/typecheck/ts-type";
 
 /**
  * Enforces the use of interface types instead of CDK Construct types in interface properties
@@ -28,7 +30,6 @@ export const noConstructInInterface = createRule({
     return {
       TSInterfaceDeclaration(node) {
         for (const property of node.body.body) {
-          // NOTE: check property signature
           if (
             property.type !== AST_NODE_TYPES.TSPropertySignature ||
             property.key.type !== AST_NODE_TYPES.Identifier
@@ -37,22 +38,61 @@ export const noConstructInInterface = createRule({
           }
 
           const type = parserServices.getTypeAtLocation(property);
-          if (!isConstructOrStackType(type)) continue;
 
-          // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
-          //       Therefore, the type information structures do not match.
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-          const isClass = type.symbol.flags === SYMBOL_FLAGS.CLASS;
-          if (!isClass) continue;
+          // NOTE: Check if it's a direct class type
+          if (isClassType(type) && isResourceWithReadonlyInterface(type)) {
+            context.report({
+              node: property,
+              messageId: "invalidInterfaceProperty",
+              data: {
+                propertyName: property.key.name,
+                typeName: type.symbol.name,
+              },
+            });
+            continue;
+          }
 
-          context.report({
-            node: property,
-            messageId: "invalidInterfaceProperty",
-            data: {
-              propertyName: property.key.name,
-              typeName: type.symbol.name,
-            },
-          });
+          // NOTE: Check if it's an array of class types
+          const elementType = getArrayElementType(type);
+          if (
+            elementType &&
+            isClassType(elementType) &&
+            isResourceWithReadonlyInterface(elementType)
+          ) {
+            context.report({
+              node: property,
+              messageId: "invalidInterfaceProperty",
+              data: {
+                propertyName: property.key.name,
+                typeName: `${elementType.symbol.name}[]`,
+              },
+            });
+            continue;
+          }
+
+          // NOTE: Check if it's a generic type wrapping a class type
+          const genericArgument = getGenericTypeArgument(type);
+          if (
+            genericArgument &&
+            isClassType(genericArgument) &&
+            isResourceWithReadonlyInterface(genericArgument)
+          ) {
+            const wrapperName = (() => {
+              if (type.aliasSymbol) return type.aliasSymbol.name; // For type aliases like Readonly<T>, Partial<T>
+              if (type.symbol?.name) return type.symbol.name; // For other generic types like Array<T>
+              return undefined;
+            })();
+            context.report({
+              node: property,
+              messageId: "invalidInterfaceProperty",
+              data: {
+                propertyName: property.key.name,
+                typeName: wrapperName
+                  ? `${wrapperName}<${genericArgument.symbol.name}>`
+                  : genericArgument.symbol.name,
+              },
+            });
+          }
         }
       },
     };

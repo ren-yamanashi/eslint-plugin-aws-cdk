@@ -8,7 +8,10 @@ import {
 
 import { toPascalCase } from "../utils/convertString";
 import { createRule } from "../utils/createRule";
-import { isConstructOrStackType, isConstructType } from "../utils/typeCheck";
+import {
+  isConstructOrStackType,
+  isConstructType,
+} from "../utils/typecheck/cdk";
 
 type Option = {
   disallowContainingParentName?: boolean;

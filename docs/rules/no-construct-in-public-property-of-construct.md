@@ -12,11 +12,10 @@ import Playground from '../components/Playground.vue'
 
 <RecommendedItem />
 
-This rule disallows specifying Construct types (e.g. `Bucket`) for `public` properties of a CDK Construct.
+This rule enforces specifying interfaces for read-only resources (e.g. `IBucket`) for `public` properties of a CDK Construct.
 
-Using Construct types for `public` properties of a Construct is discouraged because it can lead to tight coupling between Constructs and expose mutable state externally.
-
-Instead, it is recommended to specify an interface for read-only resources (e.g. `IBucket`).
+When AWS resource Constructs (e.g. `Bucket`) implement interfaces for read-only resources (e.g. `IBucket`), it is recommended to specify the read-only resource interface (e.g. `IBucket`) for Construct `public` properties.
+This helps prevent unintended resource modifications.
 
 (This rule applies only to classes that extends from `Construct` or `Stack`.)
 
@@ -40,16 +39,19 @@ export default defineConfig([
 
 ```ts
 import { Construct } from "constructs";
-import { IBucket, Bucket } from "aws-cdk-lib/aws-s3";
+import { IBucket } from "aws-cdk-lib/aws-s3";
+import { DockerImageAsset } from "aws-cdk-lib/aws-ecr-assets";
+import { MetricFilter } from "aws-cdk-lib/aws-logs";
 
 class MyConstruct extends Construct {
   // ✅ Read-only interfaces (e.g. `IBucket`) can be used
   public readonly bucket: IBucket;
 
-  constructor(scope: Construct, id: string) {
-    super(scope, id);
-    this.bucket = new Bucket(this, "MyBucket");
-  }
+  // ✅ Constructs that are not AWS resource constructs (e.g. `DockerImageAsset`) can be used
+  public readonly asset: DockerImageAsset;
+
+  // ✅ When there is no read-only resource interface, Construct types (e.g. `MetricFilter`) can be used
+  public readonly metricFilter: MetricFilter;
 }
 ```
 
@@ -60,14 +62,9 @@ import { Construct } from "constructs";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 
 class MyConstruct extends Construct {
-  // ❌ Construct types (e.g. `Bucket`) should not be used for properties
+  // ❌ When a read-only resource interface exists, Construct types (e.g. `Bucket`) should not be used
   public readonly bucket: Bucket;
-
-  constructor(scope: Construct, id: string) {
-    super(scope, id);
-    this.bucket = new Bucket(this, "MyBucket");
-  }
 }
 ```
 
-<Playground link="https://eslint-online-playground.netlify.app/#eNqNVM1u00AQfpWRT0kV2yjcUiEhKAcOBVSOdUWd9djdxtm19oc2inLkxiPAy/EkzO76NyTAIXGy3/fNzM58nn1kNJOi5FXyqKWIVtE+EwBZxOS24TWqj43hUugsWoFHHGZyVaFxR1n07vPyxXKZRYsOrPnaIbct9DKL7npsKwtbYyf8gM8U5Ai8QS1r63IG2tqKgsoY8bRRnPnsRlnsj5WU5ooT0am0Yq3iQN+HTEQLd5YKGdNtKYJlJuYibuy65ixulGxQmV0sywFPjKZ28G0jlYE9vO3O4QClklvfo/aI2nOZiZ76/o1lGzQLCM9BkD/pmBWbmHqUut+aukPCTOCzl7I61xqud0MuahGKQo+y+ymkKfz68Q1uMC9iKeodcGFQlTlDDTNMqgTu2yLu58ByAWsEq7Fw2nBnUKT10rXnrbqqfT0hw8/vo7xm1wzB+9j6Qdq6ACFNlwJKqaBtKEd9KuOXLmWfkQZIn76fUs3IlQ2uhvwL4MUK3OxFNe+sqC1lCVSHz30kAPPAdRJywCsQ+NQmmjlgQXO43oWDLJpI2rr+T0OmCr5CXVP3k/4tGkwTkG74r8Pf9PHILQWWXCBdlOSDVVpyiDoWGD0N6+fCFG9MHIAxmcz2qbYVF9Ow3oSNB6YGpFpyW/tnX9Ps1l13ckudKKQFsSVrYuFfsySh1+UfnHZoJa0V7RfExUV6QbJhQ7RuJ7Av/FS0QHdv9t38kibQ5GyTV3i0wVxjwjbo1o6XZVGBX6+wcZEEcw6drLY/u+ki1LlBPV5WA+8M4USj/8I7A472xRnGeAWNCZ1Do8Nvh6gB1w==" />
+<Playground link="https://eslint-online-playground.netlify.app/#eNqNVc1O20AQfpWRTwmKnYrejCqVllbiQFvBgQNGxVmPzYK9a+2uCxHKsbc+QvtyfZLO7vo3ENJD4mTn++bnG8/sU2A0kyLnRXSnpQji4CkRAEnAZFXzEtXX2nApdBLE4CzWZlJVoLFHSfDp4vDN4WESLDpjyVfWctWa3ibBdW+rZNaU2BG/4CM52TKeo5ZlY2N62KoRGaUxwmmjOHPRjWqwP1ZSmhNOQMvSirWMDX1vEhEs7NlSyJCqJQ8NMyEXYd2sSs7CWskalVmHMh/skdEkB69qqQw8wcfuHDaQK1k5jdojkucoET309EPD7tEswD8HQvqgQ5bdh6TR0v7WpM6YeCIJr06rtMBjrV9jIlNhaiFboc/QqvOZlwbVbnYpC89LBD46JivJG5ythyqpOSgyParb9X+5hL+/f8I5plkoRbkGLihUnjLUMMOoiOCmLf9mDiwVsEJoNGaW69UGRVxHXTlc3Onl8ukj9HE1mNvUQKoQhDRwfHlBHrRsFEMYOtAF35ZwfxZOxviZ9tNsLm9RUB5ISXBNeTi6F6BPpldiMRLNrOtBmXF39idWjdDxpLOj3P782hWs74K+lU2ZOfHaaJBLBe1Lz1G/FPx715y+NzRk9OkVl2pGm6PGeIi/AJ7FYOdTFPNuXeiGoniotc+dJyAtuY58DHgHAh/aQDNrWNA7e7b2B0kwobR5/R+HBt/PPuqSuhP1m24YbG/pBuW9/7u82xqrDHMukAol+jBWLdh7HROMnrp1fWGK1yb0hjGYBvNb2RRcTN26ga2dYTqqlEvalO7Z5zS7suVOqtSRQlriFQ0xZm4VRhGttD2Ytmk5rX7tlvjBwfKAaMMWb/cCGfvEX/Lm4Xb7Xs+PqAN1yu5ptLZuGSuM39jd1eBoSZDhjxOsrSfB7Bs6uX6eq2k9lKlBPb5QBtwOwAtCv4LbYRzt1h2I8TUxBnRvaLD5BxM3mUs=" />

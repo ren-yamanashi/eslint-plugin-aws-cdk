@@ -1,6 +1,6 @@
 import { Type } from "typescript";
 
-type SuperClassType = "Construct" | "Stack";
+type SuperClassType = "Construct" | "Stack" | "Resource";
 
 /**
  * Check if the type extends Construct or Stack
@@ -37,6 +37,14 @@ export const isConstructType = (
 ): boolean => {
   if (ignoredClasses.includes(type.symbol?.name ?? "")) return false;
   return isTargetSuperClassType(type, ["Construct"], isConstructType);
+};
+
+export const isResourceType = (
+  type: Type,
+  ignoredClasses: readonly string[] = [] // App, Stage, CfnOutput, Stack are not extended Resource, so no need to ignore them
+): boolean => {
+  if (ignoredClasses.includes(type.symbol?.name ?? "")) return false;
+  return isTargetSuperClassType(type, ["Resource"], isResourceType);
 };
 
 /**
