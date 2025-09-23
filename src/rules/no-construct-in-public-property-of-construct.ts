@@ -7,6 +7,7 @@ import {
 } from "@typescript-eslint/utils";
 
 import { createRule } from "../utils/createRule";
+import { getArrayElementType } from "../utils/getArrayElementType";
 import { getConstructor } from "../utils/getConstructor";
 import { isResourceWithReadonlyInterface } from "../utils/is-resource-with-readonly-interface";
 import { isConstructOrStackType } from "../utils/typecheck/cdk";
@@ -88,16 +89,32 @@ const validatePublicPropertyOfConstruct = (
     if (!property.typeAnnotation) continue;
 
     const type = parserServices.getTypeAtLocation(property);
-    if (!isClassType(type) || !isResourceWithReadonlyInterface(type)) continue;
-
-    context.report({
-      node: property,
-      messageId: "invalidPublicPropertyOfConstruct",
-      data: {
-        propertyName: property.key.name,
-        typeName: type.symbol.name,
-      },
-    });
+    
+    // NOTE: Check if it's a direct class type
+    if (isClassType(type) && isResourceWithReadonlyInterface(type)) {
+      context.report({
+        node: property,
+        messageId: "invalidPublicPropertyOfConstruct",
+        data: {
+          propertyName: property.key.name,
+          typeName: type.symbol.name,
+        },
+      });
+      continue;
+    }
+    
+    // NOTE: Check if it's an array of class types
+    const elementType = getArrayElementType(type);
+    if (elementType && isClassType(elementType) && isResourceWithReadonlyInterface(elementType)) {
+      context.report({
+        node: property,
+        messageId: "invalidPublicPropertyOfConstruct",
+        data: {
+          propertyName: property.key.name,
+          typeName: `${elementType.symbol.name}[]`,
+        },
+      });
+    }
   }
 };
 
@@ -127,15 +144,31 @@ const validateConstructorParameterProperty = (
     if (!param.parameter.typeAnnotation) continue;
 
     const type = parserServices.getTypeAtLocation(param);
-    if (!isClassType(type) || !isResourceWithReadonlyInterface(type)) continue;
-
-    context.report({
-      node: param,
-      messageId: "invalidPublicPropertyOfConstruct",
-      data: {
-        propertyName: param.parameter.name,
-        typeName: type.symbol.name,
-      },
-    });
+    
+    // NOTE: Check if it's a direct class type
+    if (isClassType(type) && isResourceWithReadonlyInterface(type)) {
+      context.report({
+        node: param,
+        messageId: "invalidPublicPropertyOfConstruct",
+        data: {
+          propertyName: param.parameter.name,
+          typeName: type.symbol.name,
+        },
+      });
+      continue;
+    }
+    
+    // NOTE: Check if it's an array of class types
+    const elementType = getArrayElementType(type);
+    if (elementType && isClassType(elementType) && isResourceWithReadonlyInterface(elementType)) {
+      context.report({
+        node: param,
+        messageId: "invalidPublicPropertyOfConstruct",
+        data: {
+          propertyName: param.parameter.name,
+          typeName: `${elementType.symbol.name}[]`,
+        },
+      });
+    }
   }
 };
