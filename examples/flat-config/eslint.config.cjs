@@ -10,6 +10,10 @@ module.exports = defineConfig([
     files: ["**/*.ts"],
     extends: [cdkPlugin.configs.strict],
     rules: {
+      "cdk/require-passing-this": [
+        "error",
+        // { allowNonThisAndDisallowScope: true },
+      ],
       "cdk/no-parent-name-construct-id-match": [
         "error",
         { disallowContainingParentName: true },
