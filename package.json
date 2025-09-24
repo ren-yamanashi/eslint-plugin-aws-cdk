@@ -22,7 +22,8 @@
     "lint": "eslint --fix --config eslint.config.js",
     "check": "tsc --noEmit",
     "pack": "pnpm run build && npm pack",
-    "docs": "pnpm run --filter=@eslint-cdk-plugin/docs"
+    "docs": "pnpm run --filter=@eslint-cdk-plugin/docs",
+    "example:flat-config": "pnpm run --filter=@eslint-cdk-plugin/example-flat-config"
   },
   "devDependencies": {
     "@eslint/js": "^9.26.0",
