@@ -1,3 +1,4 @@
+/* eslint-disable cdk/require-jsdoc */
 import { Construct } from "constructs";
 
 // ✅ Constructor with "scope, id" property names
@@ -8,9 +9,6 @@ export class MyConstruct extends Construct {
 }
 
 export interface _MyConstructProps {
-  /**
-   * s3 bucket name
-   */
   readonly bucketName: string;
 }
 
