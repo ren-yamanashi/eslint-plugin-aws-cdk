@@ -1,0 +1,24 @@
+{
+  "name": "@eslint-cdk-plugin/example-flat-config",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "vitest --run",
+    "check": "tsc --noEmit",
+    "lint:esm": "eslint --config eslint.config.mjs",
+    "lint:cjs": "eslint --config eslint.config.cjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "latest",
+    "@types/node": "latest",
+    "eslint": "latest",
+    "eslint-cdk-plugin": "workspace:*",
+    "typescript": "5.8.3",
+    "typescript-eslint": "latest",
+    "vitest": "latest"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "latest",
+    "constructs": "latest"
+  }
+}
