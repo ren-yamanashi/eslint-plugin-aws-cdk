@@ -34,7 +34,7 @@ jobs:
         uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
           node-version: 22.15.0
-          cache: 'pnpm'
+          cache: "pnpm"
       - name: Get pnpm store directory
         id: pnpm-cache
         shell: bash
@@ -70,7 +70,7 @@ jobs:
             LICENSE
           retention-days: 1
       - name: Build docs
-        run: pnpm run docs:build
+        run: pnpm run docs build
       - name: Configure custom domain
         run: |
           echo "eslint-cdk-plugin.dev" > docs/.vitepress/dist/CNAME
