@@ -1,4 +1,4 @@
-import { Stage, Stack } from "aws-cdk-lib";
+import { Stage } from "aws-cdk-lib";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 
@@ -29,7 +29,7 @@ export class _MyConstruct extends Construct {
     // ✅ when instance of Stage
     new Stage(this, "SampleStage");
 
-    // ✅ allowNonThisAndDisallowScope is true
+    // ✅ when allowNonThisAndDisallowScope is true, can specify non-this value
     new Bucket(bucket, "SampleBucket");
 
     // ❌ Shouldn't use scope

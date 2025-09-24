@@ -38,8 +38,6 @@ export class MyConstruct extends Construct {
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
-    this.bucket = new Bucket(this, "MyBucket");
-    this._bucket = new Bucket(this, "MyBucket");
   }
 }
 
