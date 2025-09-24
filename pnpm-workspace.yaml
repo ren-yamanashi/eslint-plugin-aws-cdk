@@ -1,0 +1,6 @@
+packages:
+  - .
+  - docs
+useNodeVersion: 22.15.0
+engineStrict: true
+minimumReleaseAge: 2880
