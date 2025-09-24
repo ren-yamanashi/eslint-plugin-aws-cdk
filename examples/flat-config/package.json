@@ -13,8 +13,7 @@
     "eslint": "latest",
     "eslint-cdk-plugin": "workspace:*",
     "typescript": "5.8.3",
-    "typescript-eslint": "latest",
-    "vitest": "latest"
+    "typescript-eslint": "latest"
   },
   "dependencies": {
     "aws-cdk-lib": "latest",
