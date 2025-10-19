@@ -1,9 +1,9 @@
 ---
 layout: home
-title: eslint-cdk-plugin - ESLint plugin for AWS CDK
+title: eslint-plugin-aws-cdk - ESLint plugin for AWS CDK
 titleTemplate: ":title"
 hero:
-  name: "eslint-cdk-plugin"
+  name: "eslint-plugin-aws-cdk"
   text: "ESLint plugin for AWS CDK"
   tagline: AWS CDK のセオリー・ベストプラクティスを強制する ESLint Plugin
   image: /img/logo.png
@@ -13,7 +13,7 @@ hero:
       link: /ja/getting-started/
     - theme: alt
       text: View on GitHub
-      link: https://github.com/ren-yamanashi/eslint-cdk-plugin
+      link: https://github.com/ren-yamanashi/eslint-plugin-aws-cdk
 features:
   - title: Ease of use
     details: インストール後、推奨設定を使用してすぐに使用することができます。

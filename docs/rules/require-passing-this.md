@@ -1,5 +1,5 @@
 ---
-title: eslint-cdk-plugin - require-passing-this
+title: eslint-plugin-aws-cdk - require-passing-this
 titleTemplate: ":title"
 ---
 
@@ -24,22 +24,6 @@ Passing other values as the scope (especially the `scope` variable received by t
 
 (This rule applies only to classes that extend `Construct`.)
 
-## Options
-
-This rule has an option with the following properties:
-
-### `allowNonThisAndDisallowScope`
-
-Determines whether to allow constructs other than `this` as the scope (first argument) when instantiating a new Construct.
-
-- `false`: Only `this` is allowed as the scope (first argument) when instantiating a new Construct.
-- `true`: Allows passing Construct instances other than `this` as the scope (first argument).
-  - However, directly passing the `scope` variable received by the parent's constructor is still disallowed.
-  - This setting is useful for creating nested construct hierarchies.
-
-Note 1: By default `false` is specified.  
-Note 2: The `recommended` rule set specifies `true`.
-
 ---
 
 #### 🔧 How to use
@@ -50,16 +34,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      // allowNonThisAndDisallowScope: false:
-      // Only `this` is allowed as scope.
       "cdk/require-passing-this": "error",
-
-      // allowNonThisAndDisallowScope: true:
-      // Allows non-`this` as scope (but disallows parent's `scope` variable).
-      "cdk/require-passing-this": [
-        "error",
-        { allowNonThisAndDisallowScope: true },
-      ],
     },
   },
 ]);
@@ -75,11 +50,11 @@ export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
+    const sample = new SampleConstruct(this, "Sample");
+
     // ✅ Using `this` as scope is always allowed.
     new Bucket(this, "SampleBucket");
 
-    // The following example is valid when `allowNonThisAndDisallowScope` is `true` (as in the recommended set).
-    const sample = new SampleConstruct(this, "Sample");
     // ✅ `sample` (an instance of a Construct) is allowed as scope.
     new OtherConstruct(sample, "Child");
   }
@@ -97,8 +72,67 @@ export class MyConstruct extends Construct {
     super(scope, id);
 
     // ❌ Shouldn't use the parent's `scope` variable,
-    //    this is invalid even when allowNonThisAndDisallowScope is true.
     new Bucket(scope, "SampleBucket");
+  }
+}
+```
+
+## Options
+
+```ts
+type Options = {
+  allowNonThisAndDisallowScope: boolean;
+};
+
+const defaultOptions: Options = {
+  allowNonThisAndDisallowScope: true,
+};
+```
+
+### `allowNonThisAndDisallowScope`
+
+Determines whether to allow constructs other than `this` as the scope (first argument) when instantiating a new Construct.
+
+- `false`: Only `this` is allowed as the scope (first argument) when instantiating a new Construct.
+- `true`: Allows passing Construct instances other than `this` as the scope (first argument).
+  - However, directly passing the `scope` variable received by the parent's constructor is still disallowed.
+  - This setting is useful for creating nested construct hierarchies.
+
+With: `{ allowNonThisAndDisallowScope: false }`
+
+#### ✅ Correct Example
+
+```ts
+import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+
+export class MyConstruct extends Construct {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+
+    // ✅ Using `this` as scope is always allowed.
+    new Bucket(this, "SampleBucket");
+  }
+}
+```
+
+#### ❌ Incorrect Example
+
+```ts
+import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+
+export class MyConstruct extends Construct {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+
+    const sample = new SampleConstruct(this, "Sample");
+
+    // ❌ Shouldn't use the parent's `scope` variable,
+    new Bucket(scope, "SampleBucket");
+
+    // ❌ Shouldn't use other Construct instances as scope.
+    new OtherConstruct(sample, "Child");
   }
 }
 ```

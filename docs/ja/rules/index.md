@@ -1,5 +1,5 @@
 ---
-title: eslint-cdk-plugin - Rules
+title: eslint-plugin-aws-cdk - Rules
 titleTemplate: ":title"
 ---
 
@@ -198,7 +198,7 @@ import RuleItem from '../../components/RuleItem.vue'
 import eslint from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
-import cdkPlugin from "eslint-cdk-plugin";
+import cdkPlugin from "eslint-plugin-aws-cdk";
 
 export default defineConfig([
   eslint.configs.recommended,
@@ -222,7 +222,7 @@ export default defineConfig([
 import eslint from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
-import cdkPlugin from "eslint-cdk-plugin";
+import cdkPlugin from "eslint-plugin-aws-cdk";
 
 export default defineConfig([
   eslint.configs.recommended,

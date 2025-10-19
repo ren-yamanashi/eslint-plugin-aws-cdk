@@ -17,13 +17,15 @@ const SUFFIX_TYPE = {
 
 type SuffixType = (typeof SUFFIX_TYPE)[keyof typeof SUFFIX_TYPE];
 
-type Options = [
-  {
-    disallowedSuffixes?: SuffixType[];
-  }
-];
+type Option = {
+  disallowedSuffixes?: SuffixType[];
+};
 
-type Context = TSESLint.RuleContext<"invalidConstructId", Options>;
+const defaultOption: Option = {
+  disallowedSuffixes: [SUFFIX_TYPE.CONSTRUCT, SUFFIX_TYPE.STACK],
+};
+
+type Context = TSESLint.RuleContext<"invalidConstructId", Option[]>;
 
 /**
  * Enforces that Construct IDs do not end with 'Construct' or 'Stack' suffix
@@ -59,16 +61,9 @@ export const noConstructStackSuffix = createRule({
       },
     ],
   },
-  defaultOptions: [
-    {
-      disallowedSuffixes: [SUFFIX_TYPE.CONSTRUCT, SUFFIX_TYPE.STACK],
-    },
-  ],
+  defaultOptions: [defaultOption],
   create(context) {
     const parserServices = ESLintUtils.getParserServices(context);
-    const options = context.options[0] ?? {
-      disallowedSuffixes: [SUFFIX_TYPE.CONSTRUCT, SUFFIX_TYPE.STACK],
-    };
 
     return {
       NewExpression(node) {
@@ -80,7 +75,7 @@ export const noConstructStackSuffix = createRule({
         const constructorPropertyNames = getConstructorPropertyNames(type);
         if (constructorPropertyNames[1] !== "id") return;
 
-        validateConstructId(node, context, options);
+        validateConstructId(node, context);
       },
     };
   },
@@ -91,9 +86,10 @@ export const noConstructStackSuffix = createRule({
  */
 const validateConstructId = (
   node: TSESTree.NewExpression,
-  context: Context,
-  options: { disallowedSuffixes: SuffixType[] }
+  context: Context
 ): void => {
+  const options = context.options[0] ?? defaultOption;
+
   // NOTE: Treat the second argument as ID
   const secondArg = node.arguments[1];
   if (
@@ -107,7 +103,7 @@ const validateConstructId = (
   const disallowedSuffixes = options.disallowedSuffixes;
 
   if (
-    disallowedSuffixes.includes(SUFFIX_TYPE.CONSTRUCT) &&
+    disallowedSuffixes?.includes(SUFFIX_TYPE.CONSTRUCT) &&
     formattedConstructId.endsWith(SUFFIX_TYPE.CONSTRUCT)
   ) {
     context.report({
@@ -120,7 +116,7 @@ const validateConstructId = (
       },
     });
   } else if (
-    disallowedSuffixes.includes(SUFFIX_TYPE.STACK) &&
+    disallowedSuffixes?.includes(SUFFIX_TYPE.STACK) &&
     formattedConstructId.endsWith(SUFFIX_TYPE.STACK)
   ) {
     context.report({

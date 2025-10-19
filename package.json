@@ -1,5 +1,5 @@
 {
-  "name": "eslint-cdk-plugin",
+  "name": "eslint-plugin-aws-cdk",
   "version": "3.4.1",
   "description": "eslint plugin for AWS CDK projects",
   "main": "./dist/index.mjs",
@@ -55,15 +55,14 @@
   ],
   "keywords": [
     "eslint",
-    "eslintplugin",
-    "eslint-plugin",
+    "typescript",
     "aws",
     "cdk"
   ],
-  "homepage": "https://eslint-cdk-plugin.dev/",
+  "homepage": "https://eslint-plugin-aws-cdk.dev/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ren-yamanashi/eslint-cdk-plugin.git"
+    "url": "https://github.com/ren-yamanashi/eslint-plugin-aws-cdk.git"
   },
   "author": {
     "name": "ren-yamanashi"

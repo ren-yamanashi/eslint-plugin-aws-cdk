@@ -1,5 +1,5 @@
 ---
-title: eslint-cdk-plugin - no-construct-stack-suffix
+title: eslint-plugin-aws-cdk - no-construct-stack-suffix
 titleTemplate: ":title"
 ---
 
@@ -18,15 +18,6 @@ Construct ID に "Construct" という文字列が含まれていると、CDK �
 
 (このルールは `Construct` または `Stack` から派生したクラスにのみ適用されます)
 
-## オプション
-
-このルールには以下のプロパティを持つオプションがあります：
-
-- `disallowedSuffixes` - 禁止する suffix の配列。"Construct"、"Stack"、または両方を含めることができます。
-
-※1. デフォルトでは `["Construct", "Stack"]` が指定されています  
-※2. `recommended` ルールセットでは `["Construct", "Stack"]` が指定されています
-
 ---
 
 #### 🔧 使用方法
@@ -37,20 +28,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      // デフォルト: "Construct" と "Stack" の両方の suffix を禁止
       "cdk/no-construct-stack-suffix": "error",
-
-      // "Construct" suffix のみを禁止
-      "cdk/no-construct-stack-suffix": [
-        "error",
-        { disallowedSuffixes: ["Construct"] },
-      ],
-
-      // "Stack" suffix のみを禁止
-      "cdk/no-construct-stack-suffix": [
-        "error",
-        { disallowedSuffixes: ["Stack"] },
-      ],
     },
   },
 ]);
@@ -87,6 +65,57 @@ export class MyConstruct extends Construct {
 
     // ❌ "Stack" suffix を使用すべきではありません
     new Stack(this, "MyStack");
+  }
+}
+```
+
+## オプション
+
+```ts
+type Options = {
+  disallowedSuffixes: Array<"Construct" | "Stack">;
+};
+
+const defaultOptions: Options = {
+  disallowedSuffixes: ["Construct", "Stack"],
+};
+```
+
+### disallowedSuffixes
+
+禁止する suffix の配列。"Construct"、"Stack"、または両方を含めることができます。
+
+`{ disallowedSuffixes: ["Construct"] }` とした場合
+
+#### ✅ 正しい例
+
+```ts
+import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+
+export class MyConstruct extends Construct {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+
+    // ✅ "Construct" suffix が追加されていない場合は許可されます
+    new Stack(this, "MyStack");
+  }
+}
+```
+
+#### ❌ 不正な例
+
+```ts
+import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+import { Stack } from "aws-cdk-lib";
+
+export class MyConstruct extends Construct {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+
+    // ❌ "Construct" suffix を使用すべきではありません
+    const bucket = new Bucket(this, "BucketConstruct");
   }
 }
 ```
