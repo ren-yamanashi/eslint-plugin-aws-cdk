@@ -1,4 +1,6 @@
 {
+  "name": "@eslint-cdk-plugin/docs",
+  "private": true,
   "scripts": {
     "dev": "vitepress dev --open",
     "build": "vitepress build",

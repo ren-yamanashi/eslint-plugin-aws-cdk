@@ -70,7 +70,7 @@ jobs:
             LICENSE
           retention-days: 1
       - name: Build docs
-        run: pnpm run docs:build
+        run: pnpm run docs build
       - name: Configure custom domain
         run: |
           echo "eslint-plugin-aws-cdk.dev" > docs/.vitepress/dist/CNAME
