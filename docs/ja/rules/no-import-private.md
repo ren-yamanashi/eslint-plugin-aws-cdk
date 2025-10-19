@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-aws-cdk - no-import-private
+title: eslint-cdk-plugin - no-import-private
 titleTemplate: ":title"
 ---
 

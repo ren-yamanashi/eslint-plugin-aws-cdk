@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-aws-cdk - no-mutable-property-of-props-interface
+title: eslint-cdk-plugin - no-mutable-property-of-props-interface
 titleTemplate: ":title"
 ---
 

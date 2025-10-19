@@ -86,7 +86,7 @@ ruleTester.run("require-passing-this", requirePassingThis, {
     },
   ],
   invalid: [
-    // WHEN: passing 'scope' variable
+    // WHEN: not passing `this` to a constructor (default behavior)
     {
       code: `
       class Construct {}
@@ -118,9 +118,41 @@ ruleTester.run("require-passing-this", requirePassingThis, {
       }
       `,
     },
-    // WHEN: allowNonThisAndDisallowScope is false and not passing `this`
+    // WHEN: allowNonThisAndDisallowScope is true but passing 'scope' variable
     {
-      options: [{ allowNonThisAndDisallowScope: false }],
+      code: `
+      class Construct {}
+      class SampleConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class TestConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          new SampleConstruct(scope, "ValidId");
+        }
+      }
+      `,
+      options: [{ allowNonThisAndDisallowScope: true }],
+      errors: [{ messageId: "missingPassingThis" }],
+      output: `
+      class Construct {}
+      class SampleConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+        }
+      }
+      class TestConstruct extends Construct {
+        constructor(scope: Construct, id: string) {
+          super(scope, id);
+          new SampleConstruct(this, "ValidId");
+        }
+      }
+      `,
+    },
+    // WHEN: not passing `this` to a constructor with a different variable name
+    {
       code: `
       class Construct {}
       class SampleConstruct extends Construct {

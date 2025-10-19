@@ -73,7 +73,7 @@ jobs:
         run: pnpm run docs build
       - name: Configure custom domain
         run: |
-          echo "eslint-plugin-aws-cdk.dev" > docs/.vitepress/dist/CNAME
+          echo "eslint-cdk-plugin.dev" > docs/.vitepress/dist/CNAME
           cp -r docs/public/* docs/.vitepress/dist/
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
@@ -115,13 +115,6 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           persist-credentials: false
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
-        id: pnpm-install
-        with:
-          version: 10.10.0
-          run_install: false
 
       - name: Setup Node.js
         uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0

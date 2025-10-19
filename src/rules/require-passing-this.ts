@@ -8,15 +8,13 @@ import { createRule } from "../utils/createRule";
 import { getConstructorPropertyNames } from "../utils/getPropertyNames";
 import { isConstructType } from "../utils/typecheck/cdk";
 
-type Option = {
-  allowNonThisAndDisallowScope?: boolean;
-};
+type Options = [
+  {
+    allowNonThisAndDisallowScope?: boolean;
+  }
+];
 
-const defaultOption: Option = {
-  allowNonThisAndDisallowScope: true,
-};
-
-type Context = TSESLint.RuleContext<"missingPassingThis", Option[]>;
+type Context = TSESLint.RuleContext<"missingPassingThis", Options>;
 
 /**
  * Enforces that `this` is passed to the constructor
@@ -47,9 +45,15 @@ export const requirePassingThis = createRule({
     ],
     fixable: "code",
   },
-  defaultOptions: [defaultOption],
+  defaultOptions: [
+    {
+      allowNonThisAndDisallowScope: false,
+    },
+  ],
   create(context: Context) {
-    const options = context.options[0] || defaultOption;
+    const options = context.options[0] || {
+      allowNonThisAndDisallowScope: false,
+    };
     const parserServices = ESLintUtils.getParserServices(context);
     return {
       NewExpression(node) {

@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-aws-cdk - no-construct-in-public-property-of-construct
+title: eslint-cdk-plugin - no-construct-in-public-property-of-construct
 titleTemplate: ":title"
 ---
 

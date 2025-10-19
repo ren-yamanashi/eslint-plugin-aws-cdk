@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-aws-cdk - no-variable-construct-id
+title: eslint-cdk-plugin - no-variable-construct-id
 titleTemplate: ":title"
 ---
 

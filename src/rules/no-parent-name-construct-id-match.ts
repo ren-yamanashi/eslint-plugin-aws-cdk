@@ -13,22 +13,20 @@ import {
   isConstructType,
 } from "../utils/typecheck/cdk";
 
-type Option = {
-  disallowContainingParentName?: boolean;
-};
+type Options = [
+  {
+    disallowContainingParentName?: boolean;
+  }
+];
 
-const defaultOption: Option = {
-  disallowContainingParentName: false,
-};
-
-type Context = TSESLint.RuleContext<"invalidConstructId", Option[]>;
+type Context = TSESLint.RuleContext<"invalidConstructId", Options>;
 
 type ValidateStatementArgs<T extends TSESTree.Statement> = {
   statement: T;
   parentClassName: string;
   context: Context;
   parserServices: ParserServicesWithTypeInformation;
-  option: Option;
+  option: Options[0];
 };
 
 type ValidateExpressionArgs<T extends TSESTree.Expression> = {
@@ -36,7 +34,7 @@ type ValidateExpressionArgs<T extends TSESTree.Expression> = {
   parentClassName: string;
   context: Context;
   parserServices: ParserServicesWithTypeInformation;
-  option: Option;
+  option: Options[0];
 };
 
 /**
@@ -69,10 +67,16 @@ export const noParentNameConstructIdMatch = createRule({
       },
     ],
   },
-  defaultOptions: [defaultOption],
+  defaultOptions: [
+    {
+      disallowContainingParentName: false,
+    },
+  ],
 
   create(context: Context) {
-    const option = context.options[0] || defaultOption;
+    const option = context.options[0] || {
+      disallowContainingParentName: false,
+    };
     const parserServices = ESLintUtils.getParserServices(context);
     return {
       ClassBody(node) {
