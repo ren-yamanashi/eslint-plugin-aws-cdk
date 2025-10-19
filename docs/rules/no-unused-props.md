@@ -1,18 +1,16 @@
 ---
-title: eslint-cdk-plugin - no-unused-props
+title: eslint-plugin-aws-cdk - no-unused-props
 titleTemplate: ":title"
 ---
 
 <script setup>
-import NotRecommendedItem from '../components/NotRecommendedItem.vue'
-import NextRecommendedItem from '../components/NextRecommendedItem.vue'
+import RecommendedItem from '../components/RecommendedItem.vue'
 import Playground from '../components/Playground.vue'
 </script>
 
 # no-unused-props
 
-<NotRecommendedItem />
-<NextRecommendedItem version="v4.0.0" />
+<RecommendedItem />
 
 This rule enforces that all properties defined in CDK Construct props interface are actually used within the constructor.
 
