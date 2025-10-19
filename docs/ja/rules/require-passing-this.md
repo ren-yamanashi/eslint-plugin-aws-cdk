@@ -25,22 +25,6 @@ Construct のコンストラクタの第一引数へ `this` 以外の値 (特に
 
 (このルールは `Construct` から派生したクラスにのみ適用されます)
 
-## オプション
-
-このルールには以下のプロパティを持つオプションがあります：
-
-### `allowNonThisAndDisallowScope`
-
-Construct のコンストラクタの第一引数 (スコープ) として、`this` 以外の値を許可するかどうかを決定します。
-
-- `false`: 新しい Construct をインスタンス化する際、第一引数 (スコープ) として `this` のみが許可されます
-- `true`: `this` 以外の Construct インスタンスを第一引数 (スコープ) として渡すことを許可します
-  - ただし、親コンストラクタが受け取った `scope` 変数を直接使用することは引き続き禁止されます
-  - この設定は、ネストされた Construct 階層を作成する場合に便利です。
-
-※1. デフォルトでは、このオプションは `false` に設定されています。  
-※2. `recommended` ルールセットでは、このオプションは `true` に設定されています。
-
 ---
 
 #### 🔧 使用方法
@@ -51,16 +35,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      // allowNonThisAndDisallowScope: false:
-      // スコープとして `this` のみ許可
       "cdk/require-passing-this": "error",
-
-      // allowNonThisAndDisallowScope: true:
-      // スコープとして `this` 以外を許可 (ただし、親の `scope` 変数の直接使用は禁止)
-      "cdk/require-passing-this": [
-        "error",
-        { allowNonThisAndDisallowScope: true },
-      ],
     },
   },
 ]);
@@ -76,11 +51,11 @@ export class MyConstruct extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
+    const sample = new SampleConstruct(this, "Sample");
+
     // ✅ `this` は常に使用できます
     new Bucket(this, "SampleBucket");
 
-    // 以下の例は `allowNonThisAndDisallowScope` が `true` (推奨設定) の場合に有効
-    const sample = new SampleConstruct(this, "Sample");
     // ✅ `sample` (Construct のインスタンス) をスコープとして渡すことが許可される
     new OtherConstruct(sample, "Child");
   }
@@ -98,8 +73,65 @@ export class MyConstruct extends Construct {
     super(scope, id);
 
     // ❌ scope を使用すべきではありません
-    // allowNonThisAndDisallowScope が true の場合でも無効
     new Bucket(scope, "SampleBucket");
+  }
+}
+```
+
+## オプション
+
+```ts
+type Options = {
+  allowNonThisAndDisallowScope: boolean;
+};
+
+const defaultOptions: Options = {
+  allowNonThisAndDisallowScope: true,
+};
+```
+
+### `allowNonThisAndDisallowScope`
+
+Construct のコンストラクタの第一引数 (スコープ) として、`this` 以外の値を許可するかどうかを決定します。
+
+- `false`: 新しい Construct をインスタンス化する際、第一引数 (スコープ) として `this` のみが許可されます
+- `true`: `this` 以外の Construct インスタンスを第一引数 (スコープ) として渡すことを許可します
+  - ただし、親コンストラクタが受け取った `scope` 変数を直接使用することは引き続き禁止されます
+  - この設定は、ネストされた Construct 階層を作成する場合に便利です。
+
+#### ✅ Correct Example
+
+```ts
+import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+
+export class MyConstruct extends Construct {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+
+    // ✅ `this` は常に使用できます
+    new Bucket(this, "SampleBucket");
+  }
+}
+```
+
+#### ❌ Incorrect Example
+
+```ts
+import { Construct } from "constructs";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+
+export class MyConstruct extends Construct {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+
+    const sample = new SampleConstruct(this, "Sample");
+
+    // ❌ scope を使用すべきではありません、
+    new Bucket(scope, "SampleBucket");
+
+    // ❌ 他の Construct インスタンスをスコープとして使用すべきではありません。
+    new OtherConstruct(sample, "Child");
   }
 }
 ```
