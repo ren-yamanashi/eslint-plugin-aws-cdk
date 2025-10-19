@@ -1,9 +1,9 @@
 ---
-title: eslint-plugin-aws-cdk - Getting Started
+title: eslint-cdk-plugin - Getting Started
 titleTemplate: ":title"
 ---
 
-# eslint-plugin-aws-cdk
+# eslint-cdk-plugin
 
 ## Install
 
@@ -12,15 +12,15 @@ Just run this:
 ::: code-group
 
 ```sh [npm]
-npm install -D eslint-plugin-aws-cdk
+npm install -D eslint-cdk-plugin
 ```
 
 ```sh [yarn]
-yarn add -D eslint-plugin-aws-cdk
+yarn add -D eslint-cdk-plugin
 ```
 
 ```sh [pnpm]
-pnpm install -D eslint-plugin-aws-cdk
+pnpm install -D eslint-cdk-plugin
 ```
 
 :::
@@ -28,6 +28,14 @@ pnpm install -D eslint-plugin-aws-cdk
 ## Setting eslint config
 
 Write `eslint.config.mjs` as follows:
+
+<div class="info-item">
+  🚨 This plugin only supports FlatConfig.
+  <br />
+  ❓ <a href="https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file-formats">
+    What's FlatConfig?
+  </a>
+</div>
 
 <div class="info-item">
   🚨 This plugin uses typescript type information and must be used in conjunction with
@@ -43,7 +51,7 @@ Write `eslint.config.mjs` as follows:
 import eslint from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
-import cdkPlugin from "eslint-plugin-aws-cdk";
+import cdkPlugin from "eslint-cdk-plugin";
 
 export default defineConfig([
   eslint.configs.recommended,
@@ -64,7 +72,7 @@ export default defineConfig([
 const eslint = require("@eslint/js");
 const { defineConfig } = require("eslint/config");
 const tseslint = require("typescript-eslint");
-const cdkPlugin = require("eslint-plugin-aws-cdk");
+const cdkPlugin = require("eslint-cdk-plugin");
 
 module.exports = defineConfig([
   eslint.configs.recommended,
@@ -88,7 +96,7 @@ If you want to customize the rules, write `eslint.config.mjs` as follows:
 import eslint from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
-import cdkPlugin from "eslint-plugin-aws-cdk";
+import cdkPlugin from "eslint-cdk-plugin";
 
 export default defineConfig([
   eslint.configs.recommended,

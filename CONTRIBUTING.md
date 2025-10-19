@@ -1,6 +1,6 @@
-# Contributing to eslint-plugin-aws-cdk
+# Contributing to eslint-cdk-plugin
 
-Thank you for your interest in contributing to eslint-plugin-aws-cdk!  
+Thank you for your interest in contributing to eslint-cdk-plugin!  
 This document provides guidelines and steps for contributing.
 
 ## Code of Conduct
@@ -19,7 +19,7 @@ When you create a bug issue, include as following content:
 - Expected behavior
 - Actual behavior
 - Code samples if applicable
-- Version information (Node.js, ESLint, eslint-plugin-aws-cdk)
+- Version information (Node.js, ESLint, eslint-cdk-plugin)
 
 ### Create Feature Request Issue
 
@@ -45,7 +45,7 @@ When proposing a new rule:
 
 ```bash
 # Clone your fork
-https://github.com/ren-yamanashi/eslint-plugin-aws-cdk.git
+https://github.com/ren-yamanashi/eslint-cdk-plugin.git
 
 # Install dependencies
 pnpm install

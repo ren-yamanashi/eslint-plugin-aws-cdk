@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-aws-cdk - no-mutable-public-property-of-construct
+title: eslint-cdk-plugin - no-mutable-public-property-of-construct
 titleTemplate: ":title"
 ---
 
