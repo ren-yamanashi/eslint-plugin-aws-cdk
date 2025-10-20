@@ -37,8 +37,8 @@ body:
   - type: input
     id: plugin-version
     attributes:
-      label: eslint-plugin-aws-cdk Version
-      description: Which version of eslint-plugin-aws-cdk are you using?
+      label: eslint-plugin-awscdk Version
+      description: Which version of eslint-plugin-awscdk are you using?
       placeholder: "1.0.0"
     validations:
       required: true
@@ -91,5 +91,5 @@ body:
           required: false
         - label: I have provided all the necessary information to reproduce the issue
           required: false
-        - label: I have verified this issue is related to eslint-plugin-aws-cdk and not another dependency
+        - label: I have verified this issue is related to eslint-plugin-awscdk and not another dependency
           required: false

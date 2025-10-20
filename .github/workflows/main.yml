@@ -73,7 +73,7 @@ jobs:
         run: pnpm run docs build
       - name: Configure custom domain
         run: |
-          echo "eslint-plugin-aws-cdk.dev" > docs/.vitepress/dist/CNAME
+          echo "eslint-plugin-awscdk.dev" > docs/.vitepress/dist/CNAME
           cp -r docs/public/* docs/.vitepress/dist/
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1

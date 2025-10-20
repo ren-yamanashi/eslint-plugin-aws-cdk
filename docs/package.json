@@ -1,5 +1,5 @@
 {
-  "name": "@eslint-cdk-plugin/docs",
+  "name": "@eslint-plugin-awscdk/docs",
   "private": true,
   "scripts": {
     "dev": "vitepress dev --open",

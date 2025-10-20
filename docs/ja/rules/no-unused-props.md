@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-aws-cdk - no-unused-props
+title: eslint-plugin-awscdk - no-unused-props
 titleTemplate: ":title"
 ---
 

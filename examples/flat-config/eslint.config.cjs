@@ -1,7 +1,7 @@
 const eslint = require("@eslint/js");
 const { defineConfig } = require("eslint/config");
 const tseslint = require("typescript-eslint");
-const cdkPlugin = require("eslint-cdk-plugin");
+const cdkPlugin = require("eslint-plugin-awscdk");
 
 module.exports = defineConfig([
   eslint.configs.recommended,

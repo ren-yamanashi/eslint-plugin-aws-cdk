@@ -1,9 +1,9 @@
 ---
-title: eslint-plugin-aws-cdk - Getting Started
+title: eslint-plugin-awscdk - Getting Started
 titleTemplate: ":title"
 ---
 
-# eslint-plugin-aws-cdk
+# eslint-plugin-awscdk
 
 ## インストール
 
@@ -12,15 +12,15 @@ titleTemplate: ":title"
 ::: code-group
 
 ```sh [npm]
-npm install -D eslint-plugin-aws-cdk
+npm install -D eslint-plugin-awscdk
 ```
 
 ```sh [yarn]
-yarn add -D eslint-plugin-aws-cdk
+yarn add -D eslint-plugin-awscdk
 ```
 
 ```sh [pnpm]
-pnpm install -D eslint-plugin-aws-cdk
+pnpm install -D eslint-plugin-awscdk
 ```
 
 :::
@@ -44,7 +44,7 @@ pnpm install -D eslint-plugin-aws-cdk
 import eslint from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
-import cdkPlugin from "eslint-plugin-aws-cdk";
+import cdkPlugin from "eslint-plugin-awscdk";
 
 export default defineConfig([
   eslint.configs.recommended,
@@ -65,7 +65,7 @@ export default defineConfig([
 const eslint = require("@eslint/js");
 const { defineConfig } = require("eslint/config");
 const tseslint = require("typescript-eslint");
-const cdkPlugin = require("eslint-plugin-aws-cdk");
+const cdkPlugin = require("eslint-plugin-awscdk");
 
 module.exports = defineConfig([
   eslint.configs.recommended,
@@ -89,7 +89,7 @@ module.exports = defineConfig([
 import eslint from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
-import cdkPlugin from "eslint-plugin-aws-cdk";
+import cdkPlugin from "eslint-plugin-awscdk";
 
 export default defineConfig([
   eslint.configs.recommended,
