@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-aws-cdk - props-name-convention
+title: eslint-plugin-awscdk - props-name-convention
 titleTemplate: ":title"
 ---
 

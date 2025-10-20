@@ -1,5 +1,5 @@
 import eslint from "@eslint/js";
-import cdkPlugin from "eslint-cdk-plugin";
+import cdkPlugin from "eslint-plugin-awscdk";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 

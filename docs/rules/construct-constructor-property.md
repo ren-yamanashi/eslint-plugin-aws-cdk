@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-aws-cdk - construct-constructor-property
+title: eslint-plugin-awscdk - construct-constructor-property
 titleTemplate: ":title"
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-aws-cdk - Playground
+title: eslint-plugin-awscdk - Playground
 titleTemplate: ":title"
 ---
 

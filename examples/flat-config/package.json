@@ -1,5 +1,5 @@
 {
-  "name": "@eslint-cdk-plugin/example-flat-config",
+  "name": "@eslint-plugin-awscdk/example-flat-config",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,7 +11,7 @@
     "@eslint/js": "latest",
     "@types/node": "latest",
     "eslint": "latest",
-    "eslint-cdk-plugin": "workspace:*",
+    "eslint-plugin-awscdk": "workspace:*",
     "typescript": "5.8.3",
     "typescript-eslint": "latest"
   },

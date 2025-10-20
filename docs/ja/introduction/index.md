@@ -1,5 +1,5 @@
 ---
-title: eslint-plugin-aws-cdk - Introduction
+title: eslint-plugin-awscdk - Introduction
 titleTemplate: ":title"
 ---
 
@@ -19,12 +19,12 @@ titleTemplate: ":title"
 
 ## 🚥 Versioning policy
 
-[Versioning Policy](https://github.com/ren-yamanashi/eslint-plugin-aws-cdk/blob/main/VERSIONING_POLICY.md) をご覧ください。
+[Versioning Policy](https://github.com/ren-yamanashi/eslint-plugin-awscdk/blob/main/VERSIONING_POLICY.md) をご覧ください。
 
 ## 📰 Changelog
 
-[GitHub Releases](https://github.com/ren-yamanashi/eslint-plugin-aws-cdk/releases) を使用しています。
+[GitHub Releases](https://github.com/ren-yamanashi/eslint-plugin-awscdk/releases) を使用しています。
 
 ## 🔒 License
 
-ライセンスの権利と制限 (MIT) については、[LICENSE](https://github.com/ren-yamanashi/eslint-plugin-aws-cdk/blob/main/LICENSE)ファイルを参照してください。
+ライセンスの権利と制限 (MIT) については、[LICENSE](https://github.com/ren-yamanashi/eslint-plugin-awscdk/blob/main/LICENSE)ファイルを参照してください。
