@@ -86,7 +86,7 @@ export default defineConfig({
           },
           {
             text: "Blog",
-            link: "/blog/2025-10-20.renamed-npm-package",
+            link: "/blog/2025-10-21.renamed-npm-package",
           },
         ],
         sidebar: {
@@ -172,7 +172,7 @@ export default defineConfig({
           "/blog/": [
             {
               text: "Renamed npm package to eslint-plugin-awscdk",
-              link: "/blog/2025-10-20.renamed-npm-package",
+              link: "/blog/2025-10-21.renamed-npm-package",
             },
           ],
         },
@@ -206,7 +206,7 @@ export default defineConfig({
           },
           {
             text: "Blog",
-            link: "/ja/blog/2025-10-20.renamed-npm-package",
+            link: "/ja/blog/2025-10-21.renamed-npm-package",
           },
         ],
         sidebar: {
@@ -293,7 +293,7 @@ export default defineConfig({
             {
               text: "npm パッケージ名を eslint-plugin-awscdk に変更しました",
               collapsed: true,
-              link: "/ja/blog/2025-10-20.renamed-npm-package",
+              link: "/ja/blog/2025-10-21.renamed-npm-package",
             },
           ],
         },
