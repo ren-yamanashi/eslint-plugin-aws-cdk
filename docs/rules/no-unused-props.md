@@ -28,7 +28,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      "cdk/no-unused-props": "error",
+      "awscdk/no-unused-props": "error",
     },
   },
 ]);

@@ -33,7 +33,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      "cdk/no-variable-construct-id": "error",
+      "awscdk/no-variable-construct-id": "error",
     },
   },
 ]);

@@ -30,7 +30,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      "cdk/pascal-case-construct-id": "error",
+      "awscdk/pascal-case-construct-id": "error",
     },
   },
 ]);

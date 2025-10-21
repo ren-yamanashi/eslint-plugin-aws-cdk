@@ -29,7 +29,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      "cdk/no-mutable-property-of-props-interface": "error",
+      "awscdk/no-mutable-property-of-props-interface": "error",
     },
   },
 ]);

@@ -23,7 +23,8 @@
     "check": "tsc --noEmit",
     "pack": "pnpm run build && npm pack",
     "docs": "pnpm run --filter=@eslint-plugin-awscdk/docs",
-    "example:flat-config": "pnpm run --filter=@eslint-plugin-awscdk/example-flat-config"
+    "example:flat-config": "pnpm run --filter=@eslint-plugin-awscdk/example-flat-config",
+    "example:classic-config": "pnpm run --filter=@eslint-plugin-awscdk/example-classic-config"
   },
   "devDependencies": {
     "@eslint/js": "^9.26.0",

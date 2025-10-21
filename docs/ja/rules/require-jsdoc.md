@@ -26,7 +26,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      "cdk/require-jsdoc": "error",
+      "awscdk/require-jsdoc": "error",
     },
   },
 ]);

@@ -27,7 +27,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      "cdk/no-construct-in-interface": "error",
+      "awscdk/no-construct-in-interface": "error",
     },
   },
 ]);

@@ -28,7 +28,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      "cdk/no-construct-stack-suffix": "error",
+      "awscdk/no-construct-stack-suffix": "error",
     },
   },
 ]);

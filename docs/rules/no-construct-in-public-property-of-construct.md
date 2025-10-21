@@ -29,7 +29,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      "cdk/no-construct-in-public-property-of-construct": "error",
+      "awscdk/no-construct-in-public-property-of-construct": "error",
     },
   },
 ]);
