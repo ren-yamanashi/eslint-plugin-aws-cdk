@@ -30,6 +30,7 @@
     "@secretlint/secretlint-rule-preset-recommend": "^11.2.4",
     "@types/node": "^22.15.0",
     "@typescript-eslint/rule-tester": "^8.32.1",
+    "commander": "^14.0.1",
     "eslint": "9.36.0",
     "eslint-plugin-import": "^2.32.0",
     "pkgroll": "^2.12.2",
@@ -39,8 +40,10 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
+    "@ast-grep/cli": "^0.39.6",
     "@typescript-eslint/parser": "^8.32.1",
-    "@typescript-eslint/utils": "^8.32.1"
+    "@typescript-eslint/utils": "^8.32.1",
+    "consola": "^3.4.2"
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
