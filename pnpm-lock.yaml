@@ -76,7 +76,7 @@ importers:
       eslint:
         specifier: latest
         version: 9.36.0
-      eslint-cdk-plugin:
+      eslint-plugin-awscdk:
         specifier: workspace:*
         version: link:../..
       typescript:
