@@ -29,7 +29,7 @@
     "@eslint/js": "^9.26.0",
     "@secretlint/secretlint-rule-preset-recommend": "^11.2.4",
     "@types/node": "^22.15.0",
-    "@typescript-eslint/rule-tester": "^8.32.1",
+    "@typescript-eslint/rule-tester": "^8.46.2",
     "eslint": "9.36.0",
     "eslint-plugin-import": "^2.32.0",
     "pkgroll": "^2.12.2",
