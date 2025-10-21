@@ -34,7 +34,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      "cdk/require-passing-this": "error",
+      "awscdk/require-passing-this": "error",
     },
   },
 ]);

@@ -37,7 +37,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      "cdk/construct-constructor-property": "error",
+      "awscdk/construct-constructor-property": "error",
     },
   },
 ]);

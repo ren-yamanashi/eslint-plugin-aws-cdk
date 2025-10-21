@@ -52,7 +52,7 @@ pnpm install -D eslint-plugin-awscdk
 
 Note: This plugin uses typescript type information and must be used in conjunction with [typescript-eslint](https://typescript-eslint.io/getting-started).
 
-### When using recommended config
+### Flat Config
 
 ```js
 // eslint.config.mjs
@@ -67,43 +67,39 @@ export default defineConfig([
   {
     files: ["lib/**/*.ts", "bin/*.ts"],
     // ✅ Add plugins
-    extends: [cdkPlugin.configs.recommended],
+    extends: [cdkPlugin.configs.recommended], // or cdkPlugin.configs.strict
+    rules: {
+      // ✅ Add rules (use custom rules)
+      "awscdk/require-jsdoc": "warn"
+    }
   },
 ]);
 ```
 
-### When using custom config
+### Classic Config
 
 ```js
-// eslint.config.mjs
-import eslint from "@eslint/js";
-import { defineConfig } from "eslint/config";
-import tseslint from "typescript-eslint";
-import cdkPlugin from "eslint-plugin-awscdk";
-
-export default defineConfig([
-  eslint.configs.recommended,
-  ...tseslint.configs.recommended,
-  {
-    files: ["lib/**/*.ts", "bin/*.ts"],
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-        project: "./tsconfig.json",
-      },
-    },
-    // ✅ Add plugins
-    plugins: {
-      cdk: cdkPlugin,
-    },
-    // ✅ Add rules (use custom rules)
-    rules: {
-      "cdk/no-construct-in-interface": "error",
-      "cdk/no-construct-stack-suffix": "error",
-      "cdk/no-parent-name-construct-id-match": "error",
-    },
+// .eslintrc.cjs
+module.exports = {
+  root: true,
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    sourceType: "module",
+    project: "./tsconfig.json",
   },
-]);
+  // ✅ Add plugins
+  plugins: ["@typescript-eslint", "awscdk"],
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    // ✅ Add recommended config
+    "plugin:awscdk/classicRecommended", // or "plugin:awscdk/classicStrict"
+  ],
+  rules: {
+    // ✅ Add rules (use custom rules)
+    "awscdk/require-jsdoc": "warn",
+  }
+};
 ```
 
 ## ❗ Issue
