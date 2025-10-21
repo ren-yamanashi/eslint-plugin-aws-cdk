@@ -1,5 +1,5 @@
 ---
-title: eslint-cdk-plugin - no-construct-stack-suffix
+title: eslint-plugin-awscdk - no-construct-stack-suffix
 titleTemplate: ":title"
 ---
 

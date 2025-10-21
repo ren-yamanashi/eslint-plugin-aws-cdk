@@ -1,5 +1,5 @@
 name: "❓ Question"
-description: Ask anything about eslint-cdk-plugin
+description: Ask anything about eslint-plugin-awscdk
 title: "(your question)"
 labels: [question]
 assignees: []
@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        👋 Welcome! Feel free to ask any questions about eslint-cdk-plugin!
+        👋 Welcome! Feel free to ask any questions about eslint-plugin-awscdk!
 
         Examples of questions:
         - How do I configure eslint.config.js?
@@ -53,7 +53,7 @@ body:
     id: plugin-version
     attributes:
       label: Plugin Version
-      description: Which version of eslint-cdk-plugin are you using?
+      description: Which version of eslint-plugin-awscdk are you using?
       placeholder: "1.0.0"
     validations:
       required: false
@@ -63,7 +63,7 @@ body:
     attributes:
       label: Quick Check
       options:
-        - label: I've checked the [documentation](https://eslint-cdk-plugin.dev)
+        - label: I've checked the [documentation](https://eslint-plugin-awscdk.dev)
           required: false
         - label: I've searched for similar questions
           required: false

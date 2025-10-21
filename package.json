@@ -1,5 +1,5 @@
 {
-  "name": "eslint-cdk-plugin",
+  "name": "eslint-plugin-awscdk",
   "version": "3.4.1",
   "description": "eslint plugin for AWS CDK projects",
   "main": "./dist/index.mjs",
@@ -22,8 +22,8 @@
     "lint": "eslint --fix --config eslint.config.js",
     "check": "tsc --noEmit",
     "pack": "pnpm run build && npm pack",
-    "docs": "pnpm run --filter=@eslint-cdk-plugin/docs",
-    "example:flat-config": "pnpm run --filter=@eslint-cdk-plugin/example-flat-config"
+    "docs": "pnpm run --filter=@eslint-plugin-awscdk/docs",
+    "example:flat-config": "pnpm run --filter=@eslint-plugin-awscdk/example-flat-config"
   },
   "devDependencies": {
     "@eslint/js": "^9.26.0",
@@ -55,15 +55,14 @@
   ],
   "keywords": [
     "eslint",
-    "eslintplugin",
-    "eslint-plugin",
+    "typescript",
     "aws",
     "cdk"
   ],
-  "homepage": "https://eslint-cdk-plugin.dev/",
+  "homepage": "https://eslint-plugin-awscdk.dev/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ren-yamanashi/eslint-cdk-plugin.git"
+    "url": "https://github.com/ren-yamanashi/eslint-plugin-awscdk.git"
   },
   "author": {
     "name": "ren-yamanashi"

@@ -1,5 +1,5 @@
 ---
-title: eslint-cdk-plugin - no-construct-in-interface
+title: eslint-plugin-awscdk - no-construct-in-interface
 titleTemplate: ":title"
 ---
 

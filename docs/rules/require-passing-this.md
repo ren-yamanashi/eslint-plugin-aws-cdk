@@ -1,5 +1,5 @@
 ---
-title: eslint-cdk-plugin - require-passing-this
+title: eslint-plugin-awscdk - require-passing-this
 titleTemplate: ":title"
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: eslint-cdk-plugin - require-jsdoc
+title: eslint-plugin-awscdk - require-jsdoc
 titleTemplate: ":title"
 ---
 

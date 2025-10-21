@@ -1,5 +1,5 @@
 ---
-title: eslint-cdk-plugin - Introduction
+title: eslint-plugin-awscdk - Introduction
 titleTemplate: ":title"
 ---
 
@@ -19,12 +19,12 @@ Integrating ESLint with your editor is also convenient for checking code in real
 
 ## 🚥 Versioning policy
 
-Please see [Versioning Policy](https://github.com/ren-yamanashi/eslint-cdk-plugin/blob/main/VERSIONING_POLICY.md).
+Please see [Versioning Policy](https://github.com/ren-yamanashi/eslint-plugin-awscdk/blob/main/VERSIONING_POLICY.md).
 
 ## 📰 Changelog
 
-We are using [GitHub Releases](https://github.com/ren-yamanashi/eslint-cdk-plugin/releases).
+We are using [GitHub Releases](https://github.com/ren-yamanashi/eslint-plugin-awscdk/releases).
 
 ## 🔒 License
 
-See the [LICENSE](https://github.com/ren-yamanashi/eslint-cdk-plugin/blob/main/LICENSE) file for license rights and limitations (MIT).
+See the [LICENSE](https://github.com/ren-yamanashi/eslint-plugin-awscdk/blob/main/LICENSE) file for license rights and limitations (MIT).

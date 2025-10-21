@@ -1,5 +1,5 @@
 ---
-title: eslint-cdk-plugin - Rules
+title: eslint-plugin-awscdk - Rules
 titleTemplate: ":title"
 ---
 
@@ -199,7 +199,7 @@ To use these rules, configure as follows:
 import eslint from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
-import cdkPlugin from "eslint-cdk-plugin";
+import cdkPlugin from "eslint-plugin-awscdk";
 
 export default defineConfig([
   eslint.configs.recommended,
@@ -223,7 +223,7 @@ To use these rules, configure as follows:
 import eslint from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
-import cdkPlugin from "eslint-cdk-plugin";
+import cdkPlugin from "eslint-plugin-awscdk";
 
 export default defineConfig([
   eslint.configs.recommended,

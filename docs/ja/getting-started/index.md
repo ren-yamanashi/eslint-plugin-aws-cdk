@@ -1,9 +1,9 @@
 ---
-title: eslint-cdk-plugin - Getting Started
+title: eslint-plugin-awscdk - Getting Started
 titleTemplate: ":title"
 ---
 
-# eslint-cdk-plugin
+# eslint-plugin-awscdk
 
 ## インストール
 
@@ -12,15 +12,15 @@ titleTemplate: ":title"
 ::: code-group
 
 ```sh [npm]
-npm install -D eslint-cdk-plugin
+npm install -D eslint-plugin-awscdk
 ```
 
 ```sh [yarn]
-yarn add -D eslint-cdk-plugin
+yarn add -D eslint-plugin-awscdk
 ```
 
 ```sh [pnpm]
-pnpm install -D eslint-cdk-plugin
+pnpm install -D eslint-plugin-awscdk
 ```
 
 :::
@@ -28,14 +28,6 @@ pnpm install -D eslint-cdk-plugin
 ## eslint の設定
 
 `eslint.config.mjs` を以下のように記述します。
-
-<div class="info-item">
-  🚨 このプラグインは FlatConfig のみをサポートしています。
-  <br />
-  ❓  <a href="https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file-formats">
-    FlatConfig とは?
-  </a>
-</div>
 
 <div class="info-item">
   🚨 このプラグインは typescript の型情報を使う為
@@ -52,7 +44,7 @@ pnpm install -D eslint-cdk-plugin
 import eslint from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
-import cdkPlugin from "eslint-cdk-plugin";
+import cdkPlugin from "eslint-plugin-awscdk";
 
 export default defineConfig([
   eslint.configs.recommended,
@@ -73,7 +65,7 @@ export default defineConfig([
 const eslint = require("@eslint/js");
 const { defineConfig } = require("eslint/config");
 const tseslint = require("typescript-eslint");
-const cdkPlugin = require("eslint-cdk-plugin");
+const cdkPlugin = require("eslint-plugin-awscdk");
 
 module.exports = defineConfig([
   eslint.configs.recommended,
@@ -97,7 +89,7 @@ module.exports = defineConfig([
 import eslint from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
-import cdkPlugin from "eslint-cdk-plugin";
+import cdkPlugin from "eslint-plugin-awscdk";
 
 export default defineConfig([
   eslint.configs.recommended,

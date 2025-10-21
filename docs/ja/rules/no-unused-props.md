@@ -1,18 +1,16 @@
 ---
-title: eslint-cdk-plugin - no-unused-props
+title: eslint-plugin-awscdk - no-unused-props
 titleTemplate: ":title"
 ---
 
 <script setup>
-import NotRecommendedItem from '../../components/NotRecommendedItem.vue'
-import NextRecommendedItem from '../../components/NextRecommendedItem.vue'
+import RecommendedItem from '../../components/RecommendedItem.vue'
 import Playground from '../../components/Playground.vue'
 </script>
 
 # no-unused-props
 
-<NotRecommendedItem japanese />
-<NextRecommendedItem japanese version="v4.0.0" />
+<RecommendedItem japanese />
 
 このルールは、Construct の Props (interface) で定義されたすべてのプロパティが、Construct のコンストラクタ内で実際に使用されることを強制します。
 

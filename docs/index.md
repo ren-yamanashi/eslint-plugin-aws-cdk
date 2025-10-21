@@ -1,10 +1,10 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
-title: eslint-cdk-plugin - ESLint plugin for AWS CDK
+title: eslint-plugin-awscdk - ESLint plugin for AWS CDK
 titleTemplate: ":title"
 hero:
-  name: "eslint-cdk-plugin"
+  name: "eslint-plugin-awscdk"
   text: "ESLint plugin for AWS CDK"
   tagline: ESLint Plugin to enforce AWS CDK best practices
   image: /img/logo.png
@@ -14,7 +14,7 @@ hero:
       link: /getting-started/
     - theme: alt
       text: View on GitHub
-      link: https://github.com/ren-yamanashi/eslint-cdk-plugin
+      link: https://github.com/ren-yamanashi/eslint-plugin-awscdk
 features:
   - title: Ease of use
     details: Simple setup and installation and ready to use with recommended settings.

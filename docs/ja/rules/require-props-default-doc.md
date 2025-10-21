@@ -1,5 +1,5 @@
 ---
-title: eslint-cdk-plugin - require-props-default-doc
+title: eslint-plugin-awscdk - require-props-default-doc
 titleTemplate: ":title"
 ---
 
