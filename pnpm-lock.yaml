@@ -58,6 +58,34 @@ importers:
         specifier: ^1.1.4
         version: 1.7.5
 
+  examples/classic-config:
+    dependencies:
+      aws-cdk-lib:
+        specifier: latest
+        version: 2.220.0(constructs@10.4.2)
+      constructs:
+        specifier: latest
+        version: 10.4.2
+    devDependencies:
+      '@eslint/js':
+        specifier: latest
+        version: 9.38.0
+      '@types/node':
+        specifier: latest
+        version: 24.9.1
+      eslint:
+        specifier: latest
+        version: 9.38.0
+      eslint-plugin-awscdk:
+        specifier: workspace:*
+        version: link:../..
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      typescript-eslint:
+        specifier: latest
+        version: 8.46.2(eslint@9.38.0)(typescript@5.8.3)
+
   examples/flat-config:
     dependencies:
       aws-cdk-lib:
@@ -85,34 +113,6 @@ importers:
       typescript-eslint:
         specifier: latest
         version: 8.44.1(eslint@9.36.0)(typescript@5.8.3)
-
-  examples/legacy-config:
-    dependencies:
-      aws-cdk-lib:
-        specifier: latest
-        version: 2.220.0(constructs@10.4.2)
-      constructs:
-        specifier: latest
-        version: 10.4.2
-    devDependencies:
-      '@eslint/js':
-        specifier: latest
-        version: 9.38.0
-      '@types/node':
-        specifier: latest
-        version: 24.9.1
-      eslint:
-        specifier: latest
-        version: 9.38.0
-      eslint-plugin-awscdk:
-        specifier: workspace:*
-        version: link:../..
-      typescript:
-        specifier: 5.8.3
-        version: 5.8.3
-      typescript-eslint:
-        specifier: latest
-        version: 8.46.2(eslint@9.38.0)(typescript@5.8.3)
 
 packages:
 
