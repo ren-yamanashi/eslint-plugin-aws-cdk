@@ -32,7 +32,7 @@
     "@typescript-eslint/rule-tester": "^8.32.1",
     "eslint": "9.36.0",
     "eslint-plugin-import": "^2.32.0",
-    "pkgroll": "^2.12.2",
+    "pkgroll": "^2.20.1",
     "secretlint": "^11.2.4",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.32.1",
