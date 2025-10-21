@@ -1,5 +1,5 @@
 {
-  "name": "@eslint-plugin-awscdk/example-legacy-config",
+  "name": "@eslint-plugin-awscdk/example-classic-config",
   "version": "0.1.0",
   "private": true,
   "scripts": {
