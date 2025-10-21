@@ -35,7 +35,7 @@
     "pkgroll": "^2.12.2",
     "secretlint": "^11.2.4",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.32.1",
+    "typescript-eslint": "^8.46.2",
     "vitest": "^3.2.4"
   },
   "dependencies": {
