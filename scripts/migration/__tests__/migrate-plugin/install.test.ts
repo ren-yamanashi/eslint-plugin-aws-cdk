@@ -19,21 +19,27 @@ describe("uninstallPackage", () => {
     const packageName = "eslint-cdk-plugin";
     const successMessage = "Successfully uninstalled eslint-cdk-plugin";
 
+    const createUninstallCommand = (isDev: boolean) =>
+      packageManager === PACKAGE_MANGER.NPM
+        ? `npm uninstall ${isDev ? "-D " : ""}eslint-cdk-plugin`
+        : `${packageManager} remove ${isDev ? "-D " : ""}eslint-cdk-plugin`;
+
     it("can uninstall devDependency", () => {
       vi.mocked(execSync).mockReturnValue("" as any);
 
       // GIVEN
-      const uninstallCommand =
-        packageManager === PACKAGE_MANGER.NPM
-          ? `npm uninstall -D ${packageName}`
-          : `${packageManager} remove -D ${packageName}`;
+      const uninstallCommand = createUninstallCommand(true);
 
       // WHEN
-      const result = uninstallPackage(packageManager, packageName, true);
+      const result = uninstallPackage(
+        packageManager,
+        packageName,
+        true
+      ) as SuccessResult<void>;
 
       // THEN
       expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
-      expect((result as SuccessResult<void>).message).toEqual(successMessage);
+      expect(result.message).toEqual(successMessage);
       expect(execSync).toHaveBeenCalledWith(uninstallCommand, {
         stdio: "inherit",
       });
@@ -43,17 +49,18 @@ describe("uninstallPackage", () => {
       vi.mocked(execSync).mockReturnValue("" as any);
 
       // GIVEN
-      const uninstallCommand =
-        packageManager === PACKAGE_MANGER.NPM
-          ? `npm uninstall ${packageName}`
-          : `${packageManager} remove ${packageName}`;
+      const uninstallCommand = createUninstallCommand(false);
 
       // WHEN
-      const result = uninstallPackage(packageManager, packageName, false);
+      const result = uninstallPackage(
+        packageManager,
+        packageName,
+        false
+      ) as SuccessResult<void>;
 
       // THEN
       expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
-      expect((result as SuccessResult<void>).message).toEqual(successMessage);
+      expect(result.message).toEqual(successMessage);
       expect(execSync).toHaveBeenCalledWith(uninstallCommand, {
         stdio: "inherit",
       });
@@ -64,19 +71,16 @@ describe("uninstallPackage", () => {
         throw new Error("Command failed");
       });
 
-      // GIVEN
-      const failedMessage = "Failed to uninstall eslint-cdk-plugin";
-
       // WHEN
       const result = uninstallPackage(
         packageManager,
         "eslint-cdk-plugin",
         true
-      );
+      ) as ErrorResult;
 
       // THEN
       expect(result.type).toEqual(RESULT_TYPE.ERROR);
-      expect((result as ErrorResult).message).toContain(failedMessage);
+      expect(result.message).toContain("Failed to uninstall eslint-cdk-plugin");
     });
   });
 });
@@ -90,21 +94,27 @@ describe("installPackage", () => {
     const packageName = "eslint-plugin-awscdk";
     const successMessage = "Successfully installed eslint-plugin-awscdk";
 
+    const createInstallCommand = (isDev: boolean) =>
+      packageManager === PACKAGE_MANGER.YARN
+        ? `yarn add ${isDev ? "-D " : ""}eslint-plugin-awscdk`
+        : `${packageManager} install ${isDev ? "-D " : ""}eslint-plugin-awscdk`;
+
     it("should install devDependency", () => {
       vi.mocked(execSync).mockReturnValue("" as any);
 
       // GIVEN
-      const installCommand =
-        packageManager === PACKAGE_MANGER.YARN
-          ? `yarn add -D ${packageName}`
-          : `${packageManager} install -D ${packageName}`;
+      const installCommand = createInstallCommand(true);
 
       // WHEN
-      const result = installPackage(packageManager, packageName, true);
+      const result = installPackage(
+        packageManager,
+        packageName,
+        true
+      ) as SuccessResult<void>;
 
       // THEN
       expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
-      expect((result as SuccessResult<void>).message).toBe(successMessage);
+      expect(result.message).toBe(successMessage);
       expect(execSync).toHaveBeenCalledWith(installCommand, {
         stdio: "inherit",
       });
@@ -114,16 +124,18 @@ describe("installPackage", () => {
       vi.mocked(execSync).mockReturnValue("" as any);
 
       // GIVEN
-      const installCommand =
-        packageManager === PACKAGE_MANGER.YARN
-          ? `yarn add ${packageName}`
-          : `${packageManager} install ${packageName}`;
+      const installCommand = createInstallCommand(false);
 
       // WHEN
-      const result = installPackage(packageManager, packageName, false);
+      const result = installPackage(
+        packageManager,
+        packageName,
+        false
+      ) as SuccessResult<void>;
 
       // THEN
       expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
+      expect(result.message).toBe(successMessage);
       expect(execSync).toHaveBeenCalledWith(installCommand, {
         stdio: "inherit",
       });
@@ -138,11 +150,15 @@ describe("installPackage", () => {
       const failedMessage = "Failed to install eslint-plugin-awscdk";
 
       // WHEN
-      const result = installPackage(packageManager, packageName, true);
+      const result = installPackage(
+        packageManager,
+        packageName,
+        true
+      ) as ErrorResult;
 
       // THEN
       expect(result.type).toEqual(RESULT_TYPE.ERROR);
-      expect((result as ErrorResult).message).toContain(failedMessage);
+      expect(result.message).toContain(failedMessage);
     });
   });
 });

@@ -6,7 +6,7 @@ import {
   PackageManager,
   selectPackageManager,
 } from "../../migrate-plugin/package-manager";
-import { RESULT_TYPE, SuccessResult } from "../../result";
+import { ErrorResult, RESULT_TYPE, SuccessResult } from "../../result";
 
 vi.mock("consola");
 
@@ -19,37 +19,35 @@ describe("selectPackageManager", () => {
     describe.each(PACKAGE_MANGER_VALUES)("provided %s", (packageManager) => {
       it(`should return ${packageManager}`, async () => {
         // WHEN
-        const result = await selectPackageManager({ packageManager });
+        const result = (await selectPackageManager({
+          packageManager,
+        })) as SuccessResult<PackageManager>;
 
         // THEN
         expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
-        expect((result as SuccessResult<PackageManager>).value).toEqual(
-          packageManager
-        );
-        expect((result as SuccessResult<PackageManager>).message).toEqual(
+        expect(result.value).toEqual(packageManager);
+        expect(result.message).toEqual(
           `Selected package manager: ${packageManager}`
         );
       });
     });
 
-    it("should return error when invalid package manager is provided", async () => {
+    it("when invalid package manager is provided, return error", async () => {
       // GIVEN
       const invalidPackageManager = "invalid";
 
       // WHEN
-      const result = await selectPackageManager({
+      const result = (await selectPackageManager({
         packageManager: invalidPackageManager,
-      });
+      })) as ErrorResult;
 
       // THEN
       expect(result.type).toEqual(RESULT_TYPE.ERROR);
-      if (result.type === RESULT_TYPE.ERROR) {
-        expect(result.message).toEqual(
-          `Invalid package manager: ${invalidPackageManager}. Must be one of: ${PACKAGE_MANGER_VALUES.join(
-            ", "
-          )}`
-        );
-      }
+      expect(result.message).toEqual(
+        `Invalid package manager: ${invalidPackageManager}. Must be one of: ${PACKAGE_MANGER_VALUES.join(
+          ", "
+        )}`
+      );
     });
   });
 
@@ -60,17 +58,16 @@ describe("selectPackageManager", () => {
         vi.mocked(consola.prompt).mockResolvedValue(packageManager);
 
         // WHEN
-        const result = await selectPackageManager({});
+        const result = (await selectPackageManager(
+          {}
+        )) as SuccessResult<PackageManager>;
 
         // THEN
         expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
-        if (result.type === RESULT_TYPE.SUCCESS) {
-          expect(result.value).toEqual(packageManager);
-          expect(result.message).toEqual(
-            `Selected package manager: ${packageManager}`
-          );
-        }
-
+        expect(result.value).toEqual(packageManager);
+        expect(result.message).toEqual(
+          `Selected package manager: ${packageManager}`
+        );
         expect(consola.prompt).toHaveBeenCalledWith(
           "Which package manager are you using?",
           {
@@ -82,7 +79,7 @@ describe("selectPackageManager", () => {
             ],
           }
         );
-      })
+      });
     });
   });
 });

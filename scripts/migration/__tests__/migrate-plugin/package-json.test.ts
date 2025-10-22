@@ -5,7 +5,7 @@ import {
   PackageJson,
   readPackageJson,
 } from "../../migrate-plugin/package-json";
-import { ErrorResult, Result, RESULT_TYPE, SuccessResult } from "../../result";
+import { ErrorResult, RESULT_TYPE, SuccessResult } from "../../result";
 
 describe("readPackageJson", () => {
   const testDir = path.join(__dirname, "test-temp");
@@ -32,56 +32,44 @@ describe("readPackageJson", () => {
         "eslint-cdk-plugin": "^1.0.0",
       },
     };
-    fs.writeFileSync(packageJsonPath, JSON.stringify(packageContent, null, 2));
+    fs.writeFileSync(packageJsonPath, JSON.stringify(packageContent));
 
     // WHEN
-    const result = readPackageJson(testDir);
+    const result = readPackageJson(testDir) as SuccessResult<PackageJson>;
 
     // THEN
     expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
-    expect((result as SuccessResult<PackageJson>).value).toEqual(
-      packageContent
-    );
+    expect(result.value).toEqual(packageContent);
   });
 
   it("when package.json has invalid JSON, return error", () => {
     fs.writeFileSync(packageJsonPath, "{ invalid json }");
 
-    // GIVEN
-    const failedMessage = "Failed to read package.json";
-
     // WHEN
-    const result = readPackageJson(testDir);
+    const result = readPackageJson(testDir) as ErrorResult;
 
     // THEN
     expect(result.type).toEqual(RESULT_TYPE.ERROR);
-    expect((result as ErrorResult).message).toContain(failedMessage);
+    expect(result.message).toContain("Failed to read package.json");
   });
 
   it("when package.json has invalid format, return error", () => {
     fs.writeFileSync(packageJsonPath, JSON.stringify({ invalid: "data" }));
 
-    // GIVEN
-    const failedMessage = "Invalid package.json format";
-
     // WHEN
-    const result = readPackageJson(testDir);
+    const result = readPackageJson(testDir) as ErrorResult;
 
     // THEN
     expect(result.type).toEqual(RESULT_TYPE.ERROR);
-    expect((result as ErrorResult).message).toEqual(failedMessage);
-  })
-
+    expect(result.message).toEqual("Invalid package.json format");
+  });
 
   it("when package.json does not exist, return error", () => {
-    // GIVEN
-    const failedMessage = "package.json not found";
-
     // WHEN
-    const result = readPackageJson(testDir);
+    const result = readPackageJson(testDir) as ErrorResult;
 
     // THEN
     expect(result.type).toEqual(RESULT_TYPE.ERROR);
-    expect((result as Result<Error>).message).toEqual(failedMessage);
+    expect(result.message).toEqual("package.json not found");
   });
 });
