@@ -13,13 +13,13 @@ describe("checkPluginInstallation", () => {
     };
 
     // WHEN
-    const result = checkPluginInstallation(packageJson);
+    const result = checkPluginInstallation(packageJson) as SuccessResult<
+      ("devDependencies" | "dependencies")[]
+    >;
 
     // THEN
     expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
-    expect(
-      (result as SuccessResult<("devDependencies" | "dependencies")[]>).value
-    ).toEqual(["devDependencies"]);
+    expect(result.value).toEqual(["devDependencies"]);
   });
 
   it("when plugin is in dependencies, return dependencies", () => {
@@ -31,13 +31,13 @@ describe("checkPluginInstallation", () => {
     };
 
     // WHEN
-    const result = checkPluginInstallation(packageJson);
+    const result = checkPluginInstallation(packageJson) as SuccessResult<
+      ("devDependencies" | "dependencies")[]
+    >;
 
     // THEN
     expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
-    expect(
-      (result as SuccessResult<("devDependencies" | "dependencies")[]>).value
-    ).toEqual(["dependencies"]);
+    expect(result.value).toEqual(["dependencies"]);
   });
 
   it("when plugin is in both, return devDependencies and dependencies", () => {
@@ -52,13 +52,13 @@ describe("checkPluginInstallation", () => {
     };
 
     // WHEN
-    const result = checkPluginInstallation(packageJson);
+    const result = checkPluginInstallation(packageJson) as SuccessResult<
+      ("devDependencies" | "dependencies")[]
+    >;
 
     // THEN
     expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
-    expect(
-      (result as SuccessResult<("devDependencies" | "dependencies")[]>).value
-    ).toEqual(["devDependencies", "dependencies"]);
+    expect(result.value).toEqual(["devDependencies", "dependencies"]);
   });
 
   it("when plugin is not installed, return error", () => {
@@ -70,13 +70,11 @@ describe("checkPluginInstallation", () => {
     };
 
     // WHEN
-    const result = checkPluginInstallation(packageJson);
+    const result = checkPluginInstallation(packageJson) as ErrorResult;
 
     // THEN
     expect(result.type).toEqual(RESULT_TYPE.ERROR);
-    expect((result as ErrorResult).message).toEqual(
-      "eslint-cdk-plugin is not installed"
-    );
+    expect(result.message).toEqual("eslint-cdk-plugin is not installed");
   });
 
   it("when package.json has no dependencies, return error", () => {
@@ -84,12 +82,10 @@ describe("checkPluginInstallation", () => {
     const packageJson: PackageJson = {};
 
     // WHEN
-    const result = checkPluginInstallation(packageJson);
+    const result = checkPluginInstallation(packageJson) as ErrorResult;
 
     // THEN
     expect(result.type).toEqual(RESULT_TYPE.ERROR);
-    expect((result as ErrorResult).message).toEqual(
-      "eslint-cdk-plugin is not installed"
-    );
+    expect(result.message).toEqual("eslint-cdk-plugin is not installed");
   });
 });
