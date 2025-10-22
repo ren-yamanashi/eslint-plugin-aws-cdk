@@ -6,19 +6,31 @@ import { PackageJson } from "./package-json";
  */
 export const checkPluginInstallation = (
   packageJson: PackageJson
-): Result<"devDependencies" | "dependencies"> => {
-  if (packageJson.devDependencies?.["eslint-cdk-plugin"]) {
+): Result<("devDependencies" | "dependencies")[]> => {
+  const inDependencies = packageJson.dependencies?.["eslint-cdk-plugin"];
+  const inDevDependencies = packageJson.devDependencies?.["eslint-cdk-plugin"];
+
+  if (inDependencies && inDevDependencies) {
     return {
       type: RESULT_TYPE.SUCCESS,
-      value: "devDependencies",
+      value: ["devDependencies", "dependencies"],
     };
   }
-  if (packageJson.dependencies?.["eslint-cdk-plugin"]) {
+
+  if (inDevDependencies) {
     return {
       type: RESULT_TYPE.SUCCESS,
-      value: "dependencies",
+      value: ["devDependencies"],
     };
   }
+
+  if (inDependencies) {
+    return {
+      type: RESULT_TYPE.SUCCESS,
+      value: ["dependencies"],
+    };
+  }
+
   return {
     type: RESULT_TYPE.ERROR,
     message: "eslint-cdk-plugin is not installed",

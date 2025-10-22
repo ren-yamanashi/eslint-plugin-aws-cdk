@@ -11,14 +11,14 @@ export const uninstallPackage = (
   consola.start(`Uninstalling ${packageName}...`);
 
   const command = (() => {
-    const devFlag = isDev ? "-D" : "";
+    const devFlag = isDev ? " -D" : "";
     switch (packageManager) {
       case PACKAGE_MANGER.NPM:
-        return `npm uninstall ${devFlag} ${packageName}`.trim();
+        return `npm uninstall${devFlag} ${packageName}`;
       case PACKAGE_MANGER.YARN:
-        return `yarn remove ${devFlag} ${packageName}`.trim();
+        return `yarn remove${devFlag} ${packageName}`;
       case PACKAGE_MANGER.PNPM:
-        return `pnpm remove ${devFlag} ${packageName}`.trim();
+        return `pnpm remove${devFlag} ${packageName}`;
     }
   })();
 
@@ -44,14 +44,14 @@ export const installPackage = (
   consola.start(`Installing ${packageName}...`);
 
   const command = (() => {
-    const devFlag = isDev ? "-D" : "";
+    const devFlag = isDev ? " -D" : "";
     switch (packageManager) {
       case PACKAGE_MANGER.NPM:
-        return `npm install ${devFlag} ${packageName}`.trim();
+        return `npm install${devFlag} ${packageName}`.trim();
       case PACKAGE_MANGER.YARN:
-        return `yarn add ${devFlag} ${packageName}`.trim();
+        return `yarn add${devFlag} ${packageName}`.trim();
       case PACKAGE_MANGER.PNPM:
-        return `pnpm add ${devFlag} ${packageName}`.trim();
+        return `pnpm install${devFlag} ${packageName}`.trim();
     }
   })();
 

@@ -19,25 +19,28 @@ export const migratePlugin = async (
   const packageJson = readPackageJson(projectRoot);
   if (packageJson.type === RESULT_TYPE.ERROR) return packageJson;
 
-  const installType = checkPluginInstallation(packageJson.value);
-  if (installType.type === RESULT_TYPE.ERROR) return installType;
-  const isDev = installType.value === "devDependencies";
+  const installTypes = checkPluginInstallation(packageJson.value);
+  if (installTypes.type === RESULT_TYPE.ERROR) return installTypes;
 
-  const uninstallResult = uninstallPackage(
-    packageManager.value,
-    uninstallTarget,
-    isDev
-  );
-  if (uninstallResult.type === RESULT_TYPE.ERROR) return uninstallResult;
-  uninstallResult.message && consola.info(uninstallResult.message);
+  for (const installType of installTypes.value) {
+    const isDev = installType === "devDependencies";
 
-  const installResult = installPackage(
-    packageManager.value,
-    installTarget,
-    isDev
-  );
-  if (installResult.type === RESULT_TYPE.ERROR) return installResult;
-  installResult.message && consola.info(installResult.message);
+    const uninstallResult = uninstallPackage(
+      packageManager.value,
+      uninstallTarget,
+      isDev
+    );
+    if (uninstallResult.type === RESULT_TYPE.ERROR) return uninstallResult;
+    uninstallResult.message && consola.info(uninstallResult.message);
+
+    const installResult = installPackage(
+      packageManager.value,
+      installTarget,
+      isDev
+    );
+    if (installResult.type === RESULT_TYPE.ERROR) return installResult;
+    installResult.message && consola.info(installResult.message);
+  }
 
   return {
     type: RESULT_TYPE.SUCCESS,
