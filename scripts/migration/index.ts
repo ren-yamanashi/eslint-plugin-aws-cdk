@@ -3,18 +3,11 @@
 import { Command } from "commander";
 import { consola } from "consola";
 
-import {
-  checkPluginInstallation,
-  findEslintConfigFiles,
-  installNewPlugin,
-  migrateEslintConfigFile,
-  migrateEslintDisableComments,
-  PACKAGE_MANGER_VALUES,
-  readPackageJson,
-  selectPackageManager,
-  uninstallOldPlugin
-} from "./migration-lib";
-
+import { migrateEslintDisableComments } from "./migrate-disable-comment/index.ts";
+import { migrateEslintConfig } from "./migrate-eslint-config.ts";
+import { migratePlugin } from "./migrate-plugin";
+import { PACKAGE_MANGER_VALUES } from "./migrate-plugin/package-manager";
+import { RESULT_TYPE } from "./result";
 
 const program = new Command();
 
@@ -36,57 +29,33 @@ const main = async () => {
   consola.box(
     "Starting migration from eslint-cdk-plugin to eslint-plugin-awscdk"
   );
-
   const projectRoot = process.cwd();
 
-  // 1. Determine package manager
-  const selectedResult = await selectPackageManager(options);
-  if (selectedResult.type === "error") {
-    consola.error(selectedResult.message);
+  // 1. Migrate plugin (eslint-cdk-plugin -> eslint-plugin-awscdk)
+  const migratePluginResult = await migratePlugin(options, projectRoot);
+  if (migratePluginResult.type === RESULT_TYPE.ERROR) {
+    consola.error(migratePluginResult.message);
     process.exit(1);
   }
-  const packageManager = selectedResult.value;
-  consola.info(`Package manager: ${packageManager}`);
+  migratePluginResult.message && consola.info(migratePluginResult.message);
 
-  // 2. Read package.json
-  const packageJson = readPackageJson(projectRoot);
-  if (!packageJson) {
-    console.error("Failed to read package.json");
+  // 2. Migrate ESLint config files
+  const migrateConfigResult = migrateEslintConfig(projectRoot);
+  if (migrateConfigResult.type === RESULT_TYPE.ERROR) {
+    consola.error(migrateConfigResult.message);
     process.exit(1);
   }
+  migrateConfigResult.message && consola.info(migrateConfigResult.message);
 
-  // 3. Check eslint-cdk-plugin installation
-  const installType = checkPluginInstallation(packageJson);
-  if (!installType) {
-    consola.info("eslint-cdk-plugin is not installed");
-    return;
+  // 3. Migrate eslint-disable comments
+  const migrateCommentResult = migrateEslintDisableComments(projectRoot);
+  if (migrateCommentResult.type === RESULT_TYPE.ERROR) {
+    consola.warn(migrateCommentResult.message);
+    process.exit();
   }
+  migrateCommentResult.message && consola.info(migrateCommentResult.message);
 
-  // 4. Uninstall eslint-cdk-plugin
-  uninstallOldPlugin(packageManager, installType === "devDependencies");
+  consola.success("All migration steps completed successfully!");
+};
 
-  // 5. Install eslint-plugin-awscdk
-  installNewPlugin(packageManager, installType === "devDependencies");
-
-  // 6. Find ESLint config files
-  const configFiles = findEslintConfigFiles(projectRoot);
-  if (!configFiles.length) {
-    consola.warn("No ESLint config files found");
-    return;
-  }
-
-  // 7. Migrate ESLint config files
-  for (const configFile of configFiles) {
-    migrateEslintConfigFile(configFile);
-  }
-
-  // 8. Migrate eslint-disable comments
-  migrateEslintDisableComments(projectRoot);
-}
-
-main()
-  .then(() => consola.success("Migration completed successfully!"))
-  .catch((error) => {
-    consola.error("Migration failed:", error);
-    process.exit(1);
-  });
+main();
