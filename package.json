@@ -17,7 +17,7 @@
     }
   },
   "bin": {
-    "migrate-cdk-plugin": "./bin/migration.js"
+    "migrate-cdk-plugin": "./bin/migration.mjs"
   },
   "scripts": {
     "build": "sh scripts/build.sh",

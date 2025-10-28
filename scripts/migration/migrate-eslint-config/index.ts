@@ -1,6 +1,5 @@
-import consola from "consola";
-import * as fs from "node:fs";
-import * as path from "node:path";
+import * as fs from "fs";
+import * as path from "path";
 import { Result, RESULT_TYPE } from "../result";
 
 const ESLINT_CONFIG_PATTERNS = [
@@ -13,8 +12,6 @@ const ESLINT_CONFIG_PATTERNS = [
 ] as const;
 
 export const migrateEslintConfig = (projectRoot: string): Result<void> => {
-  consola.start("Migrating ESLint config files...");
-
   const configFiles = findEslintConfigFiles(projectRoot);
   if (!configFiles.length) {
     return {
@@ -29,10 +26,7 @@ export const migrateEslintConfig = (projectRoot: string): Result<void> => {
     if (result.modified) fs.writeFileSync(configFile, result.content, "utf-8");
   }
 
-  return {
-    type: RESULT_TYPE.SUCCESS,
-    message: "ESLint config migration completed",
-  };
+  return { type: RESULT_TYPE.SUCCESS };
 };
 
 const findEslintConfigFiles = (projectRoot: string): string[] => {

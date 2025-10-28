@@ -1,7 +1,6 @@
-import { consola } from "consola";
-import { execSync } from "node:child_process";
-import * as fs from "node:fs";
-import * as path from "node:path";
+import { execSync } from "child_process";
+import * as fs from "fs";
+import * as path from "path";
 import { Result, RESULT_TYPE } from "../result";
 import { PACKAGE_MANGER, PackageManager } from "./select-package-manager";
 
@@ -14,8 +13,6 @@ export const uninstallPlugin = (
   packageManager: PackageManager,
   projectRoot: string
 ): Result<void> => {
-  consola.start("Uninstalling eslint-cdk-plugin...");
-
   const packageJson = readPackageJson(projectRoot);
   if (packageJson.type === RESULT_TYPE.ERROR) return packageJson;
 
@@ -27,12 +24,8 @@ export const uninstallPlugin = (
     const result = uninstall(isDev, packageManager);
     if (result.type === RESULT_TYPE.ERROR) return result;
   }
-  console.info("Successfully uninstalled eslint-cdk-plugin");
 
-  return {
-    type: RESULT_TYPE.SUCCESS,
-    message: "Successfully uninstalled eslint-cdk-plugin",
-  };
+  return { type: RESULT_TYPE.SUCCESS };
 };
 
 const uninstall = (
@@ -53,9 +46,7 @@ const uninstall = (
 
   try {
     execSync(command, { stdio: "inherit" });
-    return {
-      type: RESULT_TYPE.SUCCESS,
-    };
+    return { type: RESULT_TYPE.SUCCESS };
   } catch (error) {
     return {
       type: RESULT_TYPE.ERROR,

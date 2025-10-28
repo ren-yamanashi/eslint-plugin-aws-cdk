@@ -1,11 +1,8 @@
-import { consola } from "consola";
-import { execSync } from "node:child_process";
+import { execSync } from "child_process";
 import { Result, RESULT_TYPE } from "../result";
 import { PACKAGE_MANGER, PackageManager } from "./select-package-manager";
 
 export const installPlugin = (packageManager: PackageManager): Result<void> => {
-  consola.start("Installing eslint-plugin-awscdk...");
-
   const command = (() => {
     switch (packageManager) {
       case PACKAGE_MANGER.NPM:
@@ -21,7 +18,6 @@ export const installPlugin = (packageManager: PackageManager): Result<void> => {
     execSync(command, { stdio: "inherit" });
     return {
       type: RESULT_TYPE.SUCCESS,
-      message: "Successfully installed eslint-plugin-awscdk",
     };
   } catch (error) {
     return {

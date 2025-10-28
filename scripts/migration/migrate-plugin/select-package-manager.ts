@@ -33,7 +33,6 @@ export const selectPackageManager = async (options: {
     return {
       type: RESULT_TYPE.SUCCESS,
       value: res,
-      message: `Selected package manager: ${res}`,
     };
   }
 
@@ -51,6 +50,5 @@ export const selectPackageManager = async (options: {
   return {
     type: RESULT_TYPE.SUCCESS,
     value: options.packageManager as PackageManager,
-    message: `Selected package manager: ${options.packageManager}`,
   };
 };

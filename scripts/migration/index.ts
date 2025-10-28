@@ -2,7 +2,7 @@
 
 import { Command } from "commander";
 import { consola } from "consola";
-
+import { colorize } from "consola/utils";
 import { migrateEslintConfig } from "./migrate-eslint-config/index.ts";
 import { installPlugin } from "./migrate-plugin/install.ts";
 import {
@@ -30,7 +30,10 @@ const options = program.opts<{
 
 const main = async () => {
   consola.box(
-    "Starting migration from eslint-cdk-plugin to eslint-plugin-awscdk"
+    `Starting migration from ${colorize(
+      "black",
+      "eslint-cdk-plugin"
+    )} to ${colorize("green", "eslint-plugin-awscdk")}`
   );
   const projectRoot = process.cwd();
 
@@ -40,7 +43,6 @@ const main = async () => {
     consola.error(packageManager.message);
     process.exit(1);
   }
-  packageManager.message && consola.info(packageManager.message);
 
   // 2. Install eslint-plugin-awscdk
   const installResult = installPlugin(packageManager.value);
@@ -48,7 +50,6 @@ const main = async () => {
     consola.error(installResult.message);
     process.exit(1);
   }
-  installResult.message && consola.info(installResult.message);
 
   // 3. Migrate ESLint config files
   const migrateConfigResult = migrateEslintConfig(projectRoot);
@@ -56,7 +57,6 @@ const main = async () => {
     consola.error(migrateConfigResult.message);
     process.exit(1);
   }
-  migrateConfigResult.message && consola.info(migrateConfigResult.message);
 
   // 4. Uninstall eslint-cdk-plugin
   const uninstallResult = await uninstallPlugin(
@@ -67,7 +67,6 @@ const main = async () => {
     consola.error(uninstallResult.message);
     process.exit(1);
   }
-  uninstallResult.message && consola.info(uninstallResult.message);
 
   consola.success("All migration steps completed successfully!");
 };
