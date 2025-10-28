@@ -1,4 +1,5 @@
 import { constructConstructorProperty } from "./construct-constructor-property";
+import { migrateDisableComments } from "./migrate-disable-comments";
 import { noConstructInInterface } from "./no-construct-in-interface";
 import { noConstructInPublicPropertyOfConstruct } from "./no-construct-in-public-property-of-construct";
 import { noConstructStackSuffix } from "./no-construct-stack-suffix";
@@ -16,6 +17,7 @@ import { requirePropsDefaultDoc } from "./require-props-default-doc";
 
 export const rules = {
   "construct-constructor-property": constructConstructorProperty,
+  "migrate-disable-comments": migrateDisableComments,
   "no-construct-in-interface": noConstructInInterface,
   "no-construct-in-public-property-of-construct":
     noConstructInPublicPropertyOfConstruct,
