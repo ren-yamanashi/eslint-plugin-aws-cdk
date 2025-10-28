@@ -2,7 +2,9 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { Result, RESULT_TYPE } from "../result";
 
-export const migrateEslintConfigFileContent = (filePath: string): Result<void> => {
+export const migrateEslintConfigFileContent = (
+  filePath: string
+): Result<void> => {
   const content = fs.readFileSync(filePath, "utf-8");
   const result = migrateEslintConfigContent(content);
 
@@ -11,12 +13,12 @@ export const migrateEslintConfigFileContent = (filePath: string): Result<void> =
     return {
       type: RESULT_TYPE.SUCCESS,
       message: `Successfully migrated ${path.basename(filePath)}`,
-    }
+    };
   } else {
     return {
       type: RESULT_TYPE.SUCCESS,
       message: `No changes needed for ${path.basename(filePath)}`,
-    }
+    };
   }
 };
 

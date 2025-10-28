@@ -5,7 +5,7 @@ import {
   PACKAGE_MANGER_VALUES,
   PackageManager,
   selectPackageManager,
-} from "../../migrate-plugin/package-manager";
+} from "../../migrate-plugin/select-package-manager";
 import { ErrorResult, RESULT_TYPE, SuccessResult } from "../../result";
 
 vi.mock("consola");
