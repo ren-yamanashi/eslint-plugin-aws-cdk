@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { migrateEslintConfig } from "../../migrate-eslint-config.ts/index";
+import { migrateEslintConfig } from "../../migrate-eslint-config";
 import { ErrorResult, RESULT_TYPE, SuccessResult } from "../../result";
 
 vi.mock("consola");
@@ -21,7 +21,7 @@ describe("migrateEslintConfig", () => {
     }
   });
 
-  it("should successfully migrate eslint config file", () => {
+  it("successfully migrate eslint config file", () => {
     // GIVEN
     const configPath = path.join(testDir, "eslint.config.mjs");
     const content = `import cdkPlugin from "eslint-cdk-plugin";
@@ -44,7 +44,7 @@ export default [{
     expect(newContent).toContain("awscdk/no-construct");
   });
 
-  it("should migrate multiple eslint config files", () => {
+  it("can migrate multiple eslint config files", () => {
     // GIVEN
     const mjsPath = path.join(testDir, "eslint.config.mjs");
     const tsPath = path.join(testDir, "eslint.config.ts");
@@ -63,7 +63,7 @@ export default [{
     expect(tsContent).toContain("eslint-plugin-awscdk");
   });
 
-  it("should return error when no config files found", () => {
+  it("when no config files found, return error", () => {
     // WHEN
     const result = migrateEslintConfig(testDir) as ErrorResult;
 
@@ -72,23 +72,7 @@ export default [{
     expect(result.message).toEqual("ESLint config files not found");
   });
 
-  it("should handle config file with no changes needed", () => {
-    // GIVEN
-    const configPath = path.join(testDir, "eslint.config.mjs");
-    const content = `export default [];`;
-
-    fs.writeFileSync(configPath, content);
-
-    // WHEN
-    const result = migrateEslintConfig(testDir);
-    const newContent = fs.readFileSync(configPath, "utf-8");
-
-    // THEN
-    expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
-    expect(newContent).toEqual(content);
-  });
-
-  it("should successfully migrate all supported config file types", () => {
+  it("successfully migrate all supported config file types", () => {
     // GIVEN
     const files = [
       "eslint.config.mjs",

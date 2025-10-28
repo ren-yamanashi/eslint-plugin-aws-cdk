@@ -3,7 +3,7 @@
 import { Command } from "commander";
 import { consola } from "consola";
 
-import { migrateEslintConfig } from "./migrate-eslint-config.ts";
+import { migrateEslintConfig } from "./migrate-eslint-config/index.ts";
 import { installPlugin } from "./migrate-plugin/install.ts";
 import {
   PACKAGE_MANGER_VALUES,

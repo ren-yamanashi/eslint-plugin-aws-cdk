@@ -1,28 +1,48 @@
+import consola from "consola";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { Result, RESULT_TYPE } from "../result";
 
-export const migrateEslintConfigFileContent = (
-  filePath: string
-): Result<void> => {
-  const content = fs.readFileSync(filePath, "utf-8");
-  const result = migrateEslintConfigContent(content);
+const ESLINT_CONFIG_PATTERNS = [
+  "eslint.config.mjs",
+  "eslint.config.cjs",
+  "eslint.config.js",
+  "eslint.config.ts",
+  "eslint.config.mts",
+  "eslint.config.cts",
+] as const;
 
-  if (result.modified) {
-    fs.writeFileSync(filePath, result.content, "utf-8");
+export const migrateEslintConfig = (projectRoot: string): Result<void> => {
+  consola.start("Migrating ESLint config files...");
+
+  const configFiles = findEslintConfigFiles(projectRoot);
+  if (!configFiles.length) {
     return {
-      type: RESULT_TYPE.SUCCESS,
-      message: `Successfully migrated ${path.basename(filePath)}`,
-    };
-  } else {
-    return {
-      type: RESULT_TYPE.SUCCESS,
-      message: `No changes needed for ${path.basename(filePath)}`,
+      type: RESULT_TYPE.ERROR,
+      message: "ESLint config files not found",
     };
   }
+
+  for (const configFile of configFiles) {
+    const content = fs.readFileSync(configFile, "utf-8");
+    const result = updateConfig(content);
+    if (result.modified) fs.writeFileSync(configFile, result.content, "utf-8");
+  }
+
+  return {
+    type: RESULT_TYPE.SUCCESS,
+    message: "ESLint config migration completed",
+  };
 };
 
-const migrateEslintConfigContent = (
+const findEslintConfigFiles = (projectRoot: string): string[] => {
+  return ESLINT_CONFIG_PATTERNS.reduce<string[]>((acc, pattern) => {
+    const filePath = path.join(projectRoot, pattern);
+    return fs.existsSync(filePath) ? [...acc, filePath] : acc;
+  }, []);
+};
+
+const updateConfig = (
   content: string
 ): {
   content: string;
