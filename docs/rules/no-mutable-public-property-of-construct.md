@@ -33,7 +33,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      "cdk/no-mutable-public-property-of-construct": "error",
+      "awscdk/no-mutable-public-property-of-construct": "error",
     },
   },
 ]);

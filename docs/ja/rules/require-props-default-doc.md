@@ -27,7 +27,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      "cdk/require-props-default-doc": "error",
+      "awscdk/require-props-default-doc": "error",
     },
   },
 ]);

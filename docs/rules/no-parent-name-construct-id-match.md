@@ -27,7 +27,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      "cdk/no-parent-name-construct-id-match": "error",
+      "awscdk/no-parent-name-construct-id-match": "error",
     },
   },
 ]);

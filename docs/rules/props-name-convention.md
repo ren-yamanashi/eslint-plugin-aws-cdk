@@ -29,7 +29,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      "cdk/props-name-convention": "error",
+      "awscdk/props-name-convention": "error",
     },
   },
 ]);

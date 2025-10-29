@@ -26,7 +26,7 @@ export default defineConfig([
   {
     // ... some configs
     rules: {
-      "cdk/no-import-private": "error",
+      "awscdk/no-import-private": "error",
     },
   },
 ]);
