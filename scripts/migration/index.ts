@@ -3,7 +3,7 @@
 import { Command } from "commander";
 import { consola } from "consola";
 import { colorize } from "consola/utils";
-import { migrateDisableComments } from "./migrate-disable-comments/index.ts";
+import { execEslintFixCommand } from "./exec-fix-command/index.ts";
 import { migrateEslintConfig } from "./migrate-eslint-config/index.ts";
 import { installPlugin } from "./migrate-plugin/install.ts";
 import {
@@ -59,20 +59,20 @@ const main = async () => {
     process.exit(1);
   }
 
-  // 4. Migrate disable comments
-  const migrateCommentsResult = migrateDisableComments();
-  if (migrateCommentsResult.type === RESULT_TYPE.ERROR) {
-    consola.error(migrateCommentsResult.message);
-    process.exit(1);
-  }
-
-  // 5. Uninstall eslint-cdk-plugin
+  // 4. Uninstall eslint-cdk-plugin
   const uninstallResult = await uninstallPlugin(
     packageManager.value,
     projectRoot
   );
   if (uninstallResult.type === RESULT_TYPE.ERROR) {
     consola.error(uninstallResult.message);
+    process.exit(1);
+  }
+
+  // 5. Migrate disable comments
+  const migrateCommentsResult = execEslintFixCommand();
+  if (migrateCommentsResult.type === RESULT_TYPE.ERROR) {
+    consola.error(migrateCommentsResult.message);
     process.exit(1);
   }
 
