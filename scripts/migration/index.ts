@@ -75,6 +75,7 @@ const main = async () => {
     consola.error(migrateCommentsResult.message);
     process.exit(1);
   }
+  migrateCommentsResult.message && consola.warn(migrateCommentsResult.message);
 
   consola.success("All migration steps completed successfully!");
 };

@@ -22,7 +22,8 @@ export const installPlugin = (packageManager: PackageManager): Result<void> => {
   } catch (error) {
     return {
       type: RESULT_TYPE.ERROR,
-      message: `Failed to install eslint-plugin-awscdk: ${error}`,
+      message: `Failed to install eslint-plugin-awscdk
+${error}`,
     };
   }
 };

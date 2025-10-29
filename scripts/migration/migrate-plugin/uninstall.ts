@@ -50,7 +50,8 @@ const uninstall = (
   } catch (error) {
     return {
       type: RESULT_TYPE.ERROR,
-      message: `Failed to uninstall eslint-cdk-plugin: ${error}`,
+      message: `Failed to uninstall eslint-cdk-plugin
+${error}`,
     };
   }
 };
@@ -80,7 +81,8 @@ const readPackageJson = (projectRoot: string): Result<PackageJson> => {
   } catch (error) {
     return {
       type: RESULT_TYPE.ERROR,
-      message: `Failed to read package.json: ${error}`,
+      message: `Failed to read package.json
+${error}`,
     };
   }
 };
