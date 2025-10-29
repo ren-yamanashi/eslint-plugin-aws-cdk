@@ -32,6 +32,7 @@ const createFlatConfig = (
 
 export const recommended = createFlatConfig({
   "awscdk/construct-constructor-property": "error",
+  "awscdk/migrate-disable-comments": "error",
   "awscdk/no-construct-in-interface": "error",
   "awscdk/no-construct-in-public-property-of-construct": "error",
   "awscdk/no-construct-stack-suffix": "error",
@@ -44,11 +45,15 @@ export const recommended = createFlatConfig({
   "awscdk/no-unused-props": "error",
   "awscdk/no-variable-construct-id": "error",
   "awscdk/pascal-case-construct-id": "error",
-  "awscdk/require-passing-this": ["error", { allowNonThisAndDisallowScope: true }],
+  "awscdk/require-passing-this": [
+    "error",
+    { allowNonThisAndDisallowScope: true },
+  ],
 });
 
 export const strict = createFlatConfig({
   "awscdk/construct-constructor-property": "error",
+  "awscdk/migrate-disable-comments": "error",
   "awscdk/no-construct-in-interface": "error",
   "awscdk/no-construct-in-public-property-of-construct": "error",
   "awscdk/no-construct-stack-suffix": "error",
