@@ -94,16 +94,21 @@ This package was previously published as `eslint-cdk-plugin`. Starting from v4.0
 
 #### 1. Update `eslint-cdk-plugin` to latest version
 
-```bash
-# npm
+::: code-group
+
+```sh [npm]
 npm install -D eslint-cdk-plugin@latest
+```
 
-# yarn
+```sh [yarn]
 yarn add -D eslint-cdk-plugin@latest
+```
 
-# pnpm
+```sh [pnpm]
 pnpm install -D eslint-cdk-plugin@latest
 ```
+
+:::
 
 #### 2. execute migration command
 
