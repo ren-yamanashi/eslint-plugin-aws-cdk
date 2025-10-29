@@ -14,6 +14,30 @@
 
 Please refer to the [website](https://eslint-cdk-plugin.dev/).
 
+## ⚠️ Package Name Migration Notice
+
+> **Important**: This package was previously published as `eslint-cdk-plugin`. Starting from v4.0.0, it has been renamed to `eslint-plugin-awscdk` to follow ESLint's official naming convention.
+
+### For existing users of `eslint-cdk-plugin`
+
+You can migrate automatically by executing the following command.
+
+#### 1. update `eslint-cdk-plugin` to latest version
+
+```bash
+npm install -D eslint-cdk-plugin@latest
+# or yarn add -D eslint-cdk-plugin@latest
+# or pnpm install -D eslint-cdk-plugin@latest
+```
+
+#### 2. execute migration command
+
+```bash
+npx migrate-cdk-plugin
+```
+
+The old package name will continue to receive updates until for a while , after which it will be deprecated.
+
 ## 📦 Installation
 
 ```bash
