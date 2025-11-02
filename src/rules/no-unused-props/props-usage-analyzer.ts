@@ -4,7 +4,7 @@ import { getChildNodes } from "../../utils/get-child-nodes";
 
 import { IPropsUsageTracker } from "./props-usage-tracker";
 
-interface IPropsUsageAnalyzer {
+export interface IPropsUsageAnalyzer {
   analyze(
     constructor: TSESTree.MethodDefinition,
     propsParam: TSESTree.Identifier
@@ -26,6 +26,7 @@ export class PropsUsageAnalyzer implements IPropsUsageAnalyzer {
     constructor: TSESTree.MethodDefinition,
     propsParam: TSESTree.Identifier
   ): void {
+    this.initialize();
     const constructorBody = constructor.value.body;
     const classNode = constructor.parent;
     const propsParamName = propsParam.name;
@@ -38,6 +39,11 @@ export class PropsUsageAnalyzer implements IPropsUsageAnalyzer {
       classNode,
       propsParamName
     );
+  }
+
+  private initialize(): void {
+    this.visitedNodes.clear();
+    this.propsAliases.clear();
   }
 
   private analyzeClassBody(

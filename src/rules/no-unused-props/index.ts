@@ -5,6 +5,7 @@ import {
   TSESLint,
   TSESTree,
 } from "@typescript-eslint/utils";
+import { Type } from "typescript";
 
 import { createRule } from "../../utils/createRule";
 import { getConstructor } from "../../utils/getConstructor";
@@ -47,38 +48,40 @@ export const noUnusedProps = createRule({
         const constructor = getConstructor(node);
         if (!constructor) return;
 
-        checkPropsUsage(constructor, context, parserServices);
+        const propsParam = getPropsParam(constructor, parserServices);
+        if (!propsParam) return;
+        const { node: propsNode, type: propsType } = propsParam;
+
+        // NOTE: Standard props parameter (e.g. props: MyConstructProps)
+        if (isPropsUsedInSuperCall(constructor, propsNode.name)) return;
+        const tracker = new PropsUsageTracker(propsType);
+        const analyzer = new PropsUsageAnalyzer(tracker);
+
+        analyzer.analyze(constructor, propsNode);
+        reportUnusedProperties(tracker, propsNode, context);
       },
     };
   },
 });
 
-const checkPropsUsage = (
+const getPropsParam = (
   constructor: TSESTree.MethodDefinition,
-  context: Context,
   parserServices: ParserServicesWithTypeInformation
-): void => {
+): { node: TSESTree.Identifier; type: Type } | null => {
   const params = constructor.value.params;
+  if (params.length < 3) return null;
 
-  // NOTE: Check if constructor has props parameter (3rd parameter)
-  if (params.length < 3) return;
   const propsParam = params[2];
 
   // ++++++++++++++Important+++++++++++++
   // When AST_NODE_TYPES is "ObjectPattern" (e.g. { bucketName, enableVersioning }: MyConstructProps), it can be confirmed whether the variable is used in the IDE, and it conflicts with the @typescript-eslint/no-unused-vars rule, so this rule does not apply.
   // ++++++++++++++++++++++++++++++++++++
-  if (propsParam.type !== AST_NODE_TYPES.Identifier) return;
+  if (propsParam.type !== AST_NODE_TYPES.Identifier) return null;
 
-  // NOTE: Standard props parameter (e.g. props: MyConstructProps)
-  if (isPropsUsedInSuperCall(constructor, propsParam.name)) return;
-
-  const propsType = parserServices.getTypeAtLocation(propsParam);
-  const tracker = new PropsUsageTracker(propsType);
-  const analyzer = new PropsUsageAnalyzer(tracker);
-
-  analyzer.analyze(constructor, propsParam);
-  reportUnusedProperties(tracker, propsParam, context);
-  return;
+  return {
+    node: propsParam,
+    type: parserServices.getTypeAtLocation(propsParam),
+  };
 };
 
 /**
@@ -106,14 +109,11 @@ const isPropsUsedInSuperCall = (
         node.type === AST_NODE_TYPES.Property ? node.value : node;
       switch (nodeValue.type) {
         case AST_NODE_TYPES.Identifier: {
-          if (nodeValue.name === propsName) return true;
-          break;
+          return nodeValue.name === propsName;
         }
         case AST_NODE_TYPES.ObjectExpression: {
           for (const prop of nodeValue.properties) {
-            if (visitNode(prop, propsName)) {
-              return true;
-            }
+            if (visitNode(prop, propsName)) return true;
           }
           break;
         }
