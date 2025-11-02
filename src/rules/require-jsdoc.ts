@@ -4,7 +4,7 @@ import {
   ESLintUtils,
 } from "@typescript-eslint/utils";
 
-import { createRule } from "../utils/createRule";
+import { createRule } from "../utils/create-rule";
 import { isConstructType } from "../utils/typecheck/cdk";
 
 /**

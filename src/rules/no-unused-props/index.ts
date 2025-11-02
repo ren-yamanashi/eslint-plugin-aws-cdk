@@ -7,8 +7,8 @@ import {
 } from "@typescript-eslint/utils";
 import { Type } from "typescript";
 
-import { createRule } from "../../utils/createRule";
-import { getConstructor } from "../../utils/getConstructor";
+import { createRule } from "../../utils/create-rule";
+import { getConstructor } from "../../utils/get-constructor";
 import { isConstructType } from "../../utils/typecheck/cdk";
 
 import { PropsUsageAnalyzer } from "./props-usage-analyzer";

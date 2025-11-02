@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
-import { createRule } from "../utils/createRule";
-import { getConstructor } from "../utils/getConstructor";
+import { createRule } from "../utils/create-rule";
+import { getConstructor } from "../utils/get-constructor";
 import { isConstructType } from "../utils/typecheck/cdk";
 
 /**
