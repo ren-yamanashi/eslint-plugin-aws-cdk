@@ -6,12 +6,12 @@
     "lint": "export ESLINT_USE_FLAT_CONFIG=false && eslint ./lib/**/*.ts --config .eslintrc.js"
   },
   "devDependencies": {
-    "@eslint/js": "latest",
-    "@types/node": "latest",
-    "eslint": "latest",
+    "@eslint/js": "catalog:core",
+    "@types/node": "catalog:other",
+    "eslint": "catalog:core",
     "eslint-plugin-awscdk": "workspace:*",
-    "typescript": "5.8.3",
-    "typescript-eslint": "latest"
+    "typescript": "catalog:other",
+    "typescript-eslint": "catalog:core"
   },
   "dependencies": {
     "aws-cdk-lib": "latest",

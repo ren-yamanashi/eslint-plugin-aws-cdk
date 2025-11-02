@@ -27,21 +27,21 @@
     "example:classic-config": "pnpm run --filter=@eslint-plugin-awscdk/example-classic-config"
   },
   "devDependencies": {
-    "@eslint/js": "^9.26.0",
-    "@secretlint/secretlint-rule-preset-recommend": "^11.2.4",
-    "@types/node": "^22.15.0",
-    "@typescript-eslint/rule-tester": "^8.32.1",
-    "eslint": "9.36.0",
-    "eslint-plugin-import": "^2.32.0",
-    "pkgroll": "^2.12.2",
-    "secretlint": "^11.2.4",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.32.1",
-    "vitest": "^3.2.4"
+    "@eslint/js": "catalog:core",
+    "@secretlint/secretlint-rule-preset-recommend": "catalog:lint",
+    "@types/node": "catalog:other",
+    "@typescript-eslint/rule-tester": "catalog:core",
+    "eslint": "catalog:core",
+    "eslint-plugin-import": "catalog:lint",
+    "pkgroll": "catalog:build",
+    "secretlint": "catalog:lint",
+    "typescript": "catalog:other",
+    "typescript-eslint": "catalog:core",
+    "vitest": "catalog:test"
   },
   "dependencies": {
-    "@typescript-eslint/parser": "^8.32.1",
-    "@typescript-eslint/utils": "^8.32.1"
+    "@typescript-eslint/parser": "catalog:core",
+    "@typescript-eslint/utils": "catalog:core"
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
