@@ -19,6 +19,7 @@
   "scripts": {
     "build": "sh scripts/build.sh",
     "test": "vitest --run",
+    "test:integration": "sh scripts/integration-test.sh",
     "lint": "eslint --fix --config eslint.config.js",
     "check": "tsc --noEmit",
     "pack": "pnpm run build && npm pack",
