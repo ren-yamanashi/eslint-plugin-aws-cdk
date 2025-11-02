@@ -49,6 +49,8 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm i
+      - name: Build package
+        run: pnpm run build
       - name: Run Unit Tests
         run: pnpm run test
       - name: Run Integration Tests
@@ -57,8 +59,6 @@ jobs:
         run: pnpm run check
       - name: Lint
         run: pnpm run lint
-      - name: Build package
-        run: pnpm run build
       - name: Upload package artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
