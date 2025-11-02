@@ -44,6 +44,12 @@ export interface IPropsUsageTracker {
   markAsUsed(propertyName: string): void;
 
   /**
+   * Marks all properties as used.
+   * This is useful when props object is used as a whole (e.g., console.log(props)).
+   */
+  markAllAsUsed(): void;
+
+  /**
    * Returns an array of unused property names.
    *
    * @returns An array of unused property names.
@@ -70,6 +76,12 @@ export class PropsUsageTracker implements IPropsUsageTracker {
   public markAsUsed(propertyName: string): void {
     if (this.propUsageMap.has(propertyName)) {
       this.propUsageMap.set(propertyName, true);
+    }
+  }
+
+  public markAllAsUsed(): void {
+    for (const key of this.propUsageMap.keys()) {
+      this.propUsageMap.set(key, true);
     }
   }
 

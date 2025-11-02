@@ -14,10 +14,12 @@ interface IPropsUsageAnalyzer {
 export class PropsUsageAnalyzer implements IPropsUsageAnalyzer {
   private readonly propsUsageTracker: IPropsUsageTracker;
   private visitedNodes: Set<TSESTree.Node>;
+  private propsAliases: Set<string>;
 
   constructor(propsUsageTracker: IPropsUsageTracker) {
     this.propsUsageTracker = propsUsageTracker;
     this.visitedNodes = new Set<TSESTree.Node>();
+    this.propsAliases = new Set<string>();
   }
 
   public analyze(
@@ -96,6 +98,14 @@ export class PropsUsageAnalyzer implements IPropsUsageAnalyzer {
           node,
           propsParamName
         );
+        // NOTE: Check if the object is an alias of props (e.g., a.bucketname where a = props)
+        if (
+          node.object.type === AST_NODE_TYPES.Identifier &&
+          this.propsAliases.has(node.object.name) &&
+          node.property.type === AST_NODE_TYPES.Identifier
+        ) {
+          this.propsUsageTracker.markAsUsed(node.property.name);
+        }
         break;
       case AST_NODE_TYPES.VariableDeclarator:
         this.propsUsageTracker.markAsUsedForVariableDeclarator(
@@ -109,12 +119,85 @@ export class PropsUsageAnalyzer implements IPropsUsageAnalyzer {
           propsParamName
         );
         break;
+      case AST_NODE_TYPES.Identifier:
+        // NOTE: Check if props object is used as a whole (e.g., console.log(props))
+        if (node.name === propsParamName) this.handlePropsIdentifier(node);
+        break;
     }
 
     // NOTE: Recursively visit child nodes
     const children = getChildNodes(node);
     for (const child of children) {
       this.visitNodes(child, propsParamName);
+    }
+  }
+
+  /**
+   * Handles cases where props is used as a whole identifier
+   */
+  private handlePropsIdentifier(node: TSESTree.Identifier): void {
+    const parent = node.parent;
+    if (!parent) return;
+
+    // NOTE: Check if this identifier is in a context where it's used as a whole
+    // Exclude cases already handled by other methods:
+    // - MemberExpression object (props.xxx)
+    // - VariableDeclarator init with ObjectPattern (const { xxx } = props)
+    // - AssignmentExpression right (this.props = props)
+
+    switch (parent.type) {
+      case AST_NODE_TYPES.AssignmentExpression:
+      case AST_NODE_TYPES.MemberExpression: {
+        break;
+      }
+      case AST_NODE_TYPES.VariableDeclarator: {
+        // NOTE: const a = props - track 'a' as an alias of props
+        if (
+          parent.init === node &&
+          parent.id.type === AST_NODE_TYPES.Identifier
+        ) {
+          this.propsAliases.add(parent.id.name);
+        }
+        break;
+      }
+      case AST_NODE_TYPES.CallExpression: {
+        if (!parent.arguments.includes(node)) break;
+        // NOTE: Check if props is passed as an argument
+        // NOTE: Distinguish between method calls and external function calls
+        // this.methodName(props) - will be analyzed by analyzePrivateMethodsCalledFromConstructor
+        // console.log(props) or someExternalFunction(props) - mark all as used
+        if (
+          parent.callee.type === AST_NODE_TYPES.MemberExpression &&
+          parent.callee.object.type === AST_NODE_TYPES.ThisExpression
+        ) {
+          // NOTE: this.methodName(props) - will be analyzed later
+          break;
+        }
+        // NOTE: External function call - mark all as used
+        this.propsUsageTracker.markAllAsUsed();
+        break;
+      }
+      case AST_NODE_TYPES.ReturnStatement: {
+        // NOTE: return props - props as a whole
+        if (parent.argument === node) {
+          this.propsUsageTracker.markAllAsUsed();
+        }
+        break;
+      }
+      case AST_NODE_TYPES.ArrayExpression: {
+        // NOTE: [props] - props as a whole
+        if (parent.elements.includes(node)) {
+          this.propsUsageTracker.markAllAsUsed();
+        }
+        break;
+      }
+      case AST_NODE_TYPES.Property: {
+        // NOTE: { key: props } - props as a whole
+        if (parent.value === node) {
+          this.propsUsageTracker.markAllAsUsed();
+        }
+        break;
+      }
     }
   }
 
