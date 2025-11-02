@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
 
-import { getChildNodes } from "../../utils/getChildNodes";
+import { getChildNodes } from "../../utils/get-child-nodes";
 
 import { IPropsUsageTracker } from "./props-usage-tracker";
 

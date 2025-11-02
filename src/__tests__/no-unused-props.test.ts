@@ -281,15 +281,12 @@ ruleTester.run("no-unused-props", noUnusedProps, {
     {
       code: `
       class Construct {}
-      export interface IApplicationLoadBalancer {
-        readonly loadBalancerArn: string;
+      export interface BaseConstructProps {
+        readonly bucketName: string;
       }
-      export interface BaseListenerProps {
-        readonly alb: IApplicationLoadBalancer;
-      }
-      abstract class BaseListener extends Construct {
-        constructor(scope: Construct, id: string, props: BaseListenerProps) {
-          // Implementation omitted
+      abstract class BaseConstruct extends Construct {
+        constructor(scope: Construct, id: string, props: BaseConstructProps) {
+          super(scope, id);
         }
       }
   `,
@@ -318,6 +315,204 @@ ruleTester.run("no-unused-props", noUnusedProps, {
         }
       }
   `,
+    },
+    // WHEN: Props is assigned to instance variable and used in other methods
+    {
+      code: `
+      class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props);
+        }
+      }
+
+      interface MyConstructProps {
+        bucketName: string;
+        enableVersioning: boolean;
+      }
+
+      export class MyConstruct extends Construct {
+        private props: MyConstructProps;
+
+        constructor(scope: Construct, id: string, props: MyConstructProps) {
+          super(scope, id);
+          this.props = props;
+        }
+
+        private createBucket() {
+          new Bucket(this, "MyBucket", {
+            bucketName: this.props.bucketName,
+            versioned: this.props.enableVersioning
+          });
+        }
+      }
+      `,
+    },
+    // WHEN: Props is assigned to instance variable and used in public method
+    {
+      code: `
+      class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props);
+        }
+      }
+
+      interface MyConstructProps {
+        bucketName: string;
+        enableVersioning: boolean;
+      }
+
+      export class MyConstruct extends Construct {
+        private readonly props: MyConstructProps;
+
+        constructor(scope: Construct, id: string, props: MyConstructProps) {
+          super(scope, id);
+          this.props = props;
+        }
+
+        public getBucketName(): string {
+          return this.props.bucketName;
+        }
+
+        protected isVersioningEnabled(): boolean {
+          return this.props.enableVersioning;
+        }
+      }
+      `,
+    },
+    // WHEN: Props is assigned to instance variable with different name and used in methods
+    {
+      code: `
+      class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props);
+        }
+      }
+
+      interface MyConstructProps {
+        bucketName: string;
+        enableVersioning: boolean;
+      }
+
+      export class MyConstruct extends Construct {
+        private readonly config: MyConstructProps;
+
+        constructor(scope: Construct, id: string, props: MyConstructProps) {
+          super(scope, id);
+          this.config = props;
+        }
+
+        private initialize() {
+          new Bucket(this, "MyBucket", {
+            bucketName: this.config.bucketName,
+            versioned: this.config.enableVersioning
+          });
+        }
+      }
+      `,
+    },
+    // WHEN: Props is passed to private method in constructor
+    {
+      code: `
+      class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props);
+        }
+      }
+
+      interface MyConstructProps {
+        bucketName: string;
+        enableVersioning: boolean;
+      }
+
+      export class MyConstruct extends Construct {
+        constructor(scope: Construct, id: string, props: MyConstructProps) {
+          super(scope, id);
+          this.initialize(props);
+        }
+
+        private initialize(props: MyConstructProps) {
+          new Bucket(this, "MyBucket", {
+            bucketName: props.bucketName,
+            versioned: props.enableVersioning
+          });
+        }
+      }
+      `,
+    },
+    // WHEN: Props properties are passed to private method in constructor
+    {
+      code: `
+      class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props);
+        }
+      }
+
+      interface MyConstructProps {
+        bucketName: string;
+        enableVersioning: boolean;
+      }
+
+      export class MyConstruct extends Construct {
+        constructor(scope: Construct, id: string, props: MyConstructProps) {
+          super(scope, id);
+          this.createBucket(props.bucketName, props.enableVersioning);
+        }
+
+        private createBucket(name: string, versioned: boolean) {
+          new Bucket(this, "MyBucket", {
+            bucketName: name,
+            versioned: versioned
+          });
+        }
+      }
+      `,
+    },
+    // WHEN: Props is passed to multiple private methods
+    {
+      code: `
+      class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props);
+        }
+      }
+
+      interface MyConstructProps {
+        bucketName: string;
+        enableVersioning: boolean;
+      }
+
+      export class MyConstruct extends Construct {
+        constructor(scope: Construct, id: string, props: MyConstructProps) {
+          super(scope, id);
+          this.setupBucket(props);
+          this.configureVersioning(props.enableVersioning);
+        }
+
+        private setupBucket(props: MyConstructProps) {
+          new Bucket(this, "MyBucket", {
+            bucketName: props.bucketName,
+            versioned: false
+          });
+        }
+
+        private configureVersioning(enabled: boolean) {
+          console.log("Versioning:", enabled);
+        }
+      }
+      `,
     },
   ],
   invalid: [
@@ -513,7 +708,7 @@ ruleTester.run("no-unused-props", noUnusedProps, {
         enableVersioning: boolean;
         unusedProp: string;
       }
-      
+
       export class MyConstruct extends Construct {
         constructor(scope: Construct, id: string, props: MyConstructProps) {
           super(scope, id);
@@ -521,6 +716,167 @@ ruleTester.run("no-unused-props", noUnusedProps, {
           new Bucket(this, "MyBucket", {
             bucketName: bn,
             versioned: ev
+          });
+        }
+      }
+      `,
+      errors: [{ messageId: "unusedProp" }],
+    },
+    // WHEN: Props is assigned to instance variable but some properties are not used in any method
+    {
+      code: `
+      class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props);
+        }
+      }
+
+      interface MyConstructProps {
+        bucketName: string;
+        enableVersioning: boolean;
+        unusedProp: string;
+      }
+
+      export class MyConstruct extends Construct {
+        private props: MyConstructProps;
+
+        constructor(scope: Construct, id: string, props: MyConstructProps) {
+          super(scope, id);
+          this.props = props;
+        }
+
+        private createBucket() {
+          new Bucket(this, "MyBucket", {
+            bucketName: this.props.bucketName,
+            versioned: this.props.enableVersioning
+          });
+        }
+      }
+      `,
+      errors: [{ messageId: "unusedProp" }],
+    },
+    // WHEN: Props is assigned to instance variable but not used in any method
+    {
+      code: `
+      class Construct {}
+
+      interface MyConstructProps {
+        bucketName: string;
+        enableVersioning: boolean;
+      }
+
+      export class MyConstruct extends Construct {
+        private props: MyConstructProps;
+
+        constructor(scope: Construct, id: string, props: MyConstructProps) {
+          super(scope, id);
+          this.props = props;
+        }
+
+        private doSomething() {
+          console.log("doing something");
+        }
+      }
+      `,
+      errors: [{ messageId: "unusedProp" }, { messageId: "unusedProp" }],
+    },
+    // WHEN: Props is assigned to instance variable with different name but some properties unused
+    {
+      code: `
+      class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props);
+        }
+      }
+
+      interface MyConstructProps {
+        bucketName: string;
+        enableVersioning: boolean;
+        unusedProp: string;
+      }
+
+      export class MyConstruct extends Construct {
+        private readonly config: MyConstructProps;
+
+        constructor(scope: Construct, id: string, props: MyConstructProps) {
+          super(scope, id);
+          this.config = props;
+        }
+
+        private initialize() {
+          new Bucket(this, "MyBucket", {
+            bucketName: this.config.bucketName,
+            versioned: this.config.enableVersioning
+          });
+        }
+      }
+      `,
+      errors: [{ messageId: "unusedProp" }],
+    },
+    // WHEN: Props is passed to private method but some properties are not used
+    {
+      code: `
+      class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props);
+        }
+      }
+
+      interface MyConstructProps {
+        bucketName: string;
+        enableVersioning: boolean;
+        unusedProp: string;
+      }
+
+      export class MyConstruct extends Construct {
+        constructor(scope: Construct, id: string, props: MyConstructProps) {
+          super(scope, id);
+          this.initialize(props);
+        }
+
+        private initialize(props: MyConstructProps) {
+          new Bucket(this, "MyBucket", {
+            bucketName: props.bucketName,
+            versioned: props.enableVersioning
+          });
+        }
+      }
+      `,
+      errors: [{ messageId: "unusedProp" }],
+    },
+    // WHEN: Only some props properties are passed to private method
+    {
+      code: `
+      class Construct {}
+      class Bucket extends Construct {
+        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
+          super(scope, id);
+          console.log(props.bucketName, props.versioned);
+        }
+      }
+
+      interface MyConstructProps {
+        bucketName: string;
+        enableVersioning: boolean;
+        unusedProp: string;
+      }
+
+      export class MyConstruct extends Construct {
+        constructor(scope: Construct, id: string, props: MyConstructProps) {
+          super(scope, id);
+          this.createBucket(props.bucketName, props.enableVersioning);
+        }
+
+        private createBucket(name: string, versioned: boolean) {
+          new Bucket(this, "MyBucket", {
+            bucketName: name,
+            versioned: versioned
           });
         }
       }
