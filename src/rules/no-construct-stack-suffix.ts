@@ -5,9 +5,9 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import { toPascalCase } from "../utils/convertString";
-import { createRule } from "../utils/createRule";
-import { getConstructorPropertyNames } from "../utils/getPropertyNames";
+import { toPascalCase } from "../utils/convert-string";
+import { createRule } from "../utils/create-rule";
+import { getConstructorPropertyNames } from "../utils/get-property-names";
 import { isConstructOrStackType } from "../utils/typecheck/cdk";
 
 const SUFFIX_TYPE = {

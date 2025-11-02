@@ -6,8 +6,8 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import { toPascalCase } from "../utils/convertString";
-import { createRule } from "../utils/createRule";
+import { toPascalCase } from "../utils/convert-string";
+import { createRule } from "../utils/create-rule";
 import {
   isConstructOrStackType,
   isConstructType,

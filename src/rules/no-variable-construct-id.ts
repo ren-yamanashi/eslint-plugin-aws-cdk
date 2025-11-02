@@ -5,8 +5,8 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import { createRule } from "../utils/createRule";
-import { getConstructorPropertyNames } from "../utils/getPropertyNames";
+import { createRule } from "../utils/create-rule";
+import { getConstructorPropertyNames } from "../utils/get-property-names";
 import { isConstructType } from "../utils/typecheck/cdk";
 
 type Context = TSESLint.RuleContext<"invalidConstructId", []>;

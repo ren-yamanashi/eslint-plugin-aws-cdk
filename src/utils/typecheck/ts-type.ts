@@ -1,6 +1,6 @@
 import { Symbol, Type } from "typescript";
 
-import { SYMBOL_FLAGS } from "../../constants/tsInternalFlags";
+import { SYMBOL_FLAGS } from "../../constants/ts-internal-flags";
 
 // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
 //       Therefore, the type information structures do not match.

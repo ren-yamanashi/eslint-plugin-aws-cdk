@@ -1,8 +1,8 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
-import { createRule } from "../utils/createRule";
-import { getArrayElementType } from "../utils/getArrayElementType";
-import { getGenericTypeArgument } from "../utils/getGenericTypeArgument";
+import { createRule } from "../utils/create-rule";
+import { getArrayElementType } from "../utils/get-array-element-type";
+import { getGenericTypeArgument } from "../utils/get-generic-type-argument";
 import { isResourceWithReadonlyInterface } from "../utils/is-resource-with-readonly-interface";
 import { isClassType } from "../utils/typecheck/ts-type";
 

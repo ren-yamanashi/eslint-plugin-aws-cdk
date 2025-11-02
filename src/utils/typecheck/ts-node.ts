@@ -7,7 +7,7 @@ import {
   PropertyAccessExpression,
 } from "typescript";
 
-import { SYNTAX_KIND } from "../../constants/tsInternalFlags";
+import { SYNTAX_KIND } from "../../constants/ts-internal-flags";
 
 // NOTE: In order not to make it dependent on the typescript library, it defines its own unions.
 //       Therefore, the type information structures do not match.
