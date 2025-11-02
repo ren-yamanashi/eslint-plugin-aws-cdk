@@ -10,11 +10,11 @@ export default defineConfig([
     files: ["**/*.ts"],
     extends: [cdkPlugin.configs.strict],
     rules: {
-      "cdk/require-passing-this": [
+      "awscdk/require-passing-this": [
         "error",
         // { allowNonThisAndDisallowScope: true },
       ],
-      "cdk/no-parent-name-construct-id-match": [
+      "awscdk/no-parent-name-construct-id-match": [
         "error",
         { disallowContainingParentName: true },
       ],
