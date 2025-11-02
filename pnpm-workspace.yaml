@@ -5,26 +5,3 @@ packages:
 useNodeVersion: 24.11.0
 engineStrict: true
 minimumReleaseAge: 2880
-
-catalogs:
-  core:
-    eslint: ^9.36.0
-    '@eslint/js': ^9.36.0
-    typescript-eslint: ^8.46.2
-    '@typescript-eslint/parser': ^8.46.2
-    '@typescript-eslint/rule-tester': ^8.46.2
-    '@typescript-eslint/utils': ^8.46.2
-  build:
-    pkgroll: ^2.20.1
-  test:
-    vitest: ^3.2.4
-  doc:
-    vitepress: ^1.5.0
-    vitepress-plugin-llms: ^1.1.4
-  lint:
-    eslint-plugin-import: ^2.32.0
-    secretlint: ^11.2.4
-    '@secretlint/secretlint-rule-preset-recommend': ^11.2.4
-  other:
-    typescript: ^5.8.3
-    '@types/node': ^24.9.2
