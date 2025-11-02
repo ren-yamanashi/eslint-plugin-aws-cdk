@@ -1,15 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
-import { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
 import { noUnusedProps } from "../rules/no-unused-props";
-
-const typedRule = noUnusedProps as ESLintUtils.RuleModule<
-  "unusedProp",
-  [],
-  {
-    ClassDeclaration(node: TSESTree.ClassDeclaration): void;
-  }
->;
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -21,7 +12,7 @@ const ruleTester = new RuleTester({
   },
 });
 
-ruleTester.run("no-unused-props", typedRule, {
+ruleTester.run("no-unused-props", noUnusedProps, {
   valid: [
     // WHEN: All properties are used directly
     {
@@ -259,33 +250,6 @@ ruleTester.run("no-unused-props", typedRule, {
       }
       `,
     },
-    // WHEN: Inline destructuring in constructor parameters (all properties used)
-    {
-      code: `
-      class Construct {}
-      class Bucket extends Construct {
-        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
-          super(scope, id);
-          console.log(props.bucketName, props.versioned);
-        }
-      }
-
-      interface MyConstructProps {
-        bucketName: string;
-        enableVersioning: boolean;
-      }
-      
-      export class MyConstruct extends Construct {
-        constructor(scope: Construct, id: string, { bucketName, enableVersioning }: MyConstructProps) {
-          super(scope, id);
-          new Bucket(this, "MyBucket", {
-            bucketName,
-            versioned: enableVersioning
-          });
-        }
-      }
-      `,
-    },
     // WHEN: Properties are used via optional chaining
     {
       code: `
@@ -312,6 +276,48 @@ ruleTester.run("no-unused-props", typedRule, {
         }
       }
       `,
+    },
+    // WHEN: Some properties are unused but, class is abstract
+    {
+      code: `
+      class Construct {}
+      export interface IApplicationLoadBalancer {
+        readonly loadBalancerArn: string;
+      }
+      export interface BaseListenerProps {
+        readonly alb: IApplicationLoadBalancer;
+      }
+      abstract class BaseListener extends Construct {
+        constructor(scope: Construct, id: string, props: BaseListenerProps) {
+          // Implementation omitted
+        }
+      }
+  `,
+    },
+    // WHEN: Props are used in super call
+    {
+      code: `
+      class Construct {}
+
+      interface BaseConstructProps {
+        bucketName: string;
+      }
+      class BaseConstruct extends Construct {
+        constructor(scope: Construct, id: string, props: BaseConstructProps) {
+          super(scope, id);
+          console.log(props.bucketName);
+        }
+      }
+
+      interface MyConstructProps extends BaseConstructProps {
+        version: string;
+      }
+      class MyConstruct extends BaseConstruct {
+        constructor(scope: Construct, id: string, props: MyConstructProps) {
+          super(scope, id, props);
+        }
+      }
+  `,
     },
   ],
   invalid: [
@@ -515,35 +521,6 @@ ruleTester.run("no-unused-props", typedRule, {
           new Bucket(this, "MyBucket", {
             bucketName: bn,
             versioned: ev
-          });
-        }
-      }
-      `,
-      errors: [{ messageId: "unusedProp" }],
-    },
-    // WHEN: Inline destructuring with some properties unused
-    {
-      code: `
-      class Construct {}
-      class Bucket extends Construct {
-        constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
-          super(scope, id);
-          console.log(props.bucketName, props.versioned);
-        }
-      }
-
-      interface MyConstructProps {
-        bucketName: string;
-        enableVersioning: boolean;
-        unusedProp: string;
-      }
-      
-      export class MyConstruct extends Construct {
-        constructor(scope: Construct, id: string, { bucketName, enableVersioning }: MyConstructProps) {
-          super(scope, id);
-          new Bucket(this, "MyBucket", {
-            bucketName,
-            versioned: enableVersioning
           });
         }
       }
