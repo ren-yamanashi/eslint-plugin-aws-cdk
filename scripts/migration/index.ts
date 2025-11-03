@@ -3,14 +3,14 @@
 import { Command } from "commander";
 import { consola } from "consola";
 import { colorize } from "consola/utils";
-import { execEslintFixCommand } from "./exec-fix-command/index.ts";
-import { migrateEslintConfig } from "./migrate-eslint-config/index.ts";
-import { installPlugin } from "./migrate-plugin/install.ts";
+import { execEslintFixCommand } from "./exec-fix-command";
+import { migrateEslintConfig } from "./migrate-eslint-config";
+import { installPlugin } from "./migrate-plugin/install";
 import {
   PACKAGE_MANGER_VALUES,
   selectPackageManager,
-} from "./migrate-plugin/select-package-manager.ts";
-import { uninstallPlugin } from "./migrate-plugin/uninstall.ts";
+} from "./migrate-plugin/select-package-manager";
+import { uninstallPlugin } from "./migrate-plugin/uninstall";
 import { RESULT_TYPE } from "./result";
 
 const program = new Command();
