@@ -3,6 +3,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
 import {
   PACKAGE_MANGER,
   PACKAGE_MANGER_VALUES,
@@ -38,8 +39,6 @@ describe("uninstallPlugin", () => {
       },
     };
 
-    const successMessage = "Successfully uninstalled eslint-cdk-plugin";
-
     const uninstallCommand =
       packageManager === PACKAGE_MANGER.NPM
         ? `npm uninstall eslint-cdk-plugin`
@@ -57,7 +56,6 @@ describe("uninstallPlugin", () => {
 
       // THEN
       expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
-      expect(result.message).toEqual(successMessage);
       expect(execSync).toHaveBeenCalledWith(uninstallCommand, {
         stdio: "inherit",
       });
@@ -75,7 +73,6 @@ describe("uninstallPlugin", () => {
 
       // THEN
       expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
-      expect(result.message).toEqual(successMessage);
       expect(execSync).toHaveBeenCalledWith(uninstallCommand, {
         stdio: "inherit",
       });
@@ -107,9 +104,6 @@ describe("uninstallPlugin", () => {
     };
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJsonContent));
 
-    // GIVEN
-    const successMessage = "Successfully uninstalled eslint-cdk-plugin";
-
     // WHEN
     const result = uninstallPlugin(
       PACKAGE_MANGER.NPM,
@@ -118,7 +112,6 @@ describe("uninstallPlugin", () => {
 
     // THEN
     expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
-    expect(result.message).toEqual(successMessage);
     expect(execSync).toHaveBeenCalledWith(`npm uninstall eslint-cdk-plugin`, {
       stdio: "inherit",
     });

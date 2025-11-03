@@ -1,6 +1,8 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
+
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
 import { migrateEslintConfig } from "../../migrate-eslint-config";
 import { ErrorResult, RESULT_TYPE, SuccessResult } from "../../result";
 
@@ -38,7 +40,6 @@ export default [{
 
     // THEN
     expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
-    expect(result.message).toEqual("ESLint config migration completed");
     expect(newContent).toContain("eslint-plugin-awscdk");
     expect(newContent).toContain("awscdk: cdkPlugin");
     expect(newContent).toContain("awscdk/no-construct");

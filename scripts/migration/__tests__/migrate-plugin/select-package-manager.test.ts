@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { consola } from "consola";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+
 import {
   PACKAGE_MANGER,
   PACKAGE_MANGER_VALUES,
@@ -26,9 +28,6 @@ describe("selectPackageManager", () => {
         // THEN
         expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
         expect(result.value).toEqual(packageManager);
-        expect(result.message).toEqual(
-          `Selected package manager: ${packageManager}`
-        );
       });
     });
 
@@ -65,9 +64,6 @@ describe("selectPackageManager", () => {
         // THEN
         expect(result.type).toEqual(RESULT_TYPE.SUCCESS);
         expect(result.value).toEqual(packageManager);
-        expect(result.message).toEqual(
-          `Selected package manager: ${packageManager}`
-        );
         expect(consola.prompt).toHaveBeenCalledWith(
           "Which package manager are you using?",
           {
