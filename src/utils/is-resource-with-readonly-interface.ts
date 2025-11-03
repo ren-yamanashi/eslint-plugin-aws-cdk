@@ -1,12 +1,12 @@
-import { Type } from "typescript";
-
-import { isResourceType } from "./typecheck/cdk";
 import {
-  checkHeritageClauseIsImplements,
   isClassDeclaration,
   isIdentifier,
   isPropertyAccessExpression,
-} from "./typecheck/ts-node";
+  Type,
+} from "typescript";
+
+import { isResourceType } from "./typecheck/cdk";
+import { checkHeritageClauseIsImplements } from "./typecheck/ts-node";
 import { isClassType } from "./typecheck/ts-type";
 
 /**
