@@ -3,9 +3,11 @@ on:
   push:
     branches:
       - main
+      - eslint-cdk-plugin
   pull_request:
     branches:
       - main
+      - eslint-cdk-plugin
     types:
       - opened
       - synchronize

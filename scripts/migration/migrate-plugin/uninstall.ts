@@ -1,7 +1,10 @@
 import { execSync } from "child_process";
 import * as fs from "fs";
 import * as path from "path";
+
+import { getErrorMessage } from "../error";
 import { Result, RESULT_TYPE } from "../result";
+
 import { PACKAGE_MANGER, PackageManager } from "./select-package-manager";
 
 interface PackageJson {
@@ -51,7 +54,7 @@ const uninstall = (
     return {
       type: RESULT_TYPE.ERROR,
       message: `Failed to uninstall eslint-cdk-plugin
-${error}`,
+${getErrorMessage(error)}`,
     };
   }
 };
@@ -71,7 +74,7 @@ const readPackageJson = (projectRoot: string): Result<PackageJson> => {
     if (isPackageJson(JSON.parse(content))) {
       return {
         type: RESULT_TYPE.SUCCESS,
-        value: JSON.parse(content),
+        value: JSON.parse(content) as PackageJson,
       };
     }
     return {
@@ -82,7 +85,7 @@ const readPackageJson = (projectRoot: string): Result<PackageJson> => {
     return {
       type: RESULT_TYPE.ERROR,
       message: `Failed to read package.json
-${error}`,
+${getErrorMessage(error)}`,
     };
   }
 };

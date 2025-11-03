@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+
 import { Result, RESULT_TYPE } from "../result";
 
 const ESLINT_CONFIG_PATTERNS = [

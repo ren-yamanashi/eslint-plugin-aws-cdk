@@ -3,14 +3,15 @@
 import { Command } from "commander";
 import { consola } from "consola";
 import { colorize } from "consola/utils";
-import { execEslintFixCommand } from "./exec-fix-command/index.ts";
-import { migrateEslintConfig } from "./migrate-eslint-config/index.ts";
-import { installPlugin } from "./migrate-plugin/install.ts";
+
+import { execEslintFixCommand } from "./exec-fix-command";
+import { migrateEslintConfig } from "./migrate-eslint-config";
+import { installPlugin } from "./migrate-plugin/install";
 import {
   PACKAGE_MANGER_VALUES,
   selectPackageManager,
-} from "./migrate-plugin/select-package-manager.ts";
-import { uninstallPlugin } from "./migrate-plugin/uninstall.ts";
+} from "./migrate-plugin/select-package-manager";
+import { uninstallPlugin } from "./migrate-plugin/uninstall";
 import { RESULT_TYPE } from "./result";
 
 const program = new Command();
@@ -60,10 +61,7 @@ const main = async () => {
   }
 
   // 4. Uninstall eslint-cdk-plugin
-  const uninstallResult = await uninstallPlugin(
-    packageManager.value,
-    projectRoot
-  );
+  const uninstallResult = uninstallPlugin(packageManager.value, projectRoot);
   if (uninstallResult.type === RESULT_TYPE.ERROR) {
     consola.error(uninstallResult.message);
     process.exit(1);
@@ -75,9 +73,11 @@ const main = async () => {
     consola.error(migrateCommentsResult.message);
     process.exit(1);
   }
-  migrateCommentsResult.message && consola.warn(migrateCommentsResult.message);
+  if (migrateCommentsResult.message) {
+    consola.warn(migrateCommentsResult.message);
+  }
 
   consola.success("All migration steps completed successfully!");
 };
 
-main();
+await main();
