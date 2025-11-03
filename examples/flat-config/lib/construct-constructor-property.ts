@@ -44,12 +44,15 @@ export class ___MyConstruct extends Construct {
 export class ____MyConstruct extends Construct {
   constructor(scope: Construct, id: string, myProps: _MyConstructProps) {
     super(scope, id);
+    console.log(myProps);
   }
 }
 
 // ❌ First parameter type is not "Construct"
 export class _____MyConstruct extends Construct {
   constructor(scope: unknown, id: string) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     super(scope, id);
   }
 }
