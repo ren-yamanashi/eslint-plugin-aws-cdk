@@ -11,6 +11,7 @@ class SampleClass extends Construct {
 }
 
 export interface MyConstructProps {
+  readonly stage: string;
   readonly environments: Record<string, string>;
 }
 
@@ -53,6 +54,7 @@ export class MyStack extends Stack {
     // ❌ Shouldn't use a parameter as a construct ID
     new MyConstruct(this, id + "MyConstruct2", {
       environments: { staging: "value" },
+      stage: id,
     });
   }
 }
