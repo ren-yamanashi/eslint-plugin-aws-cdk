@@ -60,9 +60,17 @@
   ],
   "keywords": [
     "eslint",
+    "eslint plugin",
+    "eslint-plugin",
+    "eslint plugin cdk",
+    "eslint-plugin-cdk",
+    "eslint plugin awscdk",
+    "eslint-plugin-awscdk",
     "typescript",
     "aws",
-    "cdk"
+    "cdk",
+    "aws cdk",
+    "aws-cdk"
   ],
   "homepage": "https://eslint-plugin-awscdk.dev/",
   "repository": {
