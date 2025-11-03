@@ -6,13 +6,13 @@
   "types": "./dist/index.d.ts",
   "type": "module",
   "exports": {
-    "types": "./dist/index.d.ts",
+    "types": "./dist/index.d.mts",
     "require": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/index.d.cts",
       "default": "./dist/index.cjs"
     },
     "import": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/index.d.mts",
       "default": "./dist/index.mjs"
     }
   },
@@ -36,13 +36,16 @@
     "eslint-plugin-import": "^2.32.0",
     "pkgroll": "^2.20.1",
     "secretlint": "^11.2.4",
+    "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.2",
     "vitest": "^3.2.4"
   },
   "dependencies": {
     "@typescript-eslint/parser": "^8.46.2",
-    "@typescript-eslint/utils": "^8.46.2",
-    "typescript": "^5.9.3"
+    "@typescript-eslint/utils": "^8.46.2"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
   },
   "engines": {
     "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
