@@ -3,6 +3,7 @@
 import { Command } from "commander";
 import { consola } from "consola";
 import { colorize } from "consola/utils";
+
 import { execEslintFixCommand } from "./exec-fix-command";
 import { migrateEslintConfig } from "./migrate-eslint-config";
 import { installPlugin } from "./migrate-plugin/install";
@@ -60,10 +61,7 @@ const main = async () => {
   }
 
   // 4. Uninstall eslint-cdk-plugin
-  const uninstallResult = await uninstallPlugin(
-    packageManager.value,
-    projectRoot
-  );
+  const uninstallResult = uninstallPlugin(packageManager.value, projectRoot);
   if (uninstallResult.type === RESULT_TYPE.ERROR) {
     consola.error(uninstallResult.message);
     process.exit(1);
@@ -75,9 +73,11 @@ const main = async () => {
     consola.error(migrateCommentsResult.message);
     process.exit(1);
   }
-  migrateCommentsResult.message && consola.warn(migrateCommentsResult.message);
+  if (migrateCommentsResult.message) {
+    consola.warn(migrateCommentsResult.message);
+  }
 
   consola.success("All migration steps completed successfully!");
 };
 
-main();
+await main();

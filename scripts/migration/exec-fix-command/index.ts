@@ -1,4 +1,6 @@
 import { execSync } from "child_process";
+
+import { getErrorMessage } from "../error";
 import { Result, RESULT_TYPE } from "../result";
 
 export const execEslintFixCommand = (): Result<void> => {
@@ -21,7 +23,7 @@ Please manually run 'npx eslint --fix' and check the configuration`,
       return {
         type: RESULT_TYPE.ERROR,
         message: `Failed to run ESLint fix command
-${error}
+${getErrorMessage(error)}
 
 Please manually run 'npx eslint --fix' and check the configuration`,
       };
@@ -42,7 +44,7 @@ Please manually run 'npx eslint --fix' and check the configuration`,
     return {
       type: RESULT_TYPE.ERROR,
       message: `Failed to run ESLint fix command
-${error}
+${getErrorMessage(error)}
 
 Please manually run 'npx eslint --fix' and check the configuration`,
     };

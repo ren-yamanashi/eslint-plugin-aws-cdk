@@ -20,6 +20,7 @@ export default tsEslint.config(
       import: importPlugin,
     },
     rules: {
+      "@typescript-eslint/no-invalid-void-type": "off",
       "@typescript-eslint/consistent-indexed-object-style": "off",
       "@typescript-eslint/consistent-type-definitions": "off",
       "@typescript-eslint/no-unnecessary-condition": "off",
