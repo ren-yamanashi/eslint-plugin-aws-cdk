@@ -1,10 +1,5 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
-import { Type } from "typescript";
-
-import {
-  isClassDeclaration,
-  isConstructorDeclaration,
-} from "./typecheck/ts-node";
+import { isClassDeclaration, isConstructorDeclaration, Type } from "typescript";
 
 /**
  * Retrieves the property names from an array of properties.

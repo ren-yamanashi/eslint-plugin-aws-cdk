@@ -1,12 +1,12 @@
-import { Type } from "typescript";
-
-import { isResourceType } from "./typecheck/cdk";
 import {
-  checkHeritageClauseIsImplements,
   isClassDeclaration,
   isIdentifier,
   isPropertyAccessExpression,
-} from "./typecheck/ts-node";
+  SyntaxKind,
+  Type,
+} from "typescript";
+
+import { isResourceType } from "./typecheck/cdk";
 import { isClassType } from "./typecheck/ts-type";
 
 /**
@@ -140,7 +140,7 @@ const getDirectImplementedInterfaceNames = (type: Type): string[] => {
     if (!heritageClauses) return acc;
 
     return heritageClauses.reduce<string[]>((hcAcc, hc) => {
-      if (!checkHeritageClauseIsImplements(hc)) return hcAcc;
+      if (hc.token !== SyntaxKind.ImplementsKeyword) return hcAcc;
 
       return hc.types.reduce<string[]>((typeAcc, type) => {
         const expression = type.expression;
