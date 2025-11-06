@@ -1,0 +1,9 @@
+{
+  "plugins": ["typescript", "import"],
+  "jsPlugins": ["eslint-plugin-awscdk"],
+  "rules": {
+    "typescript/no-explicit-any": "error",
+    "awscdk/no-import-private": "error",
+    "require-await": "error"
+  }
+}
