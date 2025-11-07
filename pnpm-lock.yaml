@@ -123,9 +123,6 @@ importers:
         specifier: latest
         version: 10.4.3
     devDependencies:
-      '@eslint/js':
-        specifier: ^9.36.0
-        version: 9.39.1
       '@types/node':
         specifier: ^24.9.2
         version: 24.10.0
@@ -141,9 +138,6 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.9.3
-      typescript-eslint:
-        specifier: ^8.46.2
-        version: 8.46.2(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
 
 packages:
 
