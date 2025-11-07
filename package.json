@@ -3,21 +3,21 @@
   "version": "4.0.4",
   "description": "eslint plugin for AWS CDK projects",
   "main": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.mts",
   "type": "module",
   "exports": {
-    "types": "./dist/index.d.ts",
+    "types": "./dist/index.d.mts",
     "require": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/index.d.cts",
       "default": "./dist/index.cjs"
     },
     "import": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/index.d.mts",
       "default": "./dist/index.mjs"
     }
   },
   "scripts": {
-    "build": "sh scripts/build.sh",
+    "build": "tsdown",
     "test": "vitest --run",
     "test:integration": "sh scripts/integration-test.sh",
     "lint": "eslint --fix --config eslint.config.js",
@@ -34,8 +34,8 @@
     "@typescript-eslint/rule-tester": "^8.46.2",
     "eslint": "^9.39.1",
     "eslint-plugin-import": "^2.32.0",
-    "pkgroll": "^2.20.1",
     "secretlint": "^11.2.5",
+    "tsdown": "^0.16.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.2",
     "vitest": "^4.0.6"
