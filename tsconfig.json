@@ -14,11 +14,11 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "rootDir": "src",
+    "rootDir": ".",
     "outDir": "./dist",
     "module": "ESNext",
     "moduleResolution": "bundler"
   },
-  "include": ["src"],
+  "include": ["src", "*.config.ts"],
   "exclude": ["dist", "node_modules"]
 }
