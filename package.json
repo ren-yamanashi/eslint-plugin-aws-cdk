@@ -3,21 +3,21 @@
   "version": "4.0.4",
   "description": "eslint plugin for AWS CDK projects",
   "main": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.mts",
   "type": "module",
   "exports": {
-    "types": "./dist/index.d.ts",
+    "types": "./dist/index.d.mts",
     "require": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/index.d.cts",
       "default": "./dist/index.cjs"
     },
     "import": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/index.d.mts",
       "default": "./dist/index.mjs"
     }
   },
   "scripts": {
-    "build": "sh scripts/build.sh",
+    "build": "tsdown",
     "test": "vitest --run",
     "test:integration": "sh scripts/integration-test.sh",
     "lint": "eslint --fix --config eslint.config.js",
@@ -28,17 +28,17 @@
     "example:classic-config": "pnpm run --filter=@eslint-plugin-awscdk/example-classic-config"
   },
   "devDependencies": {
-    "@eslint/js": "^9.36.0",
-    "@secretlint/secretlint-rule-preset-recommend": "^11.2.4",
-    "@types/node": "^24.9.2",
+    "@eslint/js": "^9.39.1",
+    "@secretlint/secretlint-rule-preset-recommend": "^11.2.5",
+    "@types/node": "^24.10.0",
     "@typescript-eslint/rule-tester": "^8.46.2",
-    "eslint": "^9.36.0",
+    "eslint": "^9.39.1",
     "eslint-plugin-import": "^2.32.0",
-    "pkgroll": "^2.20.1",
-    "secretlint": "^11.2.4",
+    "secretlint": "^11.2.5",
+    "tsdown": "^0.16.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.2",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.6"
   },
   "dependencies": {
     "@typescript-eslint/parser": "^8.46.2",
