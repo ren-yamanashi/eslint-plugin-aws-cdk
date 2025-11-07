@@ -1,0 +1,6 @@
+{
+  "jsPlugins": ["eslint-plugin-awscdk"],
+  "rules": {
+    "awscdk/no-import-private": "error"
+  }
+}
