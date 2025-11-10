@@ -20,7 +20,7 @@
     "build": "tsdown",
     "test": "vitest --run",
     "test:integration": "sh scripts/integration-test.sh",
-    "lint": "eslint --fix --config eslint.config.js",
+    "lint": "eslint --fix",
     "check": "tsc --noEmit",
     "pack": "pnpm run build && npm pack",
     "docs": "pnpm run --filter=@eslint-plugin-awscdk/docs",
