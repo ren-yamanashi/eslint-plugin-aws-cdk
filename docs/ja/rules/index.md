@@ -141,7 +141,7 @@ import RuleItem from '../../components/RuleItem.vue'
     name="no-unused-props"
     description="Construct の Props (interface) に定義されたすべてのプロパティがコンストラクタ内で使用されることを強制します"
     link="/ja/rules/no-unused-props"
-    :isRecommended="false"
+    :isRecommended="true"
     :isFixable="false"
   />
   <RuleItem
