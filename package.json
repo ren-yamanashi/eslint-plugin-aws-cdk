@@ -25,7 +25,8 @@
     "pack": "pnpm run build && npm pack",
     "docs": "pnpm run --filter=@eslint-plugin-awscdk/docs",
     "example:flat-config": "pnpm run --filter=@eslint-plugin-awscdk/example-flat-config",
-    "example:classic-config": "pnpm run --filter=@eslint-plugin-awscdk/example-classic-config"
+    "example:classic-config": "pnpm run --filter=@eslint-plugin-awscdk/example-classic-config",
+    "example:oxlint": "pnpm run --filter=@eslint-plugin-awscdk/example-oxlint"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
