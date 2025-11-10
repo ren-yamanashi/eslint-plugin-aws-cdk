@@ -142,7 +142,7 @@ We currently support the following rules:
     name="no-unused-props"
     description="Enforces that all properties defined in Construct Props (interface) are used within the constructor."
     link="/rules/no-unused-props"
-    :isRecommended="false"
+    :isRecommended="true"
     :isFixable="false"
   />
   <RuleItem
