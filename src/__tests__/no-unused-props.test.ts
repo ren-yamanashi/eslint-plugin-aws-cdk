@@ -578,39 +578,6 @@ ruleTester.run("no-unused-props", noUnusedProps, {
       `,
     },
   ],
-  // invalid: [
-  //   // // WHEN: Props is assigned to instance variable but some properties are not used in any method
-  //   // {
-  //   //   code: `
-  //   //   class Construct {}
-  //   //   class Bucket extends Construct {
-  //   //     constructor(scope: Construct, id: string, props: { bucketName: string; versioned: boolean }) {
-  //   //       super(scope, id);
-  //   //       console.log(props);
-  //   //     }
-  //   //   }
-  //   //   interface MyConstructProps {
-  //   //     bucketName: string;
-  //   //     enableVersioning: boolean;
-  //   //     unusedProp: string;
-  //   //   }
-  //   //   export class MyConstruct extends Construct {
-  //   //     private myProps: MyConstructProps;
-  //   //     constructor(scope: Construct, id: string, props: MyConstructProps) {
-  //   //       super(scope, id);
-  //   //       this.myProps = props;
-  //   //     }
-  //   //     private createBucket() {
-  //   //       new Bucket(this, "MyBucket", {
-  //   //         bucketName: this.myProps.bucketName,
-  //   //         versioned: this.myProps.enableVersioning
-  //   //       });
-  //   //     }
-  //   //   }
-  //   //   `,
-  //   //   errors: [{ messageId: "unusedProp" }],
-  //   // },
-  // ],
   invalid: [
     // WHEN: Some properties are unused
     {
