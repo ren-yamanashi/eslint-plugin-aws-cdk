@@ -84,6 +84,17 @@ const getPropsParam = (
 
 /**
  * Checks if props are used in a super call
+ *
+ * @example
+ * ```ts
+ * constructor(scope: Construct, id: string, props: MyConstructProps) {
+ *   super(scope, id, props); // props used here
+ * }
+ * ```
+ *
+ * @param constructor - The constructor method definition node
+ * @param propsPropertyName - The name of the props parameter
+ * @returns True if props are used in super call, false otherwise
  */
 const isPropsUsedInSuperCall = (
   constructor: TSESTree.MethodDefinition,

@@ -28,26 +28,65 @@ export class PropsUsageAnalyzer implements IPropsUsageAnalyzer {
     const propsParamName = propsParam.name;
     if (!constructorBody) return;
 
-    // 1. Traverse the constructor body with DirectPropsUsageVisitor
+    this.checkUsageForDirectAccess(constructorBody, propsParamName);
+    this.checkUsageForAliasAccess(constructorBody, propsParamName);
+    this.checkUsageForInstanceVariable(classNode, constructor, propsParamName);
+    this.checkUsageForPrivateMethodsCalledFromConstructor(
+      constructorBody,
+      classNode,
+      propsParamName
+    );
+  }
+
+  /**
+   * Analyzes direct access to props within the constructor body.
+   *
+   * @example
+   * ```typescript
+   * constructor(scope: Construct, id: string, props: MyConstructProps) {
+   *   super(scope, id);
+   *   console.log(props.bucketName);  // <- Direct access tracked here
+   * }
+   * ```
+   *
+   * @param constructorBody - The constructor's BlockStatement to analyze
+   * @param propsParamName - The name of the props parameter (e.g., "props")
+   */
+  private checkUsageForDirectAccess(
+    constructorBody: TSESTree.BlockStatement,
+    propsParamName: string
+  ): void {
     const directVisitor = new DirectPropsUsageVisitor(
       this.tracker,
       propsParamName
     );
     traverseNodes(constructorBody, directVisitor);
+  }
 
-    // 2. Traverse the constructor body with PropsAliasVisitor
+  /**
+   * Analyzes props usage via aliases within the constructor body.
+   *
+   * When props is assigned to another variable (alias), this method tracks
+   * usage of that alias throughout the constructor.
+   *
+   * @example
+   * ```typescript
+   * constructor(scope: Construct, id: string, props: MyConstructProps) {
+   *   super(scope, id);
+   *   const p = props;  // <- Alias assignment detected
+   *   console.log(p.bucketName);  // <- Usage tracked here
+   * }
+   * ```
+   *
+   * @param constructorBody - The constructor's BlockStatement to analyze
+   * @param propsParamName - The name of the props parameter (e.g., "props")
+   */
+  private checkUsageForAliasAccess(
+    constructorBody: TSESTree.BlockStatement,
+    propsParamName: string
+  ): void {
     const aliasVisitor = new PropsAliasVisitor(this.tracker, propsParamName);
     traverseNodes(constructorBody, aliasVisitor);
-
-    // 3. Detect access via instance variables
-    this.analyzeClassBody(classNode, constructor, propsParamName);
-
-    // 4. Analyze private methods called from constructor
-    this.analyzePrivateMethodsCalledFromConstructor(
-      constructorBody,
-      classNode,
-      propsParamName
-    );
   }
 
   /**
@@ -76,7 +115,7 @@ export class PropsUsageAnalyzer implements IPropsUsageAnalyzer {
    * @param constructor - The constructor MethodDefinition node
    * @param propsParamName - The name of the props parameter (e.g., "props")
    */
-  private analyzeClassBody(
+  private checkUsageForInstanceVariable(
     classBody: TSESTree.ClassBody,
     constructor: TSESTree.MethodDefinition,
     propsParamName: string
@@ -120,7 +159,7 @@ export class PropsUsageAnalyzer implements IPropsUsageAnalyzer {
    * @param classBody - The ClassBody containing method definitions
    * @param propsParamName - The name of the props parameter (e.g., "props")
    */
-  private analyzePrivateMethodsCalledFromConstructor(
+  private checkUsageForPrivateMethodsCalledFromConstructor(
     constructorBody: TSESTree.BlockStatement,
     classBody: TSESTree.ClassBody,
     propsParamName: string

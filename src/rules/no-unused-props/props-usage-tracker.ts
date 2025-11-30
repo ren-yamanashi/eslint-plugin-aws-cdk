@@ -14,6 +14,7 @@ export interface IPropsUsageTracker {
     node: TSESTree.MemberExpression,
     propsParamName: string
   ): void;
+
   /**
    * Marks a property as used when it is accessed in a member expression.
    *
