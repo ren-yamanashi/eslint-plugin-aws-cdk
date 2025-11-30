@@ -50,15 +50,13 @@ export const noUnusedProps = createRule({
 
         const propsParam = getPropsParam(constructor, parserServices);
         if (!propsParam) return;
-        const { node: propsNode, type: propsType } = propsParam;
+        if (isPropsUsedInSuperCall(constructor, propsParam.node.name)) return;
 
-        // NOTE: Standard props parameter (e.g. props: MyConstructProps)
-        if (isPropsUsedInSuperCall(constructor, propsNode.name)) return;
-        const tracker = new PropsUsageTracker(propsType);
+        const tracker = new PropsUsageTracker(propsParam.type);
         const analyzer = new PropsUsageAnalyzer(tracker);
 
-        analyzer.analyze(constructor, propsNode);
-        reportUnusedProperties(tracker, propsNode, context);
+        analyzer.analyze(constructor, propsParam.node);
+        reportUnusedProperties(tracker, propsParam.node, context);
       },
     };
   },
