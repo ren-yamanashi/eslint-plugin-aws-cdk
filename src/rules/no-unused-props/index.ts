@@ -11,7 +11,7 @@ import { createRule } from "../../utils/create-rule";
 import { getConstructor } from "../../utils/get-constructor";
 import { isConstructType } from "../../utils/typecheck/cdk";
 
-import { PropsUsageAnalyzerV2 } from "./props-usage-analyzer-v2";
+import { PropsUsageAnalyzer } from "./props-usage-analyzer";
 import { IPropsUsageTracker, PropsUsageTracker } from "./props-usage-tracker";
 
 type Context = TSESLint.RuleContext<"unusedProp", []>;
@@ -53,7 +53,7 @@ export const noUnusedProps = createRule({
         if (isPropsUsedInSuperCall(constructor, propsParam.node.name)) return;
 
         const tracker = new PropsUsageTracker(propsParam.type);
-        const analyzer = new PropsUsageAnalyzerV2(tracker);
+        const analyzer = new PropsUsageAnalyzer(tracker);
 
         analyzer.analyze(constructor, propsParam.node);
         reportUnusedProperties(tracker, propsParam.node, context);

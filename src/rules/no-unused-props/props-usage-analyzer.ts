@@ -16,7 +16,7 @@ export interface IPropsUsageAnalyzer {
   ): void;
 }
 
-export class PropsUsageAnalyzerV2 implements IPropsUsageAnalyzer {
+export class PropsUsageAnalyzer implements IPropsUsageAnalyzer {
   constructor(private readonly tracker: IPropsUsageTracker) {}
 
   analyze(
