@@ -403,7 +403,7 @@ ruleTester.run(
         `,
         errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
       },
-      // WHEN: public field type is Array generic type wrapping class that extends Resource
+      // WHEN: public field type is Array generics type wrapping class that extends Resource
       {
         code: `
           class Construct {}
@@ -430,7 +430,7 @@ ruleTester.run(
         `,
         errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
       },
-      // WHEN: public field type is Readonly generic type wrapping class that extends Resource
+      // WHEN: public field type is Readonly generics type wrapping class that extends Resource
       {
         code: `
           class Construct {}
@@ -457,7 +457,7 @@ ruleTester.run(
         `,
         errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
       },
-      // WHEN: public field type is Partial generic type wrapping class that extends Resource
+      // WHEN: public field type is Partial generics type wrapping class that extends Resource
       {
         code: `
           class Construct {}
@@ -484,7 +484,7 @@ ruleTester.run(
         `,
         errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
       },
-      // WHEN: public field type is custom generic type wrapping class that extends Resource
+      // WHEN: public field type is custom generics type wrapping class that extends Resource
       {
         code: `
           class Construct {}
@@ -512,7 +512,7 @@ ruleTester.run(
         `,
         errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
       },
-      // WHEN: constructor public property type is Array generic type wrapping class that extends Resource
+      // WHEN: constructor public property type is Array generics type wrapping class that extends Resource
       {
         code: `
           class Construct {}
@@ -541,7 +541,7 @@ ruleTester.run(
         `,
         errors: [{ messageId: "invalidPublicPropertyOfConstruct" }],
       },
-      // WHEN: constructor public property type is Readonly generic type wrapping class that extends Resource
+      // WHEN: constructor public property type is Readonly generics type wrapping class that extends Resource
       {
         code: `
           class Construct {}
