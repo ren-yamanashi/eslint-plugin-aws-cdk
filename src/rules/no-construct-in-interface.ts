@@ -1,10 +1,18 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
+import type { Type } from "typescript";
 
 import { createRule } from "../utils/create-rule";
 import { getArrayElementType } from "../utils/get-array-element-type";
 import { getGenericTypeArgument } from "../utils/get-generic-type-argument";
 import { isResourceWithReadonlyInterface } from "../utils/is-resource-with-readonly-interface";
 import { isClassType } from "../utils/typecheck/ts-type";
+
+type ConstructTypeInfo = {
+  /** The found CDK Construct type */
+  type: Type;
+  /** The formatted type name for error message */
+  name: string;
+};
 
 /**
  * Enforces the use of interface types instead of CDK Construct types in interface properties
@@ -38,58 +46,15 @@ export const noConstructInInterface = createRule({
           }
 
           const type = parserServices.getTypeAtLocation(property);
+          const result = getConstructTypeInfo(type);
 
-          // NOTE: Check if it's a direct class type
-          if (isClassType(type) && isResourceWithReadonlyInterface(type)) {
+          if (result) {
             context.report({
               node: property,
               messageId: "invalidInterfaceProperty",
               data: {
                 propertyName: property.key.name,
-                typeName: type.symbol.name,
-              },
-            });
-            continue;
-          }
-
-          // NOTE: Check if it's an array of class types
-          const elementType = getArrayElementType(type);
-          if (
-            elementType &&
-            isClassType(elementType) &&
-            isResourceWithReadonlyInterface(elementType)
-          ) {
-            context.report({
-              node: property,
-              messageId: "invalidInterfaceProperty",
-              data: {
-                propertyName: property.key.name,
-                typeName: `${elementType.symbol.name}[]`,
-              },
-            });
-            continue;
-          }
-
-          // NOTE: Check if it's a generic type wrapping a class type
-          const genericArgument = getGenericTypeArgument(type);
-          if (
-            genericArgument &&
-            isClassType(genericArgument) &&
-            isResourceWithReadonlyInterface(genericArgument)
-          ) {
-            const wrapperName = (() => {
-              if (type.aliasSymbol) return type.aliasSymbol.name; // For type aliases like Readonly<T>, Partial<T>
-              if (type.symbol?.name) return type.symbol.name; // For other generic types like Array<T>
-              return undefined;
-            })();
-            context.report({
-              node: property,
-              messageId: "invalidInterfaceProperty",
-              data: {
-                propertyName: property.key.name,
-                typeName: wrapperName
-                  ? `${wrapperName}<${genericArgument.symbol.name}>`
-                  : genericArgument.symbol.name,
+                typeName: result.name,
               },
             });
           }
@@ -98,3 +63,73 @@ export const noConstructInInterface = createRule({
     };
   },
 });
+
+/**
+ * Recursively checks if a type contains a CDK Construct class type
+ */
+const getConstructTypeInfo = (type: Type): ConstructTypeInfo | undefined => {
+  if (isClassType(type) && isResourceWithReadonlyInterface(type)) {
+    return {
+      type: type,
+      name: type.symbol.name,
+    };
+  }
+  return (
+    getConstructTypeInfoFromArray(type) ??
+    getConstructTypeInfoFromGenerics(type) ??
+    getConstructTypeInfoFromUnion(type) ??
+    getConstructTypeInfoFromIntersection(type)
+  );
+};
+
+/**
+ * Get Construct type from an array type (e.g. s3.Bucket[])
+ */
+const getConstructTypeInfoFromArray = (
+  type: Type
+): ConstructTypeInfo | undefined => {
+  const arrElementType = getArrayElementType(type);
+  if (!arrElementType) return undefined;
+
+  return getConstructTypeInfo(arrElementType);
+};
+
+/**
+ * Get Construct type from a generics type (e.g. Array<s3.Bucket>, Promise<s3.Bucket[]>)
+ */
+const getConstructTypeInfoFromGenerics = (
+  type: Type
+): ConstructTypeInfo | undefined => {
+  const genericsArgument = getGenericTypeArgument(type);
+  if (!genericsArgument) return undefined;
+
+  return getConstructTypeInfo(genericsArgument);
+};
+
+/**
+ * Get Construct type from a union type (e.g. s3.Bucket | string)
+ */
+const getConstructTypeInfoFromUnion = (
+  type: Type
+): ConstructTypeInfo | undefined => {
+  if (!type.isUnion()) return undefined;
+
+  for (const unionType of type.types) {
+    const foundType = getConstructTypeInfo(unionType);
+    if (foundType) return foundType;
+  }
+};
+
+/**
+ * Get Construct type from an intersection type (e.g. s3.Bucket & { customProp: string })
+ */
+const getConstructTypeInfoFromIntersection = (
+  type: Type
+): ConstructTypeInfo | undefined => {
+  if (!type.isIntersection()) return undefined;
+
+  for (const intersectionType of type.types) {
+    const foundType = getConstructTypeInfo(intersectionType);
+    if (foundType) return foundType;
+  }
+};
