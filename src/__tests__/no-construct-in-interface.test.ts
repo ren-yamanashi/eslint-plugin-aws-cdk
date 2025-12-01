@@ -355,7 +355,7 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
     {
-      name: "property type is Array generic type wrapping class that extends Resource (Array<Bucket>)",
+      name: "property type is Array generics type wrapping class that extends Resource (Array<Bucket>)",
       code: `
       class Resource {}
       interface IBucket {
@@ -460,7 +460,7 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
     {
-      name: "property type is interface generic type wrapping class that extends Resource (Wrapper<Bucket>)",
+      name: "property type is interface generics type wrapping class that extends Resource (Wrapper<Bucket>)",
       code: `
       class Resource {}
       interface IBucket {

@@ -3,7 +3,7 @@ import type { Type } from "typescript";
 
 import { createRule } from "../utils/create-rule";
 import { getArrayElementType } from "../utils/get-array-element-type";
-import { getGenericTypeArgument } from "../utils/get-generic-type-argument";
+import { getGenericsTypeArgument } from "../utils/get-generics-type-argument";
 import { isResourceWithReadonlyInterface } from "../utils/is-resource-with-readonly-interface";
 import { isClassType } from "../utils/typecheck/ts-type";
 
@@ -100,7 +100,7 @@ const getConstructTypeInfoFromArray = (
 const getConstructTypeInfoFromGenerics = (
   type: Type
 ): ConstructTypeInfo | undefined => {
-  const genericsArgument = getGenericTypeArgument(type);
+  const genericsArgument = getGenericsTypeArgument(type);
   if (!genericsArgument) return undefined;
 
   return getConstructTypeInfo(genericsArgument);

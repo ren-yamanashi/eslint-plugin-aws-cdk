@@ -10,7 +10,7 @@ import { Type } from "typescript";
 import { createRule } from "../utils/create-rule";
 import { getArrayElementType } from "../utils/get-array-element-type";
 import { getConstructor } from "../utils/get-constructor";
-import { getGenericTypeArgument } from "../utils/get-generic-type-argument";
+import { getGenericsTypeArgument } from "../utils/get-generics-type-argument";
 import { isResourceWithReadonlyInterface } from "../utils/is-resource-with-readonly-interface";
 import { isConstructOrStackType } from "../utils/typecheck/cdk";
 import { isClassType } from "../utils/typecheck/ts-type";
@@ -165,18 +165,18 @@ const checkAndReportConstructType = (
     return;
   }
 
-  // NOTE: Check if it's a generic type wrapping a class type
-  const genericArgument = getGenericTypeArgument(type);
+  // NOTE: Check if it's a generics type wrapping a class type
+  const genericsArgument = getGenericsTypeArgument(type);
   if (
-    genericArgument &&
-    isClassType(genericArgument) &&
-    isResourceWithReadonlyInterface(genericArgument)
+    genericsArgument &&
+    isClassType(genericsArgument) &&
+    isResourceWithReadonlyInterface(genericsArgument)
   ) {
     const wrapperName = (() => {
       if ("aliasSymbol" in type && type.aliasSymbol) {
         return type.aliasSymbol.name; // For type aliases like Readonly<T>, Partial<T>
       }
-      if (type.symbol?.name) return type.symbol.name; // For other generic types like Array<T>
+      if (type.symbol?.name) return type.symbol.name; // For other generics types like Array<T>
       return undefined;
     })();
 
@@ -186,8 +186,8 @@ const checkAndReportConstructType = (
       data: {
         propertyName,
         typeName: wrapperName
-          ? `${wrapperName}<${genericArgument.symbol.name}>`
-          : genericArgument.symbol.name,
+          ? `${wrapperName}<${genericsArgument.symbol.name}>`
+          : genericsArgument.symbol.name,
       },
     });
   }
