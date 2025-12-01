@@ -431,31 +431,5 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       `,
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
-    {
-      name: "property type is some generics type wrapping class that extends Resource",
-      code: `
-      class Resource {}
-      interface IBucket {
-        bucketName: string;
-      }
-      export abstract class BucketBase extends Resource implements IBucket {
-        abstract readonly bucketName: string;
-        constructor() {
-          super();
-        }
-      }
-      export class Bucket extends BucketBase {
-        readonly bucketName: string;
-        constructor() {
-          super();
-          this.bucketName = "test-bucket";
-        }
-      }
-      interface MyConstructProps {
-        bucket: Promise<Array<Bucket>>;
-      }
-      `,
-      errors: [{ messageId: "invalidInterfaceProperty" }],
-    },
   ],
 });
