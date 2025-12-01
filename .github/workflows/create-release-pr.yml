@@ -107,4 +107,3 @@ jobs:
           labels: |
             Type: Release
           assignees: ${{ github.actor }}
-          draft: true
