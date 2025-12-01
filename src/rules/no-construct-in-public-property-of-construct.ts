@@ -10,7 +10,7 @@ import { Type } from "typescript";
 import { createRule } from "../utils/create-rule";
 import { getArrayElementType } from "../utils/get-array-element-type";
 import { getConstructor } from "../utils/get-constructor";
-import { getGenericTypeArgument } from "../utils/get-generic-type-argument";
+import { getGenericTypeArgument } from "../utils/get-generics-type-argument";
 import { isResourceWithReadonlyInterface } from "../utils/is-resource-with-readonly-interface";
 import { isConstructOrStackType } from "../utils/typecheck/cdk";
 import { isClassType } from "../utils/typecheck/ts-type";

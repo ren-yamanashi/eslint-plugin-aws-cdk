@@ -14,33 +14,33 @@ const ruleTester = new RuleTester({
 
 ruleTester.run("no-construct-in-interface", noConstructInInterface, {
   valid: [
-    // WHEN: property type is not class
     {
-      code: `
-      interface TestInterface {
-        test: string;
-      }
-      `,
-    },
-    {
+      name: "property type is not class",
       code: `
       type TestType = {
         test: string;
       };
       interface TestInterface {
-        test: TestType;
+        testStr: string;
+        testNum: number;
+        testBool: boolean;
+        testType: TestType;
+        testArr: TestType[];
+        testArr2: Array<TestType>;
+        testGenerics: Promise<TestType>;
+        testUndef: undefined;
+        testNull: null;
+        testAny: any;
+        testUnknown: unknown;
+        testNever: never;
+        testVoid: void;
+        testFn: () => void;
+        testObj: { value: number };
       }
       `,
     },
     {
-      code: `
-      interface TestInterface {
-        test: undefined;
-      }
-      `,
-    },
-    // WHEN: property type is class but not Resource type
-    {
+      name: "property type is class but not Resource type",
       code: `
       class TestClass {}
       interface TestInterface {
@@ -48,9 +48,10 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       }
       `,
     },
-    // WHEN: property type is class that extends Resource but does not implement matching interface
-    //       (Bucket class extends Resource and indirectly implements IBucket interface)
     {
+      name: `
+      property type is class that extends Resource but does not implement matching interface
+      (BaseLoadBalancer class extends Resource but does not implement matching interface)`,
       code: `
       class Resource {}
       export abstract class BaseLoadBalancer extends Resource {
@@ -59,26 +60,18 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
         }
       }
       interface MyConstructProps {
-        bucket: BaseLoadBalancer;
+        lb: BaseLoadBalancer;
+        lbArr: BaseLoadBalancer[];
+        lbArr2: Array<BaseLoadBalancer>;
+        lbGenerics: Readonly<BaseLoadBalancer>;
       }
       `,
     },
     {
+      name: `
+      property type is class that extends Resource but does not implement matching interface
+      (EdgeFunction class extends Resource but does not implement matching interface)`,
       code: `
-      class Resource {}
-      export abstract class BaseLoadBalancer extends Resource {
-        constructor() {
-          super();
-        }
-      }
-      interface MyConstructProps {
-        bucket: BaseLoadBalancer[];
-      }
-      `,
-    },
-    {
-      code: `
-      class Resource {}
       interface IVersion {
         version: string;
       }
@@ -88,15 +81,16 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
         }
       }
       interface MyConstructProps {
-        bucket: EdgeFunction;
+        edgeFn: EdgeFunction;
       }
       `,
     },
   ],
   invalid: [
-    // WHEN: property type is class that extends Resource
-    //       (Bucket class extends Resource and indirectly implements IBucket interface)
     {
+      name: `
+      property type is class that extends Resource
+      (Bucket class extends Resource and indirectly implements IBucket interface)`,
       code: `
       class Resource {}
       interface IBucket {
@@ -121,9 +115,10 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       `,
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
-    // WHEN: property type is class that extends Resource
-    //       (BucketBase class extends Resource and implements IBucket interface)
     {
+      name: `
+      property type is class that extends Resource
+      (BucketBase class extends Resource and implements IBucket interface)`,
       code: `
       class Resource {}
       interface IBucket {
@@ -141,9 +136,10 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       `,
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
-    // WHEN: property type is class that extends Resource
-    //       (BucketBase class extends Resource and implements IBucket interface)
     {
+      name: `
+      property type is class that extends Resource
+      EmailIdentity class extends Resource and indirectly implements IEmailIdentity interface`,
       code: `
       class Resource {}
       interface IEmailIdentity {
@@ -166,9 +162,10 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       `,
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
-    // WHEN: property type is class that extends Resource
-    //       (FargateService class extends Resource and implements IFargateService interface)
     {
+      name: `
+      property type is class that extends Resource
+      FargateService class extends Resource and implements IFargateService interface`,
       code: `
       class Resource {}
       interface IService {
@@ -193,9 +190,10 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       `,
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
-    // WHEN: property type is class that extends Resource
-    //       (FargateService class extends Resource and implements ecs.IFargateService interface)
     {
+      name: `
+      property type is class that extends Resource
+      (FargateService class extends Resource and implements ecs.IFargateService interface)`,
       code: `
       class Resource {}
       interface IService {
@@ -222,9 +220,10 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       `,
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
-    // WHEN: property type is class that extends a base class implementing a matching interface
-    //       (S3OriginAccessControl extends OriginAccessControlBase which implements IOriginAccessControl)
     {
+      name: `
+      property type is class that extends a base class implementing a matching interface
+      (S3OriginAccessControl extends OriginAccessControlBase which implements IOriginAccessControl)`,
       code: `
       class Resource {}
       interface IOriginAccessControl {
@@ -249,9 +248,11 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       `,
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
-    // WHEN: property type is class with BaseV{number} pattern
-    //       (TableBaseV2 class extends Resource and implements ITableV2)
     {
+      name: `
+      property type is class with BaseV{number} pattern
+      (TableBaseV2 class extends Resource and implements ITableV2)
+      `,
       code: `
       class Resource {}
       interface ITableV2 {
@@ -270,8 +271,8 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       `,
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
-    // WHEN: property type is array of class that extends Resource
     {
+      name: "property type is array of class that extends Resource",
       code: `
       class Resource {}
       interface IBucket {
@@ -296,8 +297,8 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       `,
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
-    // WHEN: property type is Array generic type wrapping class that extends Resource
     {
+      name: "property type is Array generics type wrapping class that extends Resource",
       code: `
       class Resource {}
       interface IBucket {
@@ -323,6 +324,7 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
     {
+      name: "property type is Readonly generics type wrapping class that extends Resource",
       code: `
       class Resource {}
       interface IBucket {
@@ -348,6 +350,7 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
     {
+      name: "property type is Partial generics type wrapping class that extends Resource",
       code: `
       class Resource {}
       interface IBucket {
@@ -372,8 +375,8 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       `,
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
-    // WHEN: property type is custom generic type wrapping class that extends Resource
     {
+      name: "property type is custom generics type wrapping class that extends Resource",
       code: `
       class Resource {}
       interface IBucket {
@@ -400,6 +403,7 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       errors: [{ messageId: "invalidInterfaceProperty" }],
     },
     {
+      name: "property type is custom generics interface wrapping class that extends Resource",
       code: `
       class Resource {}
       interface IBucket {
@@ -423,6 +427,32 @@ ruleTester.run("no-construct-in-interface", noConstructInInterface, {
       }
       interface MyConstructProps {
         bucket: Wrapper<Bucket>;
+      }
+      `,
+      errors: [{ messageId: "invalidInterfaceProperty" }],
+    },
+    {
+      name: "property type is some generics type wrapping class that extends Resource",
+      code: `
+      class Resource {}
+      interface IBucket {
+        bucketName: string;
+      }
+      export abstract class BucketBase extends Resource implements IBucket {
+        abstract readonly bucketName: string;
+        constructor() {
+          super();
+        }
+      }
+      export class Bucket extends BucketBase {
+        readonly bucketName: string;
+        constructor() {
+          super();
+          this.bucketName = "test-bucket";
+        }
+      }
+      interface MyConstructProps {
+        bucket: Promise<Array<Bucket>>;
       }
       `,
       errors: [{ messageId: "invalidInterfaceProperty" }],

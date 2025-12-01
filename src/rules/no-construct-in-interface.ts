@@ -1,10 +1,13 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
+import { RuleContext } from "@typescript-eslint/utils/ts-eslint";
+import { Type } from "typescript";
 import { createRule } from "../utils/create-rule";
 import { getArrayElementType } from "../utils/get-array-element-type";
-import { getGenericTypeArgument } from "../utils/get-generic-type-argument";
+import { getGenericTypeArgument } from "../utils/get-generics-type-argument";
 import { isResourceWithReadonlyInterface } from "../utils/is-resource-with-readonly-interface";
-import { isClassType } from "../utils/typecheck/ts-type";
+
+type Context = Readonly<RuleContext<"invalidInterfaceProperty", []>>;
 
 /**
  * Enforces the use of interface types instead of CDK Construct types in interface properties
@@ -37,59 +40,15 @@ export const noConstructInInterface = createRule({
             continue;
           }
 
-          const type = parserServices.getTypeAtLocation(property);
-
-          // NOTE: Check if it's a direct class type
-          if (isClassType(type) && isResourceWithReadonlyInterface(type)) {
+          const tsType = parserServices.getTypeAtLocation(property);
+          const propType = getInterfacePropertyType(tsType);
+          if (propType && isResourceWithReadonlyInterface(propType.type)) {
             context.report({
               node: property,
               messageId: "invalidInterfaceProperty",
               data: {
                 propertyName: property.key.name,
-                typeName: type.symbol.name,
-              },
-            });
-            continue;
-          }
-
-          // NOTE: Check if it's an array of class types
-          const elementType = getArrayElementType(type);
-          if (
-            elementType &&
-            isClassType(elementType) &&
-            isResourceWithReadonlyInterface(elementType)
-          ) {
-            context.report({
-              node: property,
-              messageId: "invalidInterfaceProperty",
-              data: {
-                propertyName: property.key.name,
-                typeName: `${elementType.symbol.name}[]`,
-              },
-            });
-            continue;
-          }
-
-          // NOTE: Check if it's a generic type wrapping a class type
-          const genericArgument = getGenericTypeArgument(type);
-          if (
-            genericArgument &&
-            isClassType(genericArgument) &&
-            isResourceWithReadonlyInterface(genericArgument)
-          ) {
-            const wrapperName = (() => {
-              if (type.aliasSymbol) return type.aliasSymbol.name; // For type aliases like Readonly<T>, Partial<T>
-              if (type.symbol?.name) return type.symbol.name; // For other generic types like Array<T>
-              return undefined;
-            })();
-            context.report({
-              node: property,
-              messageId: "invalidInterfaceProperty",
-              data: {
-                propertyName: property.key.name,
-                typeName: wrapperName
-                  ? `${wrapperName}<${genericArgument.symbol.name}>`
-                  : genericArgument.symbol.name,
+                typeName: propType.name,
               },
             });
           }
@@ -98,3 +57,45 @@ export const noConstructInInterface = createRule({
     };
   },
 });
+
+/**
+ * Gets the relevant type and name for an interface property
+ * @return type - The TypeScript type
+ * @return name - The name of the type
+ */
+const getInterfacePropertyType = (
+  type: Type
+):
+  | Readonly<{
+      type: Type;
+      name: string;
+    }>
+  | undefined => {
+  // NOTE: Generics type wrapping a class type (e.g. Readonly<s3.Bucket>)
+  const genericArgument = getGenericTypeArgument(type);
+  if (genericArgument) {
+    const wrapperName = type.aliasSymbol
+      ? type.aliasSymbol.name // For type aliases like Readonly<T>, Partial<T>
+      : type.symbol?.name ?? undefined; // For other generics types like Array<T>
+    return {
+      type: genericArgument,
+      name: wrapperName
+        ? `${wrapperName}<${genericArgument.symbol.name}>`
+        : genericArgument.symbol.name,
+    };
+  }
+
+  // NOTE: Array of class types (e.g. s3.Bucket[])
+  const elementType = getArrayElementType(type);
+  if (elementType) {
+    return {
+      type: elementType,
+      name: `${elementType.symbol.name}[]`,
+    };
+  }
+
+  // NOTE: Direct type (e.g. s3.Bucket)
+  if (type.symbol) {
+    return { type, name: type.symbol.name };
+  }
+};
