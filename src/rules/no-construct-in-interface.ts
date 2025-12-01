@@ -75,9 +75,9 @@ const getConstructTypeInfo = (type: Type): ConstructTypeInfo | undefined => {
     };
   }
   return (
-    getConstructTypeInfoFromArray(type) ||
-    getConstructTypeInfoFromGenerics(type) ||
-    getConstructTypeInfoFromUnion(type) ||
+    getConstructTypeInfoFromArray(type) ??
+    getConstructTypeInfoFromGenerics(type) ??
+    getConstructTypeInfoFromUnion(type) ??
     getConstructTypeInfoFromIntersection(type)
   );
 };
@@ -91,13 +91,7 @@ const getConstructTypeInfoFromArray = (
   const arrElementType = getArrayElementType(type);
   if (!arrElementType) return undefined;
 
-  const foundType = getConstructTypeInfo(arrElementType);
-  if (!foundType) return undefined;
-
-  return {
-    type: foundType.type,
-    name: `${foundType.name}[]`,
-  };
+  return getConstructTypeInfo(arrElementType);
 };
 
 /**
@@ -109,19 +103,7 @@ const getConstructTypeInfoFromGenerics = (
   const genericsArgument = getGenericTypeArgument(type);
   if (!genericsArgument) return undefined;
 
-  const foundType = getConstructTypeInfo(genericsArgument);
-  if (!foundType) return undefined;
-
-  const wrapperName =
-    type.aliasSymbol?.name ?? // For type aliases like Readonly<T>, Partial<T>
-    type.symbol?.name; // For other generic types like Array<T>, Promise<T>
-
-  if (!wrapperName) return foundType;
-
-  return {
-    type: foundType.type,
-    name: `${wrapperName}<${foundType.name}>`,
-  };
+  return getConstructTypeInfo(genericsArgument);
 };
 
 /**
