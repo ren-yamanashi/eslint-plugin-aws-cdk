@@ -6,8 +6,8 @@ import {
   Type,
 } from "typescript";
 
-import { isResourceType } from "./typecheck/cdk";
-import { isClassType } from "./typecheck/ts-type";
+import { isResourceType } from "../../../utils/typecheck/cdk";
+import { isClassType } from "../../../utils/typecheck/ts-type";
 
 /**
  * Checks if the type is an AWS resource Construct that implements a read-only resource interface
