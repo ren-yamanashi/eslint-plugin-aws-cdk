@@ -8,7 +8,7 @@ import {
 
 import { isClassType } from "../../../shared/type-checker/is-class";
 
-import { isResourceType } from ".";
+import { isResourceType } from "./is-resource";
 
 /**
  * Checks if the type is an AWS resource Construct that implements a read-only resource interface
