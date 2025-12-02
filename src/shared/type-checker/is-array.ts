@@ -1,12 +1,6 @@
-import { Symbol, SymbolFlags, Type } from "typescript";
+import { Type } from "typescript";
 
-const getSymbol = (type: Type): Symbol | undefined => {
-  return type.getSymbol?.() ?? type.symbol;
-};
-
-export const isClassType = (type: Type): boolean => {
-  return getSymbol(type)?.flags === SymbolFlags.Class;
-};
+import { getSymbol } from "./private/get-symbol";
 
 export const isArrayType = (type: Type): boolean => {
   const symbol = getSymbol(type);

@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
 import { Type } from "typescript";
 
-import { getPropertyNames } from "../../utils/get-property-names";
+import { findPropertyNames } from "../../shared/ast-node-finder/property-name";
 
 export interface IPropsUsageTracker {
   /**
@@ -126,8 +126,8 @@ export class PropsUsageTracker implements IPropsUsageTracker {
       return;
     }
 
-    const propertyNames = getPropertyNames(node.id.properties);
-    for (const name of propertyNames) {
+    const names = findPropertyNames(node.id.properties);
+    for (const name of names) {
       this.markAsUsed(name);
     }
   }

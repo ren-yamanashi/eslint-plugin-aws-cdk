@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
-import { getCdkConstructType } from "../core/cdk-constructs/cdk-construct-type";
-import { createRule } from "../utils/create-rule";
+import { findTypeOfCdkConstruct } from "../core/cdk-construct/type-finder";
+import { createRule } from "../shared/create-rule";
 
 /**
  * Enforces the use of interface types instead of CDK Construct types in interface properties
@@ -35,7 +35,7 @@ export const noConstructInInterface = createRule({
           }
 
           const type = parserServices.getTypeAtLocation(property);
-          const result = getCdkConstructType(type);
+          const result = findTypeOfCdkConstruct(type);
 
           if (result) {
             context.report({
@@ -43,7 +43,7 @@ export const noConstructInInterface = createRule({
               messageId: "invalidInterfaceProperty",
               data: {
                 propertyName: property.key.name,
-                typeName: result.name,
+                typeName: result.symbol.name,
               },
             });
           }

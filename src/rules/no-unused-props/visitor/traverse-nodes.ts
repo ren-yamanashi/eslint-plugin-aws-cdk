@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
 
-import { getChildNodes } from "../../../utils/get-child-nodes";
+import { findChildNodes } from "../../../shared/ast-node-finder/child-nodes";
 
 import { INodeVisitor } from "./interface/node-visitor";
 
@@ -32,7 +32,7 @@ export const traverseNodes = (
   }
 
   // NOTE: Recursively visit child nodes
-  for (const child of getChildNodes(node)) {
+  for (const child of findChildNodes(node)) {
     traverseNodes(child, visitor);
   }
 };

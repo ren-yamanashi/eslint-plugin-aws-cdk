@@ -6,10 +6,10 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import { getCdkConstructType } from "../core/cdk-constructs/cdk-construct-type";
-import { createRule } from "../utils/create-rule";
-import { getConstructor } from "../utils/get-constructor";
-import { isConstructOrStackType } from "../utils/typecheck/cdk";
+import { isConstructOrStackType } from "../core/cdk-construct/type-checker/is-construct-or-stack";
+import { findTypeOfCdkConstruct } from "../core/cdk-construct/type-finder";
+import { findConstructor } from "../shared/ast-node-finder/constructor";
+import { createRule } from "../shared/create-rule";
 
 type Context = TSESLint.RuleContext<"invalidPublicPropertyOfConstruct", []>;
 
@@ -60,7 +60,7 @@ const checkParameterPropertiesInConstructor = (
   context: Context,
   parserServices: ParserServicesWithTypeInformation
 ) => {
-  const constructor = getConstructor(node);
+  const constructor = findConstructor(node);
   if (!constructor) return;
   for (const property of constructor.value.params) {
     validateProperty(property, context, parserServices);
@@ -76,14 +76,14 @@ const validateProperty = (
   if (!publicProperty) return;
 
   const type = parserServices.getTypeAtLocation(publicProperty.type);
-  const constructType = getCdkConstructType(type);
+  const constructType = findTypeOfCdkConstruct(type);
   if (constructType) {
     context.report({
       node: property,
       messageId: "invalidPublicPropertyOfConstruct",
       data: {
         propertyName: publicProperty.name,
-        typeName: constructType.name,
+        typeName: constructType.symbol.name,
       },
     });
   }

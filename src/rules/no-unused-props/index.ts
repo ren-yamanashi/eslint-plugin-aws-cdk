@@ -7,9 +7,9 @@ import {
 } from "@typescript-eslint/utils";
 import { Type } from "typescript";
 
-import { createRule } from "../../utils/create-rule";
-import { getConstructor } from "../../utils/get-constructor";
-import { isConstructType } from "../../utils/typecheck/cdk";
+import { isConstructType } from "../../core/cdk-construct/type-checker/is-construct";
+import { findConstructor } from "../../shared/ast-node-finder/constructor";
+import { createRule } from "../../shared/create-rule";
 
 import { PropsUsageAnalyzer } from "./props-usage-analyzer";
 import { IPropsUsageTracker, PropsUsageTracker } from "./props-usage-tracker";
@@ -45,7 +45,7 @@ export const noUnusedProps = createRule({
         const type = parserServices.getTypeAtLocation(node);
         if (!isConstructType(type)) return;
 
-        const constructor = getConstructor(node);
+        const constructor = findConstructor(node);
         if (!constructor) return;
 
         const propsParam = getPropsParam(constructor, parserServices);

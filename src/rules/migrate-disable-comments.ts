@@ -1,4 +1,4 @@
-import { createRule } from "../utils/create-rule";
+import { createRule } from "../shared/create-rule";
 
 export const migrateDisableComments = createRule({
   name: "migrate-disable-comments",
