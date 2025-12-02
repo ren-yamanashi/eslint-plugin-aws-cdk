@@ -5,9 +5,9 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import { createRule } from "../utils/create-rule";
-import { getConstructorPropertyNames } from "../utils/get-property-names";
-import { isConstructType } from "../utils/typecheck/cdk";
+import { isConstructType } from "../core/cdk-constructs/type-checker";
+import { createRule } from "../shared/create-rule";
+import { findConstructorPropertyNames } from "../shared/type-finder/constructor-property-name";
 
 type Context = TSESLint.RuleContext<"invalidConstructId", []>;
 
@@ -37,7 +37,7 @@ export const noVariableConstructId = createRule({
 
         if (!isConstructType(type) || node.arguments.length < 2) return;
 
-        const constructorPropertyNames = getConstructorPropertyNames(type);
+        const constructorPropertyNames = findConstructorPropertyNames(type);
         if (constructorPropertyNames[1] !== "id") return;
 
         validateConstructId(node, context);

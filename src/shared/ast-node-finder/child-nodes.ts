@@ -1,9 +1,9 @@
 import { TSESTree } from "@typescript-eslint/utils";
 
 /**
- * Safely gets child nodes from a TSESTree.Node
+ * find child nodes from a TSESTree.Node
  */
-export const getChildNodes = (node: TSESTree.Node): TSESTree.Node[] => {
+export const findChildNodes = (node: TSESTree.Node): TSESTree.Node[] => {
   return Object.entries(node).reduce<TSESTree.Node[]>((acc, [key, value]) => {
     if (["parent", "range", "loc"].includes(key)) return acc; // Keys to skip to avoid circular references and unnecessary properties
     if (isESTreeNode(value)) return [...acc, value];

@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
-import { createRule } from "../utils/create-rule";
-import { isConstructOrStackType } from "../utils/typecheck/cdk";
+import { isConstructOrStackType } from "../core/cdk-constructs/type-checker";
+import { createRule } from "../shared/create-rule";
 
 /**
  * Disallow mutable public properties of Construct

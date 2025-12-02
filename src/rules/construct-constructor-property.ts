@@ -6,9 +6,9 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import { createRule } from "../utils/create-rule";
-import { getConstructor } from "../utils/get-constructor";
-import { isConstructType } from "../utils/typecheck/cdk";
+import { isConstructType } from "../core/cdk-constructs/type-checker";
+import { findConstructor } from "../shared/ast-node-finder/constructor";
+import { createRule } from "../shared/create-rule";
 
 type Context = TSESLint.RuleContext<
   | "invalidConstructorProperty"
@@ -54,7 +54,7 @@ export const constructConstructorProperty = createRule({
         const type = parserServices.getTypeAtLocation(node);
         if (!isConstructType(type)) return;
 
-        const constructor = getConstructor(node);
+        const constructor = findConstructor(node);
         if (!constructor) return;
 
         const params = checkNumOfConstructorProperty(constructor, context);

@@ -1,11 +1,11 @@
 import { Type } from "typescript";
 
 /**
- * Extracts the type argument from a generics type reference
+ * Extracts the type argument from a generics type reference (e.g. Array<s3.Bucket>, returns s3.Bucket)
  * @param type - The type to check
  * @returns The first type argument if it's a generics type reference, undefined otherwise
  */
-export const getGenericsTypeArgument = (type: Type): Type | undefined => {
+export const findGenericsTypeArgument = (type: Type): Type | undefined => {
   // NOTE: Check for type alias (e.g. Readonly<T>, Partial<T>)
   if (
     "aliasSymbol" in type &&

@@ -5,7 +5,7 @@ import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
  * @param node The class declaration
  * @returns The constructor method definition or undefined if not found
  */
-export const getConstructor = (
+export const findConstructor = (
   node: TSESTree.ClassDeclaration
 ): TSESTree.MethodDefinition | undefined => {
   return node.body.body.find(

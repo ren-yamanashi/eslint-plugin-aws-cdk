@@ -6,12 +6,12 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import { toPascalCase } from "../utils/convert-string";
-import { createRule } from "../utils/create-rule";
 import {
   isConstructOrStackType,
   isConstructType,
-} from "../utils/typecheck/cdk";
+} from "../core/cdk-constructs/type-checker";
+import { toPascalCase } from "../shared/converter/to-pascal-case";
+import { createRule } from "../shared/create-rule";
 
 type Option = {
   disallowContainingParentName?: boolean;
