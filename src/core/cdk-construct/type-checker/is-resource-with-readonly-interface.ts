@@ -6,7 +6,7 @@ import {
   Type,
 } from "typescript";
 
-import { isClassType } from "../../../shared/type-checker/is-class";
+import { isClassType } from "../../ts-type/checker/is-class";
 
 import { isResourceType } from "./is-resource";
 

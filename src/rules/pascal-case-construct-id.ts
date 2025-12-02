@@ -6,9 +6,9 @@ import {
 } from "@typescript-eslint/utils";
 
 import { isConstructOrStackType } from "../core/cdk-construct/type-checker/is-construct-or-stack";
+import { findConstructorPropertyNames } from "../core/ts-type/finder/constructor-property-name";
 import { toPascalCase } from "../shared/converter/to-pascal-case";
 import { createRule } from "../shared/create-rule";
-import { findConstructorPropertyNames } from "../shared/type-finder/constructor-property-name";
 
 const QUOTE_TYPE = {
   SINGLE: "'",

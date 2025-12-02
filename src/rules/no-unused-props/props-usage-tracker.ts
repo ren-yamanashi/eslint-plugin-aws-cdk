@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
 import { Type } from "typescript";
 
-import { findPropertyNames } from "../../shared/ast-node-finder/property-name";
+import { findPropertyNames } from "../../core/ast-node/finder/property-name";
 
 export interface IPropsUsageTracker {
   /**

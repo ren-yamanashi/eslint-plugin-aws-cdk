@@ -1,6 +1,6 @@
 import { Type } from "typescript";
 
-import { isExtendsFromTargetSuperClass } from "../../../shared/type-checker/is-extends-target-super-class";
+import { isExtendsFromTargetSuperClass } from "../../ts-type/checker/is-extends-target-super-class";
 
 /**
  * Check if the type extends Construct

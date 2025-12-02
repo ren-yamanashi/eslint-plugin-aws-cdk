@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/utils";
 
-import { findChildNodes } from "../../../shared/ast-node-finder/child-nodes";
+import { findChildNodes } from "../../../core/ast-node/finder/child-nodes";
 
 import { INodeVisitor } from "./interface/node-visitor";
 
