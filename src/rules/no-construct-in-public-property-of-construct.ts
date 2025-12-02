@@ -6,8 +6,8 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import { isConstructOrStackType } from "../core/cdk-constructs/type-checker/is-construct-or-stack";
-import { findTypeOfCdkConstruct } from "../core/cdk-constructs/type-finder";
+import { isConstructOrStackType } from "../core/cdk-construct/type-checker/is-construct-or-stack";
+import { findTypeOfCdkConstruct } from "../core/cdk-construct/type-finder";
 import { findConstructor } from "../shared/ast-node-finder/constructor";
 import { createRule } from "../shared/create-rule";
 
