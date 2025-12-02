@@ -1,8 +1,8 @@
 import { Type } from "typescript";
 
-import { isClassType } from "../../../shared/type-checker/is-class";
-import { findArrayElementType } from "../../../shared/type-finder/array-element";
-import { findGenericsTypeArgument } from "../../../shared/type-finder/generics-type-argument";
+import { findArrayElementType } from "../../../core/ts-type/finder/array-element";
+import { findGenericsTypeArgument } from "../../../core/ts-type/finder/generics-type-argument";
+import { isClassType } from "../../ts-type/checker/is-class";
 import { isResourceWithReadonlyInterface } from "../type-checker/is-resource-with-readonly-interface";
 
 /**

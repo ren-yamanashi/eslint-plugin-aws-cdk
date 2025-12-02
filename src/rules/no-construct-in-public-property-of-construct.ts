@@ -6,9 +6,9 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
+import { findConstructor } from "../core/ast-node/finder/constructor";
 import { isConstructOrStackType } from "../core/cdk-construct/type-checker/is-construct-or-stack";
 import { findTypeOfCdkConstruct } from "../core/cdk-construct/type-finder";
-import { findConstructor } from "../shared/ast-node-finder/constructor";
 import { createRule } from "../shared/create-rule";
 
 type Context = TSESLint.RuleContext<"invalidPublicPropertyOfConstruct", []>;

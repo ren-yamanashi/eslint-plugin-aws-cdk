@@ -5,8 +5,8 @@ import {
 } from "@typescript-eslint/utils";
 
 import { isConstructType } from "../core/cdk-construct/type-checker/is-construct";
+import { findConstructorPropertyNames } from "../core/ts-type/finder/constructor-property-name";
 import { createRule } from "../shared/create-rule";
-import { findConstructorPropertyNames } from "../shared/type-finder/constructor-property-name";
 
 type Option = {
   allowNonThisAndDisallowScope?: boolean;
