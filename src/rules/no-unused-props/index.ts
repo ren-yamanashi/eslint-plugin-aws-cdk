@@ -7,7 +7,7 @@ import {
 } from "@typescript-eslint/utils";
 import { Type } from "typescript";
 
-import { isConstructType } from "../../core/cdk-constructs/type-checker";
+import { isConstructType } from "../../core/cdk-constructs/type-checker/is-construct";
 import { findConstructor } from "../../shared/ast-node-finder/constructor";
 import { createRule } from "../../shared/create-rule";
 

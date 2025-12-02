@@ -5,7 +5,7 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import { isConstructOrStackType } from "../core/cdk-constructs/type-checker";
+import { isConstructOrStackType } from "../core/cdk-constructs/type-checker/is-construct-or-stack";
 import { toPascalCase } from "../shared/converter/to-pascal-case";
 import { createRule } from "../shared/create-rule";
 import { findConstructorPropertyNames } from "../shared/type-finder/constructor-property-name";

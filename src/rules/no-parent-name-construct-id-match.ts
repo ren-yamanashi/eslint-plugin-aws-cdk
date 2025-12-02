@@ -6,10 +6,8 @@ import {
   TSESTree,
 } from "@typescript-eslint/utils";
 
-import {
-  isConstructOrStackType,
-  isConstructType,
-} from "../core/cdk-constructs/type-checker";
+import { isConstructType } from "../core/cdk-constructs/type-checker/is-construct";
+import { isConstructOrStackType } from "../core/cdk-constructs/type-checker/is-construct-or-stack";
 import { toPascalCase } from "../shared/converter/to-pascal-case";
 import { createRule } from "../shared/create-rule";
 

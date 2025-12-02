@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, ESLintUtils } from "@typescript-eslint/utils";
 
-import { isConstructOrStackType } from "../core/cdk-constructs/type-checker";
+import { isConstructOrStackType } from "../core/cdk-constructs/type-checker/is-construct-or-stack";
 import { createRule } from "../shared/create-rule";
 
 /**

@@ -4,7 +4,7 @@ import {
   TSESLint,
 } from "@typescript-eslint/utils";
 
-import { isConstructType } from "../core/cdk-constructs/type-checker";
+import { isConstructType } from "../core/cdk-constructs/type-checker/is-construct";
 import { createRule } from "../shared/create-rule";
 import { findConstructorPropertyNames } from "../shared/type-finder/constructor-property-name";
 
